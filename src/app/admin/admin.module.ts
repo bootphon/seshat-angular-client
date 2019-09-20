@@ -1,12 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CampaignsListComponent} from './campaigns-list/campaigns-list.component';
-import {CampaignViewComponent} from './campaign-view/campaign-view.component';
-import {AnnotatorsListComponent} from './annotators-list/annotators-list.component';
-import {AdminTaskViewComponent} from './admin-task-view/admin-task-view.component';
-import {AnnotatorsViewComponent} from './annotators-view/annotators-view.component';
-import {MenubarComponent} from '../commons/menubar/menubar.component';
-import {TitlebarComponent} from '../commons/titlebar/titlebar.component';
+import {CampaignsListComponent} from './pages/campaigns-list/campaigns-list.component';
+import {CampaignViewComponent} from './pages/campaign-view/campaign-view.component';
+import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.component';
+import {AdminTaskViewComponent} from './pages/admin-task-view/admin-task-view.component';
+import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
+import {MenubarComponent} from '../commons/components/menubar/menubar.component';
+import {TitlebarComponent} from '../commons/components/titlebar/titlebar.component';
 import {AdminRoutingModule} from './admin-routing.module';
 
 

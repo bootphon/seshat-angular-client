@@ -5,21 +5,21 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: './login/login.module#LoginModule',
+    loadChildren: './login/login.module#LoginModule',
   },
   {
     path: 'admin',
-    redirectTo: './admin/admin.module#AdminModule',
-    canActivate: [],
+    loadChildren: './admin/admin.module#AdminModule',
+    canActivate: [], // TODO : add authgard
   },
   {
     path: 'annotator',
     loadChildren: './annotator/annotator.module#AnnotatorModule' ,
-    canActivate: [],
+    canActivate: [], // TODO : add authgard
   },
   {
     path: '**',
-    redirectTo: 'dashboard',
+    redirectTo: '',
   },
 ];
 
