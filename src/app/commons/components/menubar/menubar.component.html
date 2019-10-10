@@ -1,1 +1,47 @@
-<p>menubar works!</p>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Seshat</span>
+    <span class="spacer"></span>
+    <mat-icon class="example-icon" aria-hidden="false">notification_important</mat-icon>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span>First name</span>
+  </mat-toolbar-row>
+
+  <mat-divider></mat-divider>
+
+  <mat-toolbar-row>
+    <span>Dashboard</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <span>Annotators</span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Campaigns
+          </mat-panel-title>
+          <mat-panel-description>
+            List all active campaigns
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-nav-list>
+          <a mat-list-item href="..." *ngFor="let link of links"> {{ link }} </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-toolbar-row>
+
+  <mat-divider></mat-divider>
+
+  <mat-toolbar-row>
+    <span>Logout</span>
+  </mat-toolbar-row>
+</mat-toolbar>
