@@ -5,15 +5,12 @@ import {CampaignViewComponent} from './pages/campaign-view/campaign-view.compone
 import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.component';
 import {AdminTaskViewComponent} from './pages/admin-task-view/admin-task-view.component';
 import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
-import {MenubarComponent} from '../commons/components/menubar/menubar.component';
-import {TitlebarComponent} from '../commons/components/titlebar/titlebar.component';
 import {AdminRoutingModule} from './admin-routing.module';
+import {MatGridListModule} from '@angular/material';
 
 
 @NgModule({
   declarations: [
-    MenubarComponent,
-    TitlebarComponent,
     CampaignViewComponent,
     CampaignsListComponent,
     AdminTaskViewComponent,
@@ -22,7 +19,8 @@ import {AdminRoutingModule} from './admin-routing.module';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    MatGridListModule
   ]
 })
 export class AdminModule { }
