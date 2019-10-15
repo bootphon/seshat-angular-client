@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TaskComment} from '../../../api/models/task-comment';
+import {TasksService} from '../../../api/services/tasks.service';
 
 @Component({
   selector: 'seshat-comments',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
-
-  constructor() { }
+  @Input() commentsList?: Array<TaskComment>;
+  newCommentContent: string;
+  constructor(private tasksAPI: TasksService) { }
 
   ngOnInit() {
+    // TODO: if comment list is none, retrieve the comments list
   }
+
+  submitComment(){}
 
 }
