@@ -6,7 +6,7 @@ import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.c
 import {AdminTaskViewComponent} from './pages/admin-task-view/admin-task-view.component';
 import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
 import {AdminRoutingModule} from './admin-routing.module';
-import {MatGridListModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatGridListModule} from '@angular/material';
 
 
 @NgModule({
@@ -20,7 +20,9 @@ import {MatGridListModule} from '@angular/material';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class AdminModule { }
