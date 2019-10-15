@@ -6,7 +6,11 @@ import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.c
 import {AdminTaskViewComponent} from './pages/admin-task-view/admin-task-view.component';
 import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
 import {AdminRoutingModule} from './admin-routing.module';
-import {MatButtonModule, MatCardModule, MatGridListModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatGridListModule, MatProgressBarModule} from '@angular/material';
+import {CampaignWikiEditComponent} from './pages/campaign-wiki-edit/campaign-wiki-edit.component';
+import {CampaignCreationComponent} from './pages/campaign-creation/campaign-creation.component';
+import {AnnotatorEditionComponent} from './pages/annotator-edition/annotator-edition.component';
+import {AnnotatorCreationComponent} from './pages/annotator-creation/annotator-creation.component';
 
 
 @NgModule({
@@ -15,14 +19,19 @@ import {MatButtonModule, MatCardModule, MatGridListModule} from '@angular/materi
     CampaignsListComponent,
     AdminTaskViewComponent,
     AnnotatorsListComponent,
-    AnnotatorsViewComponent
+    AnnotatorsViewComponent,
+    CampaignWikiEditComponent,
+    CampaignCreationComponent,
+    AnnotatorEditionComponent,
+    AnnotatorCreationComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressBarModule
   ]
 })
 export class AdminModule { }

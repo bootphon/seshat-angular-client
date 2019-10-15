@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaign-view.component.scss']
 })
 export class CampaignViewComponent implements OnInit {
-
+  @Input() campaignSlug?: string;
   constructor() { }
 
   ngOnInit() {
+    // TODO : if the input isn't defined, fetch it in the url path
   }
 
 }

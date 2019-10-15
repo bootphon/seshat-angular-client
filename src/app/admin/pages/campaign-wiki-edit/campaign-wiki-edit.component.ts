@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
+import {CampaignsService} from '../../../api/services/campaigns.service';
 
 @Component({
   selector: 'seshat-campaign-wiki-edit',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./campaign-wiki-edit.component.scss']
 })
 export class CampaignWikiEditComponent implements OnInit {
-
-  constructor() { }
+  wikiContent: string;
+  constructor(private campaignsAPI: CampaignsService) { }
 
   ngOnInit() {
+    // TODO retrieve campaign slug in the path args
   }
+  saveWiki() {}
+  renderMarkdown() {}
 
 }
