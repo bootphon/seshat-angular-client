@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TasksService} from '../../api/services/tasks.service';
+import {TaskShort} from '../../api/models/task-short';
 
 @Component({
   selector: 'seshat-annotator-assigned-tasks',
@@ -6,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./annotator-assigned-tasks.component.scss']
 })
 export class AnnotatorAssignedTasksComponent implements OnInit {
-
-  constructor() { }
+  tasksList: Array<TaskShort>;
+  constructor(private tasksAPI: TasksService) { }
 
   ngOnInit() {
   }

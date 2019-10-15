@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TaskFullAnnotator} from '../../api/models/task-full-annotator';
+import {TasksService} from '../../api/services/tasks.service';
 
 @Component({
   selector: 'seshat-annotator-task-view',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./annotator-task-view.component.scss']
 })
 export class AnnotatorTaskViewComponent implements OnInit {
-
-  constructor() { }
+  taskData: TaskFullAnnotator;
+  constructor(private tasksAPI: TasksService) { }
 
   ngOnInit() {
+    // TODO: retrieve task id from url args
   }
+  validateTextGrid() {}
+  submitTextGrid() {}
 
 }

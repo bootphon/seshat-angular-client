@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CampaignsService} from '../../api/services/campaigns.service';
 
 @Component({
   selector: 'seshat-annotator-wiki-view',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./annotator-wiki-view.component.scss']
 })
 export class AnnotatorWikiViewComponent implements OnInit {
-
-  constructor() { }
+  wikiMarkdown: string;
+  constructor(private campaignsAPI: CampaignsService) { }
 
   ngOnInit() {
+    // TODO : retrieve campaign slug from url args
   }
+  renderMarkdown(){}
 
 }
