@@ -14,7 +14,7 @@ export class CampaignsListComponent implements OnInit {
   ngOnInit() {
     this.campaignsAPI.campaignsListGet().subscribe(
       (data) => this.campaignsList = data,
-      (err) => console.log('Error retrieving corpora'),
+      (err) => console.log('Error retrieving campaign list'),
     );
   }
 

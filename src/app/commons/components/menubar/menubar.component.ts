@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RoleProvider} from '../../role-provider';
 
 @Component({
   selector: 'seshat-menubar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenubarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private roleProvider: RoleProvider) { }
 
   ngOnInit() {
   }

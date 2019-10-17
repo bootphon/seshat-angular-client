@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {RoleProvider} from '../../commons/role-provider';
 
 @Component({
   selector: 'seshat-login-page',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-
-  constructor() { }
+  username: string;
+  password: string;
+  constructor(private roleProvider: RoleProvider) { }
 
   ngOnInit() {
   }
+  login(){}
 
 }

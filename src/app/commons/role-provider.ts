@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AccountsService} from '../api/services/accounts.service';
 
 export interface UserData  {
   token: string;
@@ -11,6 +12,8 @@ export interface UserData  {
 export class RoleProvider {
   private userData: UserData;
 
+  constructor(private accountsService: AccountsService) {}
+
   public getToken() {
     return this.userData.token;
   }
@@ -18,4 +21,5 @@ export class RoleProvider {
     // TODO : much more logic is needed here
     return this.userData;
   }
+  public login(username: string, password: string) {}
 }

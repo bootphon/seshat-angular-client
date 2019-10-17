@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CommentsComponent, MenubarComponent, NotificationsListComponent, TitlebarComponent} from './components';
-import {MatExpansionModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {MatDialogModule, MatExpansionModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
 
 
 // TODO : add all components to declarations and exports
@@ -17,6 +17,7 @@ import {MatExpansionModule, MatSidenavModule, MatToolbarModule} from '@angular/m
     MatToolbarModule,
     MatExpansionModule,
     MatSidenavModule,
+    MatDialogModule
   ],
   exports : [
     CommentsComponent,

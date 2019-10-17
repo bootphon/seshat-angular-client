@@ -9,16 +9,17 @@ import {AdminRoutingModule} from './admin-routing.module';
 import {
   MatButtonModule,
   MatCardModule,
-  MatGridListModule,
+  MatGridListModule, MatIconModule,
   MatInputModule, MatPaginatorModule,
   MatProgressBarModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatTabsModule, MatTooltipModule
 } from '@angular/material';
 import {CampaignWikiEditComponent} from './pages/campaign-wiki-edit/campaign-wiki-edit.component';
 import {CampaignCreationComponent} from './pages/campaign-creation/campaign-creation.component';
 import {AnnotatorEditionComponent} from './pages/annotator-edition/annotator-edition.component';
 import {AnnotatorCreationComponent} from './pages/annotator-creation/annotator-creation.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -43,7 +44,11 @@ import {AnnotatorCreationComponent} from './pages/annotator-creation/annotator-c
     MatTableModule,
     MatInputModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatTabsModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {LoginRoutingModule } from './login-routing.module';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -16,7 +17,8 @@ import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ]
 })
 export class LoginModule { }

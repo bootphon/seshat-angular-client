@@ -29,6 +29,24 @@
         ]
       }
     },
+    "/accounts/data": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserShortProfile"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "accounts"
+        ]
+      }
+    },
     "/accounts/logout": {
       "post": {
         "summary": "Log out form the server. Flushes the annotator's cookie",
@@ -291,7 +309,7 @@
         ]
       }
     },
-    "/users/manage": {
+    "/annotators/manage": {
       "post": {
         "summary": "Adds a new user",
         "responses": {
@@ -308,7 +326,7 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       },
       "put": {
@@ -327,7 +345,7 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       },
       "delete": {
@@ -346,11 +364,11 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       }
     },
-    "/users/view/{username}": {
+    "/annotators/view/{username}": {
       "get": {
         "summary": "Display a an annotator's full profile",
         "responses": {
@@ -365,7 +383,7 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       },
       "parameters": [
@@ -379,7 +397,7 @@
         }
       ]
     },
-    "/users/lock": {
+    "/annotators/lock": {
       "post": {
         "summary": "Locks or unlocks an annotator's account",
         "responses": {
@@ -396,11 +414,11 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       }
     },
-    "/users/list": {
+    "/annotators/list": {
       "get": {
         "summary": "Lists all annotators registered in DB",
         "responses": {
@@ -418,7 +436,7 @@
           }
         },
         "tags": [
-          "users"
+          "annotators"
         ]
       }
     },
@@ -753,8 +771,8 @@
       "description": "Operations to display and create campaigns"
     },
     {
-      "name": "users",
-      "description": "Users administration and creation"
+      "name": "annotators",
+      "description": "Annotators administration and creation"
     },
     {
       "name": "analytics",
@@ -771,10 +789,10 @@
       "LoginCredentials": {
         "type": "object",
         "properties": {
-          "password": {
+          "login": {
             "type": "string"
           },
-          "login": {
+          "password": {
             "type": "string"
           }
         },
@@ -794,23 +812,50 @@
           "token"
         ]
       },
+      "UserShortProfile": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "fullname": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "first_name",
+          "fullname",
+          "last_name",
+          "type",
+          "username"
+        ]
+      },
       "NotificationData": {
         "type": "object",
         "properties": {
-          "time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "object_type": {
+          "message": {
             "type": "string"
           },
           "object_id": {
             "type": "string"
           },
+          "time": {
+            "type": "string",
+            "format": "date-time"
+          },
           "notif_type": {
             "type": "string"
           },
-          "message": {
+          "object_type": {
             "type": "string"
           }
         },
@@ -853,20 +898,14 @@
       "TierSpecifications": {
         "type": "object",
         "properties": {
-          "validate_tier": {
-            "type": "boolean"
-          },
-          "allow_empty": {
-            "type": "boolean"
-          },
           "parser_name": {
             "type": "string"
           },
-          "name": {
-            "type": "boolean"
-          },
           "content_type": {
             "type": "string"
+          },
+          "required": {
+            "type": "boolean"
           },
           "categories": {
             "type": "array",
@@ -874,7 +913,13 @@
               "type": "string"
             }
           },
-          "required": {
+          "allow_empty": {
+            "type": "boolean"
+          },
+          "validate_tier": {
+            "type": "boolean"
+          },
+          "name": {
             "type": "boolean"
           }
         },
@@ -887,29 +932,29 @@
       "CampaignCreation": {
         "type": "object",
         "properties": {
+          "check_textgrids": {
+            "type": "boolean"
+          },
           "checking_scheme": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TierSpecifications"
             }
           },
+          "data_csv": {
+            "type": "string"
+          },
           "description": {
+            "type": "string"
+          },
+          "data_folder": {
             "type": "string"
           },
           "name": {
             "type": "string",
             "maxLength": 100
           },
-          "data_folder": {
-            "type": "string"
-          },
           "enable_audio_dl": {
-            "type": "boolean"
-          },
-          "data_csv": {
-            "type": "string"
-          },
-          "check_textgrids": {
             "type": "boolean"
           }
         },
@@ -921,13 +966,13 @@
       "CampaignEdit": {
         "type": "object",
         "properties": {
-          "slug": {
-            "type": "string"
-          },
           "description": {
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "slug": {
             "type": "string"
           }
         },
@@ -951,26 +996,12 @@
       "CampaignShort": {
         "type": "object",
         "properties": {
-          "check_textgrids": {
-            "type": "boolean"
-          },
-          "corpus_path": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
           "assigned_files": {
             "type": "integer",
             "format": "int32"
           },
-          "completed_tasks": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "total_tasks": {
-            "type": "integer",
-            "format": "int32"
+          "check_textgrids": {
+            "type": "boolean"
           },
           "annotators": {
             "type": "array",
@@ -982,9 +1013,29 @@
             "type": "integer",
             "format": "int32"
           },
+          "name": {
+            "type": "string"
+          },
           "tiers_number": {
             "type": "integer",
             "format": "int32"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "total_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completed_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "corpus_path": {
+            "type": "string"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/UserShortProfile"
           }
         },
         "required": [
@@ -992,7 +1043,9 @@
           "check_textgrids",
           "completed_tasks",
           "corpus_path",
+          "creator",
           "name",
+          "slug",
           "total_files",
           "total_tasks"
         ]
@@ -1000,11 +1053,19 @@
       "TaskShort": {
         "type": "object",
         "properties": {
-          "status": {
+          "assigner": {
             "type": "string"
           },
-          "filename": {
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "task_type": {
             "type": "string"
+          },
+          "creation_time": {
+            "type": "string",
+            "format": "date-time"
           },
           "annotators": {
             "type": "array",
@@ -1012,28 +1073,24 @@
               "type": "string"
             }
           },
-          "task_type": {
-            "type": "string"
-          },
-          "deadline": {
-            "type": "string",
-            "format": "date"
-          },
-          "assigner": {
-            "type": "string"
-          },
-          "creation_time": {
-            "type": "string",
-            "format": "date-time"
-          },
           "is_locked": {
             "type": "boolean"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
           }
         },
         "required": [
           "assigner",
           "creation_time",
           "filename",
+          "id",
           "is_locked",
           "status",
           "task_type"
@@ -1042,26 +1099,18 @@
       "CampaignFull": {
         "type": "object",
         "properties": {
-          "check_textgrids": {
-            "type": "boolean"
-          },
-          "corpus_path": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
           "assigned_files": {
             "type": "integer",
             "format": "int32"
           },
-          "completed_tasks": {
-            "type": "integer",
-            "format": "int32"
+          "check_textgrids": {
+            "type": "boolean"
           },
-          "total_tasks": {
-            "type": "integer",
-            "format": "int32"
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskShort"
+            }
           },
           "annotators": {
             "type": "array",
@@ -1073,15 +1122,29 @@
             "type": "integer",
             "format": "int32"
           },
-          "tasks": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TaskShort"
-            }
+          "name": {
+            "type": "string"
           },
           "tiers_number": {
             "type": "integer",
             "format": "int32"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "total_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completed_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "corpus_path": {
+            "type": "string"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/UserShortProfile"
           }
         },
         "required": [
@@ -1089,7 +1152,9 @@
           "check_textgrids",
           "completed_tasks",
           "corpus_path",
+          "creator",
           "name",
+          "slug",
           "total_files",
           "total_tasks"
         ]
@@ -1099,17 +1164,24 @@
         "properties": {
           "content": {
             "type": "string"
+          },
+          "last_edit": {
+            "type": "string",
+            "format": "date-time"
           }
-        }
+        },
+        "required": [
+          "content"
+        ]
       },
       "CampaignSubscriptionUpdate": {
         "type": "object",
         "properties": {
-          "slug": {
-            "type": "string"
-          },
           "subscription_status": {
             "type": "boolean"
+          },
+          "slug": {
+            "type": "string"
           }
         },
         "required": [
@@ -1120,20 +1192,20 @@
       "AnnotatorCreation": {
         "type": "object",
         "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
           "password": {
             "type": "string"
           },
-          "username": {
+          "first_name": {
             "type": "string"
           },
           "last_name": {
             "type": "string"
           },
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "first_name": {
+          "username": {
             "type": "string"
           }
         },
@@ -1159,26 +1231,28 @@
       "AnnotatorFullProfile": {
         "type": "object",
         "properties": {
-          "finished_tasks": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "assigned_tasks": {
-            "type": "integer",
-            "format": "int32"
-          },
           "active_tasks": {
             "type": "integer",
             "format": "int32"
+          },
+          "email": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
           },
           "last_activity": {
             "type": "string",
             "format": "date-time"
           },
-          "username": {
+          "fullname": {
             "type": "string"
           },
-          "email": {
+          "assigned_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_name": {
             "type": "string"
           },
           "creation_date": {
@@ -1191,7 +1265,14 @@
               "$ref": "#/components/schemas/TaskShort"
             }
           },
-          "fullname": {
+          "last_name": {
+            "type": "string"
+          },
+          "finished_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
             "type": "string"
           }
         },
@@ -1201,19 +1282,22 @@
           "creation_date",
           "email",
           "finished_tasks",
+          "first_name",
           "fullname",
           "last_activity",
+          "last_name",
+          "type",
           "username"
         ]
       },
       "AnnotatorLockRequest": {
         "type": "object",
         "properties": {
-          "username": {
-            "type": "string"
-          },
           "lock_status": {
             "type": "boolean"
+          },
+          "username": {
+            "type": "string"
           }
         },
         "required": [
@@ -1224,26 +1308,35 @@
       "AnnotatorShortProfile": {
         "type": "object",
         "properties": {
-          "finished_tasks": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "assigned_tasks": {
-            "type": "integer",
-            "format": "int32"
-          },
           "active_tasks": {
             "type": "integer",
             "format": "int32"
+          },
+          "type": {
+            "type": "string"
           },
           "last_activity": {
             "type": "string",
             "format": "date-time"
           },
-          "username": {
+          "fullname": {
             "type": "string"
           },
-          "fullname": {
+          "assigned_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "finished_tasks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
             "type": "string"
           }
         },
@@ -1251,9 +1344,27 @@
           "active_tasks",
           "assigned_tasks",
           "finished_tasks",
+          "first_name",
           "fullname",
           "last_activity",
+          "last_name",
+          "type",
           "username"
+        ]
+      },
+      "DoubleAnnotatorAssignment": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "reference",
+          "target"
         ]
       },
       "SingleAnnotatorAssignment": {
@@ -1265,21 +1376,6 @@
         },
         "required": [
           "annotator"
-        ]
-      },
-      "DoubleAnnotatorAssignment": {
-        "type": "object",
-        "properties": {
-          "target": {
-            "type": "string"
-          },
-          "reference": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "reference",
-          "target"
         ]
       },
       "TaskAssignment": {
@@ -1295,14 +1391,14 @@
             "type": "string",
             "format": "date"
           },
-          "single_annot_assign": {
-            "$ref": "#/components/schemas/SingleAnnotatorAssignment"
+          "double_annot_assign": {
+            "$ref": "#/components/schemas/DoubleAnnotatorAssignment"
           },
           "campaign": {
             "type": "string"
           },
-          "double_annot_assign": {
-            "$ref": "#/components/schemas/DoubleAnnotatorAssignment"
+          "single_annot_assign": {
+            "$ref": "#/components/schemas/SingleAnnotatorAssignment"
           }
         },
         "required": [
@@ -1324,19 +1420,19 @@
           "task_id"
         ]
       },
-      "UserShortProfile": {
+      "TaskTextGrid": {
         "type": "object",
         "properties": {
-          "username": {
-            "type": "string"
+          "is_done": {
+            "type": "boolean"
           },
-          "fullname": {
+          "name": {
             "type": "string"
           }
         },
         "required": [
-          "fullname",
-          "username"
+          "is_done",
+          "name"
         ]
       },
       "TaskComment": {
@@ -1359,29 +1455,28 @@
           "creation"
         ]
       },
-      "TaskTextGrid": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "is_done": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "is_done",
-          "name"
-        ]
-      },
       "TaskFullAdmin": {
         "type": "object",
         "properties": {
-          "status": {
+          "assigner": {
             "type": "string"
           },
-          "filename": {
+          "textgrids": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskTextGrid"
+            }
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "task_type": {
             "type": "string"
+          },
+          "creation_time": {
+            "type": "string",
+            "format": "date-time"
           },
           "annotators": {
             "type": "array",
@@ -1389,14 +1484,13 @@
               "type": "string"
             }
           },
-          "task_type": {
+          "is_locked": {
+            "type": "boolean"
+          },
+          "filename": {
             "type": "string"
           },
-          "deadline": {
-            "type": "string",
-            "format": "date"
-          },
-          "assigner": {
+          "id": {
             "type": "string"
           },
           "comments": {
@@ -1405,24 +1499,15 @@
               "$ref": "#/components/schemas/TaskComment"
             }
           },
-          "creation_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "is_locked": {
-            "type": "boolean"
-          },
-          "textgrids": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TaskTextGrid"
-            }
+          "status": {
+            "type": "string"
           }
         },
         "required": [
           "assigner",
           "creation_time",
           "filename",
+          "id",
           "is_locked",
           "status",
           "task_type"
@@ -1431,7 +1516,7 @@
       "FrontierMergeConflict": {
         "type": "object",
         "properties": {
-          "time_a": {
+          "time_b": {
             "type": "number",
             "format": "float"
           },
@@ -1443,7 +1528,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "time_b": {
+          "time_a": {
             "type": "number",
             "format": "float"
           }
@@ -1458,6 +1543,9 @@
       "TierMergeConflicts": {
         "type": "object",
         "properties": {
+          "tier_b": {
+            "type": "string"
+          },
           "tier_a": {
             "type": "string"
           },
@@ -1466,9 +1554,6 @@
             "items": {
               "$ref": "#/components/schemas/FrontierMergeConflict"
             }
-          },
-          "tier_b": {
-            "type": "string"
           }
         },
         "required": [
@@ -1490,14 +1575,25 @@
       "TaskFullAnnotator": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string"
-          },
           "frontiers_merge_table": {
             "$ref": "#/components/schemas/MergeConflicts"
           },
-          "filename": {
+          "current_tg_download": {
             "type": "string"
+          },
+          "assigner": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date"
+          },
+          "task_type": {
+            "type": "string"
+          },
+          "creation_time": {
+            "type": "string",
+            "format": "date-time"
           },
           "annotators": {
             "type": "array",
@@ -1505,22 +1601,24 @@
               "type": "string"
             }
           },
-          "current_tg_download": {
-            "type": "string"
-          },
-          "task_type": {
-            "type": "string"
-          },
-          "deadline": {
-            "type": "string",
-            "format": "date"
-          },
           "current_status_idx": {
             "type": "integer",
             "format": "int32"
           },
-          "assigner": {
+          "is_locked": {
+            "type": "boolean"
+          },
+          "filename": {
             "type": "string"
+          },
+          "allow_file_upload": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "allow_starter_dl": {
+            "type": "boolean"
           },
           "all_statuses": {
             "type": "array",
@@ -1528,18 +1626,8 @@
               "type": "string"
             }
           },
-          "allow_file_upload": {
-            "type": "boolean"
-          },
-          "creation_time": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "is_locked": {
-            "type": "boolean"
-          },
-          "allow_starter_dl": {
-            "type": "boolean"
+          "status": {
+            "type": "string"
           }
         },
         "required": [
@@ -1549,6 +1637,7 @@
           "creation_time",
           "current_status_idx",
           "filename",
+          "id",
           "is_locked",
           "status",
           "task_type"
@@ -1568,21 +1657,21 @@
       "AnnotMismatchError": {
         "type": "object",
         "properties": {
+          "target_tier": {
+            "type": "string"
+          },
           "ref_annot": {
             "type": "string"
           },
           "target_annot": {
             "type": "string"
           },
+          "ref_tier": {
+            "type": "string"
+          },
           "index": {
             "type": "integer",
             "format": "int32"
-          },
-          "target_tier": {
-            "type": "string"
-          },
-          "ref_tier": {
-            "type": "string"
           }
         },
         "required": [
@@ -1591,6 +1680,80 @@
           "ref_tier",
           "target_annot",
           "target_tier"
+        ]
+      },
+      "TimeMergeError": {
+        "type": "object",
+        "properties": {
+          "tier_b": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "number",
+            "format": "float"
+          },
+          "index_after": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "index_before": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tier_a": {
+            "type": "string"
+          },
+          "time_a": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "time_b": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "index_after",
+          "index_before",
+          "threshold",
+          "tier_a",
+          "tier_b",
+          "time_a",
+          "time_b"
+        ]
+      },
+      "AnnotationErrors": {
+        "type": "object",
+        "properties": {
+          "msg": {
+            "type": "string"
+          },
+          "end": {
+            "type": "number",
+            "format": "float"
+          },
+          "start": {
+            "type": "number",
+            "format": "float"
+          },
+          "tier": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "annotation": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "annotation",
+          "end",
+          "index",
+          "msg",
+          "start",
+          "tier"
         ]
       },
       "StructuralError": {
@@ -1604,80 +1767,6 @@
           "msg"
         ]
       },
-      "AnnotationErrors": {
-        "type": "object",
-        "properties": {
-          "end": {
-            "type": "number",
-            "format": "float"
-          },
-          "tier": {
-            "type": "string"
-          },
-          "index": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "annotation": {
-            "type": "string"
-          },
-          "start": {
-            "type": "number",
-            "format": "float"
-          },
-          "msg": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "annotation",
-          "end",
-          "index",
-          "msg",
-          "start",
-          "tier"
-        ]
-      },
-      "TimeMergeError": {
-        "type": "object",
-        "properties": {
-          "tier_a": {
-            "type": "string"
-          },
-          "index_before": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "time_b": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "time_a": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "threshold": {
-            "type": "number",
-            "format": "float"
-          },
-          "index_after": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "tier_b": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "index_after",
-          "index_before",
-          "threshold",
-          "tier_a",
-          "tier_b",
-          "time_a",
-          "time_b"
-        ]
-      },
       "TextGridErrors": {
         "type": "object",
         "properties": {
@@ -1687,10 +1776,10 @@
               "$ref": "#/components/schemas/AnnotMismatchError"
             }
           },
-          "structural": {
+          "time_conflict": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StructuralError"
+              "$ref": "#/components/schemas/TimeMergeError"
             }
           },
           "annot": {
@@ -1699,10 +1788,10 @@
               "$ref": "#/components/schemas/AnnotationErrors"
             }
           },
-          "time_conflict": {
+          "structural": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/TimeMergeError"
+              "$ref": "#/components/schemas/StructuralError"
             }
           }
         }

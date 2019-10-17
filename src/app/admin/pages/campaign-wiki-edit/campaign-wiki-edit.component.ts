@@ -8,12 +8,14 @@ import {CampaignsService} from '../../../api/services/campaigns.service';
 })
 export class CampaignWikiEditComponent implements OnInit {
   wikiContent: string;
+  campaignSlug: string;
   constructor(private campaignsAPI: CampaignsService) { }
 
   ngOnInit() {
     // TODO retrieve campaign slug in the path args
   }
   saveWiki() {}
+
   renderMarkdown() {}
 
 }

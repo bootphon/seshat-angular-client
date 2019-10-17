@@ -1,1 +1,22 @@
-<p>campaign-wiki-edit works!</p>
+<mat-card class="campaign-card">
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="saveWiki()">Save</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab label="Edit Content">
+        <form>
+          <mat-form-field>
+            <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="50" [(ngModel)]="wikiContent"></textarea>
+          </mat-form-field>
+        </form>
+      </mat-tab>
+      <mat-tab label="Preview">
+        <ng-template matTabContent>
+          <!-- This is lazily loaded when the tab is activated -->
+          {{ renderMarkdown() }}
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
