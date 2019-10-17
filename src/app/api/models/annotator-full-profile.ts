@@ -6,8 +6,11 @@ export interface AnnotatorFullProfile  {
   creation_date: string;
   email: string;
   finished_tasks: number;
+  first_name: string;
   fullname: string;
   last_activity: string;
+  last_name: string;
   tasks?: Array<TaskShort>;
+  type: string;
   username: string;
 }

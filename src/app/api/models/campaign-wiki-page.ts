@@ -1,4 +1,5 @@
 /* tslint:disable */
 export interface CampaignWikiPage  {
-  content?: string;
+  content: string;
+  last_edit?: string;
 }

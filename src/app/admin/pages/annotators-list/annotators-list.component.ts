@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AnnotatorShortProfile} from '../../../api/models/annotator-short-profile';
-import {UsersService} from '../../../api/services/users.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {AnnotatorsService} from '../../../api/services/annotators.service';
 
 @Component({
   selector: 'seshat-annotators-list',
@@ -15,7 +15,7 @@ export class AnnotatorsListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private usersAPI: UsersService) { }
+  constructor(private annotatorsService: AnnotatorsService) { }
 
   ngOnInit() {
     // TODO : retrieve the annotators profile list and cast it as a datasource

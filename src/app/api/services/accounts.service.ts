@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 import { LoginCredentials } from '../models/login-credentials';
 import { NotificationData } from '../models/notification-data';
 import { NotificationDelete } from '../models/notification-delete';
+import { UserShortProfile } from '../models/user-short-profile';
 
 
 /**
@@ -73,6 +74,52 @@ export class AccountsService extends BaseService {
 
     return this.accountsLoginPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation accountsDataGet
+   */
+  static readonly AccountsDataGetPath = '/accounts/data';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `accountsDataGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  accountsDataGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<UserShortProfile>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsDataGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<UserShortProfile>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `accountsDataGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  accountsDataGet(params?: {
+
+  }): Observable<UserShortProfile> {
+
+    return this.accountsDataGet$Response(params).pipe(
+      map((r: StrictHttpResponse<UserShortProfile>) => r.body as UserShortProfile)
     );
   }
 

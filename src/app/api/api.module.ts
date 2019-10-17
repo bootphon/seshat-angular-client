@@ -5,7 +5,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AccountsService } from './services/accounts.service';
 import { CampaignsService } from './services/campaigns.service';
-import { UsersService } from './services/users.service';
+import { AnnotatorsService } from './services/annotators.service';
 import { AnalyticsService } from './services/analytics.service';
 import { TasksService } from './services/tasks.service';
 
@@ -19,7 +19,7 @@ import { TasksService } from './services/tasks.service';
   providers: [
     AccountsService,
     CampaignsService,
-    UsersService,
+    AnnotatorsService,
     AnalyticsService,
     TasksService,
     ApiConfiguration

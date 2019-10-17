@@ -8,6 +8,7 @@ export interface TaskFullAdmin  {
   creation_time: string;
   deadline?: string;
   filename: string;
+  id: string;
   is_locked: boolean;
   status: string;
   task_type: string;

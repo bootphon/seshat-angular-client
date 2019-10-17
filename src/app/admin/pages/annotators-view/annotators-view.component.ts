@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AnnotatorFullProfile} from '../../../api/models/annotator-full-profile';
-import {UsersService} from '../../../api/services/users.service';
+import {AnnotatorsService} from '../../../api/services/annotators.service';
 
 @Component({
   selector: 'seshat-annotators-view',
@@ -10,7 +10,7 @@ import {UsersService} from '../../../api/services/users.service';
 export class AnnotatorsViewComponent implements OnInit {
   @Input() username?: string;
   annotatorFullProfile: AnnotatorFullProfile;
-  constructor(private usersAPI: UsersService) { }
+  constructor(private annotatorsService: AnnotatorsService) { }
 
   ngOnInit() {
     // TODO: if user isn't set in the input, retrieve from url args

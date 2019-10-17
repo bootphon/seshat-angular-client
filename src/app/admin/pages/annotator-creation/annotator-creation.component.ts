@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AnnotatorCreation} from '../../../api/models/annotator-creation';
-import {UsersService} from '../../../api/services/users.service';
+import {AnnotatorsService} from '../../../api/services/annotators.service';
 
 @Component({
   selector: 'seshat-annotator-creation',
@@ -9,7 +9,7 @@ import {UsersService} from '../../../api/services/users.service';
 })
 export class AnnotatorCreationComponent implements OnInit {
   annotatorProfile: AnnotatorCreation;
-  constructor(private usersAPI: UsersService) { }
+  constructor(private usersAPI: AnnotatorsService) { }
 
   ngOnInit() {
   }

@@ -12,6 +12,7 @@ export interface TaskFullAnnotator  {
   deadline?: string;
   filename: string;
   frontiers_merge_table?: MergeConflicts;
+  id: string;
   is_locked: boolean;
   status: string;
   task_type: string;
