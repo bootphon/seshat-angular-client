@@ -1,6 +1,6 @@
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="2" rowHeight="2:1" gutterSize="3px">
   <mat-grid-tile *ngFor="let campaign of campaignsList">
-    <mat-card class="example-card">
+    <mat-card class="campaign-card">
       <mat-card-header>
         <mat-card-title>{{ campaign.name }}</mat-card-title>
         <mat-card-subtitle>Created by .</mat-card-subtitle>
@@ -35,8 +35,8 @@
 
       </mat-card-content>
       <mat-card-actions>
+        <!-- TODO: add router link -->
         <button mat-button>View</button>
-        <button mat-button>SHARE</button>
       </mat-card-actions>
     </mat-card>
 

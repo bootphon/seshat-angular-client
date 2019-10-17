@@ -1,1 +1,39 @@
-<p>campaign-view works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Overview</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <h3>Archive des annotations :</h3>
+    <button mat-raised-button color="primary">Download Full Archive</button>
+    <section>
+      <label id="task-progress">Tasks:</label>
+      <!-- TODO: check this -->
+      <mat-progress-bar
+        aria-labelledby="task-progress"
+        color="primary"
+        mode="determinate"
+        value="{{ campaign.completed_tasks / campaign.total_tasks | percent }}">
+      </mat-progress-bar>
+    </section>
+
+    <section>
+      <label id="files-assigned">Files:</label>
+      <!-- TODO: check this -->
+      <mat-progress-bar
+        aria-labelledby="files-assigned"
+        color="primary"
+        mode="determinate"
+        value="{{ campaign.assigned_files / campaign.total_files | percent }}">
+      </mat-progress-bar>
+    </section>
+
+    <section>
+      <p> <em>Annotators:</em> {{campaign.annotators.join(" ,")}}</p>
+    </section>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- TODO: add router link -->
+    <button mat-button>View</button>
+  </mat-card-actions>
+</mat-card>
