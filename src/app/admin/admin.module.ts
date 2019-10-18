@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {CampaignsListComponent} from './pages/campaigns-list/campaigns-list.component';
 import {CampaignViewComponent} from './pages/campaign-view/campaign-view.component';
 import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.component';
-import {AdminTaskViewComponent} from './pages/admin-task-view/admin-task-view.component';
+import {TaskViewComponent} from './pages/task-view/task-view.component';
 import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
 import {AdminRoutingModule} from './admin-routing.module';
 import {
@@ -17,22 +17,25 @@ import {
 } from '@angular/material';
 import {CampaignWikiEditComponent} from './pages/campaign-wiki-edit/campaign-wiki-edit.component';
 import {CampaignCreationComponent} from './pages/campaign-creation/campaign-creation.component';
-import {AnnotatorEditionComponent} from './pages/annotator-edition/annotator-edition.component';
 import {AnnotatorCreationComponent} from './pages/annotator-creation/annotator-creation.component';
 import {FormsModule} from '@angular/forms';
+import { TasksListComponent } from './pages/tasks-list/tasks-list.component';
+import {CommonsModule} from '../commons/commons.module';
+import { CampaignAnalyticsComponent } from './pages/campaign-analytics/campaign-analytics.component';
 
 
 @NgModule({
   declarations: [
     CampaignViewComponent,
     CampaignsListComponent,
-    AdminTaskViewComponent,
+    TaskViewComponent,
     AnnotatorsListComponent,
     AnnotatorsViewComponent,
     CampaignWikiEditComponent,
     CampaignCreationComponent,
-    AnnotatorEditionComponent,
-    AnnotatorCreationComponent
+    AnnotatorCreationComponent,
+    TasksListComponent,
+    CampaignAnalyticsComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,8 @@ import {FormsModule} from '@angular/forms';
     MatIconModule,
     MatTooltipModule,
     MatTabsModule,
-    FormsModule
+    FormsModule,
+    CommonsModule
   ]
 })
 export class AdminModule { }

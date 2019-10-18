@@ -4,10 +4,10 @@ import {TaskFullAdmin} from '../../../api/models/task-full-admin';
 
 @Component({
   selector: 'seshat-admin-task-view',
-  templateUrl: './admin-task-view.component.html',
-  styleUrls: ['./admin-task-view.component.scss']
+  templateUrl: './task-view.component.html',
+  styleUrls: ['./task-view.component.scss']
 })
-export class AdminTaskViewComponent implements OnInit {
+export class TaskViewComponent implements OnInit {
   @Input() taskID?: string;
   taskData: TaskFullAdmin;
   constructor(private tasksAPI: TasksService) { }

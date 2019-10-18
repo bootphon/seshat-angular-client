@@ -1,0 +1,52 @@
+<h2>{{taskData.filename}}</h2>
+<table style="width:100%">
+  <tr>
+    <td>Assigned by:</td>
+    <td>{{taskData.assigner.fullname}}</td>
+  </tr>
+  <tr>
+    <td>Created:</td>
+    <td>{{taskData.creation_time}}</td>
+  </tr>
+  <tr>
+    <td>Deadline</td>
+    <td>{{taskData.deadline}}</td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td>{{taskData.status}}</td>
+  </tr>
+  <tr>
+    <td>Annotators</td>
+    <td>{{taskData.annotators.join(", ")}}</td>
+  </tr>
+</table>
+
+<div *ngIf="taskData.is_locked; then thenBlock else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <button mat-mini-fab color="accent"
+          matTooltip="Lock the task"
+          (click)="unlockTask()">
+    <mat-icon>lock_open</mat-icon>
+  </button>
+</ng-template>
+<ng-template #elseBlock>
+  <button mat-mini-fab color="accent"
+          matTooltip="Lock the task"
+          (click)="lockTask()">
+    <mat-icon>lock</mat-icon>
+  </button>
+</ng-template>
+
+<button mat-mini-fab color="warn"
+        matTooltip="Delete the task"
+        (click)="deleteTask()">
+  <mat-icon>delete_forever</mat-icon>
+</button>
+
+<h3>Files</h3>
+<!-- TODO -->
+
+<h3>Discussion</h3>
+<seshat-comments [commentsList]="taskData.comments" [taskID]="taskData.id"></seshat-comments>

@@ -8,7 +8,8 @@ import {TasksService} from '../../../api/services/tasks.service';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
-  @Input() commentsList?: Array<TaskComment>;
+  @Input() commentsList: Array<TaskComment>;
+  @Input() taskID: string;
   newCommentContent: string;
   constructor(private tasksAPI: TasksService) { }
 
@@ -16,6 +17,8 @@ export class CommentsComponent implements OnInit {
     // TODO: if comment list is none, retrieve the comments list
   }
 
-  submitComment(){}
+  submitComment(){
+    // TODO
+  }
 
 }

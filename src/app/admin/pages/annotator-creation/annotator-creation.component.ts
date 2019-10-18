@@ -9,10 +9,12 @@ import {AnnotatorsService} from '../../../api/services/annotators.service';
 })
 export class AnnotatorCreationComponent implements OnInit {
   annotatorProfile: AnnotatorCreation;
-  constructor(private usersAPI: AnnotatorsService) { }
+  constructor(private annotatorsService: AnnotatorsService) { }
 
   ngOnInit() {
   }
-  createAnnotator() {}
+  createAnnotator() {
+    // TODO
+  }
 
 }

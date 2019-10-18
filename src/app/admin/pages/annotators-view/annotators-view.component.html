@@ -1,1 +1,65 @@
-<p>annotators-view works!</p>
+<div id="edition-container">
+  <mat-grid-list cols="2" rowHeight="100px">
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.first_name">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.last_name">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      Account created on {{annotatorFullProfile.creation_date}} <br/>
+      Last activity : {{annotatorFullProfile.last_activity}}
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="annotatorProfileEdit.email">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="annotatorProfileEdit.password">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <button mat-raised-button (click)="updateAnnotatorProfile()">
+        <mat-icon>save_alt</mat-icon> Update user
+      </button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <div *ngIf="annotatorFullProfile.is_locked; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>
+        <button mat-mini-fab color="accent"
+                matTooltip="Lock the task"
+                (click)="unlockAnnotator()">
+          <mat-icon>lock_open</mat-icon>
+        </button>
+      </ng-template>
+      <ng-template #elseBlock>
+        <button mat-mini-fab color="accent"
+                matTooltip="Lock the task"
+                (click)="lockAnnotator()">
+          <mat-icon>lock</mat-icon>
+        </button>
+      </ng-template>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <button mat-raised-button (click)="deleteAnnotator()">
+        <mat-icon>save_alt</mat-icon> Update user
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
+<div id="annotator-tasks">
+  <seshat-tasks-list [tasksList]="annotatorFullProfile.tasks"></seshat-tasks-list>
+</div>
+
+

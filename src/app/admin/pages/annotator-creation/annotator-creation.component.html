@@ -3,26 +3,36 @@
     <mat-grid-tile colspan="1">
       <mat-form-field>
         <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name">
+        <input matInput placeholder="First Name" [(ngModel)]="annotatorProfile.first_name">
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
       <mat-form-field>
         <mat-label>Last Name</mat-label>
-        <input matInput placeholder="First Name">
+        <input matInput placeholder="First Name" [(ngModel)]="annotatorProfile.last_name">
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput type="email">
+        <input matInput type="email" [(ngModel)]="annotatorProfile.email">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="annotatorProfile.username">
+      </mat-form-field>
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="annotatorProfile.password">
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput type="password">
-      </mat-form-field>
+      <button mat-raised-button (click)="createAnnotator()">
+        <mat-icon>person_add</mat-icon> Create user
+      </button>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

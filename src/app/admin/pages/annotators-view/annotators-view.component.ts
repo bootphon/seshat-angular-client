@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AnnotatorFullProfile} from '../../../api/models/annotator-full-profile';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
+import {AnnotatorCreation} from '../../../api/models/annotator-creation';
 
 @Component({
   selector: 'seshat-annotators-view',
@@ -10,6 +11,7 @@ import {AnnotatorsService} from '../../../api/services/annotators.service';
 export class AnnotatorsViewComponent implements OnInit {
   @Input() username?: string;
   annotatorFullProfile: AnnotatorFullProfile;
+  annotatorProfileEdit: AnnotatorCreation;
   constructor(private annotatorsService: AnnotatorsService) { }
 
   ngOnInit() {
@@ -18,5 +20,6 @@ export class AnnotatorsViewComponent implements OnInit {
   deleteAnnotator() {}
   lockAnnotator() {}
   unlockAnnotator() {}
+  updateAnnotatorProfile() {}
 
 }
