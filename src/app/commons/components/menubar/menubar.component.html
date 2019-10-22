@@ -6,42 +6,55 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row>
-    <span>First name</span>
+    <span>{{roleProvider.getUserData().first_name}}</span>
   </mat-toolbar-row>
+
+  <mat-divider></mat-divider>
+  <div *ngIf="roleProvider.isAdmin()">
+    <mat-toolbar-row>
+      <span>Dashboard</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <span>Annotators</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Campaigns
+            </mat-panel-title>
+            <mat-panel-description>
+              List all active campaigns
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <mat-nav-list>
+            <a mat-list-item [routerLink]="['/admin', 'campaign', campaign.slug]"
+               *ngFor="let campaign of campaignsData">
+              {{ campaign.name }}
+            </a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-toolbar-row>
+  </div>
+
+  <div *ngIf="roleProvider.isAnnotator()">
+    <mat-toolbar-row>
+      <span>Tasks</span>
+    </mat-toolbar-row>
+  </div>
 
   <mat-divider></mat-divider>
 
   <mat-toolbar-row>
-    <span>Dashboard</span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-    <span>Annotators</span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row>
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Campaigns
-          </mat-panel-title>
-          <mat-panel-description>
-            List all active campaigns
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <mat-nav-list>
-          <a mat-list-item href="..." *ngFor="let link of links"> {{ link }} </a>
-        </mat-nav-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-
-  </mat-toolbar-row>
-
-  <mat-divider></mat-divider>
-
-  <mat-toolbar-row>
-    <span>Logout</span>
+    <button mat-mini-fab color="accent"
+            matTooltip="Logout of Seshat"
+            (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
   </mat-toolbar-row>
 </mat-toolbar>

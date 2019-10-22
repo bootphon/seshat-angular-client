@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {CampaignsListComponent} from './pages/campaigns-list/campaigns-list.component';
-import {CampaignViewComponent} from './pages/campaign-view/campaign-view.component';
-import {TaskViewComponent} from './pages/task-view/task-view.component';
-import {AnnotatorsListComponent} from './pages/annotators-list/annotators-list.component';
-import {AnnotatorsViewComponent} from './pages/annotators-view/annotators-view.component';
+import {CampaignsListComponent} from './components/campaigns-list/campaigns-list.component';
+import {CampaignViewComponent} from './components/campaign-view/campaign-view.component';
+import {TaskViewComponent} from './components/task-view/task-view.component';
+import {AnnotatorsListComponent} from './components/annotators-list/annotators-list.component';
+import {AnnotatorsViewComponent} from './components/annotators-view/annotators-view.component';
 
 
 const routes: Routes = [

@@ -24,7 +24,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     BrowserAnimationsModule,
     HttpClientModule,
     // TODO: set URL using some kind of configuration
-    ApiModule.forRoot({ rootUrl: 'https://www.example.com/api' }),
+    ApiModule.forRoot({ rootUrl: 'http://127.0.0.1:5000/ ' }),
   ],
   providers: [
     ApiInterceptor,

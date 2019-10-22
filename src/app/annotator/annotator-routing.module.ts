@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {AnnotatorTaskListComponent} from '../admin/pages/annotator-task-list/annotator-task-list.component';
-import {AnnotatorTaskViewComponent} from './annotator-task-view/annotator-task-view.component';
+import {AnnotatorTaskViewComponent} from './components/annotator-task-view/annotator-task-view.component';
+import {AnnotatorAssignedTasksComponent} from './components/annotator-assigned-tasks/annotator-assigned-tasks.component';
 
 
 const routes: Routes = [
-  { path: '', component: AnnotatorTaskListComponent },
+  { path: '', component: AnnotatorAssignedTasksComponent },
   { path: ':task_id', component: AnnotatorTaskViewComponent},
 ];
 

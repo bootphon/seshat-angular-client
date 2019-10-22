@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TaskFullAnnotator} from '../../api/models/task-full-annotator';
-import {TasksService} from '../../api/services/tasks.service';
+import {TaskFullAnnotator} from '../../../api/models/task-full-annotator';
+import {TasksService} from '../../../api/services/tasks.service';
 
 @Component({
   selector: 'seshat-annotator-task-view',

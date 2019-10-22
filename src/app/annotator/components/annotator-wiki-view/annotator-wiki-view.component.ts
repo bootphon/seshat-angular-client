@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CampaignsService} from '../../api/services/campaigns.service';
+import {CampaignsService} from '../../../api/services/campaigns.service';
 
 @Component({
   selector: 'seshat-annotator-wiki-view',

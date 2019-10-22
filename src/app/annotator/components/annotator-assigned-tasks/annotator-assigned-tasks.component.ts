@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {TasksService} from '../../api/services/tasks.service';
-import {TaskShort} from '../../api/models/task-short';
+import {TasksService} from '../../../api/services/tasks.service';
+import {TaskShort} from '../../../api/models/task-short';
 import {MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
