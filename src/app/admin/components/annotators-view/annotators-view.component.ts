@@ -9,7 +9,7 @@ import {AnnotatorCreation} from '../../../api/models/annotator-creation';
   styleUrls: ['./annotators-view.component.scss']
 })
 export class AnnotatorsViewComponent implements OnInit {
-  @Input() username?: string;
+  @Input() username: string;
   annotatorFullProfile: AnnotatorFullProfile;
   annotatorProfileEdit: AnnotatorCreation;
   constructor(private annotatorsService: AnnotatorsService) { }

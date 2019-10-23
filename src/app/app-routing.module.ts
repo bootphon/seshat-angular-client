@@ -5,22 +5,27 @@ import {AuthGuard} from './commons/auth-gard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadChildren: './login/login.module#LoginModule',
   },
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
-    canActivate: [AuthGuard], // TODO : add authgard
+    canActivate: [AuthGuard],
   },
   {
     path: 'annotator',
     loadChildren: './annotator/annotator.module#AnnotatorModule' ,
-    canActivate: [AuthGuard], // TODO : add authgard
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'pageNotFound', // TODO add 404 page
   },
 ];
 

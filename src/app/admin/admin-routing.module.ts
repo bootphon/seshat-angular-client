@@ -9,11 +9,12 @@ import {AnnotatorsViewComponent} from './components/annotators-view/annotators-v
 
 
 const routes: Routes = [
-  { path: '', component: CampaignsListComponent },
+  { path: 'campaign/list', component: CampaignsListComponent },
   { path: 'campaign/:campaign_id', component: CampaignViewComponent},
   { path: 'campaign/:campaign_id/task/:task_id', component: TaskViewComponent},
-  { path: 'annotators/', component: AnnotatorsListComponent},
+  { path: 'annotators', component: AnnotatorsListComponent},
   { path: 'annotators/:annotator_id', component: AnnotatorsViewComponent},
+  { path: '', redirectTo: 'campaign/list' }
 ];
 
 

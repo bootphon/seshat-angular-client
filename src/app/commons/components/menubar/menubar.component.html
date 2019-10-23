@@ -5,12 +5,16 @@
     <mat-icon class="example-icon" aria-hidden="false">notification_important</mat-icon>
   </mat-toolbar-row>
 
-  <mat-toolbar-row>
-    <span>{{roleProvider.getUserData().first_name}}</span>
-  </mat-toolbar-row>
+  <div *ngIf="userData">
+    <mat-toolbar-row>
+      <span>{{userData.first_name}}</span>
+    </mat-toolbar-row>
+  </div>
 
   <mat-divider></mat-divider>
-  <div *ngIf="roleProvider.isAdmin()">
+
+
+  <div *ngIf="isAdmin()">
     <mat-toolbar-row>
       <span>Dashboard</span>
     </mat-toolbar-row>
@@ -42,7 +46,7 @@
     </mat-toolbar-row>
   </div>
 
-  <div *ngIf="roleProvider.isAnnotator()">
+  <div *ngIf="isAnnotator()">
     <mat-toolbar-row>
       <span>Tasks</span>
     </mat-toolbar-row>

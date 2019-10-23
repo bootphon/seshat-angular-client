@@ -1,7 +1,8 @@
 /* tslint:disable */
+import { UserShortProfile } from './user-short-profile';
 export interface TaskShort  {
   annotators?: Array<string>;
-  assigner: string;
+  assigner: UserShortProfile;
   creation_time: string;
   deadline?: string;
   filename: string;

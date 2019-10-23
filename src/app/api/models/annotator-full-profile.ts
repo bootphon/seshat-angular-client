@@ -8,6 +8,7 @@ export interface AnnotatorFullProfile  {
   finished_tasks: number;
   first_name: string;
   fullname: string;
+  is_locked: boolean;
   last_activity: string;
   last_name: string;
   tasks?: Array<TaskShort>;

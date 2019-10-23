@@ -8,6 +8,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { ConnectionToken } from '../models/connection-token';
 import { LoginCredentials } from '../models/login-credentials';
 import { NotificationData } from '../models/notification-data';
 import { NotificationDelete } from '../models/notification-delete';
@@ -42,7 +43,7 @@ export class AccountsService extends BaseService {
   accountsLoginPost$Response(params: {
 
     body: LoginCredentials
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<ConnectionToken>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsLoginPostPath, 'post');
     if (params) {
@@ -51,12 +52,12 @@ export class AccountsService extends BaseService {
       rb.body(params.body, 'application/json');
     }
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<ConnectionToken>;
       })
     );
   }
@@ -70,10 +71,10 @@ export class AccountsService extends BaseService {
   accountsLoginPost(params: {
 
     body: LoginCredentials
-  }): Observable<void> {
+  }): Observable<ConnectionToken> {
 
     return this.accountsLoginPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<ConnectionToken>) => r.body as ConnectionToken)
     );
   }
 

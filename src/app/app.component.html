@@ -1,3 +1,8 @@
-<bc-main-layout [navigationRoutes]="index">
-  <router-outlet></router-outlet>
-</bc-main-layout>
+<mat-drawer-container class="main-viewport">
+  <mat-drawer mode="side" opened *ngIf="isLogged">
+    <seshat-menubar></seshat-menubar>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

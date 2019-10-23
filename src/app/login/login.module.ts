@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {LoginPageComponent} from './login-page/login-page.component';
-import {LoginRoutingModule } from './login-routing.module';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
+import {RouterModule, Routes} from '@angular/router';
 
 
+const routes: Routes = [
+  {
+    path: 'auth',
+    component: LoginPageComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'auth',
+  },
+];
 
 @NgModule({
   declarations: [
@@ -13,7 +23,7 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    LoginRoutingModule,
+    RouterModule.forChild(routes),
     MatCardModule,
     MatFormFieldModule,
     MatButtonModule,

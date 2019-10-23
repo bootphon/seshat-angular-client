@@ -32,7 +32,7 @@ export { TaskFullAnnotator } from './models/task-full-annotator';
 export { TaskTextgridSubmission } from './models/task-textgrid-submission';
 export { AnnotMismatchError } from './models/annot-mismatch-error';
 export { TimeMergeError } from './models/time-merge-error';
-export { AnnotationErrors } from './models/annotation-errors';
 export { StructuralError } from './models/structural-error';
+export { AnnotationErrors } from './models/annotation-errors';
 export { TextGridErrors } from './models/text-grid-errors';
 export { TaskCommentSubmission } from './models/task-comment-submission';
