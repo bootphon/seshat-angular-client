@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CampaignCreation } from '../models/campaign-creation';
-import { CampaignDelete } from '../models/campaign-delete';
 import { CampaignEdit } from '../models/campaign-edit';
 import { CampaignFull } from '../models/campaign-full';
 import { CampaignShort } from '../models/campaign-short';
+import { CampaignSlug } from '../models/campaign-slug';
 import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-update';
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CorporaListing } from '../models/corpora-listing';
@@ -141,7 +141,7 @@ export class CampaignsService extends BaseService {
   campaignsAdminPost$Response(params: {
 
     body: CampaignCreation
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<CampaignSlug>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsAdminPostPath, 'post');
     if (params) {
@@ -150,12 +150,12 @@ export class CampaignsService extends BaseService {
       rb.body(params.body, 'application/json');
     }
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<CampaignSlug>;
       })
     );
   }
@@ -169,10 +169,10 @@ export class CampaignsService extends BaseService {
   campaignsAdminPost(params: {
 
     body: CampaignCreation
-  }): Observable<void> {
+  }): Observable<CampaignSlug> {
 
     return this.campaignsAdminPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<CampaignSlug>) => r.body as CampaignSlug)
     );
   }
 
@@ -189,7 +189,7 @@ export class CampaignsService extends BaseService {
    */
   campaignsAdminDelete$Response(params: {
 
-    body: CampaignDelete
+    body: CampaignSlug
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsAdminDeletePath, 'delete');
@@ -217,7 +217,7 @@ export class CampaignsService extends BaseService {
    */
   campaignsAdminDelete(params: {
 
-    body: CampaignDelete
+    body: CampaignSlug
   }): Observable<void> {
 
     return this.campaignsAdminDelete$Response(params).pipe(

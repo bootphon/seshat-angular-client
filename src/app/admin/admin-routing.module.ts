@@ -6,10 +6,14 @@ import {CampaignViewComponent} from './components/campaign-view/campaign-view.co
 import {TaskViewComponent} from './components/task-view/task-view.component';
 import {AnnotatorsListComponent} from './components/annotators-list/annotators-list.component';
 import {AnnotatorsViewComponent} from './components/annotators-view/annotators-view.component';
+import {CampaignCreationComponent} from './components/campaign-creation/campaign-creation.component';
+import {AnnotatorCreationComponent} from './components/annotator-creation/annotator-creation.component';
 
 
 const routes: Routes = [
   { path: 'campaign/list', component: CampaignsListComponent },
+  { path: 'campaign/create', component: CampaignCreationComponent },
+  { path: 'annotator/create', component: AnnotatorCreationComponent },
   { path: 'campaign/:campaign_id', component: CampaignViewComponent},
   { path: 'campaign/:campaign_id/task/:task_id', component: TaskViewComponent},
   { path: 'annotators', component: AnnotatorsListComponent},

@@ -6,8 +6,8 @@ import {AnnotatorAssignedTasksComponent} from './components/annotator-assigned-t
 
 
 const routes: Routes = [
-  { path: '', component: AnnotatorAssignedTasksComponent },
-  { path: ':task_id', component: AnnotatorTaskViewComponent},
+  { path: 'tasks', component: AnnotatorAssignedTasksComponent },
+  { path: 'task/:task_id', component: AnnotatorTaskViewComponent},
 ];
 
 @NgModule({

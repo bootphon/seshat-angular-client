@@ -1,8 +1,8 @@
-<mat-drawer-container class="main-viewport" autosize >
-  <mat-drawer mode="side" opened *ngIf="isLogged" class="sidebar">
+<mat-sidenav-container class="main-viewport" autosize >
+  <mat-sidenav mode="side" opened>
     <seshat-menubar></seshat-menubar>
-  </mat-drawer>
-  <mat-drawer-content>
+  </mat-sidenav>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

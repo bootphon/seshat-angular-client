@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RoleProvider} from '../../commons/role-provider';
 import {Router} from '@angular/router';
-import {AccountsService} from '../../api/services/accounts.service';
 import {ConnectionToken} from '../../api/models/connection-token';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'seshat-login-page',
@@ -12,13 +12,17 @@ import {ConnectionToken} from '../../api/models/connection-token';
 export class LoginPageComponent implements OnInit {
   username: string;
   password: string;
+
   constructor(
     private roleProvider: RoleProvider,
     private router: Router,
-    ) { }
+  ) {
+  }
 
   ngOnInit() {
+    this.roleProvider.logInEvent.emit(false);
   }
+
   login() {
     console.log(`u:${this.username}, ${this.password}`);
     this.roleProvider.login(this.username, this.password).then(
@@ -29,7 +33,5 @@ export class LoginPageComponent implements OnInit {
         this.router.navigate(['/admin', 'campaign', 'list']);
       }
     );
-
   }
-
 }

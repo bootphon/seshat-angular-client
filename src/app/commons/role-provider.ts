@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {AccountsService} from '../api/services/accounts.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
@@ -21,6 +21,7 @@ export interface UserData {
 export class RoleProvider {
   private userData: UserData;
   private userToken: string;
+  public logInEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private accountsService: AccountsService,
@@ -64,5 +65,11 @@ export class RoleProvider {
 
   public setToken(t) {
     window.localStorage.setItem('token', t.token);
+    this.logInEvent.emit(true);
+  }
+
+  public clear() {
+    window.localStorage.clear();
+    this.logInEvent.emit(false);
   }
 }

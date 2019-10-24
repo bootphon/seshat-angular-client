@@ -8,12 +8,12 @@ import {AnnotatorsViewComponent} from './components/annotators-view/annotators-v
 import {AdminRoutingModule} from './admin-routing.module';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatCheckboxModule, MatExpansionModule,
   MatGridListModule, MatIconModule,
-  MatInputModule, MatPaginatorModule,
-  MatProgressBarModule,
+  MatInputModule, MatMenuModule, MatPaginatorModule,
+  MatProgressBarModule, MatSelectModule, MatSliderModule, MatSlideToggleModule,
   MatSortModule,
-  MatTableModule, MatTabsModule, MatTooltipModule
+  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {CampaignWikiEditComponent} from './components/campaign-wiki-edit/campaign-wiki-edit.component';
 import {CampaignCreationComponent} from './components/campaign-creation/campaign-creation.component';
@@ -22,6 +22,7 @@ import {FormsModule} from '@angular/forms';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import {CommonsModule} from '../commons/commons.module';
 import { CampaignAnalyticsComponent } from './components/campaign-analytics/campaign-analytics.component';
+import {RouterModule} from '@angular/router';
 
 
 @NgModule({
@@ -52,7 +53,13 @@ import { CampaignAnalyticsComponent } from './components/campaign-analytics/camp
     MatTooltipModule,
     MatTabsModule,
     FormsModule,
-    CommonsModule
+    CommonsModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatExpansionModule,
+    MatToolbarModule,
+    RouterModule,
   ]
 })
 export class AdminModule { }

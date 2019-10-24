@@ -1,3 +1,11 @@
+<mat-toolbar color="primary">
+  <span>Dashboard</span>
+  <span class="space-filler"></span>
+  <button mat-raised-button
+  [routerLink]="['/admin', 'campaign', 'create']">Add campaign</button>
+</mat-toolbar>
+
+
 <mat-grid-list cols="2" rowHeight="2:1" gutterSize="3px">
   <mat-grid-tile *ngFor="let campaign of campaignsList">
     <mat-card class="campaign-card">
@@ -14,7 +22,7 @@
             aria-labelledby="task-progress"
             color="primary"
             mode="determinate"
-            value="{{ campaign.completed_tasks / campaign.total_tasks | percent }}">
+            value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
           </mat-progress-bar>
         </section>
 
@@ -25,7 +33,7 @@
             aria-labelledby="files-assigned"
             color="primary"
             mode="determinate"
-            value="{{ campaign.assigned_files / campaign.total_files | percent }}">
+            value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
           </mat-progress-bar>
         </section>
 

@@ -6,7 +6,7 @@ import {
   MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
-  MatIconModule, MatListModule,
+  MatIconModule, MatListModule, MatMenuModule,
   MatSidenavModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
@@ -32,7 +32,8 @@ import {RouterModule} from '@angular/router';
     MatButtonModule,
     MatTooltipModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule
   ],
   exports : [
     CommentsComponent,

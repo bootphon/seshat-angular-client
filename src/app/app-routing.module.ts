@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AdminGuard, AnnotatorGuard} from './commons/auth-gard';
+import {AdminGuard, AnnotatorGuard} from './commons/auth.gard';
 
 
 const routes: Routes = [

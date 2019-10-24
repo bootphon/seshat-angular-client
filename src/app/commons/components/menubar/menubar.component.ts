@@ -21,14 +21,13 @@ export class MenubarComponent implements OnInit {
       // TODO: load campaign id's into attribute
     }
   }
-
-  logout(){
+  logout() {
     //TODO
   }
-  isAdmin(){
+  isAdmin() {
     this.roleProvider.isAdmin();
   }
-  isAnnotator(){
+  isAnnotator() {
     this.roleProvider.isAnnotator();
   }
 

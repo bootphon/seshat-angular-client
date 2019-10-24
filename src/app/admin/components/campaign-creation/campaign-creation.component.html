@@ -1,1 +1,67 @@
-<p>campaign-creation works!</p>
+<div class="campaign-creation-container">
+  <mat-grid-list cols="2" rowHeight="100px">
+
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="" [(ngModel)]="campaignName">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <mat-label>Campaign Corpora</mat-label>
+        <mat-select  [(value)]="chosenCorpora" required>
+          <mat-option>&#45;&#45;</mat-option>
+          <div *ngIf="availableCorpora; then options"></div>
+          <ng-template #options>
+            <mat-optgroup label="Folders">
+              <mat-option *ngFor="let corpora of availableCorpora.folders_corpora"
+                          [value]="{corporaType: 'folder', corporaName: corpora}">
+                {{corpora}}
+              </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="CSV">
+              <mat-option *ngFor="let corpora of availableCorpora.csv_corpora"
+                          [value]="{corporaType: 'csv', corporaName: corpora}">
+                {{corpora}}
+              </mat-option>
+            </mat-optgroup>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="campaignDescription">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+        <mat-slide-toggle
+          [(ngModel)]="campaignCreation.check_textgrids">
+          Enable TextGrid checking
+        </mat-slide-toggle>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <mat-accordion displayMode="flat">
+        <mat-expansion-panel [disabled]="!campaignCreation.check_textgrids">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Checked tiers
+              <button mat-fab color="primary"
+                      matTooltip="Add a tier specification">
+                <mat-icon>playlist_add</mat-icon>
+              </button>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
+</div>
+
