@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {AuthGuard} from './commons/auth-gard';
+import {AdminGuard, AnnotatorGuard} from './commons/auth-gard';
 
 
 const routes: Routes = [
@@ -11,12 +11,12 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'annotator',
     loadChildren: './annotator/annotator.module#AnnotatorModule' ,
-    canActivate: [AuthGuard],
+    canActivate: [AnnotatorGuard],
   },
   {
     path: '',

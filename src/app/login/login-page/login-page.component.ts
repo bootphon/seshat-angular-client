@@ -15,7 +15,6 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private roleProvider: RoleProvider,
     private router: Router,
-    private acc: AccountsService
     ) { }
 
   ngOnInit() {
@@ -27,7 +26,7 @@ export class LoginPageComponent implements OnInit {
         this.roleProvider.setToken(tokenData);
         console.log(tokenData.token);
         // TODO : add login errors handling here
-        this.router.navigate([''])
+        this.router.navigate(['/admin', 'campaign', 'list']);
       }
     );
 

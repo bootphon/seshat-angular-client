@@ -1,20 +1,22 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="seshat-toolbar">
   <mat-toolbar-row>
     <span>Seshat</span>
     <span class="spacer"></span>
     <mat-icon class="example-icon" aria-hidden="false">notification_important</mat-icon>
   </mat-toolbar-row>
 
-  <div *ngIf="userData">
+  <div *ngIf="userData; then nameMenuItem">
+
+  </div>
+  <ng-template #nameMenuItem>
     <mat-toolbar-row>
       <span>{{userData.first_name}}</span>
     </mat-toolbar-row>
+  </ng-template>
+
+  <div *ngIf="isAdmin(); then adminMenu">
   </div>
-
-  <mat-divider></mat-divider>
-
-
-  <div *ngIf="isAdmin()">
+  <ng-template #adminMenu>
     <mat-toolbar-row>
       <span>Dashboard</span>
     </mat-toolbar-row>
@@ -44,15 +46,13 @@
         </mat-expansion-panel>
       </mat-accordion>
     </mat-toolbar-row>
-  </div>
+  </ng-template>
 
   <div *ngIf="isAnnotator()">
     <mat-toolbar-row>
       <span>Tasks</span>
     </mat-toolbar-row>
   </div>
-
-  <mat-divider></mat-divider>
 
   <mat-toolbar-row>
     <button mat-mini-fab color="accent"
