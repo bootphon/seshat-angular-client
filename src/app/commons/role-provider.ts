@@ -33,11 +33,12 @@ export class RoleProvider {
   }
 
   public isLogged() {
-    return this.userToken == undefined;
+    this.userToken = window.localStorage.getItem('token');
+    return this.userToken != undefined;
   }
 
   public async getUserData() {
-    if(this.userData) {
+    if (this.userData) {
       return this.userData;
     } else {
       const t = await this.accountsService.accountsDataGet().toPromise();
@@ -47,16 +48,25 @@ export class RoleProvider {
         type: t.type === 'admin' ? UserType.Admin : UserType.Annotator,
         username: t.username
       };
+      window.localStorage.setItem('userData', JSON.stringify(this.userData));
       return this.userData;
     }
   }
 
+  private loadUserData() {
+    if (!this.userData) {
+      this.userData = JSON.parse(window.localStorage.getItem('userData')) as UserData;
+    }
+  }
+
   public isAdmin() {
-    return this.userData && this.userData.type === UserType.Admin;
+    this.loadUserData();
+    return this.userData != undefined && this.userData.type === UserType.Admin;
   }
 
   public isAnnotator() {
-    return this.userData && this.userData.type === UserType.Admin;
+    this.loadUserData();
+    return this.userData != undefined && this.userData.type === UserType.Annotator;
   }
 
   public async login(username: string, password: string): Promise<ConnectionToken> {

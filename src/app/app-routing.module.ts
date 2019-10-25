@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {AdminGuard, AnnotatorGuard} from './commons/auth.gard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginGuard} from './commons/login.guard';
 
 
 const routes: Routes = [
@@ -11,17 +11,15 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
-    canActivate: [AdminGuard],
   },
   {
     path: 'annotator',
     loadChildren: './annotator/annotator.module#AnnotatorModule' ,
-    canActivate: [AnnotatorGuard],
   },
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',

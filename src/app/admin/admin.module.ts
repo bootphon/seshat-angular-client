@@ -5,7 +5,6 @@ import {CampaignViewComponent} from './components/campaign-view/campaign-view.co
 import {AnnotatorsListComponent} from './components/annotators-list/annotators-list.component';
 import {TaskViewComponent} from './components/task-view/task-view.component';
 import {AnnotatorsViewComponent} from './components/annotators-view/annotators-view.component';
-import {AdminRoutingModule} from './admin-routing.module';
 import {
   MatButtonModule,
   MatCardModule, MatCheckboxModule, MatExpansionModule,
@@ -22,7 +21,20 @@ import {FormsModule} from '@angular/forms';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import {CommonsModule} from '../commons/commons.module';
 import { CampaignAnalyticsComponent } from './components/campaign-analytics/campaign-analytics.component';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
+import {AdminGuard, AuthGard} from '../commons/auth.gard';
+
+
+const routes: Routes = [
+  { path: 'campaign/list', component: CampaignsListComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/create', component: CampaignCreationComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotator/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard] },
+  { path: 'campaign/:campaign_id', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/:campaign_id/task/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotators/:annotator_id', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: '', redirectTo: 'campaign/list', pathMatch: 'full'}
+];
 
 
 @NgModule({
@@ -40,7 +52,7 @@ import {RouterModule} from '@angular/router';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,
+    RouterModule.forChild(routes),
     MatGridListModule,
     MatCardModule,
     MatButtonModule,

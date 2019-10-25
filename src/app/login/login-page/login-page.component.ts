@@ -30,7 +30,12 @@ export class LoginPageComponent implements OnInit {
         this.roleProvider.setToken(tokenData);
         console.log(tokenData.token);
         // TODO : add login errors handling here
-        this.router.navigate(['/admin', 'campaign', 'list']);
+        if (this.roleProvider.isAdmin()) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/annotator']);
+        }
+
       }
     );
   }

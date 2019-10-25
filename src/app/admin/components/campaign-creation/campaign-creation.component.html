@@ -11,7 +11,7 @@
     <mat-grid-tile colspan="1">
       <mat-form-field>
         <mat-label>Campaign Corpora</mat-label>
-        <mat-select  [(value)]="chosenCorpora" required>
+        <mat-select  [(ngModel)]="chosenCorpora" required>
           <mat-option>&#45;&#45;</mat-option>
           <div *ngIf="availableCorpora; then options"></div>
           <ng-template #options>

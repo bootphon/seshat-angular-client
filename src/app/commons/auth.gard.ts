@@ -1,9 +1,26 @@
-
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {RoleProvider} from './role-provider';
-import {GenericSeshatError} from './errors';
 
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGard implements CanActivate {
+  constructor(
+    private router: Router,
+    private roleProvider: RoleProvider,
+  ) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (!this.roleProvider.isLogged()) {
+      this.router.navigate(['/login']);
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
 
 
 @Injectable({
@@ -15,57 +32,9 @@ export class AdminGuard implements CanActivate {
     private roleProvider: RoleProvider,
   ) {}
 
-  private checkAllowance(route: string): boolean {
-    return this.roleProvider.isAdmin();
-  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    try {
-      if (this.checkAllowance(state.url)) {
-        return true;
-      } else {
-        console.info(`Navigation to ${state.url} failed!`);
-        throw new GenericSeshatError('Access Denied', 'RejectedRouting');
-      }
-    } catch (e) {
-      if (e instanceof GenericSeshatError) {
-        const error: GenericSeshatError = e;
-        switch (error.getType()) {
-          case 'NoUserFound' || 'SessionExpired':
-            // User is not logged in redirecting to login page
-            this.router.navigate(
-              ['/login'],
-              {
-                queryParams: {
-                  returnUrl: state.url,
-                  rejected: true,
-                  message: `You need to login in order to access this page.`,
-                },
-              },
-            ).catch((_) => { console.error('Failed to navigate to route!!!'); });
-            return false;
-          case 'RejectedRouting':
-            // Page Access Denied redirecting to home (with message)
-            this.router.navigate(
-              [''],
-              {
-                queryParams: {
-                  returnUrl: state.url,
-                  rejected: true,
-                  message: `User is not allowed to access ${state.url}`,
-                },
-              },
-            ).catch((_) => { console.error('Failed to navigate to route!!!'); });
-            return false;
-
-          default:
-            console.error(error);
-        }
-      } else {
-        // Not my error
-        throw e;
-      }
-    }
+    return this.roleProvider.isAdmin();
   }
 }
 
@@ -79,56 +48,7 @@ export class AnnotatorGuard implements CanActivate {
     private roleProvider: RoleProvider,
   ) {}
 
-  private checkAllowance(route: string): boolean {
-    return this.roleProvider.isAnnotator();
-  }
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    try {
-      if (this.checkAllowance(state.url)) {
-        return true;
-      } else {
-        console.info(`Navigation to ${state.url} failed!`);
-        throw new GenericSeshatError('Access Denied', 'RejectedRouting');
-      }
-    } catch (e) {
-      if (e instanceof GenericSeshatError) {
-        const error: GenericSeshatError = e;
-        switch (error.getType()) {
-          case 'NoUserFound' || 'SessionExpired':
-            // User is not logged in redirecting to login page
-            this.router.navigate(
-              ['/login'],
-              {
-                queryParams: {
-                  returnUrl: state.url,
-                  rejected: true,
-                  message: `You need to login in order to access this page.`,
-                },
-              },
-            ).catch((_) => { console.error('Failed to navigate to route!!!'); });
-            return false;
-          case 'RejectedRouting':
-            // Page Access Denied redirecting to home (with message)
-            this.router.navigate(
-              [''],
-              {
-                queryParams: {
-                  returnUrl: state.url,
-                  rejected: true,
-                  message: `User is not allowed to access ${state.url}`,
-                },
-              },
-            ).catch((_) => { console.error('Failed to navigate to route!!!'); });
-            return false;
-
-          default:
-            console.error(error);
-        }
-      } else {
-        // Not my error
-        throw e;
-      }
-    }
+    return this.roleProvider.isAnnotator();
   }
 }
