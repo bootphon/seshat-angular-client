@@ -7,20 +7,31 @@ import {TaskViewComponent} from './components/task-view/task-view.component';
 import {AnnotatorsViewComponent} from './components/annotators-view/annotators-view.component';
 import {
   MatButtonModule,
-  MatCardModule, MatCheckboxModule, MatExpansionModule,
-  MatGridListModule, MatIconModule,
-  MatInputModule, MatMenuModule, MatPaginatorModule,
-  MatProgressBarModule, MatSelectModule, MatSliderModule, MatSlideToggleModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule, MatChipsModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatSelectModule,
+  MatSlideToggleModule,
   MatSortModule,
-  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {CampaignWikiEditComponent} from './components/campaign-wiki-edit/campaign-wiki-edit.component';
 import {CampaignCreationComponent} from './components/campaign-creation/campaign-creation.component';
 import {AnnotatorCreationComponent} from './components/annotator-creation/annotator-creation.component';
 import {FormsModule} from '@angular/forms';
-import { TasksListComponent } from './components/tasks-list/tasks-list.component';
+import {TasksListComponent} from './components/tasks-list/tasks-list.component';
 import {CommonsModule} from '../commons/commons.module';
-import { CampaignAnalyticsComponent } from './components/campaign-analytics/campaign-analytics.component';
+import {CampaignAnalyticsComponent} from './components/campaign-analytics/campaign-analytics.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminGuard, AuthGard} from '../commons/auth.gard';
 
@@ -72,6 +83,9 @@ const routes: Routes = [
     MatExpansionModule,
     MatToolbarModule,
     RouterModule,
+    MatListModule,
+    MatButtonToggleModule,
+    MatChipsModule,
   ]
 })
 export class AdminModule { }

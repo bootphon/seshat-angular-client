@@ -35,33 +35,107 @@
     <mat-grid-tile colspan="2">
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="campaignDescription">
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="5" [(ngModel)]="campaignDescription"></textarea>
       </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="2">
+    <mat-grid-tile colspan="1">
         <mat-slide-toggle
+          matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
           [(ngModel)]="campaignCreation.check_textgrids">
           Enable TextGrid checking
         </mat-slide-toggle>
     </mat-grid-tile>
+
+    <mat-grid-tile colspan="1">
+      <mat-slide-toggle
+        matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
+        [(ngModel)]="campaignCreation.enable_audio_dl">
+        Serve audio files to annotators
+      </mat-slide-toggle>
+    </mat-grid-tile>
+
     <mat-grid-tile colspan="2">
-      <mat-accordion displayMode="flat">
-        <mat-expansion-panel [disabled]="!campaignCreation.check_textgrids">
+      <mat-accordion displayMode="flat" class="campaign-specs-creator">
+        <mat-expansion-panel hideToggle
+          [disabled]="!campaignCreation.check_textgrids"
+                             [expanded]="campaignCreation.check_textgrids">
+
           <mat-expansion-panel-header>
             <mat-panel-title>
               Checked tiers
-              <button mat-fab color="primary"
-                      matTooltip="Add a tier specification">
+              <button mat-mini-fab color="primary"
+                      matTooltip="Add a tier specification"
+                      (click)="addTier()">
                 <mat-icon>playlist_add</mat-icon>
               </button>
             </mat-panel-title>
           </mat-expansion-panel-header>
+
+          <mat-list>
+            <mat-list-item *ngFor="let tierSpec of campaignCreation.checking_scheme">
+              <mat-grid-list cols="12">
+                <mat-grid-tile colspan="1">
+                  <button mat-mini-fab color="warn" (click)="deleteTier(tierSpec)"><mat-icon>clear</mat-icon></button>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                  <mat-form-field>
+                    <mat-label>Tier Name</mat-label>
+                    <input matInput [(ngModel)]="tierSpec.name">
+                  </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <mat-slide-toggle
+                    matTooltip="This tier is required for the textgrid to be valid"
+                    [(ngModel)]="tierSpec.required">
+                    Enable TextGrid checking
+                  </mat-slide-toggle>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="1">
+                  <mat-slide-toggle
+                    matTooltip="Enable annotations checking for this tier"
+                    [(ngModel)]="tierSpec.validate_tier">
+                    Enable TextGrid checking
+                  </mat-slide-toggle>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="2">
+                  <mat-button-toggle-group  [disabled]="!tierSpec.validate_tier" [(ngModel)]="tierSpec.content_type">
+                    <mat-button-toggle value="CATEGORICAL"  ngDefaultControl>Categorical</mat-button-toggle>
+                    <mat-button-toggle value="PARSED"  ngDefaultControl>Parsed</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="8">
+                  <mat-form-field *ngIf="tierSpec.validate_tier && tierSpec.content_type === 'CATEGORICAL'">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip *ngFor="let category of tierSpec.categories"
+                                removable="true" (removed)="removeCategory(tierSpec, category)">
+                        {{category}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="New category"
+                             [matChipInputFor]="chipList"
+                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                             matChipInputAddOnBlur="true"
+                             (matChipInputTokenEnd)="addCategory(tierSpec, $event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+                  <mat-form-field *ngIf="tierSpec.validate_tier && tierSpec.content_type === 'PARSED'">
+                    <mat-select [(ngModel)]="tierSpec.parser_name" placeholder="Select">
+                      <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </mat-grid-tile>
+
+              </mat-grid-list>
+            </mat-list-item>
+          </mat-list>
         </mat-expansion-panel>
       </mat-accordion>
     </mat-grid-tile>
+  <mat-grid-tile colspan="2">
+    <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
+  </mat-grid-tile>
   </mat-grid-list>
-
-  <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
 </div>
 
