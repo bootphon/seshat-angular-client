@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RoleProvider, UserData} from '../../role-provider';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {CampaignShort} from '../../../api/models/campaign-short';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'seshat-menubar',
@@ -12,7 +13,11 @@ export class MenubarComponent implements OnInit {
   campaignsData: Array<CampaignShort>;
   userData: UserData;
 
-  constructor(private roleProvider: RoleProvider, campaignsService: CampaignsService) { }
+  constructor(
+    private roleProvider: RoleProvider,
+    private campaignsService: CampaignsService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.roleProvider.getUserData().then((data) =>
@@ -22,13 +27,8 @@ export class MenubarComponent implements OnInit {
     }
   }
   logout() {
-    //TODO
-  }
-  isAdmin() {
-    this.roleProvider.isAdmin();
-  }
-  isAnnotator() {
-    this.roleProvider.isAnnotator();
+    this.roleProvider.logout();
+    this.router.navigate(['/login']);
   }
 
 }

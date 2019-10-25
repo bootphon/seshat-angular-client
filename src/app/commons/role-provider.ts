@@ -78,7 +78,7 @@ export class RoleProvider {
     this.logInEvent.emit(true);
   }
 
-  public clear() {
+  public logout() {
     window.localStorage.clear();
     this.logInEvent.emit(false);
   }
