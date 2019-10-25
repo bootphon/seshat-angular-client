@@ -1,5 +1,6 @@
+<script src="../../../admin/admin.module.ts"></script>
 <mat-list color="primary" class="seshat-toolbar">
-  <mat-list-item>
+  <mat-list-item class="seshat-menubar-title">
     <span>Seshat</span>
     <span class="spacer"></span>
     <mat-icon class="example-icon" aria-hidden="false">notification_important</mat-icon>
@@ -18,17 +19,17 @@
   </div>
   <ng-template #adminMenu>
     <mat-list-item>
-      <span>Dashboard</span>
+      <span [routerLink]="['/admin']">Dashboard</span>
     </mat-list-item>
 
     <mat-list-item>
-      <span>Annotators</span>
+      <span [routerLink]="['/admin', 'annotators', 'list']">Annotators</span>
     </mat-list-item>
 
-    <mat-list-item>
+    <mat-list-item *ngIf="campaignsData">
       <button mat-button [matMenuTriggerFor]="menu">Campaigns</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let campaign of campaignsData">{{campaign.name}}</button>
+        <button mat-menu-item [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">{{campaign.name}}</button>
       </mat-menu>
 
     </mat-list-item>
