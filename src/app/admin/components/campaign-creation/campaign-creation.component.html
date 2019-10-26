@@ -4,7 +4,7 @@
     <mat-grid-tile colspan="1">
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput placeholder="" [(ngModel)]="campaignName">
+        <input matInput placeholder="" [(ngModel)]="campaignCreation.name">
       </mat-form-field>
     </mat-grid-tile>
 
@@ -35,7 +35,7 @@
     <mat-grid-tile colspan="2">
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="5" [(ngModel)]="campaignDescription"></textarea>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="5" [(ngModel)]="campaignCreation.description"></textarea>
       </mat-form-field>
     </mat-grid-tile>
 

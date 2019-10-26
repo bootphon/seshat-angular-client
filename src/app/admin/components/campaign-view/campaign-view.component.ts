@@ -4,6 +4,7 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 import {TaskShort} from '../../../api/models/task-short';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {TasksService} from '../../../api/services/tasks.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -13,10 +14,15 @@ import {TasksService} from '../../../api/services/tasks.service';
 export class CampaignViewComponent implements OnInit {
   campaign: CampaignFull;
 
-  constructor(private campaignsService: CampaignsService, tasksService: TasksService) { }
+  constructor(private campaignsService: CampaignsService,
+              private tasksService: TasksService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // TODO : fetch the campaign slug from the URL path
+    const campaignSlug: string = this.route.snapshot.paramMap.get('campaign_slug');
+    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug}).subscribe(
+      (data) => this.campaign = data
+    );
   }
 
 }

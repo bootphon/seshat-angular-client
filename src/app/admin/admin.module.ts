@@ -39,11 +39,11 @@ import {AdminGuard, AuthGard} from '../commons/auth.gard';
 const routes: Routes = [
   { path: 'campaign/list', component: CampaignsListComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/create', component: CampaignCreationComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotator/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard] },
-  { path: 'campaign/:campaign_id', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/:campaign_id/task/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotators/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard] },
+  { path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/:campaign_slug/task/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotators/:annotator_id', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotators/view/:annotator_id', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: '', redirectTo: 'campaign/list', pathMatch: 'full'}
 ];
 

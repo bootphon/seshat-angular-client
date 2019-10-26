@@ -12,7 +12,7 @@
         aria-labelledby="task-progress"
         color="primary"
         mode="determinate"
-        value="{{ campaign.completed_tasks / campaign.total_tasks | percent }}">
+        value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
       </mat-progress-bar>
     </section>
 
@@ -23,7 +23,7 @@
         aria-labelledby="files-assigned"
         color="primary"
         mode="determinate"
-        value="{{ campaign.assigned_files / campaign.total_files | percent }}">
+        value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
       </mat-progress-bar>
     </section>
 

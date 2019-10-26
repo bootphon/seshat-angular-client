@@ -11,15 +11,17 @@ import {AnnotatorsService} from '../../../api/services/annotators.service';
 export class AnnotatorsListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
   annotatorsList: MatTableDataSource<AnnotatorShortProfile>;
-  // TODO : check what the viewchild means
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private annotatorsService: AnnotatorsService) { }
 
   ngOnInit() {
-    // TODO : retrieve the annotators profile list and cast it as a datasource
-    //  using MatTableDataSource(userlist)
+    this.annotatorsService.annotatorsListGet().subscribe(
+      (data) => {
+        this.annotatorsList = new MatTableDataSource(data);
+      }
+    );
   }
 
   openAnnotatorDialog(username: string) {}

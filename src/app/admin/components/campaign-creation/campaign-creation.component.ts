@@ -5,7 +5,7 @@ import {CampaignCreation} from '../../../api/models/campaign-creation';
 import {Router} from '@angular/router';
 import {TierSpecifications} from '../../../api/models/tier-specifications';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent, MatTableDataSource} from '@angular/material';
+import {MatChipInputEvent, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {animate, sequence, style, transition, trigger} from '@angular/animations';
 
 
@@ -33,8 +33,6 @@ const rowsAnimation =
 })
 export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  campaignName: string;
-  campaignDescription: string;
   chosenCorpora: CorporaSelection;
   campaignCreation: CampaignCreation;
   availableCorpora: CorporaListing;
@@ -67,7 +65,10 @@ export class CampaignCreationComponent implements OnInit {
       this.campaignCreation.data_folder = this.chosenCorpora.corporaName;
     }
     this.campaignsAPI.campaignsAdminPost({body: this.campaignCreation}).subscribe(
-      (data) => this.router.navigate(['/admin', 'campaign', data.slug])
+      (data) => {
+        this.router.navigate(['/admin', 'campaign', data.slug]);
+        // TODO : display a toast here maybe?
+      }
     );
   }
 
