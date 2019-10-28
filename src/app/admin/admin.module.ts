@@ -34,6 +34,8 @@ import {CommonsModule} from '../commons/commons.module';
 import {CampaignAnalyticsComponent} from './components/campaign-analytics/campaign-analytics.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminGuard, AuthGard} from '../commons/auth.gard';
+import {TaskAssignComponent} from './components/task-assign/task-assign.component';
+import {ShowdownModule} from 'ngx-showdown';
 
 
 const routes: Routes = [
@@ -41,6 +43,8 @@ const routes: Routes = [
   { path: 'campaign/create', component: CampaignCreationComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard] },
   { path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/:campaign_slug/task/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators/view/:annotator_id', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
@@ -60,6 +64,7 @@ const routes: Routes = [
     AnnotatorCreationComponent,
     TasksListComponent,
     CampaignAnalyticsComponent,
+    TaskAssignComponent
   ],
   imports: [
     CommonModule,
@@ -86,6 +91,7 @@ const routes: Routes = [
     MatListModule,
     MatButtonToggleModule,
     MatChipsModule,
+    ShowdownModule
   ]
 })
 export class AdminModule { }

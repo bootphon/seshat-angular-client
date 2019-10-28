@@ -1,43 +1,48 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>Overview</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <h3>Archive des annotations :</h3>
-    <button mat-raised-button color="primary">Download Full Archive</button>
-    <section>
-      <label id="task-progress">Tasks:</label>
-      <!-- TODO: check this -->
-      <mat-progress-bar
-        aria-labelledby="task-progress"
-        color="primary"
-        mode="determinate"
-        value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
-      </mat-progress-bar>
-    </section>
+<mat-toolbar color="primary">
+  <button mat-flat-button [routerLink]="['/admin', 'campaigns']">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <span class="space-filler"></span>
+  <span>{{campaign.name}}</span>
+</mat-toolbar>
 
-    <section>
-      <label id="files-assigned">Files:</label>
-      <!-- TODO: check this -->
-      <mat-progress-bar
-        aria-labelledby="files-assigned"
-        color="primary"
-        mode="determinate"
-        value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
-      </mat-progress-bar>
-    </section>
+<div class="campaign-view-body">
+  <h3>Archive des annotations :</h3>
+  <button mat-raised-button color="primary">Download Full Archive</button>
+  <section>
+    <label id="task-progress">Tasks:</label>
+    <!-- TODO: check this -->
+    <mat-progress-bar
+      aria-labelledby="task-progress"
+      color="primary"
+      mode="determinate"
+      value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
+    </mat-progress-bar>
+  </section>
 
-    <section>
-      <p> <em>Annotators:</em> {{campaign.annotators.join(" ,")}}</p>
-    </section>
+  <section>
+    <label id="files-assigned">Files:</label>
+    <!-- TODO: check this -->
+    <mat-progress-bar
+      aria-labelledby="files-assigned"
+      color="primary"
+      mode="determinate"
+      value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
+    </mat-progress-bar>
+  </section>
 
-  </mat-card-content>
-</mat-card>
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Tasks list</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <seshat-tasks-list [tasksList]="campaign.tasks"></seshat-tasks-list>
-  </mat-card-content>
-</mat-card>
+  <section>
+    <p> Annotators: {{campaign.annotators.join(" ,")}}</p>
+  </section>
+  <button mat-raised-button color="primary"
+          [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
+    Assign tasks
+  </button>
+  <button mat-raised-button color="primary"
+          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+    Edit campaign wiki
+  </button>
+
+  <h3>Tasks list</h3>
+  <seshat-tasks-list [tasksList]="campaign.tasks"></seshat-tasks-list>
+</div>

@@ -13,7 +13,6 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CampaignViewComponent implements OnInit {
   campaign: CampaignFull;
-
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
               private route: ActivatedRoute) { }

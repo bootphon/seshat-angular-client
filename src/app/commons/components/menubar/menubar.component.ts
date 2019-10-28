@@ -23,7 +23,11 @@ export class MenubarComponent implements OnInit {
     this.roleProvider.getUserData().then((data) =>
       this.userData = data);
     if (this.roleProvider.isAdmin()) {
-      // TODO: load campaign id's into attribute
+      this.campaignsService.campaignsListGet().subscribe(
+        (data) => {
+          this.campaignsData = data
+        }
+      );
     }
   }
   logout() {

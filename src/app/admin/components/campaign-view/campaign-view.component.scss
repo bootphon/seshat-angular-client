@@ -1,0 +1,10 @@
+.space-filler {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  width: 40px;
+}
+
+.campaign-view-body{
+  width: 90%;
+  margin: auto;
+}

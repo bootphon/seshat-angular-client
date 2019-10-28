@@ -9,7 +9,7 @@ import {AnnotatorsService} from '../../../api/services/annotators.service';
   styleUrls: ['./annotators-list.component.scss']
 })
 export class AnnotatorsListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
+  displayedColumns: string[] = ['view', 'name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
   annotatorsList: MatTableDataSource<AnnotatorShortProfile>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -22,6 +22,10 @@ export class AnnotatorsListComponent implements OnInit {
         this.annotatorsList = new MatTableDataSource(data);
       }
     );
+  }
+
+  applyFilter(filterValue: string) {
+    this.annotatorsList.filter = filterValue.trim().toLowerCase();
   }
 
   openAnnotatorDialog(username: string) {}

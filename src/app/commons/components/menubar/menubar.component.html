@@ -29,7 +29,8 @@
     <mat-list-item *ngIf="campaignsData">
       <button mat-button [matMenuTriggerFor]="menu">Campaigns</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">{{campaign.name}}</button>
+        <button mat-menu-item [routerLink]="['/admin', 'campaign', campaign.slug]"
+                *ngFor="let campaign of campaignsData">{{campaign.name}}</button>
       </mat-menu>
 
     </mat-list-item>
