@@ -25,7 +25,7 @@ export class MenubarComponent implements OnInit {
     if (this.roleProvider.isAdmin()) {
       this.campaignsService.campaignsListGet().subscribe(
         (data) => {
-          this.campaignsData = data
+          this.campaignsData = data;
         }
       );
     }

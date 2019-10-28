@@ -8,7 +8,6 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { TaskAssignment } from '../models/task-assignment';
 import { TaskComment } from '../models/task-comment';
 import { TaskCommentSubmission } from '../models/task-comment-submission';
 import { TaskFullAdmin } from '../models/task-full-admin';
@@ -16,6 +15,7 @@ import { TaskFullAnnotator } from '../models/task-full-annotator';
 import { TaskLockRequest } from '../models/task-lock-request';
 import { TaskShort } from '../models/task-short';
 import { TaskTextgridSubmission } from '../models/task-textgrid-submission';
+import { TasksAssignment } from '../models/tasks-assignment';
 
 
 /**
@@ -91,7 +91,7 @@ export class TasksService extends BaseService {
    */
   tasksAssignPost$Response(params: {
 
-    body: Array<TaskAssignment>
+    body: Array<TasksAssignment>
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksAssignPostPath, 'post');
@@ -119,7 +119,7 @@ export class TasksService extends BaseService {
    */
   tasksAssignPost(params: {
 
-    body: Array<TaskAssignment>
+    body: Array<TasksAssignment>
   }): Observable<void> {
 
     return this.tasksAssignPost$Response(params).pipe(

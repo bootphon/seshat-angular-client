@@ -1,3 +1,4 @@
+<script src="../task-assign/task-assign.component.ts"></script>
 <mat-toolbar color="primary">
   <button mat-flat-button [routerLink]="['/admin', 'campaign', campaignSlug]">
     <mat-icon>keyboard_arrow_left</mat-icon>
@@ -15,7 +16,7 @@
   <mat-tab label="Edit Content">
     <form>
       <mat-form-field class="wiki-text-area">
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="50" cdkAutosizeMinRows="4"
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="200" cdkAutosizeMinRows="4"
                   [(ngModel)]="wikiContent" name="wiki-content"></textarea>
       </mat-form-field>
     </form>

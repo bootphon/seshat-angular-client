@@ -10,6 +10,7 @@ export interface CampaignFull  {
   name: string;
   slug: string;
   stats?: CampaignStats;
+  subscribers?: Array<string>;
   tasks?: Array<TaskShort>;
   tiers_number?: number;
 }

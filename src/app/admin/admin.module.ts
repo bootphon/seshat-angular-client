@@ -6,17 +6,18 @@ import {AnnotatorsListComponent} from './components/annotators-list/annotators-l
 import {TaskViewComponent} from './components/task-view/task-view.component';
 import {AnnotatorsViewComponent} from './components/annotators-view/annotators-view.component';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
-  MatCheckboxModule, MatChipsModule,
+  MatCheckboxModule, MatChipsModule, MatDatepickerModule,
   MatExpansionModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
   MatPaginatorModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatRadioModule,
   MatSelectModule,
   MatSlideToggleModule,
   MatSortModule,
@@ -91,7 +92,10 @@ const routes: Routes = [
     MatListModule,
     MatButtonToggleModule,
     MatChipsModule,
-    ShowdownModule
+    ShowdownModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatAutocompleteModule
   ]
 })
 export class AdminModule { }

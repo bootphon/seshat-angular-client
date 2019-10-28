@@ -4,6 +4,7 @@
   </button>
   <span class="space-filler"></span>
   <span>{{campaign.name}}</span>
+  <button mat-raised-button (click)="changeFollowState()">{{currentUserIsSubscriber ? 'UNFOLLOW' : 'UNFOLLOW'}}</button>
 </mat-toolbar>
 
 <div class="campaign-view-body">

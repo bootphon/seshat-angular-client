@@ -59,6 +59,11 @@ export class RoleProvider {
     }
   }
 
+  public getUserName() {
+    this.loadUserData();
+    return this.userData.username;
+  }
+
   public isAdmin() {
     this.loadUserData();
     return this.userData != undefined && this.userData.type === UserType.Admin;

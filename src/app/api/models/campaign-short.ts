@@ -9,5 +9,6 @@ export interface CampaignShort  {
   name: string;
   slug: string;
   stats?: CampaignStats;
+  subscribers?: Array<string>;
   tiers_number?: number;
 }
