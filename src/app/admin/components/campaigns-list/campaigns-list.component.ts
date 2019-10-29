@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {CampaignShort} from '../../../api/models/campaign-short';
 import {CampaignsService} from '../../../api/services/campaigns.service';
+import {CampaignStatus} from '../../../api/models/campaign-status';
 
 @Component({
   selector: 'seshat-campaigns-list',
@@ -8,7 +8,7 @@ import {CampaignsService} from '../../../api/services/campaigns.service';
   styleUrls: ['./campaigns-list.component.scss']
 })
 export class CampaignsListComponent implements OnInit {
-  campaignsList: Array<CampaignShort>;
+  campaignsList: Array<CampaignStatus>;
   constructor(private campaignsAPI: CampaignsService) { }
 
   ngOnInit() {

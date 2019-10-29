@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {RoleProvider} from '../../../commons/role-provider';
-import {TasksAssignment} from '../../../api/models/tasks-assignment';
 import {ActivatedRoute} from '@angular/router';
-import {MatAutocompleteSelectedEvent, MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material';
 import {CorpusFile} from '../../../api/models/corpus-file';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
 import {CampaignsService} from '../../../api/services/campaigns.service';
-import {AnnotatorShortProfile} from '../../../api/models/annotator-short-profile';
 import {SelectionModel} from '@angular/cdk/collections';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import {AnnotatorProfile} from '../../../api/models/annotator-profile';
 
 @Component({
   selector: 'seshat-task-assign',
@@ -17,15 +19,16 @@ import {SelectionModel} from '@angular/cdk/collections';
 })
 export class TaskAssignComponent implements OnInit {
   campaignSlug: string;
-  tasksAssignment: TasksAssignment;
   displayedColumns: string[] = ['select', 'filename', 'assigned_tasks'];
   corpusFilesDataSource: MatTableDataSource<CorpusFile>;
   selectedFiles = new SelectionModel<CorpusFile>(true, []);
-  annotatorsList: Array<AnnotatorShortProfile> = [];
+  annotatorsList: Array<AnnotatorProfile> = [];
   minDeadline = new Date();
   deadline: Date;
-  firstAnnotator: string;
-  secondAnnotator: string; // not set for a Single Annot task
+  firstAnnotatorCtrl = new FormControl();
+  firstAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
+  secondAnnotatorCtrl = new FormControl();  // not set for a Single Annot task
+  secondAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
   taskType: string;
   constructor(
     private taskService: TasksService,
@@ -33,10 +36,23 @@ export class TaskAssignComponent implements OnInit {
     private campaignService: CampaignsService,
     private roleProvider: RoleProvider,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.firstAutoCompleteFiltered = this.firstAnnotatorCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filterAnnotator(name) : this.annotatorsList.sort())
+      );
+    this.secondAutoCompleteFiltered = this.secondAnnotatorCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value ? (typeof value === 'string' ? value : value.name) : undefined),
+        map(name => name ? this._filterAnnotator(name) : this.annotatorsList.sort())
+      );
+  }
 
   ngOnInit() {
-    this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slub');
+    this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
     this.campaignService.campaignsFilesListCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
         this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data);
@@ -69,17 +85,21 @@ export class TaskAssignComponent implements OnInit {
       this.corpusFilesDataSource.data.forEach(row => this.selectedFiles.select(row));
   }
 
-  // Methods dedicated to the annotator table
+  // Methods dedicated to the annotator autocompletion
 
-  firstUserSelect(event : MatAutocompleteSelectedEvent){
-    // TODO
+  autoCompleteDisplay(annotator: AnnotatorProfile) {
+    return annotator ? annotator.username : undefined;
   }
 
-  secondUserSelect(event : MatAutocompleteSelectedEvent){
-    // TODO
+  private _filterAnnotator(value: string) {
+    const filterValue = value.toLocaleLowerCase();
+
+    return this.annotatorsList.filter(
+      annotator => annotator.fullname.toLowerCase().includes(filterValue)
+        ||   annotator.username.includes(filterValue));
   }
 
-  submitAssigment(){
+  submitAssigment() {
     // TODO
   }
 }

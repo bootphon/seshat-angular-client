@@ -1,16 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CommentsComponent, MenubarComponent, NotificationsListComponent, TitlebarComponent} from './components';
+import {CommentsComponent, MenubarComponent, NotificationsListComponent} from './components';
 import {
   MatButtonModule,
   MatDialogModule,
   MatDividerModule,
-  MatExpansionModule,
-  MatIconModule, MatListModule, MatMenuModule,
+  MatExpansionModule, MatFormFieldModule,
+  MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatSidenavModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 
 // TODO : add all components to declarations and exports
@@ -19,7 +20,6 @@ import {RouterModule} from '@angular/router';
     CommentsComponent,
     MenubarComponent,
     NotificationsListComponent,
-    TitlebarComponent
   ],
   imports: [
     CommonModule,
@@ -33,13 +33,15 @@ import {RouterModule} from '@angular/router';
     MatTooltipModule,
     MatListModule,
     RouterModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
   ],
   exports : [
     CommentsComponent,
     MenubarComponent,
     NotificationsListComponent,
-    TitlebarComponent
   ]
 })
 export class CommonsModule { }

@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TaskComment} from '../../../api/models/task-comment';
 import {TasksService} from '../../../api/services/tasks.service';
+import {RoleProvider} from '../../role-provider';
+import {ActivatedRoute} from '@angular/router';
+import {UserShortProfile} from '../../../api/models/user-short-profile';
 
 @Component({
   selector: 'seshat-comments',
@@ -8,17 +11,41 @@ import {TasksService} from '../../../api/services/tasks.service';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent implements OnInit {
-  @Input() commentsList: Array<TaskComment>;
   @Input() taskID: string;
+  comments: Array<TaskComment> = [];
   newCommentContent: string;
-  constructor(private tasksAPI: TasksService) { }
-
-  ngOnInit() {
-    // TODO: if comment list is none, retrieve the comments list
+  currentUser: UserShortProfile;
+  constructor(
+    private tasksService: TasksService,
+    private roleProvider: RoleProvider,
+    private route: ActivatedRoute
+  ) {
+    this.currentUser = this.roleProvider.getUserShortProfile();
   }
 
-  submitComment(){
-    // TODO
+  ngOnInit() {
+    if (!this.taskID) {
+      this.taskID = this.route.snapshot.paramMap.get('task_id');
+    }
+    this.tasksService.tasksCommentTaskIdGet({taskId:this.taskID}).subscribe(
+      (data) => {
+        this.comments = data;
+      }
+    );
+  }
+
+  submitComment() {
+    this.tasksService.tasksCommentTaskIdPost({taskId: this.taskID, body: {content: this.newCommentContent}}).subscribe(
+      () => {
+        // Append the submitted comment to the comments list
+        this.comments.concat({
+          content: this.newCommentContent,
+          author: this.roleProvider.getUserShortProfile(),
+          creation: new Date().toLocaleTimeString(),
+        } as TaskComment);
+        // TODO : notify (via toast) that comment was added
+      }
+    );
   }
 
 }

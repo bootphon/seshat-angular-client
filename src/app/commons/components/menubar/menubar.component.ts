@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {RoleProvider, UserData} from '../../role-provider';
+import {RoleProvider} from '../../role-provider';
 import {CampaignsService} from '../../../api/services/campaigns.service';
-import {CampaignShort} from '../../../api/models/campaign-short';
 import {Router} from '@angular/router';
+import {AccountsService} from '../../../api/services/accounts.service';
+import {CampaignStatus} from '../../../api/models/campaign-status';
+import {UserShortProfile} from '../../../api/models/user-short-profile';
 
 @Component({
   selector: 'seshat-menubar',
@@ -10,12 +12,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./menubar.component.scss']
 })
 export class MenubarComponent implements OnInit {
-  campaignsData: Array<CampaignShort>;
-  userData: UserData;
+  campaignsData: Array<CampaignStatus>;
+  userData: UserShortProfile;
+  notifCount = 0;
 
   constructor(
     private roleProvider: RoleProvider,
     private campaignsService: CampaignsService,
+    private accountsService: AccountsService,
     private router: Router
   ) { }
 
@@ -29,7 +33,17 @@ export class MenubarComponent implements OnInit {
         }
       );
     }
+    this.accountsService.accountsNotificationsCountGet().subscribe(
+      (data) => {
+        this.notifCount = data.count;
+      }
+    );
   }
+
+  displayNotifications() {
+    // TODO
+  }
+
   logout() {
     this.roleProvider.logout();
     this.router.navigate(['/login']);

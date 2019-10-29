@@ -3,7 +3,7 @@
   <mat-list-item class="seshat-menubar-title">
     <span>Seshat</span>
     <span class="spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false">notification_important</mat-icon>
+    <button mat-flat-button ><mat-icon class="example-icon" (click)="displayNotifications()">notification_important</mat-icon></button>
   </mat-list-item>
 
   <div *ngIf="userData; then nameMenuItem">
@@ -18,14 +18,26 @@
   <div *ngIf="this.userData && this.userData.type === 'admin'; then adminMenu">
   </div>
   <ng-template #adminMenu>
-    <mat-list-item>
-      <span [routerLink]="['/admin']">Dashboard</span>
+    <mat-list-item class="campaigns-menu-item">
+      <mat-accordion [hideToggle]="campaignsData.length === 0" displayMode="flat">
+        <mat-expansion-panel class="mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <mat-panel-title [routerLink]="['/admin']">
+              Campaigns
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
+            {{ campaign.name }}
+          </span>
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-list-item>
 
     <mat-list-item>
       <span [routerLink]="['/admin', 'annotators']">Annotators</span>
     </mat-list-item>
 
+    <!--
     <mat-list-item *ngIf="campaignsData">
       <button mat-button [matMenuTriggerFor]="menu">Campaigns</button>
       <mat-menu #menu="matMenu">
@@ -34,6 +46,7 @@
       </mat-menu>
 
     </mat-list-item>
+    -->
   </ng-template>
 
   <div *ngIf="this.userData && this.userData.type === 'annotator'; then annotatorMenu">

@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AnnotatorFullProfile} from '../../../api/models/annotator-full-profile';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
-import {AnnotatorCreation} from '../../../api/models/annotator-creation';
+import {AnnotatorProfile} from '../../../api/models/annotator-profile';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AnnotatorEdition} from '../../../api/models/annotator-edition';
 
 @Component({
   selector: 'seshat-annotators-view',
@@ -10,16 +11,64 @@ import {AnnotatorCreation} from '../../../api/models/annotator-creation';
 })
 export class AnnotatorsViewComponent implements OnInit {
   @Input() username: string;
-  annotatorFullProfile: AnnotatorFullProfile;
-  annotatorProfileEdit: AnnotatorCreation;
-  constructor(private annotatorsService: AnnotatorsService) { }
+  annotatorProfile: AnnotatorProfile;
+  annotatorProfileEdit: AnnotatorEdition;
+  newPassword: string;
+  constructor(
+    private annotatorsService: AnnotatorsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // TODO: if user isn't set in the input, retrieve from url args
-  }
-  deleteAnnotator() {}
-  lockAnnotator() {}
-  unlockAnnotator() {}
-  updateAnnotatorProfile() {}
+    if (!this.username){
+      this.username = this.route.snapshot.paramMap.get('username');
+    }
+    this.annotatorsService.annotatorsViewUsernameGet({username: this.username}).subscribe(
+      (data) => {
+        this.annotatorProfile = data;
+        this.annotatorProfileEdit = {
+          username: this.annotatorProfile.username,
+          first_name: this.annotatorProfile.first_name,
+          last_name: this.annotatorProfile.last_name,
+          email: this.annotatorProfile.email
+        } as AnnotatorEdition;
+      }
+    );
 
+  }
+  deleteAnnotator() {
+    this.annotatorsService.annotatorsManageDelete({body: {username: this.username}}).subscribe(
+      () => {
+        // TODO display toast to indicate validtion
+        this.router.navigate(['/admin', 'annotators']);
+      }
+    );
+  }
+  updateAnnotatorProfile() {
+    this.annotatorsService.annotatorsManagePut({body: this.annotatorProfileEdit}).subscribe(
+      () => {
+        // TODO : display toast to indicate success
+      }
+    );
+  }
+  updateAnnotatorLock() {
+    this.annotatorsService.annotatorsLockPost(
+      {body: {username: this.username, lock_status: !this.annotatorProfile.is_locked }}
+      ).subscribe(
+      () => {
+        this.annotatorProfile.is_locked = !this.annotatorProfile.is_locked;
+      }
+    );
+  }
+  updatePassword(){
+    this.annotatorsService.annotatorsPasswordChangePost(
+      {body: {username: this.username, password: this.newPassword}}
+      ).subscribe(
+      () => {
+        // TODO : display toast
+        this.newPassword = "";
+      }
+    )
+  }
 }

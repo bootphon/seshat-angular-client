@@ -12,6 +12,7 @@ import { ConnectionToken } from '../models/connection-token';
 import { LoginCredentials } from '../models/login-credentials';
 import { NotificationData } from '../models/notification-data';
 import { NotificationDelete } from '../models/notification-delete';
+import { NotificationsCount } from '../models/notifications-count';
 import { UserShortProfile } from '../models/user-short-profile';
 
 
@@ -262,6 +263,52 @@ export class AccountsService extends BaseService {
 
     return this.accountsNotificationsDelete$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation accountsNotificationsCountGet
+   */
+  static readonly AccountsNotificationsCountGetPath = '/accounts/notifications/count';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `accountsNotificationsCountGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  accountsNotificationsCountGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<NotificationsCount>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsNotificationsCountGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<NotificationsCount>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `accountsNotificationsCountGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  accountsNotificationsCountGet(params?: {
+
+  }): Observable<NotificationsCount> {
+
+    return this.accountsNotificationsCountGet$Response(params).pipe(
+      map((r: StrictHttpResponse<NotificationsCount>) => r.body as NotificationsCount)
     );
   }
 

@@ -4,7 +4,7 @@
   </button>
   <span class="space-filler"></span>
   <span>{{campaign.name}}</span>
-  <button mat-raised-button (click)="changeFollowState()">{{currentUserIsSubscriber ? 'UNFOLLOW' : 'UNFOLLOW'}}</button>
+  <button mat-raised-button (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
 </mat-toolbar>
 
 <div class="campaign-view-body">
@@ -45,5 +45,5 @@
   </button>
 
   <h3>Tasks list</h3>
-  <seshat-tasks-list [tasksList]="campaign.tasks"></seshat-tasks-list>
+  <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
 </div>

@@ -23,19 +23,17 @@
         </td>
       </ng-container>
 
-      <!-- ID Column -->
       <ng-container matColumnDef="filename">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let file"> {{file.filename}} </td>
       </ng-container>
 
-      <!-- Progress Column -->
       <ng-container matColumnDef="assigned_tasks">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
         <td mat-cell *matCellDef="let file"> {{file.task_count}}% </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let file; columns: displayedColumns;">
       </tr>
     </table>
@@ -45,33 +43,46 @@
 
 <h3>Annotators selection</h3>
 <div class="users-selection mat-elevation-z2">
-  <mat-radio-group [(ngModel)]="taskType">
-    <mat-radio-button value="single">Single Annotator</mat-radio-button>
+  <mat-radio-group [(ngModel)]="taskType"
+                   (ngModelChange)="taskType === 'single' ? secondAnnotatorCtrl.disable() : secondAnnotatorCtrl.enable()">
+    <mat-radio-button value="single" checked>Single Annotator</mat-radio-button>
     <mat-radio-button value="double">Double Annotator</mat-radio-button>
   </mat-radio-group>
 
-  <mat-form-field>!
+  <mat-form-field>
     <input matInput [matDatepicker]="picker" placeholder="Deadline"
            [(ngModel)]="deadline" [min]="minDeadline">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <form class="example-form">
+  <form class="annotators-selection">
     <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Annotator"
-             matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-      (optionSelected)="">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.name}}
+      <input matInput [placeholder]="taskType === 'single' ? 'Annotator' : 'Reference'"
+             [matAutocomplete]="auto"
+             [formControl]="firstAnnotatorCtrl">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="autoCompleteDisplay">
+        <mat-option *ngFor="let annotator of firstAutoCompleteFiltered | async" [value]="annotator">
+          <span>{{annotator.fullname}}</span> |
+          <small>({{ annotator.username }}) Tasks: {{ annotator.assigned_tasks }}</small>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </form>
 
+  <form class="annotators-selection">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Target"
+             [matAutocomplete]="auto"
+             [formControl]="secondAnnotatorCtrl">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="autoCompleteDisplay">
+        <mat-option *ngFor="let annotator of secondAutoCompleteFiltered | async" [value]="annotator">
+          <span>{{annotator.fullname}}</span> |
+          <small>({{ annotator.username }}) Tasks: {{ annotator.assigned_tasks }}</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </form>
-
 </div>
 
 <div class="action-buttons">

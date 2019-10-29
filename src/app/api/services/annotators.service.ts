@@ -10,9 +10,11 @@ import { map, filter } from 'rxjs/operators';
 
 import { AnnotatorCreation } from '../models/annotator-creation';
 import { AnnotatorDeletion } from '../models/annotator-deletion';
-import { AnnotatorFullProfile } from '../models/annotator-full-profile';
+import { AnnotatorEdition } from '../models/annotator-edition';
 import { AnnotatorLockRequest } from '../models/annotator-lock-request';
-import { AnnotatorShortProfile } from '../models/annotator-short-profile';
+import { AnnotatorPasswordChange } from '../models/annotator-password-change';
+import { AnnotatorProfile } from '../models/annotator-profile';
+import { TaskShort } from '../models/task-short';
 
 
 /**
@@ -42,7 +44,7 @@ export class AnnotatorsService extends BaseService {
    */
   annotatorsManagePut$Response(params: {
 
-    body: AnnotatorCreation
+    body: AnnotatorEdition
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsManagePutPath, 'put');
@@ -70,7 +72,7 @@ export class AnnotatorsService extends BaseService {
    */
   annotatorsManagePut(params: {
 
-    body: AnnotatorCreation
+    body: AnnotatorEdition
   }): Observable<void> {
 
     return this.annotatorsManagePut$Response(params).pipe(
@@ -177,6 +179,55 @@ export class AnnotatorsService extends BaseService {
   }
 
   /**
+   * Path part for operation annotatorsPasswordChangePost
+   */
+  static readonly AnnotatorsPasswordChangePostPath = '/annotators/password/change';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `annotatorsPasswordChangePost()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  annotatorsPasswordChangePost$Response(params: {
+
+    body: AnnotatorPasswordChange
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsPasswordChangePostPath, 'post');
+    if (params) {
+
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `annotatorsPasswordChangePost$Response()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  annotatorsPasswordChangePost(params: {
+
+    body: AnnotatorPasswordChange
+  }): Observable<void> {
+
+    return this.annotatorsPasswordChangePost$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation annotatorsViewUsernameGet
    */
   static readonly AnnotatorsViewUsernameGetPath = '/annotators/view/{username}';
@@ -190,7 +241,7 @@ export class AnnotatorsService extends BaseService {
   annotatorsViewUsernameGet$Response(params: {
     username: string;
 
-  }): Observable<StrictHttpResponse<AnnotatorFullProfile>> {
+  }): Observable<StrictHttpResponse<AnnotatorProfile>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsViewUsernameGetPath, 'get');
     if (params) {
@@ -204,7 +255,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AnnotatorFullProfile>;
+        return r as StrictHttpResponse<AnnotatorProfile>;
       })
     );
   }
@@ -218,10 +269,59 @@ export class AnnotatorsService extends BaseService {
   annotatorsViewUsernameGet(params: {
     username: string;
 
-  }): Observable<AnnotatorFullProfile> {
+  }): Observable<AnnotatorProfile> {
 
     return this.annotatorsViewUsernameGet$Response(params).pipe(
-      map((r: StrictHttpResponse<AnnotatorFullProfile>) => r.body as AnnotatorFullProfile)
+      map((r: StrictHttpResponse<AnnotatorProfile>) => r.body as AnnotatorProfile)
+    );
+  }
+
+  /**
+   * Path part for operation annotatorsListTasksUsernameGet
+   */
+  static readonly AnnotatorsListTasksUsernameGetPath = '/annotators/list/tasks/{username}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `annotatorsListTasksUsernameGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  annotatorsListTasksUsernameGet$Response(params: {
+    username: string;
+
+  }): Observable<StrictHttpResponse<Array<TaskShort>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsListTasksUsernameGetPath, 'get');
+    if (params) {
+
+      rb.path('username', params.username);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<TaskShort>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `annotatorsListTasksUsernameGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  annotatorsListTasksUsernameGet(params: {
+    username: string;
+
+  }): Observable<Array<TaskShort>> {
+
+    return this.annotatorsListTasksUsernameGet$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<TaskShort>>) => r.body as Array<TaskShort>)
     );
   }
 
@@ -287,7 +387,7 @@ export class AnnotatorsService extends BaseService {
    */
   annotatorsListGet$Response(params?: {
 
-  }): Observable<StrictHttpResponse<Array<AnnotatorShortProfile>>> {
+  }): Observable<StrictHttpResponse<Array<AnnotatorProfile>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsListGetPath, 'get');
     if (params) {
@@ -300,7 +400,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<AnnotatorShortProfile>>;
+        return r as StrictHttpResponse<Array<AnnotatorProfile>>;
       })
     );
   }
@@ -313,10 +413,10 @@ export class AnnotatorsService extends BaseService {
    */
   annotatorsListGet(params?: {
 
-  }): Observable<Array<AnnotatorShortProfile>> {
+  }): Observable<Array<AnnotatorProfile>> {
 
     return this.annotatorsListGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<AnnotatorShortProfile>>) => r.body as Array<AnnotatorShortProfile>)
+      map((r: StrictHttpResponse<Array<AnnotatorProfile>>) => r.body as Array<AnnotatorProfile>)
     );
   }
 

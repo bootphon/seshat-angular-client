@@ -10,13 +10,13 @@ import { map, filter } from 'rxjs/operators';
 
 import { CampaignCreation } from '../models/campaign-creation';
 import { CampaignEdit } from '../models/campaign-edit';
-import { CampaignFull } from '../models/campaign-full';
-import { CampaignShort } from '../models/campaign-short';
 import { CampaignSlug } from '../models/campaign-slug';
+import { CampaignStatus } from '../models/campaign-status';
 import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-update';
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CorporaListing } from '../models/corpora-listing';
 import { CorpusFile } from '../models/corpus-file';
+import { TaskShort } from '../models/task-short';
 
 
 /**
@@ -239,7 +239,7 @@ export class CampaignsService extends BaseService {
    */
   campaignsListGet$Response(params?: {
 
-  }): Observable<StrictHttpResponse<Array<CampaignShort>>> {
+  }): Observable<StrictHttpResponse<Array<CampaignStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsListGetPath, 'get');
     if (params) {
@@ -252,7 +252,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<CampaignShort>>;
+        return r as StrictHttpResponse<Array<CampaignStatus>>;
       })
     );
   }
@@ -265,10 +265,10 @@ export class CampaignsService extends BaseService {
    */
   campaignsListGet(params?: {
 
-  }): Observable<Array<CampaignShort>> {
+  }): Observable<Array<CampaignStatus>> {
 
     return this.campaignsListGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<CampaignShort>>) => r.body as Array<CampaignShort>)
+      map((r: StrictHttpResponse<Array<CampaignStatus>>) => r.body as Array<CampaignStatus>)
     );
   }
 
@@ -286,7 +286,7 @@ export class CampaignsService extends BaseService {
   campaignsViewCampaignSlugGet$Response(params: {
     campaignSlug: string;
 
-  }): Observable<StrictHttpResponse<CampaignFull>> {
+  }): Observable<StrictHttpResponse<CampaignStatus>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsViewCampaignSlugGetPath, 'get');
     if (params) {
@@ -300,7 +300,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<CampaignFull>;
+        return r as StrictHttpResponse<CampaignStatus>;
       })
     );
   }
@@ -314,10 +314,59 @@ export class CampaignsService extends BaseService {
   campaignsViewCampaignSlugGet(params: {
     campaignSlug: string;
 
-  }): Observable<CampaignFull> {
+  }): Observable<CampaignStatus> {
 
     return this.campaignsViewCampaignSlugGet$Response(params).pipe(
-      map((r: StrictHttpResponse<CampaignFull>) => r.body as CampaignFull)
+      map((r: StrictHttpResponse<CampaignStatus>) => r.body as CampaignStatus)
+    );
+  }
+
+  /**
+   * Path part for operation campaignsListTasksCampaignSlugGet
+   */
+  static readonly CampaignsListTasksCampaignSlugGetPath = '/campaigns/list/tasks/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsListTasksCampaignSlugGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsListTasksCampaignSlugGet$Response(params: {
+    campaignSlug: string;
+
+  }): Observable<StrictHttpResponse<Array<TaskShort>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsListTasksCampaignSlugGetPath, 'get');
+    if (params) {
+
+      rb.path('campaign_slug', params.campaignSlug);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<TaskShort>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsListTasksCampaignSlugGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsListTasksCampaignSlugGet(params: {
+    campaignSlug: string;
+
+  }): Observable<Array<TaskShort>> {
+
+    return this.campaignsListTasksCampaignSlugGet$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<TaskShort>>) => r.body as Array<TaskShort>)
     );
   }
 

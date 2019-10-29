@@ -13,8 +13,8 @@
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-      Account created on {{annotatorFullProfile.creation_date}} <br/>
-      Last activity : {{annotatorFullProfile.last_activity}}
+      Account created on {{annotatorProfile.creation_date}} <br/>
+      Last activity : {{annotatorProfile.last_activity}}
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
       <mat-form-field>
@@ -25,8 +25,9 @@
     <mat-grid-tile colspan="2">
       <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput type="password" [(ngModel)]="annotatorProfileEdit.password">
+        <input matInput type="password" [(ngModel)]="newPassword">
       </mat-form-field>
+      <button mat-raised-button (click)="updatePassword()">UPDATE PASSWORD</button>
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
       <button mat-raised-button (click)="updateAnnotatorProfile()">
@@ -34,32 +35,23 @@
       </button>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
-      <div *ngIf="annotatorFullProfile.is_locked; then thenBlock else elseBlock"></div>
-      <ng-template #thenBlock>
-        <button mat-mini-fab color="accent"
-                matTooltip="Lock the task"
-                (click)="unlockAnnotator()">
-          <mat-icon>lock_open</mat-icon>
-        </button>
-      </ng-template>
-      <ng-template #elseBlock>
-        <button mat-mini-fab color="accent"
-                matTooltip="Lock the task"
-                (click)="lockAnnotator()">
-          <mat-icon>lock</mat-icon>
-        </button>
-      </ng-template>
+      <button mat-raised-button color="accent"
+              matTooltip="Lock the task"
+              (click)="updateAnnotatorLock()">
+        <mat-icon>{{ annotatorProfile.is_locked ? 'lock_open' : 'lock' }}</mat-icon>
+        {{ annotatorProfile.is_locked ? 'UNLOCK ACCOUNT' : 'LOCK ACCOUNT' }}
+      </button>
     </mat-grid-tile>
     <mat-grid-tile colspan="1">
       <button mat-raised-button (click)="deleteAnnotator()">
-        <mat-icon>save_alt</mat-icon> Update user
+        <mat-icon>clear</mat-icon> Update user
       </button>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
 
 <div id="annotator-tasks">
-  <seshat-tasks-list [tasksList]="annotatorFullProfile.tasks"></seshat-tasks-list>
+  <seshat-tasks-list [annotatorUsername]="annotatorProfile.username"></seshat-tasks-list>
 </div>
 
 

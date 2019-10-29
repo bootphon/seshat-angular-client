@@ -1,11 +1,9 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {CampaignFull} from '../../../api/models/campaign-full';
-import {MatSort, MatTableDataSource} from '@angular/material';
-import {TaskShort} from '../../../api/models/task-short';
+import {Component, OnInit} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {TasksService} from '../../../api/services/tasks.service';
 import {ActivatedRoute} from '@angular/router';
 import {RoleProvider} from '../../../commons/role-provider';
+import {CampaignStatus} from '../../../api/models/campaign-status';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -13,7 +11,7 @@ import {RoleProvider} from '../../../commons/role-provider';
   styleUrls: ['./campaign-view.component.scss']
 })
 export class CampaignViewComponent implements OnInit {
-  campaign: CampaignFull;
+  campaign: CampaignStatus;
   currentUserIsSubscriber: boolean;
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
@@ -37,6 +35,7 @@ export class CampaignViewComponent implements OnInit {
       { body : {slug : this.campaign.slug,
           subscription_status: !this.currentUserIsSubscriber}}).subscribe(
       () => {
+        this.currentUserIsSubscriber = !this.currentUserIsSubscriber;
         // TODO : display toast
       }
     )

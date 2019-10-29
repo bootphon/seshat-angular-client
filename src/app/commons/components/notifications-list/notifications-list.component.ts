@@ -9,10 +9,13 @@ import {AccountsService} from '../../../api/services/accounts.service';
 })
 export class NotificationsListComponent implements OnInit {
   notifList: Array<NotificationData>;
-  constructor(private accountsAPI: AccountsService) { }
+  constructor(private accountsService: AccountsService) { }
 
   ngOnInit() {
   }
-  deleteNotif(notif: NotificationData){}
+  deleteNotif(notif: NotificationData){
+    this.accountsService.accountsNotificationsDelete({body: {notif_id: notif.notid_id}});
+    // TODO notify parent menubar component that notif was delete
+  }
 
 }

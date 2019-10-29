@@ -12,7 +12,6 @@ export class ApiInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
     const token = this.roleProvider.getToken();
-    console.log('bonjour je suis token = ' + token);
     req = req.clone({
       setHeaders: {
         'Auth-token': `${token}`

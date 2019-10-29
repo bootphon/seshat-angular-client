@@ -1,25 +1,12 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {AccountsService} from '../api/services/accounts.service';
-import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
 import {ConnectionToken} from '../api/models/connection-token';
+import {UserShortProfile} from '../api/models/user-short-profile';
 
-enum UserType {
-  Admin = 'admin',
-  Annotator = 'annotator',
-}
-
-
-export interface UserData {
-  username: string;
-  first_name: string;
-  last_name: string;
-  type: UserType;
-}
 
 @Injectable({providedIn: 'root'})
 export class RoleProvider {
-  private userData: UserData;
+  private userData: UserShortProfile;
   private userToken: string;
   public logInEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -41,13 +28,7 @@ export class RoleProvider {
     if (this.userData) {
       return this.userData;
     } else {
-      const t = await this.accountsService.accountsDataGet().toPromise();
-      this.userData = {
-        first_name: t.first_name,
-        last_name: t.last_name,
-        type: t.type === 'admin' ? UserType.Admin : UserType.Annotator,
-        username: t.username
-      };
+      this.userData = await this.accountsService.accountsDataGet().toPromise();
       window.localStorage.setItem('userData', JSON.stringify(this.userData));
       return this.userData;
     }
@@ -55,8 +36,13 @@ export class RoleProvider {
 
   private loadUserData() {
     if (!this.userData) {
-      this.userData = JSON.parse(window.localStorage.getItem('userData')) as UserData;
+      this.userData = JSON.parse(window.localStorage.getItem('userData')) as UserShortProfile;
     }
+  }
+
+  public getUserShortProfile() {
+    this.loadUserData();
+    return this.userData;
   }
 
   public getUserName() {
@@ -66,12 +52,12 @@ export class RoleProvider {
 
   public isAdmin() {
     this.loadUserData();
-    return this.userData != undefined && this.userData.type === UserType.Admin;
+    return this.userData != undefined && this.userData.type === 'admin';
   }
 
   public isAnnotator() {
     this.loadUserData();
-    return this.userData != undefined && this.userData.type === UserType.Annotator;
+    return this.userData != undefined && this.userData.type === 'annotator';
   }
 
   public async login(username: string, password: string): Promise<ConnectionToken> {

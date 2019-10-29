@@ -15,7 +15,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
-  MatListModule,
+  MatListModule, MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule, MatRadioModule,
   MatSelectModule,
@@ -29,7 +29,7 @@ import {
 import {CampaignWikiEditComponent} from './components/campaign-wiki-edit/campaign-wiki-edit.component';
 import {CampaignCreationComponent} from './components/campaign-creation/campaign-creation.component';
 import {AnnotatorCreationComponent} from './components/annotator-creation/annotator-creation.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TasksListComponent} from './components/tasks-list/tasks-list.component';
 import {CommonsModule} from '../commons/commons.module';
 import {CampaignAnalyticsComponent} from './components/campaign-analytics/campaign-analytics.component';
@@ -46,9 +46,9 @@ const routes: Routes = [
   { path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/:campaign_slug/task/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotators/view/:annotator_id', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: '', redirectTo: 'campaign/list', pathMatch: 'full'}
 ];
 
@@ -95,7 +95,9 @@ const routes: Routes = [
     ShowdownModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    MatNativeDateModule
   ]
 })
 export class AdminModule { }

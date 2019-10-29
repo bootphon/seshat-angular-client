@@ -1,1 +1,18 @@
-<p>comments works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let comment of comments"
+                 [ngClass]="currentUser.username === comment.author.username ? 'by-current-user' : 'by-other-user'">
+    <span>By {{ comment.author.fullname}}, on {{ comment.creation }}</span>
+    <p>{{ comment.content }}</p>
+  </mat-list-item>
+</mat-list>
+
+<form class="comment-submission">
+  <mat-form-field class="">
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="4"
+              placeholder="New comment..." [ngModel]="newCommentContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button (click)="submitComment()" color="primary">
+    <mat-icon>send</mat-icon>SUBMIT
+  </button>
+</form>
+
