@@ -35,7 +35,7 @@ export class MenubarComponent implements OnInit {
         }
       );
     }
-    this.accountsService.accountsNotificationsGet().subscribe(
+    this.accountsService.accountsNotificationsCountGet().subscribe(
       (data) => {
         this.notifCount = data.count;
       }
