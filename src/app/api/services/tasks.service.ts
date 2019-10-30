@@ -91,7 +91,7 @@ export class TasksService extends BaseService {
    */
   tasksAssignPost$Response(params: {
 
-    body: Array<TasksAssignment>
+    body: TasksAssignment
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksAssignPostPath, 'post');
@@ -119,7 +119,7 @@ export class TasksService extends BaseService {
    */
   tasksAssignPost(params: {
 
-    body: Array<TasksAssignment>
+    body: TasksAssignment
   }): Observable<void> {
 
     return this.tasksAssignPost$Response(params).pipe(

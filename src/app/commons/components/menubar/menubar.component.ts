@@ -21,7 +21,9 @@ export class MenubarComponent implements OnInit {
     private campaignsService: CampaignsService,
     private accountsService: AccountsService,
     private router: Router
-  ) { }
+  ) {
+    this.campaignsData = [];
+  }
 
   ngOnInit() {
     this.roleProvider.getUserData().then((data) =>
@@ -33,7 +35,7 @@ export class MenubarComponent implements OnInit {
         }
       );
     }
-    this.accountsService.accountsNotificationsCountGet().subscribe(
+    this.accountsService.accountsNotificationsGet().subscribe(
       (data) => {
         this.notifCount = data.count;
       }

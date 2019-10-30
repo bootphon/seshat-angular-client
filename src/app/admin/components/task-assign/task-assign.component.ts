@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {RoleProvider} from '../../../commons/role-provider';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatTableDataSource} from '@angular/material';
 import {CorpusFile} from '../../../api/models/corpus-file';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
@@ -11,6 +11,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {AnnotatorProfile} from '../../../api/models/annotator-profile';
+import {TasksAssignment} from '../../../api/models';
 
 @Component({
   selector: 'seshat-task-assign',
@@ -35,7 +36,8 @@ export class TaskAssignComponent implements OnInit {
     private annotatorsService: AnnotatorsService,
     private campaignService: CampaignsService,
     private roleProvider: RoleProvider,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.firstAutoCompleteFiltered = this.firstAnnotatorCtrl.valueChanges
       .pipe(
@@ -100,6 +102,25 @@ export class TaskAssignComponent implements OnInit {
   }
 
   submitAssigment() {
-    // TODO
+    const assignment = {
+      audio_files: [],
+      deadline: this.deadline.toDateString(),
+      campaign: this.campaignSlug,
+    } as TasksAssignment;
+    // TODO: check that annotators are not none or both the same for double annotator
+    if (this.taskType === 'SINGLE') {
+      assignment.single_annot_assign = {annotator: this.firstAnnotatorCtrl.value.username};
+    } else {
+      assignment.double_annot_assign = {
+        reference: this.firstAnnotatorCtrl.value.username,
+        target: this.secondAnnotatorCtrl.value.username
+      };
+    }
+    this.taskService.tasksAssignPost({body: assignment}).subscribe(
+      () => {
+        // TODO : add toast
+        this.router.navigate(['/admin', 'campaign', this.campaignSlug]);
+      }
+    );
   }
 }
