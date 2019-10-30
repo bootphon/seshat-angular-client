@@ -32,5 +32,45 @@ html, body { height: 100%; min-height: 100vh;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 :root {
+  font-size: 13.5pt;
+
   --main-bg-color: brown;
+
+  --color-forest:rgb(97,123,128); //#617b80
+  --color-olive:rgb(151,178,113); //#97b271
+  --color-lime:rgb(222,219,93); //#dedb5d
+  --color-teal: rgb(32,138,148); //#208a94
+
+
+  --text-dark: rgb(74,74,70); //#4a4a46
+  --text-medium: rgb(102,102,102); //#666666
+  --text-light: rgb(205,205,210); //#cdcdd2
+  --text-white: rgb(255,255,255); //#ffffff
+}
+
+h1{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+h2{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-white);
+  font-size: 1rem;
+  font-weight: 100;
+  margin-bottom: 0;
+}
+
+.seshat-toolbar{
+  button{
+    //h1 styling for logout in the navbar
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-white);
+    font-size: 1rem;
+    font-weight: 200;
+    margin-bottom: 0;
+  }
 }

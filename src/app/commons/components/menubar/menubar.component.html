@@ -1,40 +1,46 @@
 <script src="../../../admin/admin.module.ts"></script>
-<mat-list color="primary" class="seshat-toolbar">
+<mat-list color="primary" class="seshat-toolbar p-2">
   <mat-list-item class="seshat-menubar-title">
-    <span>Seshat</span>
-    <span class="spacer"></span>
-    <button mat-flat-button ><mat-icon class="example-icon" (click)="displayNotifications()">notification_important</mat-icon></button>
+    <div class="w-100 d-flex justify-content-between align-items-center pt-3">
+        <div class="seshat-logo"><img src="../assets/images/seshat-logo.png" alt="Seshat"></div>
+        <button mat-icon-button><mat-icon class="example-icon" (click)="displayNotifications()">notification_important</mat-icon></button>
+    </div>
+
   </mat-list-item>
 
   <div *ngIf="userData; then nameMenuItem">
 
   </div>
   <ng-template #nameMenuItem>
-    <mat-list-item>
-      <span>{{userData.first_name}}</span>
+    <mat-list-item class="mt-1">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="logged-in-circle mr-1"></div>
+        <h1>{{userData.first_name}}</h1>
+      </div>
     </mat-list-item>
   </ng-template>
 
   <div *ngIf="this.userData && this.userData.type === 'admin'; then adminMenu">
   </div>
   <ng-template #adminMenu>
-    <mat-list-item class="campaigns-menu-item">
-      <mat-accordion [hideToggle]="campaignsData.length === 0" displayMode="flat">
+    <mat-list-item class="campaigns-menu-item mt-4">
+        <!-- <h1>Campaigns</h1>  -->
+        <mat-accordion [hideToggle]="campaignsData.length === 0" displayMode="flat">
         <mat-expansion-panel class="mat-elevation-z0">
           <mat-expansion-panel-header>
-            <mat-panel-title [routerLink]="['/admin']">
-              Campaigns
+            <mat-panel-title class="m-0" [routerLink]="['/admin']">
+              <h1>Campaigns &nbsp; &nbsp;</h1>
             </mat-panel-title>
           </mat-expansion-panel-header>
           <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
-            {{ campaign.name }}
+            <h2>{{ campaign.name }}</h2>
           </span>
         </mat-expansion-panel>
       </mat-accordion>
     </mat-list-item>
 
-    <mat-list-item>
-      <span [routerLink]="['/admin', 'annotators']">Annotators</span>
+    <mat-list-item class="mt-1">
+        <h1 class="navLink" [routerLink]="['/admin', 'annotators']">Annotators</h1>
     </mat-list-item>
 
     <!--
@@ -58,11 +64,14 @@
     </mat-list-item>
   </ng-template>
 
-  <mat-list-item>
-    <button mat-mini-fab color="accent"
-            matTooltip="Logout of Seshat"
+  <mat-list-item class="mt-5">
+    <button mat-icon-button
             (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
+      <span class="d-flex align-items-center w-100">Logout<mat-icon class="ml-1">exit_to_app</mat-icon></span>
     </button>
+  </mat-list-item>
+
+  <mat-list-item class="fixed-bottom pl-1 pb-3">
+    <h2>© CoML 2019</h2>
   </mat-list-item>
 </mat-list>
