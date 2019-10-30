@@ -4,8 +4,8 @@
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
 
-  <div class="mat-elevation-z2">
-    <table mat-table [dataSource]="corpusFilesDataSource" matSort>
+  <div class="files-table">
+    <table mat-table [dataSource]="corpusFilesDataSource" matSort class="mat-elevation-z2">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -23,14 +23,17 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="filename">
+      <ng-container matColumnDef="path">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let file"> {{file.filename}} </td>
+        <td mat-cell *matCellDef="let file"> {{file.path}} </td>
       </ng-container>
 
       <ng-container matColumnDef="assigned_tasks">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-        <td mat-cell *matCellDef="let file"> {{file.task_count}}% </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Tasks </th>
+        <td mat-cell *matCellDef="let file"
+        matTooltip="Number of tasks already assigned to that task">
+          {{ file.tasks_count }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

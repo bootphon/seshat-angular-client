@@ -1,6 +1,6 @@
 /* tslint:disable */
 import { UserShortProfile } from './user-short-profile';
-export interface TaskShort  {
+export interface TaskShortStatus  {
   annotators?: Array<string>;
   assigner: UserShortProfile;
   creation_time: string;

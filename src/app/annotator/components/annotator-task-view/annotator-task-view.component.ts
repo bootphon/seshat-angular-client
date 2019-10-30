@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {TaskFullAnnotator} from '../../../api/models/task-full-annotator';
+import {Component, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
+import {TaskFullStatusAnnotator} from '../../../api/models/task-full-status-annotator';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'seshat-annotator-task-view',
@@ -8,11 +9,20 @@ import {TasksService} from '../../../api/services/tasks.service';
   styleUrls: ['./annotator-task-view.component.scss']
 })
 export class AnnotatorTaskViewComponent implements OnInit {
-  taskData: TaskFullAnnotator;
-  constructor(private tasksAPI: TasksService) { }
+  taskData: TaskFullStatusAnnotator;
+  taskId: string;
+  constructor(
+    private tasksService: TasksService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    // TODO: retrieve task id from url args
+    this.taskId = this.route.snapshot.paramMap.get('task_id');
+    this.tasksService.tasksStatusAnnotatorTaskIdGet({taskId: this.taskId}).subscribe(
+      (data) => {
+        this.taskData = data;
+      }
+    );
   }
   validateTextGrid() {}
   submitTextGrid() {}

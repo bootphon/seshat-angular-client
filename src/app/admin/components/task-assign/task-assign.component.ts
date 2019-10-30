@@ -20,7 +20,7 @@ import {TasksAssignment} from '../../../api/models';
 })
 export class TaskAssignComponent implements OnInit {
   campaignSlug: string;
-  displayedColumns: string[] = ['select', 'filename', 'assigned_tasks'];
+  displayedColumns: string[] = ['select', 'path', 'assigned_tasks'];
   corpusFilesDataSource: MatTableDataSource<CorpusFile>;
   selectedFiles = new SelectionModel<CorpusFile>(true, []);
   annotatorsList: Array<AnnotatorProfile> = [];

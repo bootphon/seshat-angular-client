@@ -16,7 +16,7 @@ import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-upda
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CorporaListing } from '../models/corpora-listing';
 import { CorpusFile } from '../models/corpus-file';
-import { TaskShort } from '../models/task-short';
+import { TaskShortStatus } from '../models/task-short-status';
 
 
 /**
@@ -335,7 +335,7 @@ export class CampaignsService extends BaseService {
   campaignsListTasksCampaignSlugGet$Response(params: {
     campaignSlug: string;
 
-  }): Observable<StrictHttpResponse<Array<TaskShort>>> {
+  }): Observable<StrictHttpResponse<Array<TaskShortStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsListTasksCampaignSlugGetPath, 'get');
     if (params) {
@@ -349,7 +349,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<TaskShort>>;
+        return r as StrictHttpResponse<Array<TaskShortStatus>>;
       })
     );
   }
@@ -363,10 +363,10 @@ export class CampaignsService extends BaseService {
   campaignsListTasksCampaignSlugGet(params: {
     campaignSlug: string;
 
-  }): Observable<Array<TaskShort>> {
+  }): Observable<Array<TaskShortStatus>> {
 
     return this.campaignsListTasksCampaignSlugGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<TaskShort>>) => r.body as Array<TaskShort>)
+      map((r: StrictHttpResponse<Array<TaskShortStatus>>) => r.body as Array<TaskShortStatus>)
     );
   }
 

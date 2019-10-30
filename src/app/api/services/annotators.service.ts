@@ -14,7 +14,7 @@ import { AnnotatorEdition } from '../models/annotator-edition';
 import { AnnotatorLockRequest } from '../models/annotator-lock-request';
 import { AnnotatorPasswordChange } from '../models/annotator-password-change';
 import { AnnotatorProfile } from '../models/annotator-profile';
-import { TaskShort } from '../models/task-short';
+import { TaskShortStatus } from '../models/task-short-status';
 
 
 /**
@@ -290,7 +290,7 @@ export class AnnotatorsService extends BaseService {
   annotatorsListTasksUsernameGet$Response(params: {
     username: string;
 
-  }): Observable<StrictHttpResponse<Array<TaskShort>>> {
+  }): Observable<StrictHttpResponse<Array<TaskShortStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsListTasksUsernameGetPath, 'get');
     if (params) {
@@ -304,7 +304,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<TaskShort>>;
+        return r as StrictHttpResponse<Array<TaskShortStatus>>;
       })
     );
   }
@@ -318,10 +318,10 @@ export class AnnotatorsService extends BaseService {
   annotatorsListTasksUsernameGet(params: {
     username: string;
 
-  }): Observable<Array<TaskShort>> {
+  }): Observable<Array<TaskShortStatus>> {
 
     return this.annotatorsListTasksUsernameGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<TaskShort>>) => r.body as Array<TaskShort>)
+      map((r: StrictHttpResponse<Array<TaskShortStatus>>) => r.body as Array<TaskShortStatus>)
     );
   }
 

@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./tasks-list.component.scss']
 })
 export class TasksListComponent implements OnInit {
-  taskColumns: string[] = ['view', 'file', 'annotators', 'type', 'deadline', 'status', 'actions'];
+  taskColumns: string[] = ['file', 'annotators', 'type', 'deadline', 'status', 'action-lock', 'action-delete'];
   tasks: MatTableDataSource<TaskShort>;
   @Input() campaignSlug: string;
   @Input() annotatorUsername: string;

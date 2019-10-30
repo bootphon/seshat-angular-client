@@ -9,7 +9,7 @@ import {AnnotatorProfile} from '../../../api/models/annotator-profile';
   styleUrls: ['./annotators-list.component.scss']
 })
 export class AnnotatorsListComponent implements OnInit {
-  displayedColumns: string[] = ['view', 'name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
+  displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
   annotatorsList: MatTableDataSource<AnnotatorProfile>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

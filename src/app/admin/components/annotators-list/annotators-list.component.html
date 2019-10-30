@@ -51,7 +51,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="openAnnotatorDialog(row.username)" *matRowDef="let row; columns: displayedColumns;">
+    <tr mat-row (click)="openAnnotatorDialog(row.username)"
+        *matRowDef="let row; columns: displayedColumns;">
     </tr>
   </table>
 

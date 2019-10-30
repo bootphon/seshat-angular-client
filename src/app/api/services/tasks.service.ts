@@ -10,10 +10,10 @@ import { map, filter } from 'rxjs/operators';
 
 import { TaskComment } from '../models/task-comment';
 import { TaskCommentSubmission } from '../models/task-comment-submission';
-import { TaskFullAdmin } from '../models/task-full-admin';
-import { TaskFullAnnotator } from '../models/task-full-annotator';
+import { TaskFullStatusAdmin } from '../models/task-full-status-admin';
+import { TaskFullStatusAnnotator } from '../models/task-full-status-annotator';
 import { TaskLockRequest } from '../models/task-lock-request';
-import { TaskShort } from '../models/task-short';
+import { TaskShortStatus } from '../models/task-short-status';
 import { TaskTextgridSubmission } from '../models/task-textgrid-submission';
 import { TasksAssignment } from '../models/tasks-assignment';
 
@@ -45,7 +45,7 @@ export class TasksService extends BaseService {
    */
   tasksListAssignedGet$Response(params?: {
 
-  }): Observable<StrictHttpResponse<Array<TaskShort>>> {
+  }): Observable<StrictHttpResponse<Array<TaskShortStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksListAssignedGetPath, 'get');
     if (params) {
@@ -58,7 +58,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<TaskShort>>;
+        return r as StrictHttpResponse<Array<TaskShortStatus>>;
       })
     );
   }
@@ -71,10 +71,10 @@ export class TasksService extends BaseService {
    */
   tasksListAssignedGet(params?: {
 
-  }): Observable<Array<TaskShort>> {
+  }): Observable<Array<TaskShortStatus>> {
 
     return this.tasksListAssignedGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<TaskShort>>) => r.body as Array<TaskShort>)
+      map((r: StrictHttpResponse<Array<TaskShortStatus>>) => r.body as Array<TaskShortStatus>)
     );
   }
 
@@ -239,7 +239,7 @@ export class TasksService extends BaseService {
   tasksStatusAdminTaskIdGet$Response(params: {
     taskId: string;
 
-  }): Observable<StrictHttpResponse<TaskFullAdmin>> {
+  }): Observable<StrictHttpResponse<TaskFullStatusAdmin>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksStatusAdminTaskIdGetPath, 'get');
     if (params) {
@@ -253,7 +253,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<TaskFullAdmin>;
+        return r as StrictHttpResponse<TaskFullStatusAdmin>;
       })
     );
   }
@@ -267,10 +267,10 @@ export class TasksService extends BaseService {
   tasksStatusAdminTaskIdGet(params: {
     taskId: string;
 
-  }): Observable<TaskFullAdmin> {
+  }): Observable<TaskFullStatusAdmin> {
 
     return this.tasksStatusAdminTaskIdGet$Response(params).pipe(
-      map((r: StrictHttpResponse<TaskFullAdmin>) => r.body as TaskFullAdmin)
+      map((r: StrictHttpResponse<TaskFullStatusAdmin>) => r.body as TaskFullStatusAdmin)
     );
   }
 
@@ -288,7 +288,7 @@ export class TasksService extends BaseService {
   tasksStatusAnnotatorTaskIdGet$Response(params: {
     taskId: string;
 
-  }): Observable<StrictHttpResponse<TaskFullAnnotator>> {
+  }): Observable<StrictHttpResponse<TaskFullStatusAnnotator>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksStatusAnnotatorTaskIdGetPath, 'get');
     if (params) {
@@ -302,7 +302,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<TaskFullAnnotator>;
+        return r as StrictHttpResponse<TaskFullStatusAnnotator>;
       })
     );
   }
@@ -316,10 +316,10 @@ export class TasksService extends BaseService {
   tasksStatusAnnotatorTaskIdGet(params: {
     taskId: string;
 
-  }): Observable<TaskFullAnnotator> {
+  }): Observable<TaskFullStatusAnnotator> {
 
     return this.tasksStatusAnnotatorTaskIdGet$Response(params).pipe(
-      map((r: StrictHttpResponse<TaskFullAnnotator>) => r.body as TaskFullAnnotator)
+      map((r: StrictHttpResponse<TaskFullStatusAnnotator>) => r.body as TaskFullStatusAnnotator)
     );
   }
 
