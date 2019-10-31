@@ -12,8 +12,11 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$seshat-angular-client-primary: mat-palette($mat-indigo);
-$seshat-angular-client-accent: mat-palette($mat-pink, A200, A100, A400);
+
+//colors ($seshat-olive & $seshat-lime) define here: node_modules/@angular/material/_theming.scss
+
+$seshat-angular-client-primary: mat-palette($seshat-olive, A200, A100, A400);
+$seshat-angular-client-accent: mat-palette($seshat-lime, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $seshat-angular-client-warn: mat-palette($mat-red);
@@ -64,6 +67,14 @@ h2{
   margin-bottom: 0;
 }
 
+h3{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 1.25rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
 .seshat-toolbar{
   button{
     //h1 styling for logout in the navbar
@@ -103,5 +114,20 @@ h2{
   img{
     width: 100%;
     height: auto;
+  }
+}
+
+
+.mat-toolbar{
+  background-color: white !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,.2);
+  color: var(--text-dark) !important;
+
+  h3{
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0;
   }
 }

@@ -1,10 +1,10 @@
-<mat-toolbar color="primary">
-  <button mat-flat-button [routerLink]="['/admin', 'campaigns']">
-    <mat-icon>keyboard_arrow_left</mat-icon>
-  </button>
-  <span class="space-filler"></span>
-  <span>{{campaign.name}}</span>
-  <button mat-raised-button (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
+<mat-toolbar class="d-flex justify-content-between">
+  <div class="d-inline">
+    <button mat-flat-button [routerLink]="['/admin', 'campaigns']">
+      <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
+    </button>
+  </div>
+  <button class="mr-3" mat-raised-button color="primary" (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
 </mat-toolbar>
 
 <div class="campaign-view-body">

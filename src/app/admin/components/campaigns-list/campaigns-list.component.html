@@ -1,51 +1,58 @@
-<mat-toolbar color="primary">
-  <span>Dashboard</span>
+<mat-toolbar class="d-flex justify-content-between">
+    <h3 class="ml-3">Campaigns</h3>
   <span class="space-filler"></span>
-  <button mat-raised-button
-  [routerLink]="['/admin', 'campaign', 'create']">Add campaign</button>
+  <button class="mr-3" mat-raised-button
+  [routerLink]="['/admin', 'campaign', 'create']" color="primary">Add campaign</button>
 </mat-toolbar>
 
 
-<mat-grid-list cols="2" rowHeight="2:1" gutterSize="3px">
-  <mat-grid-tile *ngFor="let campaign of campaignsList">
-    <mat-card class="campaign-card">
-      <mat-card-header>
-        <mat-card-title>{{ campaign.name }}</mat-card-title>
-        <mat-card-subtitle>Created by {{campaign.creator.fullname}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
 
-        <section>
-          <label id="task-progress">Tasks:</label>
-          <!-- TODO: check this -->
-          <mat-progress-bar
-            aria-labelledby="task-progress"
-            color="primary"
-            mode="determinate"
-            value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
-          </mat-progress-bar>
-        </section>
 
-        <section>
-          <label id="files-assigned">Files:</label>
-          <!-- TODO: check this -->
-          <mat-progress-bar
-            aria-labelledby="files-assigned"
-            color="primary"
-            mode="determinate"
-            value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
-          </mat-progress-bar>
-        </section>
+<!-- <mat-grid-list cols="2" rowHeight="2:1" gutterSize="3px"> -->
+  <!-- <mat-grid-tile *ngFor="let campaign of campaignsList"> -->
+    <div class="">
+      <div class="row">
+          <div class="col-6" *ngFor="let campaign of campaignsList">
+          <mat-card class="campaign-card m-3 p-4">
+            <mat-card-header>
+              <mat-card-title>{{ campaign.name }}</mat-card-title>
+              <mat-card-subtitle>Created by {{campaign.creator.fullname}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
 
-        <section>
-          <p> <em>Annotators:</em> {{campaign.annotators.join(", ")}}</p>
-        </section>
+              <section>
+                <label id="task-progress">Tasks:</label>
+                <!-- TODO: check this -->
+                <mat-progress-bar
+                  aria-labelledby="task-progress"
+                  color="primary"
+                  mode="determinate"
+                  value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
+                </mat-progress-bar>
+              </section>
 
-      </mat-card-content>
-      <mat-card-actions>
-        <button [routerLink]="['/admin', 'campaign', campaign.slug]" mat-button color="primary">View</button>
-      </mat-card-actions>
-    </mat-card>
+              <section>
+                <label id="files-assigned">Files:</label>
+                <!-- TODO: check this -->
+                <mat-progress-bar
+                  aria-labelledby="files-assigned"
+                  color="primary"
+                  mode="determinate"
+                  value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
+                </mat-progress-bar>
+              </section>
 
-  </mat-grid-tile>
-</mat-grid-list>
+              <section>
+                <p> <em>Annotators:</em> {{campaign.annotators.join(", ")}}</p>
+              </section>
+
+            </mat-card-content>
+            <mat-card-actions>
+              <button [routerLink]="['/admin', 'campaign', campaign.slug]" mat-button color="primary">View</button>
+            </mat-card-actions>
+          </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- </mat-grid-tile> -->
+<!-- </mat-grid-list> -->
