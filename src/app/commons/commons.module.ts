@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CommentsComponent, MenubarComponent, NotificationsListComponent} from './components';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatDialogModule,
   MatDividerModule,
@@ -36,7 +37,8 @@ import {FormsModule} from '@angular/forms';
     MatMenuModule,
     MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatBadgeModule
   ],
   exports : [
     CommentsComponent,

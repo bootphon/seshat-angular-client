@@ -23,6 +23,8 @@ export class AnnotatorAssignedTasksComponent implements OnInit {
     this.finishedTasksList.sort = this.sort;
     // TODO: retrieve tasks, and filter them into the two respective lists, based on their status
     //  filter out locked tasks
+    // TODO : separate the two sorting functions:
+    //  https://stackoverflow.com/questions/47271379/multiple-mat-table-with-matsort-within-the-same-component
   }
 
 }

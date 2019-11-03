@@ -8,6 +8,7 @@ import { CampaignsService } from './services/campaigns.service';
 import { AnnotatorsService } from './services/annotators.service';
 import { AnalyticsService } from './services/analytics.service';
 import { TasksService } from './services/tasks.service';
+import { DownloadsService } from './services/downloads.service';
 
 /**
  * Module that provides all services and configuration.
@@ -22,6 +23,7 @@ import { TasksService } from './services/tasks.service';
     AnnotatorsService,
     AnalyticsService,
     TasksService,
+    DownloadsService,
     ApiConfiguration
   ],
 })

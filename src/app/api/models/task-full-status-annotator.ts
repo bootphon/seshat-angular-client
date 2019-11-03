@@ -7,6 +7,7 @@ export interface TaskFullStatusAnnotator  {
   allow_starter_dl: boolean;
   annotators?: Array<string>;
   assigner: UserShortProfile;
+  campaign_slug: string;
   creation_time: string;
   current_status_idx: number;
   current_tg_download?: string;

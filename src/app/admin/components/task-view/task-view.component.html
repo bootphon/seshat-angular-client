@@ -55,6 +55,24 @@
     </td>
   </ng-container>
 
+  <ng-container matColumnDef="download">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let textgrid">
+      <button *ngIf="textgrid.is_done" mat-mini-fab color="primary" (click)="downloadTaskTextGrid(textgrid)">
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let textgrid">
+      <button *ngIf="textgrid.is_done" mat-mini-fab color="warn" (click)="deleteTaskTextGrid(textgrid)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Filename. </th>
     <td mat-cell *matCellDef="let textgrid"> {{textgrid.name}} </td>
@@ -80,6 +98,10 @@
       (click)="tgSelection.toggle(row)">
   </tr>
 </table>
+
+<button mat-raised-button (click)="downloadTextGrids()">
+  <mat-icon>save_alt</mat-icon> Download selected textgrids
+</button>
 
 
 <button>Download<mat-icon>save_alt</mat-icon></button>

@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TaskFullStatusAdmin} from '../../../api/models/task-full-status-admin';
 import {MatTableDataSource} from '@angular/material';
 import {TaskTextGrid} from '../../../api/models';
 import {SelectionModel} from '@angular/cdk/collections';
+import {DownloadsService} from '../../../api/services/downloads.service';
 
 @Component({
   selector: 'seshat-admin-task-view',
@@ -14,12 +15,14 @@ import {SelectionModel} from '@angular/cdk/collections';
 export class TaskViewComponent implements OnInit {
   @Input() taskID?: string;
   taskData: TaskFullStatusAdmin;
-  displayedColumns = ['select', 'name', 'is_done', 'creator', 'created'];
+  displayedColumns = ['select', 'download', 'delete', 'name', 'is_done', 'creator', 'created'];
   textgridDataSource = new MatTableDataSource<TaskTextGrid>();
   tgSelection = new SelectionModel<TaskTextGrid>(true, []);
   constructor(
     private tasksService: TasksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private downloadsService: DownloadsService,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -48,7 +51,42 @@ export class TaskViewComponent implements OnInit {
       this.textgridDataSource.data.forEach(row => this.tgSelection.select(row));
   }
 
-  downloadTextGrids() {}
-  deleteTask() {}
-  changeTaskLock() {}
+  downloadTextGrids() {
+    if (this.tgSelection.hasValue()) {
+      const tgNames = this.tgSelection.selected.map(tg => tg.name);
+      this.downloadsService.downloadsTaskTaskIdTextgridsGet(
+        {taskId: this.taskID, body: {names : tgNames}});
+    } else {
+      // TODO : display toast
+    }
+  }
+  deleteTask() {
+    this.tasksService.tasksDeleteTaskIdDelete({taskId: this.taskID}).subscribe(
+      () => {
+        this.router.navigate(['/admin', 'campaign', this.taskData.campaign.slug]);
+      }
+    );
+  }
+  changeTaskLock() {
+    this.tasksService.tasksLockPost({body: {task_id: this.taskID, lock_status: !this.taskData.is_locked}}).subscribe(
+      () => {
+        this.taskData.is_locked = !this.taskData.is_locked;
+      }
+    );
+  }
+  deleteTaskTextGrid(tg: TaskTextGrid) {
+    this.tasksService.tasksDeleteTaskIdTextgridTgNameDelete({taskId: this.taskID, tgName: tg.name}).subscribe(
+      () => {
+        tg.is_done = false;
+        tg.created = null;
+        tg.creators = null;
+        tg.id = null;
+        // TODO : display a toast
+      }
+    );
+  }
+  downloadTaskTextGrid(tg: TaskTextGrid) {
+    this.downloadsService.downloadsTaskTaskIdTextgridsGet(
+      {taskId: this.taskID, body: {names : [tg.name]}});
+  }
 }

@@ -103,7 +103,7 @@ export class TaskAssignComponent implements OnInit {
 
   submitAssigment() {
     const assignment = {
-      audio_files: [],
+      audio_files: this.selectedFiles.selected.map(file => file.path),
       deadline: this.deadline.toDateString(),
       campaign: this.campaignSlug,
     } as TasksAssignment;

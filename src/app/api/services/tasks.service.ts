@@ -177,6 +177,58 @@ export class TasksService extends BaseService {
   }
 
   /**
+   * Path part for operation tasksDeleteTaskIdTextgridTgNameDelete
+   */
+  static readonly TasksDeleteTaskIdTextgridTgNameDeletePath = '/tasks/delete/{task_id}/textgrid/{tg_name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `tasksDeleteTaskIdTextgridTgNameDelete()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  tasksDeleteTaskIdTextgridTgNameDelete$Response(params: {
+    tgName: string;
+    taskId: string;
+
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TasksService.TasksDeleteTaskIdTextgridTgNameDeletePath, 'delete');
+    if (params) {
+
+      rb.path('tg_name', params.tgName);
+      rb.path('task_id', params.taskId);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `tasksDeleteTaskIdTextgridTgNameDelete$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  tasksDeleteTaskIdTextgridTgNameDelete(params: {
+    tgName: string;
+    taskId: string;
+
+  }): Observable<void> {
+
+    return this.tasksDeleteTaskIdTextgridTgNameDelete$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation tasksLockPost
    */
   static readonly TasksLockPostPath = '/tasks/lock/';

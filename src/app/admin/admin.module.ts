@@ -46,6 +46,7 @@ const routes: Routes = [
   { path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
+  { path: 'campaign/:campaign_slug/analytics', component: CampaignAnalyticsComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
   { path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
