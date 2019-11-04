@@ -14,6 +14,7 @@ import { CampaignSlug } from '../models/campaign-slug';
 import { CampaignStatus } from '../models/campaign-status';
 import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-update';
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
+import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
 import { CorporaListing } from '../models/corpora-listing';
 import { CorpusFile } from '../models/corpus-file';
 import { TaskShortStatus } from '../models/task-short-status';
@@ -433,7 +434,7 @@ export class CampaignsService extends BaseService {
   campaignsWikiUpdateCampaignSlugPost$Response(params: {
     campaignSlug: string;
 
-    body: CampaignWikiPage
+    body: CampaignWikiPageUpdate
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsWikiUpdateCampaignSlugPostPath, 'post');
@@ -463,7 +464,7 @@ export class CampaignsService extends BaseService {
   campaignsWikiUpdateCampaignSlugPost(params: {
     campaignSlug: string;
 
-    body: CampaignWikiPage
+    body: CampaignWikiPageUpdate
   }): Observable<void> {
 
     return this.campaignsWikiUpdateCampaignSlugPost$Response(params).pipe(

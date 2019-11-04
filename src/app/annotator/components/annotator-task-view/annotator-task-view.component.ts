@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {TaskFullStatusAnnotator} from '../../../api/models/task-full-status-annotator';
 import {ActivatedRoute} from '@angular/router';
+import {StepState} from '@angular/cdk/stepper';
+
 
 @Component({
   selector: 'seshat-annotator-task-view',
@@ -11,6 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 export class AnnotatorTaskViewComponent implements OnInit {
   taskData: TaskFullStatusAnnotator;
   taskId: string;
+  currentStepIdx = 0;
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute
