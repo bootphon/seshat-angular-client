@@ -46,7 +46,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
   --text-dark: rgb(74,74,70); //#4a4a46
-  --text-medium: rgb(102,102,102); //#666666
+  --text-medium: rgb(136,136,136); //#888888
   --text-light: rgb(205,205,210); //#cdcdd2
   --text-white: rgb(255,255,255); //#ffffff
 }
@@ -73,6 +73,50 @@ h3{
   font-size: 1.25rem;
   font-weight: 200;
   margin-bottom: 0;
+}
+
+h4{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+h5{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-weight: 200;
+  margin-bottom: 0 !important;
+}
+
+.progress-row{
+  h4{
+    span{
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-medium);
+      font-size: 0.75rem;
+      font-weight: 200;
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+.mat-card-title{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.mat-card-subtitle{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-weight: 200;
+  margin-bottom: 0 !important;
 }
 
 .seshat-toolbar{

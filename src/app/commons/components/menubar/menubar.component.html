@@ -33,7 +33,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
-            <h2>{{ campaign.name }}</h2>
+            <h2 class="navLink">{{ campaign.name }}</h2>
           </span>
         </mat-expansion-panel>
       </mat-accordion>

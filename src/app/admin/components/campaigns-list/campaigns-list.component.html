@@ -10,8 +10,8 @@
 
 <!-- <mat-grid-list cols="2" rowHeight="2:1" gutterSize="3px"> -->
   <!-- <mat-grid-tile *ngFor="let campaign of campaignsList"> -->
-    <div class="">
-      <div class="row">
+    <div class="container-fluid">
+      <div class="row m-3">
           <div class="col-6" *ngFor="let campaign of campaignsList">
           <mat-card class="campaign-card m-3 p-4">
             <mat-card-header>
@@ -20,9 +20,91 @@
             </mat-card-header>
             <mat-card-content>
 
-              <section>
+              <div class="campaign-divider"><hr/></div>
+              <div class="progress-row row d-flex align-items-center pt-2">
+                  <div class="progress-row-title col-auto">
+                    <h4 class="m-0">Tasks:</h4>
+                  </div>
+                  <div class="col">
+                    <div class="progress-container w-100" *ngIf="campaign.stats.total_tasks != 0; else progressZeroTasks">
+                        <div class="progress">
+                          <div
+                          class="progress-bar"
+                          role="progressbar"
+                          attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
+                          aria-valuemin="0"
+                          attr.aria-valuemax="{{ campaign.stats.total_tasks }}"
+                          [style.max-width.%]="campaign.stats.completed_tasks / campaign.stats.total_tasks">
+                          <h5 class="pl-2">{{ campaign.stats.completed_tasks }}</h5>
+                          </div>
+                        </div>
+                      </div>
+                      <ng-template #progressZeroTasks>
+                        <div class="progress">
+                        <div
+                          class="progress-bar"
+                          role="progressbar"
+                          attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
+                          aria-valuemin="0"
+                          aria-valuemax="1"
+                          [style.max-width.%]="campaign.stats.completed_tasks / 1">
+                          <h5 class="pl-2">{{ campaign.stats.completed_tasks }} completed</h5>
+                          </div>
+                        </div>
+                      </ng-template>
+                  </div>
+                  <div class="progress-row-total pl-0">
+                    <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
+                  </div>
+                </div>
+              <div class="progress-row row d-flex align-items-center pt-2">
+                  <div class="progress-row-title col-auto">
+                    <h4 class="m-0">Files:</h4>
+                  </div>
+                  <div class="col">
+                    <div class="progress-container w-100" *ngIf="campaign.stats.total_tasks != 0; else progressZeroFiles">
+                        <div class="progress" >
+                          <div
+                          class="progress-bar"
+                          role="progressbar"
+                          attr.aria-valuenow="{{ campaign.stats.assigned_files }}"
+                          aria-valuemin="0"
+                          attr.aria-valuemax="{{ campaign.stats.total_files }}"
+                          [style.max-width.%]="campaign.stats.assigned_files / campaign.stats.total_files">
+                          <h5 class="pl-2">{{ campaign.stats.total_files }} assigned</h5>
+                          </div>
+                        </div>
+                      </div>
+                      <ng-template #progressZeroFiles>
+                          <div class="progress">
+                          <div
+                            class="progress-bar"
+                            role="progressbar"
+                            attr.aria-valuenow="{{ campaign.stats.assigned_files }}"
+                            aria-valuemin="0"
+                            aria-valuemax="1"
+                            [style.max-width.%]="campaign.stats.assigned_files / 1">
+                            <h5 class="pl-2">{{ campaign.stats.assigned_files }} assigned</h5>
+                            </div>
+                          </div>
+                        </ng-template>
+                  </div>
+                  <div class="progress-row-total pl-0">
+                    <h4 class="m-0">{{ campaign.stats.total_files }}</h4>
+                  </div>
+                </div>
+
+                <div class="progress-row row d-flex align-items-center pt-2">
+                  <div class=" col-auto">
+                    <h4 class="m-0">Annotators:</h4>
+                    <h5>John Smith, Aaron Robert, Rhys McCallan, James Roberts, Jane Smith, Antonia Roberts</h5>
+                  </div>
+                </div>
+
+
+              <!-- <section>
                 <label id="task-progress">Tasks:</label>
-                <!-- TODO: check this -->
+                 TODO: check this
                 <mat-progress-bar
                   aria-labelledby="task-progress"
                   color="primary"
@@ -33,18 +115,18 @@
 
               <section>
                 <label id="files-assigned">Files:</label>
-                <!-- TODO: check this -->
+                 TODO: check this
                 <mat-progress-bar
                   aria-labelledby="files-assigned"
                   color="primary"
                   mode="determinate"
                   value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
                 </mat-progress-bar>
-              </section>
+              </section> -->
 
-              <section>
+              <!-- <section>
                 <p> <em>Annotators:</em> {{campaign.annotators.join(", ")}}</p>
-              </section>
+              </section> -->
 
             </mat-card-content>
             <mat-card-actions>
