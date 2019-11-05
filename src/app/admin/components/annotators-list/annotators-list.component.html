@@ -1,7 +1,6 @@
-<mat-toolbar color="primary">
-  <span>Annotators</span>
-  <span class="space-filler"></span>
-  <button mat-flat-button [routerLink]="['/admin', 'annotators', 'create']" ><mat-icon>add</mat-icon> Add annotator</button>
+<mat-toolbar class="d-flex justify-content-between">
+  <h3 class="ml-3">Annotators</h3>
+  <button class="mr-3"mat-flat-button color="primary" [routerLink]="['/admin', 'annotators', 'create']" ><mat-icon>add</mat-icon> Add annotator</button>
 </mat-toolbar>
 
 
@@ -13,12 +12,12 @@
 
   <table mat-table [dataSource]="annotatorsList" matSort>
 
-    <ng-container matColumnDef="view">
+    <!-- <ng-container matColumnDef="view">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
       <td mat-cell *matCellDef="let row">
         <button [routerLink]="['/admin', 'annotators', 'view', row.username]" mat-mini-fab><mat-icon>pageview</mat-icon></button>
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>

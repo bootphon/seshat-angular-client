@@ -12,8 +12,11 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$seshat-angular-client-primary: mat-palette($mat-indigo);
-$seshat-angular-client-accent: mat-palette($mat-pink, A200, A100, A400);
+
+//colors ($seshat-olive & $seshat-lime) define here: node_modules/@angular/material/_theming.scss
+
+$seshat-angular-client-primary: mat-palette($seshat-olive, A200, A100, A400);
+$seshat-angular-client-accent: mat-palette($seshat-lime, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $seshat-angular-client-warn: mat-palette($mat-red);
@@ -40,10 +43,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --color-olive:rgb(151,178,113); //#97b271
   --color-lime:rgb(222,219,93); //#dedb5d
   --color-teal: rgb(32,138,148); //#208a94
+  --color-light-gray: rgb(246,248,249); //#f6f8f9
 
 
   --text-dark: rgb(74,74,70); //#4a4a46
-  --text-medium: rgb(102,102,102); //#666666
+  --text-medium: rgb(136,136,136); //#888888
   --text-light: rgb(205,205,210); //#cdcdd2
   --text-white: rgb(255,255,255); //#ffffff
 }
@@ -63,6 +67,73 @@ h2{
   font-weight: 100;
   margin-bottom: 0;
 }
+
+h3{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 1.25rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+h4{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+h5{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-weight: 200;
+  margin-bottom: 0 !important;
+}
+
+//progress row fonts
+.progress-row{
+  h4{
+    span{
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-medium);
+      font-size: 0.75rem;
+      font-weight: 200;
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+//cards fonts
+.mat-card-title{
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.mat-card-subtitle{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-medium);
+  font-size: 0.75rem;
+  font-weight: 200;
+  margin-bottom: 0 !important;
+}
+
+//tables fonts
+.mat-cell{
+  font-family: 'Open Sans', sans-serif;
+}
+.mat-header-cell{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+.mat-paginator{
+  font-family: 'Open Sans', sans-serif;
+}
+
 
 .seshat-toolbar{
   button{
@@ -103,5 +174,20 @@ h2{
   img{
     width: 100%;
     height: auto;
+  }
+}
+
+
+.mat-toolbar{
+  background-color: white !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,.2);
+  color: var(--text-dark) !important;
+
+  h3{
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0;
   }
 }
