@@ -13,11 +13,11 @@
       <mat-card-content class="mb-0">
         <mat-form-field appearance="outline">
           <mat-label>Username or email</mat-label>
-          <input matInput [(ngModel)]="username">
+          <input matInput [(ngModel)]="username" (keyup.enter)="login()">
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
-          <input type="password" matInput [(ngModel)]="password">
+          <input type="password" matInput [(ngModel)]="password" (keyup.enter)="login()">
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions class="m-0 pt-0 text-center">

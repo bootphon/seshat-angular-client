@@ -28,8 +28,6 @@ export class LoginPageComponent implements OnInit {
     this.roleProvider.login(this.username, this.password).then(
       (tokenData: ConnectionToken) => {
         this.roleProvider.setToken(tokenData);
-        console.log(tokenData.token);
-        // TODO : add login errors handling here
         if (this.roleProvider.isAdmin()) {
           this.router.navigate(['/admin']);
         } else {
