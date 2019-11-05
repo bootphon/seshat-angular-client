@@ -17,11 +17,11 @@ export class CampaignViewComponent implements OnInit {
               private tasksService: TasksService,
               private roleProvider: RoleProvider,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router)
+  {}
 
-  ngOnInit() {
-    const campaignSlug: string = this.route.snapshot.paramMap.get('campaign_slug');
-    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug}).subscribe(
+  loadCampaignData(slug: string) {
+    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug: slug}).subscribe(
       (data) => {
         this.campaign = data;
         this.currentUserIsSubscriber = this.campaign.subscribers.includes(
@@ -29,6 +29,16 @@ export class CampaignViewComponent implements OnInit {
         );
       }
     );
+  }
+
+  ngOnInit() {
+    const campaignSlug: string = this.route.snapshot.paramMap.get('campaign_slug');
+    this.loadCampaignData(campaignSlug);
+    // subscribing to the route change in case the user switches campaigns in the menu
+    this.route.params.subscribe(params => {
+      const slug = params['campaign_slug'];
+      this.loadCampaignData(slug); // reset and set based on new parameter this time
+    });
   }
 
   changeFollowState() {
