@@ -4,6 +4,7 @@ import {TasksService} from '../../../api/services/tasks.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
+import {DownloadsService} from '../../../api/services/downloads.service';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -15,6 +16,7 @@ export class CampaignViewComponent implements OnInit {
   currentUserIsSubscriber: boolean;
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
+              private downloadService: DownloadsService,
               private roleProvider: RoleProvider,
               private route: ActivatedRoute,
               private router: Router)
@@ -56,6 +58,14 @@ export class CampaignViewComponent implements OnInit {
       () => {
         // TODO : display toast to validate
         this.router.navigate(['/admin']);
+      }
+    );
+  }
+
+  getCampaignArchive() {
+    this.downloadService.downloadsCampaignArchiveCampaignSlugGet({campaignSlug: this.campaign.slug}).subscribe(
+      (data) => {
+
       }
     );
   }

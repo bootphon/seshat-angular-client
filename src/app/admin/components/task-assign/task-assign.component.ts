@@ -104,11 +104,11 @@ export class TaskAssignComponent implements OnInit {
   submitAssigment() {
     const assignment = {
       audio_files: this.selectedFiles.selected.map(file => file.path),
-      deadline: this.deadline.toDateString(),
+      deadline: this.deadline? this.deadline.toISOString() : undefined,
       campaign: this.campaignSlug,
     } as TasksAssignment;
     // TODO: check that annotators are not none or both the same for double annotator
-    if (this.taskType === 'SINGLE') {
+    if (this.taskType === 'single') {
       assignment.single_annot_assign = {annotator: this.firstAnnotatorCtrl.value.username};
     } else {
       assignment.double_annot_assign = {

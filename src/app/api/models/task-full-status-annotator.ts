@@ -9,6 +9,7 @@ export interface TaskFullStatusAnnotator  {
   assigner: UserShortProfile;
   campaign_slug: string;
   creation_time: string;
+  current_instructions: string;
   current_status_idx: number;
   current_tg_download?: string;
   deadline?: string;

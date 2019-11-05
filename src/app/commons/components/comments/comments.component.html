@@ -9,7 +9,8 @@
 <form class="comment-submission">
   <mat-form-field class="">
     <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="4"
-              placeholder="New comment..." [ngModel]="newCommentContent"></textarea>
+              name="comment-content"
+              placeholder="New comment..." [(ngModel)]="newCommentContent"></textarea>
   </mat-form-field>
   <button mat-raised-button (click)="submitComment()" color="primary">
     <mat-icon>send</mat-icon>SUBMIT

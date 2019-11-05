@@ -270,22 +270,22 @@ export class DownloadsService extends BaseService {
   }
 
   /**
-   * Path part for operation downloadsCampaignCampaignSlugGet
+   * Path part for operation downloadsCampaignArchiveCampaignSlugGet
    */
-  static readonly DownloadsCampaignCampaignSlugGetPath = '/downloads/campaign/{campaign_slug}';
+  static readonly DownloadsCampaignArchiveCampaignSlugGetPath = '/downloads/campaign/archive/{campaign_slug}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `downloadsCampaignCampaignSlugGet()` instead.
+   * To access only the response body, use `downloadsCampaignArchiveCampaignSlugGet()` instead.
    *
    * This method doesn't expect any response body
    */
-  downloadsCampaignCampaignSlugGet$Response(params: {
+  downloadsCampaignArchiveCampaignSlugGet$Response(params: {
     campaignSlug: string;
 
   }): Observable<StrictHttpResponse<void>> {
 
-    const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsCampaignCampaignSlugGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsCampaignArchiveCampaignSlugGetPath, 'get');
     if (params) {
 
       rb.path('campaign_slug', params.campaignSlug);
@@ -304,16 +304,16 @@ export class DownloadsService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `downloadsCampaignCampaignSlugGet$Response()` instead.
+   * To access the full response (for headers, for example), `downloadsCampaignArchiveCampaignSlugGet$Response()` instead.
    *
    * This method doesn't expect any response body
    */
-  downloadsCampaignCampaignSlugGet(params: {
+  downloadsCampaignArchiveCampaignSlugGet(params: {
     campaignSlug: string;
 
   }): Observable<void> {
 
-    return this.downloadsCampaignCampaignSlugGet$Response(params).pipe(
+    return this.downloadsCampaignArchiveCampaignSlugGet$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }

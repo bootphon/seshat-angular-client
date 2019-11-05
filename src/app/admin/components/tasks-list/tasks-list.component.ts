@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {CampaignsService} from '../../../api/services/campaigns.service';
@@ -11,7 +11,7 @@ import {TaskShortStatus} from '../../../api/models/task-short-status';
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss']
 })
-export class TasksListComponent implements OnInit {
+export class TasksListComponent implements OnInit, OnChanges {
   taskColumns: string[] = ['file', 'annotators', 'type', 'deadline', 'status', 'lock-action', 'delete-action'];
   tasks: MatTableDataSource<TaskShortStatus>;
   @Input() campaignSlug: string;
@@ -43,6 +43,10 @@ export class TasksListComponent implements OnInit {
     this.refreshTaskList();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.refreshTaskList();
+  }
+
   applyFilter(filterValue: string) {
     this.tasks.filter = filterValue.trim().toLowerCase();
   }
@@ -50,7 +54,8 @@ export class TasksListComponent implements OnInit {
   deleteTask(task: TaskShortStatus) {
     this.tasksService.tasksDeleteTaskIdDelete({taskId: task.id}).subscribe(
       () => {
-        this.tasks.data.filter(filteredTask => task.id !== filteredTask.id);
+        this.tasks.data = this.tasks.data.filter(filteredTask => task.id !== filteredTask.id);
+        this.tasks.filter = '';
       }
     );
   }

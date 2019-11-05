@@ -35,14 +35,17 @@ export class CommentsComponent implements OnInit {
   }
 
   submitComment() {
-    this.tasksService.tasksCommentTaskIdPost({taskId: this.taskID, body: {content: this.newCommentContent}}).subscribe(
+    this.tasksService.tasksCommentTaskIdPost(
+      {taskId: this.taskID, body: {content: this.newCommentContent}}
+      ).subscribe(
       () => {
         // Append the submitted comment to the comments list
-        this.comments.concat({
+        this.comments.push({
           content: this.newCommentContent,
           author: this.roleProvider.getUserShortProfile(),
           creation: new Date().toLocaleTimeString(),
         } as TaskComment);
+        this.newCommentContent = '';
         // TODO : notify (via toast) that comment was added
       }
     );

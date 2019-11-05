@@ -2,7 +2,7 @@
 import { CampaignStats } from './campaign-stats';
 import { UserShortProfile } from './user-short-profile';
 export interface CampaignStatus  {
-  annotators?: Array<string>;
+  annotators?: Array<UserShortProfile>;
   check_textgrids: boolean;
   corpus_path: string;
   creator: UserShortProfile;

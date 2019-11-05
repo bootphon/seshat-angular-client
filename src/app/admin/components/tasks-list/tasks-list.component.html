@@ -1,3 +1,4 @@
+<script src="../task-assign/task-assign.component.ts"></script>
 <script src="../task-view/task-view.component.ts"></script>
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -29,12 +30,12 @@
 
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-      <td mat-cell *matCellDef="let task"> {{task.type}} </td>
+      <td mat-cell *matCellDef="let task"> {{task.task_type}} </td>
     </ng-container>
 
     <ng-container matColumnDef="deadline">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Deadline </th>
-      <td mat-cell *matCellDef="let task"> {{task.deadline }} </td>
+      <td mat-cell *matCellDef="let task"> {{task.deadline ? task.deadline : 'None' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -43,19 +44,21 @@
     </ng-container>
 
     <ng-container matColumnDef="lock-action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Lock/Unlock </th>
-      <td mat-cell *matCellDef="let task">
-        <button mat-mini-fab color="accent"
-                [matTooltip]="task.is_locked? 'Unlock the task' : 'Lock the task'"
-                (click)="changeTaskLock(task)">
-          <mat-icon>{{task.is_locked? 'lock_open' : 'lock'}}}</mat-icon>
-        </button>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Locked </th>
+      <td mat-cell *matCellDef="let task" (click)="$event.stopPropagation()">
+        <mat-slide-toggle
+          class="example-margin"
+          color="accent"
+          [matTooltip]="task.is_locked ? 'Click to unlock' : 'Click to lock'"
+          [checked]="task.is_locked"
+          (toggleChange)="changeTaskLock(task)" >
+        </mat-slide-toggle>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="delete-action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
-      <td mat-cell *matCellDef="let task">
+      <td mat-cell *matCellDef="let task" (click)="$event.stopPropagation()">
         <button mat-mini-fab color="warn"
                 matTooltip="Delete the task"
                 (click)="deleteTask(task)">

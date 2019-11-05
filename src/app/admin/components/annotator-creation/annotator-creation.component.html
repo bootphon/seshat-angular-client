@@ -72,7 +72,7 @@
   <div class="col-6">
     <mat-form-field appearance="standard" class="w-100">
       <mat-label>Password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'">
+      <input matInput [(ngModel)]="annotatorProfile.password" [type]="hide ? 'password' : 'text'">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>

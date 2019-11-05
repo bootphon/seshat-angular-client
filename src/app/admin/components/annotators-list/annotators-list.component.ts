@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
 import {AnnotatorProfile} from '../../../api/models/annotator-profile';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'seshat-annotators-list',
@@ -14,7 +15,10 @@ export class AnnotatorsListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private annotatorsService: AnnotatorsService) { }
+  constructor(
+    private annotatorsService: AnnotatorsService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.annotatorsService.annotatorsListGet().subscribe(
@@ -28,7 +32,9 @@ export class AnnotatorsListComponent implements OnInit {
     this.annotatorsList.filter = filterValue.trim().toLowerCase();
   }
 
-  openAnnotatorDialog(username: string) {}
+  openAnnotatorDialog(username: string) {
+    this.router.navigate(['/admin', 'annotators', 'view', username]);
+  }
   openAddAnnotatorDialog() {}
 
 }

@@ -1,3 +1,4 @@
+<script src="../annotators-list/annotators-list.component.ts"></script>
 <mat-toolbar class="d-flex justify-content-between">
   <div class="d-inline">
     <button mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
@@ -9,7 +10,9 @@
 
 <div class="campaign-view-body">
   <h3>Archive des annotations :</h3>
-  <button mat-raised-button color="primary">Download Full Archive</button>
+  <button mat-raised-button color="primary" (click)="getCampaignArchive()">
+    Download Full Archive
+  </button>
   <section>
     <label id="task-progress">Tasks:</label>
     <mat-progress-bar
@@ -31,7 +34,9 @@
   </section>
 
   <section>
-    <p> Annotators: {{campaign.annotators.join(" ,")}}</p>
+    <p> Annotators:
+    <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]" *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+    </p>
   </section>
   <button mat-raised-button color="primary"
           [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">

@@ -1,3 +1,8 @@
 .files-table > table {
   width: 30%;
 }
+
+.files-table {
+  max-height: 400px;
+  overflow: auto;
+}
