@@ -41,17 +41,21 @@ export class ApiInterceptor implements HttpInterceptor {
             break;
           }
           case 403: {
-            const errorData = err.error instanceof String ? JSON.parse(err.error): err.error;
+            const errorData = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
             errorMsg = `Some request field are invalid : ${errorData.message}`;
             break;
           }
           case 401: {
-            errorMsg = `You are not authorized: ${err.error.message}`;
+            const errorData = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+            errorMsg = errorData.message ? `You are not authorized: ${errorData.message}` : 'You are not authorized';
             break;
           }
           case 500: {
             errorMsg = `Something wrong happened on the server...`;
             break;
+          }
+          default: {
+            console.log(err);
           }
         }
         this.snackBar.open(errorMsg,

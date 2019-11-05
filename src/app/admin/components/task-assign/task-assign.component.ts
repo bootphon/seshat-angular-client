@@ -30,7 +30,7 @@ export class TaskAssignComponent implements OnInit {
   firstAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
   secondAnnotatorCtrl = new FormControl();  // not set for a Single Annot task
   secondAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
-  taskType: string;
+  taskType = 'single';
 
   constructor(
     private taskService: TasksService,
