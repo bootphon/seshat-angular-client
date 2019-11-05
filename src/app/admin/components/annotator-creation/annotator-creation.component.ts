@@ -9,6 +9,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./annotator-creation.component.scss']
 })
 export class AnnotatorCreationComponent implements OnInit {
+  hide = true;
+
   annotatorProfile: AnnotatorCreation;
   constructor(private annotatorsService: AnnotatorsService,
               private router: Router) { }
