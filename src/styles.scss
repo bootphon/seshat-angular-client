@@ -122,6 +122,23 @@ h5{
   margin-bottom: 0 !important;
 }
 
+//entry fonts
+.mat-form-field{
+  font-family: 'Open Sans', sans-serif;
+}
+.mat-form-field-label{
+  color: purple !important;
+}
+.mat-form-field-underline{
+  background-color:green !important;
+}
+::ng-deep{
+  .mat-form-field-underline {
+    /*change color of underline*/
+    background-color: hotpink !important;
+  }
+}
+
 //tables fonts
 .mat-cell{
   font-family: 'Open Sans', sans-serif;
