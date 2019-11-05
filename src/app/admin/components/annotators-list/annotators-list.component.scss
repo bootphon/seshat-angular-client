@@ -8,6 +8,7 @@ table {
   width: 100%;
 }
 
+
 .annotators-table {
   width: 90%;
   margin: auto;
@@ -17,4 +18,32 @@ table {
 .filter-field{
   margin-left: 20px;
   width: 25%;
+}
+
+.mat-cell{
+  border: none;
+}
+
+
+tr:nth-child(odd) {
+  background: var(--color-light-gray);
+}
+tr:nth-child(even) {
+  background: var(--text-white);
+}
+.mat-header-row{
+  background: var(--text-white) !important;
+}
+
+.annotators-table{
+  background: var(--text-white) !important;
+  margin-bottom: 36px;
+  margin-top: 36px;
+  border-radius: 4px;
+}
+
+mat-paginator{
+  // background: hotpink !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 0px 0px 4px 4px;
 }
