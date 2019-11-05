@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {TasksService} from '../../../api/services/tasks.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 
@@ -16,11 +16,12 @@ export class CampaignViewComponent implements OnInit {
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
               private roleProvider: RoleProvider,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router)
+  {}
 
-  ngOnInit() {
-    const campaignSlug: string = this.route.snapshot.paramMap.get('campaign_slug');
-    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug}).subscribe(
+  loadCampaignData(slug: string) {
+    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug: slug}).subscribe(
       (data) => {
         this.campaign = data;
         this.currentUserIsSubscriber = this.campaign.subscribers.includes(
@@ -28,6 +29,16 @@ export class CampaignViewComponent implements OnInit {
         );
       }
     );
+  }
+
+  ngOnInit() {
+    const campaignSlug: string = this.route.snapshot.paramMap.get('campaign_slug');
+    this.loadCampaignData(campaignSlug);
+    // subscribing to the route change in case the user switches campaigns in the menu
+    this.route.params.subscribe(params => {
+      const slug = params['campaign_slug'];
+      this.loadCampaignData(slug); // reset and set based on new parameter this time
+    });
   }
 
   changeFollowState() {
@@ -38,8 +49,15 @@ export class CampaignViewComponent implements OnInit {
         this.currentUserIsSubscriber = !this.currentUserIsSubscriber;
         // TODO : display toast
       }
-    )
-
+    );
+  }
+  deleteCampaign() {
+    this.campaignsService.campaignsAdminDelete({body: {slug: this.campaign.slug}}).subscribe(
+      () => {
+        // TODO : display toast to validate
+        this.router.navigate(['/admin']);
+      }
+    );
   }
 
 }

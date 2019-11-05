@@ -20,7 +20,7 @@ import {TasksAssignment} from '../../../api/models';
 })
 export class TaskAssignComponent implements OnInit {
   campaignSlug: string;
-  displayedColumns: string[] = ['select', 'filename', 'assigned_tasks'];
+  displayedColumns: string[] = ['select', 'path', 'assigned_tasks'];
   corpusFilesDataSource: MatTableDataSource<CorpusFile>;
   selectedFiles = new SelectionModel<CorpusFile>(true, []);
   annotatorsList: Array<AnnotatorProfile> = [];
@@ -103,7 +103,7 @@ export class TaskAssignComponent implements OnInit {
 
   submitAssigment() {
     const assignment = {
-      audio_files: [],
+      audio_files: this.selectedFiles.selected.map(file => file.path),
       deadline: this.deadline.toDateString(),
       campaign: this.campaignSlug,
     } as TasksAssignment;

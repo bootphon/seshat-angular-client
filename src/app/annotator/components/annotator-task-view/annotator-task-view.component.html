@@ -1,1 +1,41 @@
-<p>annotator-task-view works!</p>
+<mat-toolbar color="primary">
+  <span>Annotation task for file {{taskData.filename}}</span>
+</mat-toolbar>
+
+<h3>Task Informations</h3>
+
+<div>
+  <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
+  <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
+  <p><strong>Deadline:</strong> {{taskData.deadline? taskData.deadline : 'None}}</p>
+  <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
+</div>
+
+<h3>Instructions</h3>
+
+<div>
+
+
+  <ng-template #stepcontent>
+    <p>{{taskData.i}}</p>
+  </ng-template>
+
+  <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="currentStepIdx">
+    <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent" >
+      <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+
+<h3>Submission</h3>
+
+<div>
+  <p>Once the file has been annotated, upload the file</p>
+  <p>If there are any errors on the upload, correct the errors and upload again.</p>
+  <p>You can check the validity of the file at all times (without actually uploading it) by clicking 'Validate'</p>
+</div>
+
+<h3>Comments</h3>
+
+<seshat-comments [taskID]="taskData.id"></seshat-comments>

@@ -8,7 +8,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./campaign-wiki-edit.component.scss']
 })
 export class CampaignWikiEditComponent implements OnInit {
-  wikiContent: string;
+  wikiMarkDown: string;
   lastEdit: string;
   campaignSlug: string;
   constructor(
@@ -20,14 +20,14 @@ export class CampaignWikiEditComponent implements OnInit {
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
     this.campaignsService.campaignsWikiViewCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
-        this.wikiContent = data.content;
+        this.wikiMarkDown = data.content;
         this.lastEdit = data.last_edit;
       }
     );
   }
   saveWiki() {
     this.campaignsService.campaignsWikiUpdateCampaignSlugPost(
-      {campaignSlug: this.campaignSlug, body: {content : this.wikiContent}}).subscribe(
+      {campaignSlug: this.campaignSlug, body: {content : this.wikiMarkDown}}).subscribe(
       () => {
         // TODO display toast to give the user some feedback
       }

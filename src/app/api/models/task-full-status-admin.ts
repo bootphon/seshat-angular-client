@@ -1,11 +1,12 @@
 /* tslint:disable */
-import { TaskComment } from './task-comment';
+import { CampaignShortProfile } from './campaign-short-profile';
 import { TaskTextGrid } from './task-text-grid';
 import { UserShortProfile } from './user-short-profile';
-export interface TaskFullAdmin  {
+export interface TaskFullStatusAdmin  {
   annotators?: Array<string>;
   assigner: UserShortProfile;
-  comments?: Array<TaskComment>;
+  campaign: CampaignShortProfile;
+  campaign_slug: string;
   creation_time: string;
   deadline?: string;
   filename: string;

@@ -67,7 +67,7 @@ export class AnnotatorsViewComponent implements OnInit {
       ).subscribe(
       () => {
         // TODO : display toast
-        this.newPassword = "";
+        this.newPassword = '';
       }
     )
   }

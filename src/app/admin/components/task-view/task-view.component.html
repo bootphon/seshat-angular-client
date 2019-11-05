@@ -22,22 +22,11 @@
   </tr>
 </table>
 
-<div *ngIf="taskData.is_locked; then thenBlock else elseBlock"></div>
-
-<ng-template #thenBlock>
-  <button mat-mini-fab color="accent"
-          matTooltip="Lock the task"
-          (click)="unlockTask()">
-    <mat-icon>lock_open</mat-icon>
-  </button>
-</ng-template>
-<ng-template #elseBlock>
-  <button mat-mini-fab color="accent"
-          matTooltip="Lock the task"
-          (click)="lockTask()">
-    <mat-icon>lock</mat-icon>
-  </button>
-</ng-template>
+<button mat-raised-button color="accent"
+        [matTooltip]="taskData.is_locked? 'Unlock the task' : 'Lock the task'"
+        (click)="changeTaskLock()">
+  <mat-icon>{{taskData.is_locked? 'lock_open' : 'lock'}}}</mat-icon>
+</button>
 
 <button mat-mini-fab color="warn"
         matTooltip="Delete the task"
@@ -46,7 +35,76 @@
 </button>
 
 <h3>Files</h3>
-<!-- TODO -->
+
+<table mat-table [dataSource]="textgridDataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="tgSelection.hasValue() && isAllSelected()"
+                    [indeterminate]="tgSelection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let textgrid">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? tgSelection.toggle(textgrid) : null"
+                    [checked]="tgSelection.isSelected(textgrid)"
+                    [disabled]="textgrid.is_done">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="download">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let textgrid">
+      <button *ngIf="textgrid.is_done" mat-mini-fab color="primary" (click)="downloadTaskTextGrid(textgrid)">
+        <mat-icon>get_app</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let textgrid">
+      <button *ngIf="textgrid.is_done" mat-mini-fab color="warn" (click)="deleteTaskTextGrid(textgrid)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Filename. </th>
+    <td mat-cell *matCellDef="let textgrid"> {{textgrid.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="path">
+    <th mat-header-cell *matHeaderCellDef> Is done </th>
+    <td mat-cell *matCellDef="let textgrid"> {{textgrid.is_done}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="created">
+    <th mat-header-cell *matHeaderCellDef> Creation</th>
+    <td mat-cell *matCellDef="let textgrid"> {{textgrid.created}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="creators">
+    <th mat-header-cell *matHeaderCellDef> Creation</th>
+    <td mat-cell *matCellDef="let textgrid"> {{textgrid.is_done? textgrid.creators.join(', ') : null}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="tgSelection.toggle(row)">
+  </tr>
+</table>
+
+<button mat-raised-button (click)="downloadTextGrids()">
+  <mat-icon>save_alt</mat-icon> Download selected textgrids
+</button>
+
+
+<button>Download<mat-icon>save_alt</mat-icon></button>
 
 <h3>Discussion</h3>
 <seshat-comments [taskID]="taskData.id"></seshat-comments>

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
-import {TaskShort} from '../../../api/models/task-short';
 import {MatSort, MatTableDataSource} from '@angular/material';
+import {TaskShortStatus} from '../../../api/models/task-short-status';
 
 @Component({
   selector: 'seshat-annotator-assigned-tasks',
@@ -9,8 +9,8 @@ import {MatSort, MatTableDataSource} from '@angular/material';
   styleUrls: ['./annotator-assigned-tasks.component.scss']
 })
 export class AnnotatorAssignedTasksComponent implements OnInit {
-  assignedTasksList: MatTableDataSource<TaskShort>;
-  finishedTasksList: MatTableDataSource<TaskShort>;
+  assignedTasksList: MatTableDataSource<TaskShortStatus>;
+  finishedTasksList: MatTableDataSource<TaskShortStatus>;
   assignedColumns: string[] = ['view', 'file', 'type', 'status', 'deadline'];
   finishedColumns: string[] = ['view', 'file', 'type', 'status', 'finish-date'];
 
@@ -23,6 +23,8 @@ export class AnnotatorAssignedTasksComponent implements OnInit {
     this.finishedTasksList.sort = this.sort;
     // TODO: retrieve tasks, and filter them into the two respective lists, based on their status
     //  filter out locked tasks
+    // TODO : separate the two sorting functions:
+    //  https://stackoverflow.com/questions/47271379/multiple-mat-table-with-matsort-within-the-same-component
   }
 
 }

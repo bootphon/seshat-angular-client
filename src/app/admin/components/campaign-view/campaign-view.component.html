@@ -1,6 +1,6 @@
 <mat-toolbar class="d-flex justify-content-between">
   <div class="d-inline">
-    <button mat-flat-button [routerLink]="['/admin', 'campaigns']">
+    <button mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
       <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
     </button>
   </div>
@@ -12,7 +12,6 @@
   <button mat-raised-button color="primary">Download Full Archive</button>
   <section>
     <label id="task-progress">Tasks:</label>
-    <!-- TODO: check this -->
     <mat-progress-bar
       aria-labelledby="task-progress"
       color="primary"
@@ -23,7 +22,6 @@
 
   <section>
     <label id="files-assigned">Files:</label>
-    <!-- TODO: check this -->
     <mat-progress-bar
       aria-labelledby="files-assigned"
       color="primary"
@@ -42,6 +40,13 @@
   <button mat-raised-button color="primary"
           [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
     Edit campaign wiki
+  </button>
+  <button mat-raised-button color="primary"
+          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+    View Campaign Analytics
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteCampaign()">
+    <mat-icon>clear</mat-icon>Delete Campaign
   </button>
 
   <h3>Tasks list</h3>
