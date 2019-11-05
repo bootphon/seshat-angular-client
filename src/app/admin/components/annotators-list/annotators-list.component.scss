@@ -24,7 +24,6 @@ table {
   border: none;
 }
 
-
 tr:nth-child(odd) {
   background: var(--color-light-gray);
 }
@@ -34,7 +33,10 @@ tr:nth-child(even) {
 .mat-header-row{
   background: var(--text-white) !important;
 }
-
+tr:hover td{
+  background: var(--color-table-hover);
+  cursor: pointer;
+}
 .annotators-table{
   background: var(--text-white) !important;
   margin-bottom: 36px;
