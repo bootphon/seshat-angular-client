@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoleProvider} from '../../commons/role-provider';
 import {Router} from '@angular/router';
 import {ConnectionToken} from '../../api/models/connection-token';
-import { AppComponent } from '../../app.component';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'seshat-login-page',

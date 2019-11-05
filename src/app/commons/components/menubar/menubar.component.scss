@@ -8,35 +8,33 @@
   // box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 
 
-
-  .mat-list-item{
+  .mat-list-item {
     height: initial;
   }
 
-  .logged-in-circle{
+  .logged-in-circle {
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
     background-color: var(--color-lime);
   }
 
-  .mat-expansion-panel{
+  .mat-expansion-panel {
     background-color: inherit;
     margin-left: -24px;
   }
 
-  ::ng-deep{
-    .mat-expansion-indicator::after{
+  ::ng-deep {
+    .mat-expansion-indicator::after {
       // color: var(--color-lime) !important;
       //color to be decided. if white there needs to be more of an in
       color: var(--text-white) !important;
     }
   }
 
-  .navLink{
+  .navLink {
     cursor: pointer;
   }
-
 
 
 }

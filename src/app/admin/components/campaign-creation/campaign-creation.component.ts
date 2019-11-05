@@ -67,7 +67,6 @@ export class CampaignCreationComponent implements OnInit {
     this.campaignsAPI.campaignsAdminPost({body: this.campaignCreation}).subscribe(
       (data) => {
         this.router.navigate(['/admin', 'campaign', data.slug]);
-        // TODO : display a toast here maybe?
       }
     );
   }

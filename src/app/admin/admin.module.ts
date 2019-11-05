@@ -37,20 +37,21 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdminGuard, AuthGard} from '../commons/auth.gard';
 import {TaskAssignComponent} from './components/task-assign/task-assign.component';
 import {ShowdownModule} from 'ngx-showdown';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const routes: Routes = [
-  { path: 'campaign/list', component: CampaignsListComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/create', component: CampaignCreationComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotators/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard] },
-  { path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'campaign/:campaign_slug/analytics', component: CampaignAnalyticsComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
-  { path: '', redirectTo: 'campaign/list', pathMatch: 'full'}
+  {path: 'campaign/list', component: CampaignsListComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'campaign/create', component: CampaignCreationComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'annotators/create', component: AnnotatorCreationComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'campaign/:campaign_slug/analytics', component: CampaignAnalyticsComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: '', redirectTo: 'campaign/list', pathMatch: 'full'}
 ];
 
 
@@ -98,7 +99,9 @@ const routes: Routes = [
     MatDatepickerModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+}

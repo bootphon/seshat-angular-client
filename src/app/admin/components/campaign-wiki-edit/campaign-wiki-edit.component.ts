@@ -1,6 +1,7 @@
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {ActivatedRoute} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'seshat-campaign-wiki-edit',
@@ -11,10 +12,13 @@ export class CampaignWikiEditComponent implements OnInit {
   wikiMarkDown: string;
   lastEdit: string;
   campaignSlug: string;
+
   constructor(
     private campaignsService: CampaignsService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
   ngOnInit() {
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
@@ -25,11 +29,13 @@ export class CampaignWikiEditComponent implements OnInit {
       }
     );
   }
+
   saveWiki() {
     this.campaignsService.campaignsWikiUpdateCampaignSlugPost(
-      {campaignSlug: this.campaignSlug, body: {content : this.wikiMarkDown}}).subscribe(
+      {campaignSlug: this.campaignSlug, body: {content: this.wikiMarkDown}}).subscribe(
       () => {
-        // TODO display toast to give the user some feedback
+        this.snackBar.open('Wiki page saved', 'Campaign Wiki',
+          {verticalPosition: 'top', duration: 3 * 1000});
       }
     );
   }

@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CampaignEdit  {
+export interface CampaignEdit {
   description: string;
   name: string;
   slug: string;

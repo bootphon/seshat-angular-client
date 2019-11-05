@@ -5,19 +5,21 @@
 }
 
 
-::ng-deep{
-  .mat-card-header-text{
+::ng-deep {
+  .mat-card-header-text {
     margin: 0 !important;
   }
 }
 
 
-.progress-row-title{
+.progress-row-title {
   width: 60px;
 }
-.progress-row-total{
+
+.progress-row-total {
   width: 35px;
 }
+
 .progress-bar {
   width: 0;
   animation: progress 2.5s ease-in-out forwards;
@@ -37,7 +39,8 @@
     width: 100%;
   }
 }
-@keyframes show  {
+
+@keyframes show {
   from {
     opacity: 0;
   }

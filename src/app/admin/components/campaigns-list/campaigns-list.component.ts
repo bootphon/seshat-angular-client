@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 
@@ -9,7 +9,9 @@ import {CampaignStatus} from '../../../api/models/campaign-status';
 })
 export class CampaignsListComponent implements OnInit {
   campaignsList: Array<CampaignStatus>;
-  constructor(private campaignsAPI: CampaignsService) { }
+
+  constructor(private campaignsAPI: CampaignsService) {
+  }
 
   ngOnInit() {
     this.campaignsAPI.campaignsListGet().subscribe(

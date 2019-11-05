@@ -10,7 +10,8 @@ export class AuthGard implements CanActivate {
   constructor(
     private router: Router,
     private roleProvider: RoleProvider,
-  ) {}
+  ) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (!this.roleProvider.isLogged()) {
@@ -30,7 +31,8 @@ export class AdminGuard implements CanActivate {
   constructor(
     private router: Router,
     private roleProvider: RoleProvider,
-  ) {}
+  ) {
+  }
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -46,7 +48,8 @@ export class AnnotatorGuard implements CanActivate {
   constructor(
     private router: Router,
     private roleProvider: RoleProvider,
-  ) {}
+  ) {
+  }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.roleProvider.isAnnotator();

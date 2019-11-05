@@ -16,7 +16,8 @@ export class AnnotatorAssignedTasksComponent implements OnInit {
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private tasksAPI: TasksService) { }
+  constructor(private tasksAPI: TasksService) {
+  }
 
   ngOnInit() {
     this.assignedTasksList.sort = this.sort;

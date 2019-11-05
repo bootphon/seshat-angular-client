@@ -15,10 +15,11 @@ export class CommentsComponent implements OnInit {
   comments: Array<TaskComment> = [];
   newCommentContent: string;
   currentUser: UserShortProfile;
+
   constructor(
     private tasksService: TasksService,
     private roleProvider: RoleProvider,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.currentUser = this.roleProvider.getUserShortProfile();
   }
@@ -27,7 +28,7 @@ export class CommentsComponent implements OnInit {
     if (!this.taskID) {
       this.taskID = this.route.snapshot.paramMap.get('task_id');
     }
-    this.tasksService.tasksCommentTaskIdGet({taskId:this.taskID}).subscribe(
+    this.tasksService.tasksCommentTaskIdGet({taskId: this.taskID}).subscribe(
       (data) => {
         this.comments = data;
       }
@@ -37,7 +38,7 @@ export class CommentsComponent implements OnInit {
   submitComment() {
     this.tasksService.tasksCommentTaskIdPost(
       {taskId: this.taskID, body: {content: this.newCommentContent}}
-      ).subscribe(
+    ).subscribe(
       () => {
         // Append the submitted comment to the comments list
         this.comments.push({
@@ -46,7 +47,6 @@ export class CommentsComponent implements OnInit {
           creation: new Date().toLocaleTimeString(),
         } as TaskComment);
         this.newCommentContent = '';
-        // TODO : notify (via toast) that comment was added
       }
     );
   }

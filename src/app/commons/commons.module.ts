@@ -11,6 +11,7 @@ import {
   MatSidenavModule,
   MatToolbarModule, MatTooltipModule
 } from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
@@ -38,12 +39,14 @@ import {FormsModule} from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSnackBarModule
   ],
-  exports : [
+  exports: [
     CommentsComponent,
     MenubarComponent,
     NotificationsListComponent,
   ]
 })
-export class CommonsModule { }
+export class CommonsModule {
+}

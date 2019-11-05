@@ -24,14 +24,14 @@
       </ng-container>
 
       <ng-container matColumnDef="path">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
         <td mat-cell *matCellDef="let file"> {{file.path}} </td>
       </ng-container>
 
       <ng-container matColumnDef="assigned_tasks">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Tasks </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Tasks</th>
         <td mat-cell *matCellDef="let file"
-        matTooltip="Number of tasks already assigned to that task">
+            matTooltip="Number of tasks already assigned to that task">
           {{ file.tasks_count }}
         </td>
       </ng-container>
@@ -91,6 +91,7 @@
 <div class="action-buttons">
   <button mat-button>CANCEL</button>
   <button mat-raised-button color="primary" (click)="submitAssigment()">
-    <mat-icon>add</mat-icon>Assign Tasks
+    <mat-icon>add</mat-icon>
+    Assign Tasks
   </button>
 </div>

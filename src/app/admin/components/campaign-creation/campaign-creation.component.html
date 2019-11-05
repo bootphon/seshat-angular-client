@@ -11,7 +11,7 @@
     <mat-grid-tile colspan="1">
       <mat-form-field>
         <mat-label>Campaign Corpora</mat-label>
-        <mat-select  [(ngModel)]="chosenCorpora" required>
+        <mat-select [(ngModel)]="chosenCorpora" required>
           <mat-option>&#45;&#45;</mat-option>
           <div *ngIf="availableCorpora; then options"></div>
           <ng-template #options>
@@ -35,7 +35,8 @@
     <mat-grid-tile colspan="2">
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="5" [(ngModel)]="campaignCreation.description"></textarea>
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="5"
+                  [(ngModel)]="campaignCreation.description"></textarea>
       </mat-form-field>
     </mat-grid-tile>
 
@@ -69,7 +70,9 @@
         <span>Checked tiers</span>
       </th>
       <td mat-cell *matCellDef="let tierSpecs">
-        <button mat-mini-fab color="warn" (click)="deleteTier(tierSpecs)"><mat-icon>clear</mat-icon></button>
+        <button mat-mini-fab color="warn" (click)="deleteTier(tierSpecs)">
+          <mat-icon>clear</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -123,11 +126,11 @@
     <ng-container matColumnDef="content_type">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let tierSpecs">
-        <mat-button-toggle-group  [disabled]="!tierSpecs.validate_tier"
-                                  [(ngModel)]="tierSpecs.content_type">
-          <mat-button-toggle value="CATEGORICAL"  ngDefaultControl>Categorical</mat-button-toggle>
-          <mat-button-toggle value="PARSED"  ngDefaultControl>Parsed</mat-button-toggle>
-          <mat-button-toggle value="NONE"  ngDefaultControl>None</mat-button-toggle>
+        <mat-button-toggle-group [disabled]="!tierSpecs.validate_tier"
+                                 [(ngModel)]="tierSpecs.content_type">
+          <mat-button-toggle value="CATEGORICAL" ngDefaultControl>Categorical</mat-button-toggle>
+          <mat-button-toggle value="PARSED" ngDefaultControl>Parsed</mat-button-toggle>
+          <mat-button-toggle value="NONE" ngDefaultControl>None</mat-button-toggle>
         </mat-button-toggle-group>
       </td>
     </ng-container>

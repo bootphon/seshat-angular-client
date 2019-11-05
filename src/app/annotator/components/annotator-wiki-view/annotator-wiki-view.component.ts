@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {ActivatedRoute} from '@angular/router';
 import {CampaignShortProfile} from '../../../api/models/campaign-short-profile';
@@ -11,10 +11,12 @@ import {CampaignWikiPage} from '../../../api/models/campaign-wiki-page';
 })
 export class AnnotatorWikiViewComponent implements OnInit {
   campaignWikiData: CampaignWikiPage;
+
   constructor(
     private campaignsAPI: CampaignsService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     const campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');

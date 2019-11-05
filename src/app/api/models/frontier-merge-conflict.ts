@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface FrontierMergeConflict  {
+export interface FrontierMergeConflict {
   interval_index_after: number;
   interval_index_before: number;
   time_a: number;

@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CampaignSubscriptionUpdate  {
+export interface CampaignSubscriptionUpdate {
   slug: string;
   subscription_status: boolean;
 }

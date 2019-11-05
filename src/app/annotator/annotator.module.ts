@@ -20,9 +20,9 @@ import {CommonsModule} from '../commons/commons.module';
 
 
 const routes: Routes = [
-  { path: 'tasks', component: AnnotatorAssignedTasksComponent, canActivate: [AuthGard, AnnotatorGuard]},
-  { path: 'task/:task_id', component: AnnotatorTaskViewComponent, canActivate: [AuthGard, AnnotatorGuard]},
-  { path: '', redirectTo: 'tasks', pathMatch: 'full'}
+  {path: 'tasks', component: AnnotatorAssignedTasksComponent, canActivate: [AuthGard, AnnotatorGuard]},
+  {path: 'task/:task_id', component: AnnotatorTaskViewComponent, canActivate: [AuthGard, AnnotatorGuard]},
+  {path: '', redirectTo: 'tasks', pathMatch: 'full'}
 ];
 
 
@@ -50,4 +50,5 @@ const routes: Routes = [
     CommonsModule
   ]
 })
-export class AnnotatorModule { }
+export class AnnotatorModule {
+}

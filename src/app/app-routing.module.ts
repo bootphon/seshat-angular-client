@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'annotator',
-    loadChildren: './annotator/annotator.module#AnnotatorModule' ,
+    loadChildren: './annotator/annotator.module#AnnotatorModule',
   },
   {
     path: '',
@@ -31,4 +31,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

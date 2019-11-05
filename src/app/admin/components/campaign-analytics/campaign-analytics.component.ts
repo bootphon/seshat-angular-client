@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AnalyticsService} from '../../../api/services/analytics.service';
 import {ActivatedRoute} from '@angular/router';
 
@@ -11,7 +11,8 @@ export class CampaignAnalyticsComponent implements OnInit {
   constructor(
     private analyticsService: AnalyticsService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     const campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');

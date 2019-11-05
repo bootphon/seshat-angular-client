@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface NotificationDelete  {
+export interface NotificationDelete {
   notif_id: string;
 }

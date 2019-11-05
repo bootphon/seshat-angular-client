@@ -5,7 +5,8 @@
       <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
     </button>
   </div>
-  <button class="mr-3" mat-raised-button color="primary" (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
+  <button class="mr-3" mat-raised-button color="primary"
+          (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
 </mat-toolbar>
 
 <div class="campaign-view-body">
@@ -35,7 +36,8 @@
 
   <section>
     <p> Annotators:
-    <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]" *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+      <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
+         *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
     </p>
   </section>
   <button mat-raised-button color="primary"
@@ -51,7 +53,8 @@
     View Campaign Analytics
   </button>
   <button mat-raised-button color="warn" (click)="deleteCampaign()">
-    <mat-icon>clear</mat-icon>Delete Campaign
+    <mat-icon>clear</mat-icon>
+    Delete Campaign
   </button>
 
   <h3>Tasks list</h3>

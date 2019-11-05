@@ -2,12 +2,13 @@
 <mat-list color="primary" class="seshat-toolbar p-2">
   <mat-list-item class="seshat-menubar-title">
     <div class="w-100 d-flex justify-content-between align-items-center pt-3">
-        <div class="seshat-logo"><img src="../assets/images/seshat-logo.png" alt="Seshat"></div>
-        <button mat-icon-button>
-          <mat-icon class="example-icon" [matBadge]="notifCount ? notifCount.toString() : null" matBadgeColor="warn"
-                    (click)="displayNotifications()">
-            notification_important</mat-icon>
-        </button>
+      <div class="seshat-logo"><img src="../assets/images/seshat-logo.png" alt="Seshat"></div>
+      <button mat-icon-button>
+        <mat-icon class="example-icon" [matBadge]="notifCount ? notifCount.toString() : null" matBadgeColor="warn"
+                  (click)="displayNotifications()">
+          notification_important
+        </mat-icon>
+      </button>
     </div>
 
   </mat-list-item>
@@ -27,8 +28,8 @@
   </div>
   <ng-template #adminMenu>
     <mat-list-item class="campaigns-menu-item mt-4">
-        <!-- <h1>Campaigns</h1>  -->
-        <mat-accordion [hideToggle]="campaignsData.length === 0" displayMode="flat">
+      <!-- <h1>Campaigns</h1>  -->
+      <mat-accordion [hideToggle]="campaignsData.length === 0" displayMode="flat">
         <mat-expansion-panel class="mat-elevation-z0">
           <mat-expansion-panel-header>
             <mat-panel-title class="m-0" [routerLink]="['/admin']">
@@ -43,7 +44,7 @@
     </mat-list-item>
 
     <mat-list-item class="mt-1">
-        <h1 class="navLink" [routerLink]="['/admin', 'annotators']">Annotators</h1>
+      <h1 class="navLink" [routerLink]="['/admin', 'annotators']">Annotators</h1>
     </mat-list-item>
 
     <!--

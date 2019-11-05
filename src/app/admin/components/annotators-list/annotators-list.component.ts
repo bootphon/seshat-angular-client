@@ -18,7 +18,8 @@ export class AnnotatorsListComponent implements OnInit {
   constructor(
     private annotatorsService: AnnotatorsService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.annotatorsService.annotatorsListGet().subscribe(
@@ -35,6 +36,8 @@ export class AnnotatorsListComponent implements OnInit {
   openAnnotatorDialog(username: string) {
     this.router.navigate(['/admin', 'annotators', 'view', username]);
   }
-  openAddAnnotatorDialog() {}
+
+  openAddAnnotatorDialog() {
+  }
 
 }

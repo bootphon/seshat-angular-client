@@ -7,7 +7,7 @@
 <div>
   <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
   <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
-  <p><strong>Deadline:</strong> {{taskData.deadline? taskData.deadline : 'None}}</p>
+  <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None}}</p>
   <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
 </div>
 
@@ -21,7 +21,7 @@
   </ng-template>
 
   <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="currentStepIdx">
-    <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent" >
+    <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent">
       <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
     </mat-step>
   </mat-horizontal-stepper>

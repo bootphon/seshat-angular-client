@@ -14,10 +14,12 @@ export class AnnotatorTaskViewComponent implements OnInit {
   taskData: TaskFullStatusAnnotator;
   taskId: string;
   currentStepIdx = 0;
+
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.taskId = this.route.snapshot.paramMap.get('task_id');
@@ -27,7 +29,11 @@ export class AnnotatorTaskViewComponent implements OnInit {
       }
     );
   }
-  validateTextGrid() {}
-  submitTextGrid() {}
+
+  validateTextGrid() {
+  }
+
+  submitTextGrid() {
+  }
 
 }

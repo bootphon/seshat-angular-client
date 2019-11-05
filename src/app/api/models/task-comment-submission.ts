@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface TaskCommentSubmission  {
+export interface TaskCommentSubmission {
   content: string;
 }

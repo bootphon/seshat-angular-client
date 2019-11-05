@@ -1,20 +1,20 @@
 /* tslint:disable */
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
+import {RequestBuilder} from '../request-builder';
+import {Observable} from 'rxjs';
+import {map, filter} from 'rxjs/operators';
 
-import { AnnotatorCreation } from '../models/annotator-creation';
-import { AnnotatorDeletion } from '../models/annotator-deletion';
-import { AnnotatorEdition } from '../models/annotator-edition';
-import { AnnotatorLockRequest } from '../models/annotator-lock-request';
-import { AnnotatorPasswordChange } from '../models/annotator-password-change';
-import { AnnotatorProfile } from '../models/annotator-profile';
-import { TaskShortStatus } from '../models/task-short-status';
+import {AnnotatorCreation} from '../models/annotator-creation';
+import {AnnotatorDeletion} from '../models/annotator-deletion';
+import {AnnotatorEdition} from '../models/annotator-edition';
+import {AnnotatorLockRequest} from '../models/annotator-lock-request';
+import {AnnotatorPasswordChange} from '../models/annotator-password-change';
+import {AnnotatorProfile} from '../models/annotator-profile';
+import {TaskShortStatus} from '../models/task-short-status';
 
 
 /**
@@ -59,7 +59,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -108,7 +108,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -157,7 +157,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -206,7 +206,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -353,7 +353,7 @@ export class AnnotatorsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -385,9 +385,7 @@ export class AnnotatorsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  annotatorsListGet$Response(params?: {
-
-  }): Observable<StrictHttpResponse<Array<AnnotatorProfile>>> {
+  annotatorsListGet$Response(params?: {}): Observable<StrictHttpResponse<Array<AnnotatorProfile>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnnotatorsService.AnnotatorsListGetPath, 'get');
     if (params) {
@@ -411,9 +409,7 @@ export class AnnotatorsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  annotatorsListGet(params?: {
-
-  }): Observable<Array<AnnotatorProfile>> {
+  annotatorsListGet(params?: {}): Observable<Array<AnnotatorProfile>> {
 
     return this.annotatorsListGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<AnnotatorProfile>>) => r.body as Array<AnnotatorProfile>)

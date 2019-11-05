@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface AnnotatorDeletion  {
+export interface AnnotatorDeletion {
   username: string;
 }

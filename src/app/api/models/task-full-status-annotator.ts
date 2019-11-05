@@ -1,7 +1,8 @@
 /* tslint:disable */
-import { MergeConflicts } from './merge-conflicts';
-import { UserShortProfile } from './user-short-profile';
-export interface TaskFullStatusAnnotator  {
+import {MergeConflicts} from './merge-conflicts';
+import {UserShortProfile} from './user-short-profile';
+
+export interface TaskFullStatusAnnotator {
   all_statuses?: Array<string>;
   allow_file_upload: boolean;
   allow_starter_dl: boolean;

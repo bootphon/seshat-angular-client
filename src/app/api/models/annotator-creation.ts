@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotatorCreation  {
+export interface AnnotatorCreation {
   email: string;
   first_name: string;
   last_name: string;

@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface TaskTextGridList  {
+export interface TaskTextGridList {
   names?: Array<string>;
 }

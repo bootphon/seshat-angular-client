@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotatorLockRequest  {
+export interface AnnotatorLockRequest {
   lock_status: boolean;
   username: string;
 }

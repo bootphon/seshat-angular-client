@@ -26,6 +26,7 @@ export class TasksListComponent implements OnInit, OnChanges {
   ) {
     this.tasks = new MatTableDataSource<TaskShortStatus>();
   }
+
   public refreshTaskList() {
     if (this.campaignSlug) {
       this.campaignsService.campaignsListTasksCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
@@ -59,6 +60,7 @@ export class TasksListComponent implements OnInit, OnChanges {
       }
     );
   }
+
   changeTaskLock(task: TaskShortStatus) {
     this.tasksService.tasksLockPost({body: {task_id: task.id, lock_status: !task.is_locked}}).subscribe(
       () => {
@@ -66,6 +68,7 @@ export class TasksListComponent implements OnInit, OnChanges {
       }
     );
   }
+
   viewTask(task: TaskShortStatus) {
     this.router.navigate(['/admin', 'tasks', 'view', task.id]);
   }

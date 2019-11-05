@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 import {DownloadsService} from '../../../api/services/downloads.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -14,13 +15,15 @@ import {DownloadsService} from '../../../api/services/downloads.service';
 export class CampaignViewComponent implements OnInit {
   campaign: CampaignStatus;
   currentUserIsSubscriber: boolean;
+
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
               private downloadService: DownloadsService,
               private roleProvider: RoleProvider,
               private route: ActivatedRoute,
-              private router: Router)
-  {}
+              private router: Router,
+              private snackBar: MatSnackBar) {
+  }
 
   loadCampaignData(slug: string) {
     this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug: slug}).subscribe(
@@ -45,18 +48,28 @@ export class CampaignViewComponent implements OnInit {
 
   changeFollowState() {
     this.campaignsService.campaignsSubscribePost(
-      { body : {slug : this.campaign.slug,
-          subscription_status: !this.currentUserIsSubscriber}}).subscribe(
+      {
+        body: {
+          slug: this.campaign.slug,
+          subscription_status: !this.currentUserIsSubscriber
+        }
+      }).subscribe(
       () => {
         this.currentUserIsSubscriber = !this.currentUserIsSubscriber;
-        // TODO : display toast
+        this.snackBar.open(this.currentUserIsSubscriber ?
+          'You are now subscribed to this campaign\'s updates' :
+          'You are now unsubscribed from this campaign\'s updates',
+          'Campaign Subscription',
+          {verticalPosition: 'top', duration: 3 * 1000});
       }
     );
   }
+
   deleteCampaign() {
     this.campaignsService.campaignsAdminDelete({body: {slug: this.campaign.slug}}).subscribe(
       () => {
-        // TODO : display toast to validate
+        this.snackBar.open(`Campaign "${this.campaign.name}" was deleted`, 'Campaign Deletion',
+          {verticalPosition: 'top', duration: 3 * 1000});
         this.router.navigate(['/admin']);
       }
     );

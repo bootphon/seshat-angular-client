@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotatorPasswordChange  {
+export interface AnnotatorPasswordChange {
   password: string;
   username: string;
 }

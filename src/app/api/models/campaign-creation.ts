@@ -1,6 +1,7 @@
 /* tslint:disable */
-import { TierSpecifications } from './tier-specifications';
-export interface CampaignCreation  {
+import {TierSpecifications} from './tier-specifications';
+
+export interface CampaignCreation {
   check_textgrids?: boolean;
   checking_scheme?: Array<TierSpecifications>;
   data_csv?: string;

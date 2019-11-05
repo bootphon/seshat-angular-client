@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotMismatchError  {
+export interface AnnotMismatchError {
   index: number;
   ref_annot: string;
   ref_tier: string;

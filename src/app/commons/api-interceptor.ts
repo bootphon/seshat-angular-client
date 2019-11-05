@@ -3,11 +3,16 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {RoleProvider} from './role-provider';
+import {MatSnackBar} from '@angular/material';
 
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-  constructor(private roleProvider: RoleProvider) {}
+  constructor(
+    private roleProvider: RoleProvider,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
@@ -19,6 +24,7 @@ export class ApiInterceptor implements HttpInterceptor {
     });
 
     // Also handle errors globally
+    // TODO : intercept requests that are not application/json and download them right away
     return next.handle(req);
   }
 }

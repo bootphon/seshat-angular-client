@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TaskFullStatusAdmin} from '../../../api/models/task-full-status-admin';
-import {MatTableDataSource} from '@angular/material';
+import {MatSnackBar, MatTableDataSource} from '@angular/material';
 import {TaskTextGrid} from '../../../api/models';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DownloadsService} from '../../../api/services/downloads.service';
@@ -18,11 +18,13 @@ export class TaskViewComponent implements OnInit {
   displayedColumns = ['select', 'download', 'delete', 'name', 'is_done', 'creator', 'created'];
   textgridDataSource = new MatTableDataSource<TaskTextGrid>();
   tgSelection = new SelectionModel<TaskTextGrid>(true, []);
+
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute,
     private downloadsService: DownloadsService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.taskData = {assigner: {}} as TaskFullStatusAdmin;
   }
@@ -57,18 +59,24 @@ export class TaskViewComponent implements OnInit {
     if (this.tgSelection.hasValue()) {
       const tgNames = this.tgSelection.selected.map(tg => tg.name);
       this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-        {taskId: this.taskID, body: {names : tgNames}});
+        {taskId: this.taskID, body: {names: tgNames}});
     } else {
-      // TODO : display toast
+      this.snackBar.open('No file selected!', 'Task Files Download',
+        {verticalPosition: 'top', duration: 3 * 1000});
     }
   }
+
   deleteTask() {
     this.tasksService.tasksDeleteTaskIdDelete({taskId: this.taskID}).subscribe(
       () => {
+        this.snackBar.open(`Task for file ${this.taskData.filename} deleted!`,
+          'Task Deletion',
+          {verticalPosition: 'top', duration: 3 * 1000});
         this.router.navigate(['/admin', 'campaign', this.taskData.campaign.slug]);
       }
     );
   }
+
   changeTaskLock() {
     this.tasksService.tasksLockPost({body: {task_id: this.taskID, lock_status: !this.taskData.is_locked}}).subscribe(
       () => {
@@ -76,6 +84,7 @@ export class TaskViewComponent implements OnInit {
       }
     );
   }
+
   deleteTaskTextGrid(tg: TaskTextGrid) {
     this.tasksService.tasksDeleteTaskIdTextgridTgNameDelete({taskId: this.taskID, tgName: tg.name}).subscribe(
       () => {
@@ -83,12 +92,14 @@ export class TaskViewComponent implements OnInit {
         tg.created = null;
         tg.creators = null;
         tg.id = null;
-        // TODO : display a toast
+        this.snackBar.open(`Textgrid file ${tg.name} deleted!`, 'Textgrid Deletion',
+          {verticalPosition: 'top', duration: 3 * 1000});
       }
     );
   }
+
   downloadTaskTextGrid(tg: TaskTextGrid) {
     this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-      {taskId: this.taskID, body: {names : [tg.name]}});
+      {taskId: this.taskID, body: {names: [tg.name]}});
   }
 }

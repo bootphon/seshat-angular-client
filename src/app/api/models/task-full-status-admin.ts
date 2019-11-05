@@ -1,8 +1,9 @@
 /* tslint:disable */
-import { CampaignShortProfile } from './campaign-short-profile';
-import { TaskTextGrid } from './task-text-grid';
-import { UserShortProfile } from './user-short-profile';
-export interface TaskFullStatusAdmin  {
+import {CampaignShortProfile} from './campaign-short-profile';
+import {TaskTextGrid} from './task-text-grid';
+import {UserShortProfile} from './user-short-profile';
+
+export interface TaskFullStatusAdmin {
   annotators?: Array<string>;
   assigner: UserShortProfile;
   campaign: CampaignShortProfile;

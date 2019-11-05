@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RoleProvider} from '../../role-provider';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {ActivatedRoute, Router, NavigationEnd} from '@angular/router';
@@ -26,7 +26,7 @@ export class MenubarComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd){
+      if (event instanceof NavigationEnd) {
         this.updateActivatedMenuItem(event);
       }
     });
@@ -47,7 +47,7 @@ export class MenubarComponent implements OnInit {
     );
   }
 
-  updateActivatedMenuItem(event: NavigationEnd){
+  updateActivatedMenuItem(event: NavigationEnd) {
     // TODO
   }
 

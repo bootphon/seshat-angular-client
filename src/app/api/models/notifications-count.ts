@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface NotificationsCount  {
+export interface NotificationsCount {
   count: number;
 }

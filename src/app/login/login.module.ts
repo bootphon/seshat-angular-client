@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {LoginPageComponent} from './login-page/login-page.component';
 import {MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
@@ -34,4 +34,5 @@ const routes: Routes = [
     FormsModule
   ]
 })
-export class LoginModule { }
+export class LoginModule {
+}

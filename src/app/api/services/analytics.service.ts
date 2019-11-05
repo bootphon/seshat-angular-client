@@ -1,13 +1,12 @@
 /* tslint:disable */
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
-import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
-
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {BaseService} from '../base-service';
+import {ApiConfiguration} from '../api-configuration';
+import {StrictHttpResponse} from '../strict-http-response';
+import {RequestBuilder} from '../request-builder';
+import {Observable} from 'rxjs';
+import {map, filter} from 'rxjs/operators';
 
 
 /**
@@ -52,7 +51,7 @@ export class AnalyticsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -101,7 +100,7 @@ export class AnalyticsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -133,9 +132,7 @@ export class AnalyticsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  analyticsGammaPost$Response(params?: {
-
-  }): Observable<StrictHttpResponse<void>> {
+  analyticsGammaPost$Response(params?: {}): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AnalyticsService.AnalyticsGammaPostPath, 'post');
     if (params) {
@@ -148,7 +145,7 @@ export class AnalyticsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
       })
     );
   }
@@ -159,9 +156,7 @@ export class AnalyticsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  analyticsGammaPost(params?: {
-
-  }): Observable<void> {
+  analyticsGammaPost(params?: {}): Observable<void> {
 
     return this.analyticsGammaPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)

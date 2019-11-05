@@ -1,5 +1,5 @@
 /* tslint:disable */
-import { HttpRequest, HttpParameterCodec, HttpParams, HttpHeaders } from '@angular/common/http';
+import {HttpRequest, HttpParameterCodec, HttpParams, HttpHeaders} from '@angular/common/http';
 
 /**
  * Custom parameter codec to correctly handle the plus sign in parameter
@@ -22,6 +22,7 @@ class ParameterCodec implements HttpParameterCodec {
     return decodeURIComponent(value);
   }
 }
+
 const ParameterCodecInstance = new ParameterCodec();
 
 /**
@@ -82,7 +83,7 @@ export class RequestBuilder {
       const formData = new FormData();
       if (value != null) {
         for (const key of Object.keys(value)) {
-          const val = value[key]
+          const val = value[key];
           if (val instanceof Array) {
             for (const v of val) {
               const toAppend = this.formDataValue(v);
@@ -113,15 +114,15 @@ export class RequestBuilder {
       return value;
     }
     if (typeof value === 'object') {
-      return new Blob([JSON.stringify(value)], { type: 'application/json' });
+      return new Blob([JSON.stringify(value)], {type: 'application/json'});
     }
-    return new Blob([String(value)], { type: 'text/plain' });
+    return new Blob([String(value)], {type: 'text/plain'});
   }
 
   /**
    * Builds the request with the current set parameters
    */
-  build<T=any>(options?: {
+  build<T = any>(options?: {
     /** Which content types to accept */
     accept?: string;
 

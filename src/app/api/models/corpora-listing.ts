@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CorporaListing  {
+export interface CorporaListing {
   csv_corpora?: Array<string>;
   folders_corpora?: Array<string>;
 }
