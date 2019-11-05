@@ -146,21 +146,14 @@ h5{
 
 //entry fonts
 .mat-form-field{
-  font-family: 'Open Sans', sans-serif;
-  color: orange;
+  font-family: 'Open Sans', sans-serif !important;
+  color: var(--text-dark);
 }
-// .mat-form-field-label{
-//   color: purple !important;
-// }
-// .mat-form-field-underline{
-//   background-color:green !important;
-// }
-::ng-deep{
-  .mat-form-field-underline {
-    /*change color of underline*/
-    background-color: hotpink !important;
-  }
+.mat-form-field-label{
+  color: var(--text-medium);
 }
+
+
 
 //tables fonts
 .mat-cell{
