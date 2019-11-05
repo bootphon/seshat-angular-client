@@ -8,7 +8,7 @@
 
 <div class="mat-elevation-z2 annotators-table">
   <mat-form-field class="filter-field">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
 
   <table mat-table [dataSource]="annotatorsList" matSort>
@@ -52,7 +52,8 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row (click)="openAnnotatorDialog(row.username)"
-        *matRowDef="let row; columns: displayedColumns;">
+        *matRowDef="let row; columns: displayedColumns;"
+        [routerLink]="['/admin', 'annotators', 'view', row.username]">
     </tr>
   </table>
 
