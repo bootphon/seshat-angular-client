@@ -13,7 +13,6 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-//colors ($seshat-olive & $seshat-lime) define here: node_modules/@angular/material/_theming.scss
 
 $seshat-olive: (
   A100: #c8e4a0,
@@ -48,6 +47,18 @@ $seshat-warn:(
   )
 );
 
+
+$seshat-alt-accent:(
+  A100: #ffffff,
+  A200: #e8eaeb,
+  A400: #b6b8b9,
+  contrast: (
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+  )
+);
+
 $seshat-angular-client-primary: mat-palette($seshat-olive, A200, A100, A400);
 $seshat-angular-client-accent: mat-palette($seshat-lime, A200, A100, A400);
 
@@ -61,6 +72,19 @@ $seshat-angular-client-theme: mat-light-theme($seshat-angular-client-primary, $s
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($seshat-angular-client-theme);
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($seshat-olive, A200, A100, A400);
+$dark-accent:  mat-palette($seshat-alt-accent, A200, A100, A400);
+$dark-warn:    mat-palette($seshat-warn, A200, A100, A400);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.alt-mat-theme {
+  @include angular-material-theme($dark-theme);
+}
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -88,18 +112,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 h1{
   font-family: 'Poppins', sans-serif;
-  color: var(--text-white);
+  color: var(--text-dark);
   font-size: 1rem;
   font-weight: 200;
   margin-bottom: 0;
+  span{
+    color: var(--text-white);
+  }
 }
 
 h2{
   font-family: 'Poppins', sans-serif;
-  color: var(--text-white);
+  color: var(--text-dark);
   font-size: 1rem;
   font-weight: 100;
   margin-bottom: 0;
+  span{
+    color: var(--text-white);
+  }
 }
 
 h3{
@@ -124,6 +154,10 @@ h5{
   font-size: 0.75rem;
   font-weight: 200;
   margin-bottom: 0 !important;
+  span{
+    color: var(--text-white);
+    font-weight: 500;
+  }
 }
 
 //progress row fonts
