@@ -30,7 +30,7 @@ export class TaskAssignComponent implements OnInit {
   firstAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
   secondAnnotatorCtrl = new FormControl();  // not set for a Single Annot task
   secondAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
-  taskType = 'single';
+  taskType : string;
 
   constructor(
     private taskService: TasksService,
@@ -56,6 +56,7 @@ export class TaskAssignComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.taskType = 'single';
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
     this.campaignService.campaignsFilesListCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
@@ -65,8 +66,11 @@ export class TaskAssignComponent implements OnInit {
     this.annotatorsService.annotatorsListGet().subscribe(
       (data) => {
         this.annotatorsList = data;
+        this.firstAnnotatorCtrl.enable();
+        this.secondAnnotatorCtrl.disable();
       }
     );
+
   }
 
   // Methods dedicated to the files table
@@ -106,7 +110,7 @@ export class TaskAssignComponent implements OnInit {
   submitAssigment() {
     const assignment = {
       audio_files: this.selectedFiles.selected.map(file => file.path),
-      deadline: this.deadline ? this.deadline.toISOString() : undefined,
+      deadline: this.deadline ? this.deadline.toISOString().substring(0, 10) : undefined,
       campaign: this.campaignSlug,
     } as TasksAssignment;
     // TODO: check that annotators are not none or both the same for double annotator

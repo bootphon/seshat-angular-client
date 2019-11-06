@@ -6,6 +6,7 @@ import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 import {DownloadsService} from '../../../api/services/downloads.service';
 import {MatSnackBar} from '@angular/material';
+import {SeshatEventsService} from '../../../commons/seshat-events.service';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -19,6 +20,7 @@ export class CampaignViewComponent implements OnInit {
   constructor(private campaignsService: CampaignsService,
               private tasksService: TasksService,
               private downloadService: DownloadsService,
+              private eventsService: SeshatEventsService,
               private roleProvider: RoleProvider,
               private route: ActivatedRoute,
               private router: Router,
@@ -70,6 +72,7 @@ export class CampaignViewComponent implements OnInit {
       () => {
         this.snackBar.open(`Campaign "${this.campaign.name}" was deleted`, 'Campaign Deletion',
           {verticalPosition: 'top', duration: 3 * 1000});
+        this.eventsService.campaignsChange.emit();
         this.router.navigate(['/admin']);
       }
     );

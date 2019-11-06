@@ -1,62 +1,63 @@
-<script src="../annotators-list/annotators-list.component.ts"></script>
-<mat-toolbar class="d-flex justify-content-between">
-  <div class="d-inline">
-    <button mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
-      <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
+<div *ngIf="campaign">
+  <mat-toolbar>
+    <div class="d-inline">
+      <button mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
+        <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
+      </button>
+    </div>
+    <button class="mr-3" mat-raised-button color="primary"
+            (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
+  </mat-toolbar>
+
+  <div class="campaign-view-body">
+    <h3>Archive des annotations :</h3>
+    <button mat-raised-button color="primary" (click)="getCampaignArchive()">
+      Download Full Archive
     </button>
+    <section>
+      <label id="task-progress">Tasks:</label>
+      <mat-progress-bar
+        aria-labelledby="task-progress"
+        color="primary"
+        mode="determinate"
+        value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
+      </mat-progress-bar>
+    </section>
+
+    <section>
+      <label id="files-assigned">Files:</label>
+      <mat-progress-bar
+        aria-labelledby="files-assigned"
+        color="primary"
+        mode="determinate"
+        value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
+      </mat-progress-bar>
+    </section>
+
+    <section>
+      <p> Annotators:
+        <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
+           *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+      </p>
+    </section>
+    <button mat-raised-button color="primary"
+            [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
+      Assign tasks
+    </button>
+    <button mat-raised-button color="primary"
+            [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+      Edit campaign wiki
+    </button>
+    <button mat-raised-button color="primary"
+            [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+      View Campaign Analytics
+    </button>
+    <button mat-raised-button color="warn" (click)="deleteCampaign()">
+      <mat-icon>clear</mat-icon>
+      Delete Campaign
+    </button>
+
+    <h3>Tasks list</h3>
+    <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
   </div>
-  <button class="mr-3" mat-raised-button color="primary"
-          (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
-</mat-toolbar>
-
-<div class="campaign-view-body">
-  <h3>Archive des annotations :</h3>
-  <button mat-raised-button color="primary" (click)="getCampaignArchive()">
-    Download Full Archive
-  </button>
-  <section>
-    <label id="task-progress">Tasks:</label>
-    <mat-progress-bar
-      aria-labelledby="task-progress"
-      color="primary"
-      mode="determinate"
-      value="{{ campaign.stats.completed_tasks / campaign.stats.total_tasks | percent }}">
-    </mat-progress-bar>
-  </section>
-
-  <section>
-    <label id="files-assigned">Files:</label>
-    <mat-progress-bar
-      aria-labelledby="files-assigned"
-      color="primary"
-      mode="determinate"
-      value="{{ campaign.stats.assigned_files / campaign.stats.total_files | percent }}">
-    </mat-progress-bar>
-  </section>
-
-  <section>
-    <p> Annotators:
-      <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
-         *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
-    </p>
-  </section>
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
-    Assign tasks
-  </button>
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-    Edit campaign wiki
-  </button>
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-    View Campaign Analytics
-  </button>
-  <button mat-raised-button color="warn" (click)="deleteCampaign()">
-    <mat-icon>clear</mat-icon>
-    Delete Campaign
-  </button>
-
-  <h3>Tasks list</h3>
-  <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
 </div>

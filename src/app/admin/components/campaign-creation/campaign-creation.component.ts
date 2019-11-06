@@ -7,6 +7,7 @@ import {TierSpecifications} from '../../../api/models/tier-specifications';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {animate, sequence, style, transition, trigger} from '@angular/animations';
+import {SeshatEventsService} from '../../../commons/seshat-events.service';
 
 
 interface CorporaSelection {
@@ -41,7 +42,9 @@ export class CampaignCreationComponent implements OnInit {
 
   constructor(
     private campaignsAPI: CampaignsService,
-    private router: Router) {
+    private router: Router,
+    private eventsService: SeshatEventsService,
+  ) {
     this.campaignCreation = {
       name: '',
       enable_audio_dl: false,
@@ -67,6 +70,7 @@ export class CampaignCreationComponent implements OnInit {
     this.campaignsAPI.campaignsAdminPost({body: this.campaignCreation}).subscribe(
       (data) => {
         this.router.navigate(['/admin', 'campaign', data.slug]);
+        this.eventsService.campaignsChange.emit();
       }
     );
   }

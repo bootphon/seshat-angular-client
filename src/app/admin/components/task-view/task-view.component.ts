@@ -25,9 +25,7 @@ export class TaskViewComponent implements OnInit {
     private downloadsService: DownloadsService,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {
-    this.taskData = {assigner: {}} as TaskFullStatusAdmin;
-  }
+  ) {}
 
   ngOnInit() {
     if (!this.taskID) {
