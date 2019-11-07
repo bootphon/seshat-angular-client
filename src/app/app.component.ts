@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatSidenav} from '@angular/material';
 import {LoginPageComponent} from './login/login-page/login-page.component';
 import {RoleProvider} from './commons/role-provider';
+import {SeshatEventsService} from './commons/seshat-events.service';
 
 @Component({
   selector: 'seshat-root',
@@ -14,12 +15,12 @@ export class AppComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private role: RoleProvider,
+    private eventsService: SeshatEventsService
   ) {
   }
 
   ngOnInit(): void {
-    this.role.logInEvent.subscribe((param) => this.toggleSideNav(param));
+    this.eventsService.logInEvent.subscribe((param) => this.toggleSideNav(param));
   }
 
   private toggleSideNav(param: any) {

@@ -2,16 +2,17 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {AccountsService} from '../api/services/accounts.service';
 import {ConnectionToken} from '../api/models/connection-token';
 import {UserShortProfile} from '../api/models/user-short-profile';
+import {SeshatEventsService} from './seshat-events.service';
 
 
 @Injectable({providedIn: 'root'})
 export class RoleProvider {
   private userData: UserShortProfile;
   private userToken: string;
-  public logInEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(
     private accountsService: AccountsService,
+    private eventsService: SeshatEventsService,
   ) {
   }
 
@@ -66,11 +67,11 @@ export class RoleProvider {
 
   public setToken(t) {
     window.localStorage.setItem('token', t.token);
-    this.logInEvent.emit(true);
+    this.eventsService.logInEvent.emit(true);
   }
 
   public logout() {
     window.localStorage.clear();
-    this.logInEvent.emit(false);
+    this.eventsService.logInEvent.emit(false);
   }
 }

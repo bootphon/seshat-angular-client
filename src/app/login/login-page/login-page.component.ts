@@ -3,6 +3,7 @@ import {RoleProvider} from '../../commons/role-provider';
 import {Router} from '@angular/router';
 import {ConnectionToken} from '../../api/models/connection-token';
 import {AppComponent} from '../../app.component';
+import {SeshatEventsService} from '../../commons/seshat-events.service';
 
 @Component({
   selector: 'seshat-login-page',
@@ -15,12 +16,13 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private roleProvider: RoleProvider,
+    private eventsService: SeshatEventsService,
     private router: Router,
   ) {
   }
 
   ngOnInit() {
-    this.roleProvider.logInEvent.emit(false);
+    this.eventsService.logInEvent.emit(false);
   }
 
   login() {
