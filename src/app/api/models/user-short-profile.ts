@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface UserShortProfile {
+export interface UserShortProfile  {
   email: string;
   first_name: string;
   fullname: string;

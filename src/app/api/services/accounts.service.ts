@@ -1,19 +1,19 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {BaseService} from '../base-service';
-import {ApiConfiguration} from '../api-configuration';
-import {StrictHttpResponse} from '../strict-http-response';
-import {RequestBuilder} from '../request-builder';
-import {Observable} from 'rxjs';
-import {map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
+import { RequestBuilder } from '../request-builder';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
-import {ConnectionToken} from '../models/connection-token';
-import {LoginCredentials} from '../models/login-credentials';
-import {NotificationData} from '../models/notification-data';
-import {NotificationDelete} from '../models/notification-delete';
-import {NotificationsCount} from '../models/notifications-count';
-import {UserShortProfile} from '../models/user-short-profile';
+import { ConnectionToken } from '../models/connection-token';
+import { LoginCredentials } from '../models/login-credentials';
+import { NotificationData } from '../models/notification-data';
+import { NotificationDelete } from '../models/notification-delete';
+import { NotificationsCount } from '../models/notifications-count';
+import { UserShortProfile } from '../models/user-short-profile';
 
 
 /**
@@ -90,7 +90,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsDataGet$Response(params?: {}): Observable<StrictHttpResponse<UserShortProfile>> {
+  accountsDataGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<UserShortProfile>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsDataGetPath, 'get');
     if (params) {
@@ -114,7 +116,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsDataGet(params?: {}): Observable<UserShortProfile> {
+  accountsDataGet(params?: {
+
+  }): Observable<UserShortProfile> {
 
     return this.accountsDataGet$Response(params).pipe(
       map((r: StrictHttpResponse<UserShortProfile>) => r.body as UserShortProfile)
@@ -132,7 +136,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsLogoutPost$Response(params?: {}): Observable<StrictHttpResponse<void>> {
+  accountsLogoutPost$Response(params?: {
+
+  }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsLogoutPostPath, 'post');
     if (params) {
@@ -145,7 +151,7 @@ export class AccountsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -156,7 +162,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsLogoutPost(params?: {}): Observable<void> {
+  accountsLogoutPost(params?: {
+
+  }): Observable<void> {
 
     return this.accountsLogoutPost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
@@ -174,7 +182,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsNotificationsGet$Response(params?: {}): Observable<StrictHttpResponse<Array<NotificationData>>> {
+  accountsNotificationsGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<NotificationData>>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsNotificationsGetPath, 'get');
     if (params) {
@@ -198,7 +208,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsNotificationsGet(params?: {}): Observable<Array<NotificationData>> {
+  accountsNotificationsGet(params?: {
+
+  }): Observable<Array<NotificationData>> {
 
     return this.accountsNotificationsGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<NotificationData>>) => r.body as Array<NotificationData>)
@@ -233,7 +245,7 @@ export class AccountsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -265,7 +277,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsNotificationsCountGet$Response(params?: {}): Observable<StrictHttpResponse<NotificationsCount>> {
+  accountsNotificationsCountGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<NotificationsCount>> {
 
     const rb = new RequestBuilder(this.rootUrl, AccountsService.AccountsNotificationsCountGetPath, 'get');
     if (params) {
@@ -289,7 +303,9 @@ export class AccountsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  accountsNotificationsCountGet(params?: {}): Observable<NotificationsCount> {
+  accountsNotificationsCountGet(params?: {
+
+  }): Observable<NotificationsCount> {
 
     return this.accountsNotificationsCountGet$Response(params).pipe(
       map((r: StrictHttpResponse<NotificationsCount>) => r.body as NotificationsCount)

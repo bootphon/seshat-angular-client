@@ -1,6 +1,6 @@
 /* tslint:disable */
-import {ApiConfiguration} from './api-configuration';
-import {HttpClient} from '@angular/common/http';
+import { ApiConfiguration } from './api-configuration';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Base class for services

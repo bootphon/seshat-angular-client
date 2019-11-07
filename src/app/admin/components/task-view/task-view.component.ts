@@ -5,7 +5,7 @@ import {TaskFullStatusAdmin} from '../../../api/models/task-full-status-admin';
 import {MatSnackBar, MatTableDataSource} from '@angular/material';
 import {TaskTextGrid} from '../../../api/models';
 import {SelectionModel} from '@angular/cdk/collections';
-import {DownloadsService} from '../../../api/services/downloads.service';
+import {DownloadsService} from '../../../commons/downloads.service';
 
 @Component({
   selector: 'seshat-admin-task-view',

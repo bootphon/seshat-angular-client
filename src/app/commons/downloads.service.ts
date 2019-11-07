@@ -1,11 +1,8 @@
 /* tslint:disable */
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map, filter} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../api/base-service';
 import {ApiConfiguration} from '../api/api-configuration';
-import {StrictHttpResponse} from '../api/strict-http-response';
 import {RequestBuilder} from '../api/request-builder';
 
 export interface TaskTextGridList {
@@ -32,7 +29,7 @@ export class DownloadsService extends BaseService {
   downloadsTaskTaskIdStarterGet(params: {
     taskId: string;
 
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTaskTaskIdStarterGetPath, 'get');
     if (params) {
@@ -40,15 +37,6 @@ export class DownloadsService extends BaseService {
       rb.path('task_id', params.taskId);
 
     }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
   }
 
 
@@ -61,7 +49,7 @@ export class DownloadsService extends BaseService {
   downloadsTaskTaskIdCurrentTextgridGet(params: {
     taskId: string;
 
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTaskTaskIdCurrentTextgridGetPath, 'get');
     if (params) {
@@ -69,15 +57,6 @@ export class DownloadsService extends BaseService {
       rb.path('task_id', params.taskId);
 
     }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
   }
 
 
@@ -90,7 +69,7 @@ export class DownloadsService extends BaseService {
   downloadsTaskTaskIdConflictLogGet(params: {
     taskId: string;
 
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTaskTaskIdConflictLogGetPath, 'get');
     if (params) {
@@ -98,15 +77,6 @@ export class DownloadsService extends BaseService {
       rb.path('task_id', params.taskId);
 
     }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
   }
 
 
@@ -120,7 +90,7 @@ export class DownloadsService extends BaseService {
     taskId: string;
 
     body: TaskTextGridList
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTaskTaskIdTextgridsGetPath, 'get');
     if (params) {
@@ -129,15 +99,6 @@ export class DownloadsService extends BaseService {
 
       rb.body(params.body, 'application/json');
     }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
   }
 
   /**
@@ -149,7 +110,7 @@ export class DownloadsService extends BaseService {
   downloadsTextgridTextgridIdGet(params: {
     textgridId: string;
 
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTextgridTextgridIdGetPath, 'get');
     if (params) {
@@ -157,15 +118,7 @@ export class DownloadsService extends BaseService {
       rb.path('textgrid_id', params.textgridId);
 
     }
-    return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
+
   }
 
   /**
@@ -177,7 +130,7 @@ export class DownloadsService extends BaseService {
   downloadsCampaignArchiveCampaignSlugGet(params: {
     campaignSlug: string;
 
-  }): Observable<StrictHttpResponse<void>> {
+  }): void {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsCampaignArchiveCampaignSlugGetPath, 'get');
     if (params) {
@@ -185,12 +138,6 @@ export class DownloadsService extends BaseService {
       rb.path('campaign_slug', params.campaignSlug);
 
     }
-    return window.open(rb.build()).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
-      })
-    );
   }
 
 

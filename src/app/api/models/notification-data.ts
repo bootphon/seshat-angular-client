@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface NotificationData {
+export interface NotificationData  {
   message: string;
   notid_id: string;
   notif_type: string;

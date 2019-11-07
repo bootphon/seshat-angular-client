@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface DoubleAnnotatorAssignment {
+export interface DoubleAnnotatorAssignment  {
   reference: string;
   target: string;
 }

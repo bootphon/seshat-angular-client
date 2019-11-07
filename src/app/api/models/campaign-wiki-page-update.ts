@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface CampaignWikiPageUpdate {
+export interface CampaignWikiPageUpdate  {
   content: string;
 }

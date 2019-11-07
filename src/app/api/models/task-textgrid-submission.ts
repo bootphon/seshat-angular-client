@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface TaskTextgridSubmission {
+export interface TaskTextgridSubmission  {
   textgrid_str: string;
 }
