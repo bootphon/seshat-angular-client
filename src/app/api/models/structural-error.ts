@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface StructuralError {
+export interface StructuralError  {
   msg: string;
 }

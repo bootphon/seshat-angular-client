@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface LoginCredentials {
+export interface LoginCredentials  {
   login: string;
   password: string;
 }

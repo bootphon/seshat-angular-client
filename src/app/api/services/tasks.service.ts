@@ -1,21 +1,21 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {BaseService} from '../base-service';
-import {ApiConfiguration} from '../api-configuration';
-import {StrictHttpResponse} from '../strict-http-response';
-import {RequestBuilder} from '../request-builder';
-import {Observable} from 'rxjs';
-import {map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
+import { RequestBuilder } from '../request-builder';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
-import {TaskComment} from '../models/task-comment';
-import {TaskCommentSubmission} from '../models/task-comment-submission';
-import {TaskFullStatusAdmin} from '../models/task-full-status-admin';
-import {TaskFullStatusAnnotator} from '../models/task-full-status-annotator';
-import {TaskLockRequest} from '../models/task-lock-request';
-import {TaskShortStatus} from '../models/task-short-status';
-import {TaskTextgridSubmission} from '../models/task-textgrid-submission';
-import {TasksAssignment} from '../models/tasks-assignment';
+import { TaskComment } from '../models/task-comment';
+import { TaskCommentSubmission } from '../models/task-comment-submission';
+import { TaskFullStatusAdmin } from '../models/task-full-status-admin';
+import { TaskFullStatusAnnotator } from '../models/task-full-status-annotator';
+import { TaskLockRequest } from '../models/task-lock-request';
+import { TaskShortStatus } from '../models/task-short-status';
+import { TaskTextgridSubmission } from '../models/task-textgrid-submission';
+import { TasksAssignment } from '../models/tasks-assignment';
 
 
 /**
@@ -43,7 +43,9 @@ export class TasksService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  tasksListAssignedGet$Response(params?: {}): Observable<StrictHttpResponse<Array<TaskShortStatus>>> {
+  tasksListAssignedGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<TaskShortStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksListAssignedGetPath, 'get');
     if (params) {
@@ -67,7 +69,9 @@ export class TasksService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  tasksListAssignedGet(params?: {}): Observable<Array<TaskShortStatus>> {
+  tasksListAssignedGet(params?: {
+
+  }): Observable<Array<TaskShortStatus>> {
 
     return this.tasksListAssignedGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<TaskShortStatus>>) => r.body as Array<TaskShortStatus>)
@@ -102,7 +106,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -151,7 +155,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -184,16 +188,16 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete$Response(params: {
-    taskId: string;
     tgName: string;
+    taskId: string;
 
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksDeleteTaskIdTextgridTgNameDeletePath, 'delete');
     if (params) {
 
-      rb.path('task_id', params.taskId);
       rb.path('tg_name', params.tgName);
+      rb.path('task_id', params.taskId);
 
     }
     return this.http.request(rb.build({
@@ -202,7 +206,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -214,8 +218,8 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete(params: {
-    taskId: string;
     tgName: string;
+    taskId: string;
 
   }): Observable<void> {
 
@@ -252,7 +256,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -401,7 +405,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -453,7 +457,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -554,7 +558,7 @@ export class TasksService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }

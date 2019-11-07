@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface ConnectionToken {
+export interface ConnectionToken  {
   token: string;
 }

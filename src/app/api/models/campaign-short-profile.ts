@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CampaignShortProfile {
+export interface CampaignShortProfile  {
   name: string;
   slug: string;
 }

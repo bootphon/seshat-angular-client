@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface CampaignSlug {
+export interface CampaignSlug  {
   slug: string;
 }

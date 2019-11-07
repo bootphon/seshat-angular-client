@@ -1,23 +1,23 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {BaseService} from '../base-service';
-import {ApiConfiguration} from '../api-configuration';
-import {StrictHttpResponse} from '../strict-http-response';
-import {RequestBuilder} from '../request-builder';
-import {Observable} from 'rxjs';
-import {map, filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { BaseService } from '../base-service';
+import { ApiConfiguration } from '../api-configuration';
+import { StrictHttpResponse } from '../strict-http-response';
+import { RequestBuilder } from '../request-builder';
+import { Observable } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
-import {CampaignCreation} from '../models/campaign-creation';
-import {CampaignEdit} from '../models/campaign-edit';
-import {CampaignSlug} from '../models/campaign-slug';
-import {CampaignStatus} from '../models/campaign-status';
-import {CampaignSubscriptionUpdate} from '../models/campaign-subscription-update';
-import {CampaignWikiPage} from '../models/campaign-wiki-page';
-import {CampaignWikiPageUpdate} from '../models/campaign-wiki-page-update';
-import {CorporaListing} from '../models/corpora-listing';
-import {CorpusFile} from '../models/corpus-file';
-import {TaskShortStatus} from '../models/task-short-status';
+import { CampaignCreation } from '../models/campaign-creation';
+import { CampaignEdit } from '../models/campaign-edit';
+import { CampaignSlug } from '../models/campaign-slug';
+import { CampaignStatus } from '../models/campaign-status';
+import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-update';
+import { CampaignWikiPage } from '../models/campaign-wiki-page';
+import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
+import { CorporaListing } from '../models/corpora-listing';
+import { CorpusFile } from '../models/corpus-file';
+import { TaskShortStatus } from '../models/task-short-status';
 
 
 /**
@@ -45,7 +45,9 @@ export class CampaignsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  campaignsAvailableCorporaGet$Response(params?: {}): Observable<StrictHttpResponse<CorporaListing>> {
+  campaignsAvailableCorporaGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<CorporaListing>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsAvailableCorporaGetPath, 'get');
     if (params) {
@@ -69,7 +71,9 @@ export class CampaignsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  campaignsAvailableCorporaGet(params?: {}): Observable<CorporaListing> {
+  campaignsAvailableCorporaGet(params?: {
+
+  }): Observable<CorporaListing> {
 
     return this.campaignsAvailableCorporaGet$Response(params).pipe(
       map((r: StrictHttpResponse<CorporaListing>) => r.body as CorporaListing)
@@ -104,7 +108,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -202,7 +206,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -234,7 +238,9 @@ export class CampaignsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  campaignsListGet$Response(params?: {}): Observable<StrictHttpResponse<Array<CampaignStatus>>> {
+  campaignsListGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<CampaignStatus>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsListGetPath, 'get');
     if (params) {
@@ -258,7 +264,9 @@ export class CampaignsService extends BaseService {
    *
    * This method doesn't expect any response body
    */
-  campaignsListGet(params?: {}): Observable<Array<CampaignStatus>> {
+  campaignsListGet(params?: {
+
+  }): Observable<Array<CampaignStatus>> {
 
     return this.campaignsListGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<CampaignStatus>>) => r.body as Array<CampaignStatus>)
@@ -442,7 +450,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }
@@ -541,7 +549,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({body: undefined}) as StrictHttpResponse<void>;
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
       })
     );
   }

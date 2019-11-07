@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotationErrors {
+export interface AnnotationErrors  {
   annotation: string;
   end: number;
   index: number;

@@ -1,4 +1,4 @@
 /* tslint:disable */
-export interface SingleAnnotatorAssignment {
+export interface SingleAnnotatorAssignment  {
   annotator: string;
 }

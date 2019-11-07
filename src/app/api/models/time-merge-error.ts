@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface TimeMergeError {
+export interface TimeMergeError  {
   index_after: number;
   index_before: number;
   threshold: number;

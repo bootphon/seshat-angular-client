@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface AnnotatorProfile {
+export interface AnnotatorProfile  {
   active_tasks: number;
   assigned_tasks: number;
   creation_date: string;
