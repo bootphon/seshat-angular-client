@@ -14,8 +14,17 @@
 <div class="container-fluid">
   <div class="row m-3">
     <div class="col-12">
+        <div class="progress-row row d-flex align-items-center ml-3 pl-1 mb-n2">
+          <h3 style="color:var(--text-medium-light)">Campaign Overview</h3>
+        </div>
       <mat-card class="campaign-card m-3 p-4">
-          <div class="progress-row row d-flex align-items-center pt-2">
+          <div class="progress-row row d-flex align-items-center mb-1" style="padding-left: 15px;">
+            <h4 class="mr-4">Annotations archive:</h4>
+            <button mat-raised-button color="primary" (click)="getCampaignArchive()">
+              Download Full Archive
+            </button>
+          </div>
+          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
               <div class="progress-row-title col-auto">
                 <h4 class="m-0">Tasks:</h4>
               </div>
@@ -61,7 +70,7 @@
                 <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
               </div>
           </div>
-          <div class="progress-row row d-flex align-items-center pt-2">
+          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
             <div class="progress-row-title col-auto">
               <h4 class="m-0">Files:</h4>
             </div>
@@ -107,7 +116,7 @@
               <h4 class="m-0">{{ campaign.stats.total_files }}</h4>
             </div>
           </div>
-          <div class="progress-row row d-flex align-items-center pt-2">
+          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
             <div class="d-flex col-auto">
               <h4 class="m-0">Annotators: &nbsp;</h4>
               <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
