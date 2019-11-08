@@ -21,7 +21,16 @@
 
   .mat-expansion-panel {
     background-color: inherit;
-    margin-left: -24px;
+  }
+
+  .mat-expansion-panel-header{
+    margin-left: 110px;
+    width: 0;
+    max-height: 3rem;
+  }
+
+  .mat-accordion{
+    margin-top: -40px;
   }
 
   ::ng-deep {
@@ -34,6 +43,7 @@
 
   .navLink {
     cursor: pointer;
+    z-index: 1000;
   }
 
 
