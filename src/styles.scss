@@ -280,4 +280,19 @@ h5{
     color: var(--text-medium-light);
     font-size: 1.2rem;
   }
+  a{
+    font-family: 'Open Sans', sans-serif;
+    color: var(--color-teal);
+    font-size: 0.75rem;
+    font-weight: 200;
+    margin-bottom: 0 !important;
+    margin-right: 0.33rem;
+  }
+
+  a::after {
+    content: ","
+  }
+  a:last-of-type::after{
+     display: none;
+  }
 }

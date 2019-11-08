@@ -13,62 +13,11 @@
 <div *ngIf="campaign" class="container-fluid">
   <div class="row m-3">
     <div class="col-12">
-        <div class="progress-row row d-flex align-items-center ml-3 pt-4 pl-1 mb-n2">
+        <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
           <h3 style="color:var(--text-medium-light)">Campaign Overview</h3>
         </div>
       <mat-card class="campaign-card m-3 p-4">
-          <div class="progress-row row d-flex align-items-center mb-1" style="padding-left: 15px;">
-            <h4 class="mr-4">Annotations archive:</h4>
-            <button mat-raised-button color="primary" (click)="getCampaignArchive()">
-              Download Full Archive
-            </button>
-          </div>
-          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
-              <div class="progress-row-title col-auto">
-                <h4 class="m-0">Tasks:</h4>
-              </div>
-              <div class="col">
-                <div class="progress-container w-100" *ngIf="campaign.stats.total_tasks != 0; else progressZeroTasks">
-                  <div class="progress">
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
-                      aria-valuemin="0"
-                      attr.aria-valuemax="{{ campaign.stats.total_tasks }}"
-                      [style.max-width]="campaign.stats.completed_tasks / campaign.stats.total_tasks | percent">
-                      <ng-container *ngIf="campaign.stats.completed_tasks / campaign.stats.total_tasks >= 0.25; else halfGrayTasks">
-                        <h5 class="pl-2">{{ campaign.stats.completed_tasks }} complete</h5>
-                      </ng-container>
-                      <ng-template #halfGrayTasks>
-                        <ng-container *ngIf="campaign.stats.completed_tasks / campaign.stats.total_tasks > 0; else allGrayTasks">
-                          <h5 class="pl-2 mr-n5 text-right"><span>{{ campaign.stats.completed_tasks }}</span> complete</h5>
-                        </ng-container>
-                        <ng-template #allGrayTasks>
-                          <h5 class="pl-2 text-right">{{ campaign.stats.completed_tasks }} complete</h5>
-                        </ng-template>
-                      </ng-template>
-                    </div>
-                  </div>
-                </div>
-                <ng-template #progressZeroTasks>
-                  <div class="progress">
-                    <div
-                      class="progress-bar"
-                      role="progressbar"
-                      attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
-                      aria-valuemin="0"
-                      aria-valuemax="1"
-                      [style.max-width]="campaign.stats.completed_tasks / 1 | percent">
-                      <h5 class="pl-2">{{ campaign.stats.completed_tasks }} completed</h5>
-                    </div>
-                  </div>
-                </ng-template>
-              </div>
-              <div class="progress-row-total pl-0">
-                <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
-              </div>
-          </div>
+
           <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
             <div class="progress-row-title col-auto">
               <h4 class="m-0">Files:</h4>
@@ -116,35 +65,100 @@
             </div>
           </div>
           <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
-            <div class="d-flex col-auto">
-              <h4 class="m-0">Annotators: &nbsp;</h4>
-              <a [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
+              <div class="progress-row-title col-auto">
+                <h4 class="m-0">Tasks:</h4>
+              </div>
+              <div class="col">
+                <div class="progress-container w-100" *ngIf="campaign.stats.total_tasks != 0; else progressZeroTasks">
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
+                      aria-valuemin="0"
+                      attr.aria-valuemax="{{ campaign.stats.total_tasks }}"
+                      [style.max-width]="campaign.stats.completed_tasks / campaign.stats.total_tasks | percent">
+                      <ng-container *ngIf="campaign.stats.completed_tasks / campaign.stats.total_tasks >= 0.25; else halfGrayTasks">
+                        <h5 class="pl-2">{{ campaign.stats.completed_tasks }} completed</h5>
+                      </ng-container>
+                      <ng-template #halfGrayTasks>
+                        <ng-container *ngIf="campaign.stats.completed_tasks / campaign.stats.total_tasks > 0; else allGrayTasks">
+                          <h5 class="pl-2 mr-n5 text-right"><span>{{ campaign.stats.completed_tasks }}</span> complete</h5>
+                        </ng-container>
+                        <ng-template #allGrayTasks>
+                          <h5 class="pl-2 text-right">{{ campaign.stats.completed_tasks }} completed</h5>
+                        </ng-template>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <ng-template #progressZeroTasks>
+                  <div class="progress">
+                    <div
+                      class="progress-bar"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ campaign.stats.completed_tasks }}"
+                      aria-valuemin="0"
+                      aria-valuemax="1"
+                      [style.max-width]="campaign.stats.completed_tasks / 1 | percent">
+                      <h5 class="pl-2">{{ campaign.stats.completed_tasks }} completed</h5>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+              <div class="progress-row-total pl-0">
+                <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
+              </div>
+          </div>
+          <div class="campaign-divider"><hr/></div>
+            <mat-card-subtitle>
+              This is the description of the campaign. Weeeee. Let's say things. This section still needs some editing because it is not very pretty. Also I don't think the green that light works. We shall see. I put it in an ng-container because it (at the moment) shouldn't be shown unless it has content to not mess up the spacing. Wait i don't think it needed it. so i deleted it. weeeee.
+            </mat-card-subtitle>
+          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
+            <div class="col-auto">
+              <h4 class="m-0 d-inline pr-1">Annotators: &nbsp;</h4>
+              <a class="d-inline" [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
          *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
             </div>
+          </div>
+          <div class="progress-row row d-flex align-items-center mb-1" style="padding-left: 15px;">
+            <h4 class="mr-4">Annotations archive:</h4>
+            <button mat-raised-button color="primary" (click)="getCampaignArchive()">
+              Download Full Archive
+            </button>
           </div>
       </mat-card>
     </div>
   </div>
 </div>
 
-<div *ngIf="campaign" class="campaign-view-body">
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
-    Assign tasks
-  </button>
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-    Edit campaign wiki
-  </button>
-  <button mat-raised-button color="primary"
-          [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-    View Campaign Analytics
-  </button>
-  <button mat-raised-button color="warn" (click)="deleteCampaign()">
-    <mat-icon>clear</mat-icon>
-    Delete Campaign
-  </button>
+<div *ngIf="campaign" class="container-fluid">
+  <div class="row m-3">
+    <div class="col-12">
+      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Task List</h3>
+      </div>
+    <mat-card class="campaign-card m-3 p-4">
+      <button mat-raised-button color="primary"
+              [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
+        Assign tasks
+      </button>
+      <button mat-raised-button color="primary"
+              [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+        Edit campaign wiki
+      </button>
+      <button mat-raised-button color="primary"
+              [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+        View Campaign Analytics
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteCampaign()">
+        <mat-icon>clear</mat-icon>
+        Delete Campaign
+      </button>
 
-  <h3>Tasks list</h3>
-  <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
+      <h3>Tasks list</h3>
+      <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
+    </mat-card>
+  </div>
+  </div>
 </div>
