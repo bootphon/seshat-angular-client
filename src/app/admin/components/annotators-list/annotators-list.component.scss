@@ -4,15 +4,11 @@
   flex: 1 1 auto;
 }
 
-table {
-  width: 100%;
-}
-
-
-.annotators-table {
+.annotators-table{
   width: 90%;
   margin: auto;
-  margin-top: 20px;
+  margin-bottom: 36px;
+  margin-top: 36px;
 }
 
 .filter-field {
@@ -20,36 +16,5 @@ table {
   width: 25%;
 }
 
-.mat-cell {
-  border: none;
-}
 
-tr:nth-child(odd) {
-  background: var(--color-light-gray);
-}
 
-tr:nth-child(even) {
-  background: var(--text-white);
-}
-
-.mat-header-row {
-  background: var(--text-white) !important;
-}
-
-tr:hover td {
-  background: var(--color-table-hover);
-  cursor: pointer;
-}
-
-.annotators-table {
-  background: var(--text-white) !important;
-  margin-bottom: 36px;
-  margin-top: 36px;
-  border-radius: 4px;
-}
-
-mat-paginator {
-  // background: hotpink !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
-  border-radius: 0px 0px 4px 4px;
-}

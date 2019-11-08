@@ -1,8 +1,9 @@
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+<mat-form-field class="filter-field">
+  <!-- <mat-icon>search</mat-icon>  -->
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 </mat-form-field>
 
-<div class="mat-elevation-z2">
+<div class="table-styling">
   <table mat-table [dataSource]="tasks" matSort>
 
     <ng-container matColumnDef="view">
@@ -42,7 +43,7 @@
     </ng-container>
 
     <ng-container matColumnDef="lock-action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Locked</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Locked <mat-icon matTooltip="Locking a task prevents annotators from uploading files to it." class="help-icon">help</mat-icon></th>
       <td mat-cell *matCellDef="let task" (click)="$event.stopPropagation()">
         <mat-slide-toggle
           class="example-margin"

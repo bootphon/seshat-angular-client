@@ -33,12 +33,48 @@
     margin-top: -40px;
   }
 
+
+
   ::ng-deep {
     .mat-expansion-indicator::after {
       // color: var(--color-lime) !important;
       //color to be decided. if white there needs to be more of an in
       color: var(--text-white) !important;
     }
+    .mat-expansion-panel-body{
+      overflow-y: auto;
+      max-height: calc(100vh - 22rem);
+    }
+
+    //custom scroll bar for too long of submenu
+    /* width */
+    .mat-expansion-panel-body::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    .mat-expansion-panel-body::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    .mat-expansion-panel-body::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+
+    .submenu{
+      .mat-list-item-content{
+        padding-right:0px !important;
+        margin-right: -100px !important;
+      }
+      .mat-list-item-content:hover{
+        margin-right: -5px !important;
+      }
+    }
+
+
   }
 
   .navLink {
@@ -46,6 +82,9 @@
     z-index: 1000;
   }
 
+  .mat-list-item-content{
+    margin-right: calc(1rem * 1.5) !important;
+  }
 
 }
 

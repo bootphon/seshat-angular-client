@@ -31,13 +31,13 @@
         <h1 class="navLink"><span>Campaigns</span></h1>
     </mat-list-item>
 
-    <mat-list-item class="pb-2">
-          <mat-accordion class="" [hideToggle]="campaignsData.length === 0" displayMode="flat">
+    <mat-list-item class="pb-2 pr-0 submenu">
+          <mat-accordion class="w-100" [hideToggle]="campaignsData.length === 0" displayMode="flat">
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header class="d-flex justify-content-center"></mat-expansion-panel-header>
-              <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
-                <h2 class="navLink"><span>{{ campaign.name }}</span></h2>
-              </span>
+                <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
+                  <h2 class="navLink"><span>{{ campaign.name }}</span></h2>
+                </span>
             </mat-expansion-panel>
           </mat-accordion>
     </mat-list-item>
