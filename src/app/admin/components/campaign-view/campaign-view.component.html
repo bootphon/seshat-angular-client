@@ -127,6 +127,11 @@
               Download Full Archive
             </button>
           </div>
+          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
+            <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">Edit campaign wiki</button>
+            <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">View Campaign Analytics</button>
+            <button mat-raised-button color="warn" (click)="deleteCampaign()"><mat-icon>clear</mat-icon>Delete Campaign</button>
+          </div>
       </mat-card>
     </div>
   </div>
@@ -135,29 +140,14 @@
 <div *ngIf="campaign" class="container-fluid">
   <div class="row m-3">
     <div class="col-12">
-      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+      <div class="progress-row row d-flex align-items-center ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
         <h3 style="color:var(--text-medium-light)">Task List</h3>
       </div>
-    <mat-card class="campaign-card m-3 p-4">
-      <button mat-raised-button color="primary"
-              [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
-        Assign tasks
-      </button>
-      <button mat-raised-button color="primary"
-              [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-        Edit campaign wiki
-      </button>
-      <button mat-raised-button color="primary"
-              [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
-        View Campaign Analytics
-      </button>
-      <button mat-raised-button color="warn" (click)="deleteCampaign()">
-        <mat-icon>clear</mat-icon>
-        Delete Campaign
-      </button>
-
-      <h3>Tasks list</h3>
-      <seshat-tasks-list [campaignSlug]="campaign.slug"></seshat-tasks-list>
+    <mat-card class="campaign-card m-3 p-0">
+      <div class="w-100 justify-content-end d-flex p-4 task-button">
+          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">Assign tasks</button>
+      </div>
+      <seshat-tasks-list class="w-100" [campaignSlug]="campaign.slug"></seshat-tasks-list>
     </mat-card>
   </div>
   </div>

@@ -296,3 +296,89 @@ h5{
      display: none;
   }
 }
+
+
+//table and filter(search) styling
+.table-styling{
+  background: var(--text-white) !important;
+  border-radius: 4px;
+
+  table {
+    width: 100%;
+  }
+
+  .mat-cell {
+    border: none;
+  }
+
+  th{
+    padding-left: calc(1rem / 2) !important;
+    padding-right: calc(1rem / 2) !important;
+  }
+  td{
+    padding-left: calc(1rem / 2) !important;
+    padding-right: calc(1rem / 2) !important;
+  }
+
+  .mat-row{
+    td:first-child{
+      padding-left: calc(1rem * 1.5) !important;
+    }
+  }
+
+  .mat-header-row{
+    th:first-child{
+      padding-left: calc(1rem * 1.5) !important;
+    }
+  }
+
+  tr:nth-child(odd) {
+    background: var(--color-light-gray);
+  }
+
+  tr:nth-child(even) {
+    background: var(--text-white);
+  }
+
+  .mat-header-row {
+    background: var(--text-white) !important;
+  }
+
+  tr:hover td {
+    background: var(--color-table-hover);
+    cursor: pointer;
+  }
+
+  mat-paginator {
+    // background: hotpink !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-radius: 0px 0px 4px 4px;
+  }
+}
+
+.filter-field {
+  margin-left: calc(1rem * 1.5);
+  width: 25%;
+}
+
+.mat-input-element{
+  color: var(--text-dark) !important;
+}
+.mat-form-field-empty.mat-form-field-label {
+  color: var(--text-light);
+}
+
+
+.mat-form-field-infix{
+  line-height: calc(1rem + 5px);
+}
+
+.login-container{
+  .mat-form-field-infix{
+    line-height: calc(1rem + 1px) !important;
+  }
+}
+
+.help-icon{
+  font-size: 1.5em;
+}
