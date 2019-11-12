@@ -145,7 +145,7 @@
       </div>
     <mat-card class="campaign-card m-3 p-0">
       <div class="w-100 justify-content-end d-flex p-4 task-button">
-          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">Assign tasks</button>
+          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon>add</mat-icon> Create tasks</button>
       </div>
       <seshat-tasks-list class="w-100" [campaignSlug]="campaign.slug"></seshat-tasks-list>
     </mat-card>

@@ -6,3 +6,8 @@
   max-height: 400px;
   overflow: auto;
 }
+
+
+::ng-deep.mat-form-field-disabled{
+  opacity:0;
+}

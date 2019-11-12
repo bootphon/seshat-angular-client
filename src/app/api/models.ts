@@ -35,7 +35,7 @@ export { MergeConflicts } from './models/merge-conflicts';
 export { TaskFullStatusAnnotator } from './models/task-full-status-annotator';
 export { TaskTextgridSubmission } from './models/task-textgrid-submission';
 export { StructuralError } from './models/structural-error';
-export { AnnotationError } from './models/annotation-error';
+// export { AnnotationError } from './models/annotation-error';
 export { TimeMergeError } from './models/time-merge-error';
 export { AnnotMismatchError } from './models/annot-mismatch-error';
 export { TextGridErrors } from './models/text-grid-errors';

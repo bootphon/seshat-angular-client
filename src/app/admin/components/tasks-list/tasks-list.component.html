@@ -43,7 +43,7 @@
     </ng-container>
 
     <ng-container matColumnDef="lock-action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Locked <mat-icon matTooltip="Locking a task prevents annotators from uploading files to it." class="help-icon">help</mat-icon></th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Locked&nbsp;<mat-icon matTooltip="Locking a task prevents annotators from uploading files to the task. ///// Locking an annotator prevents the user from logging in." class="help-icon d-flex align-items-center">help</mat-icon></th>
       <td mat-cell *matCellDef="let task" (click)="$event.stopPropagation()">
         <mat-slide-toggle
           class="example-margin"

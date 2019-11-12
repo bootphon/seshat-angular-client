@@ -1,4 +1,4 @@
-<div class="campaign-creation-container">
+<!-- <div class="campaign-creation-container">
   <mat-grid-list cols="2" rowHeight="100px">
 
     <mat-grid-tile colspan="1">
@@ -174,5 +174,299 @@
 
   <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
 
-</div>
+</div> -->
 
+
+<div class="container p-5">
+  <div class="row">
+    <div class="col-12 mb-2">
+      <h3>Create a new campaign</h3>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field appearance="standard" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput required placeholder="" [(ngModel)]="campaignCreation.name">
+      </mat-form-field>
+    </div>
+
+    <div class="col-6">
+      <mat-form-field appearance="standard" class="w-100">
+        <mat-label>Campaign Corpora</mat-label>
+        <mat-select [(ngModel)]="chosenCorpora" required>
+          <mat-option>&#45;&#45;</mat-option>
+          <div *ngIf="availableCorpora; then options"></div>
+          <ng-template #options>
+            <mat-optgroup label="Folders">
+              <mat-option *ngFor="let corpora of availableCorpora.folders_corpora"
+                          [value]="{corporaType: 'folder', corporaName: corpora}">
+                {{corpora}}
+              </mat-option>
+            </mat-optgroup>
+            <mat-optgroup label="CSV">
+              <mat-option *ngFor="let corpora of availableCorpora.csv_corpora"
+                          [value]="{corporaType: 'csv', corporaName: corpora}">
+                {{corpora}}
+              </mat-option>
+            </mat-optgroup>
+          </ng-template>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12">
+      <mat-form-field appearance="standard" class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput required cdkAutosizeMaxRows="5"
+                  [(ngModel)]="campaignCreation.description"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 pb-3">
+      <mat-slide-toggle
+        matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
+        labelPosition="before"
+        [(ngModel)]="campaignCreation.enable_audio_dl"
+        appearance="standard"
+        >
+        Serve audio files to annotators
+      </mat-slide-toggle>
+    </div>
+
+    <div class="col-12">
+      <mat-slide-toggle
+        (change)="toggleTiersTable()"
+        labelPosition="before"
+        matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
+        [(ngModel)]="campaignCreation.check_textgrids"
+        appearance="standard">
+        Enable TextGrid checking
+      </mat-slide-toggle>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+        <table mat-table [dataSource]="tiersTableDataSource" class="mat-elevation-z2 campaign-specs-creator w-100"
+        [ngStyle]="!campaignCreation.check_textgrids && {'background-color': 'lightgrey'}">
+        <ng-container matColumnDef="delete_tier">
+            <th mat-header-cell *matHeaderCellDef>
+              <span>Checked tiers</span>
+            </th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <button mat-mini-fab color="warn" (click)="deleteTier(tierSpecs)">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tier_name">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-form-field>
+                <mat-label>Tier Name</mat-label>
+                <input matInput [(ngModel)]="tierSpecs.name">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tier_required">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-slide-toggle
+                matTooltip="This tier is required for the textgrid to be valid"
+                labelPosition="before"
+                [(ngModel)]="tierSpecs.required">
+                Required
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="allow_empty">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-slide-toggle
+                [disabled]="!tierSpecs.validate_tier"
+                matTooltip="This tier's (and its intervals) can contain no annotation"
+                labelPosition="before"
+                [(ngModel)]="tierSpecs.allow_empty">
+                Allow Empty
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tier_validated">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-slide-toggle
+                matTooltip="This tier's annotations will be checked by Seshat"
+                labelPosition="before"
+                [(ngModel)]="tierSpecs.validate_tier">
+                Validated
+              </mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="content_type">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-button-toggle-group [disabled]="!tierSpecs.validate_tier"
+                                       [(ngModel)]="tierSpecs.content_type">
+                <mat-button-toggle value="CATEGORICAL" ngDefaultControl>Categorical</mat-button-toggle>
+                <mat-button-toggle value="PARSED" ngDefaultControl>Parsed</mat-button-toggle>
+                <mat-button-toggle value="NONE" ngDefaultControl>None</mat-button-toggle>
+              </mat-button-toggle-group>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="checking_params">
+            <th mat-header-cell *matHeaderCellDef>
+              <button mat-mini-fab color="primary"
+                      [disabled]="!campaignCreation.check_textgrids"
+                      matTooltip="Add a tier specification"
+                      (click)="addTier()">
+                <mat-icon>playlist_add</mat-icon>
+              </button>
+            </th>
+            <td mat-cell *matCellDef="let tierSpecs">
+              <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'CATEGORICAL'">
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip *ngFor="let category of tierSpecs.categories"
+                            removable="true" (removed)="removeCategory(tierSpecs, category)">
+                    {{category}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="New category"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         matChipInputAddOnBlur="true"
+                         (matChipInputTokenEnd)="addCategory(tierSpecs, $event)">
+                </mat-chip-list>
+              </mat-form-field>
+              <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'PARSED'">
+                <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
+                  <mat-option value="option">Option</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row [@rowsAnimation]="" *matRowDef="let tierSpecs; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+  </div>
+  <!-- <table mat-table [dataSource]="tiersTableDataSource" class="mat-elevation-z2 campaign-specs-creator"
+         [ngStyle]="!campaignCreation.check_textgrids && {'background-color': 'lightgrey'}"> -->
+
+    <!-- <ng-container matColumnDef="delete_tier">
+      <th mat-header-cell *matHeaderCellDef>
+        <span>Checked tiers</span>
+      </th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <button mat-mini-fab color="warn" (click)="deleteTier(tierSpecs)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tier_name">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-form-field>
+          <mat-label>Tier Name</mat-label>
+          <input matInput [(ngModel)]="tierSpecs.name">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tier_required">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-slide-toggle
+          matTooltip="This tier is required for the textgrid to be valid"
+          labelPosition="before"
+          [(ngModel)]="tierSpecs.required">
+          Required
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="allow_empty">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-slide-toggle
+          [disabled]="!tierSpecs.validate_tier"
+          matTooltip="This tier's (and its intervals) can contain no annotation"
+          labelPosition="before"
+          [(ngModel)]="tierSpecs.allow_empty">
+          Allow Empty
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tier_validated">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-slide-toggle
+          matTooltip="This tier's annotations will be checked by Seshat"
+          labelPosition="before"
+          [(ngModel)]="tierSpecs.validate_tier">
+          Validated
+        </mat-slide-toggle>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="content_type">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-button-toggle-group [disabled]="!tierSpecs.validate_tier"
+                                 [(ngModel)]="tierSpecs.content_type">
+          <mat-button-toggle value="CATEGORICAL" ngDefaultControl>Categorical</mat-button-toggle>
+          <mat-button-toggle value="PARSED" ngDefaultControl>Parsed</mat-button-toggle>
+          <mat-button-toggle value="NONE" ngDefaultControl>None</mat-button-toggle>
+        </mat-button-toggle-group>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="checking_params">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-mini-fab color="primary"
+                [disabled]="!campaignCreation.check_textgrids"
+                matTooltip="Add a tier specification"
+                (click)="addTier()">
+          <mat-icon>playlist_add</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let tierSpecs">
+        <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'CATEGORICAL'">
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let category of tierSpecs.categories"
+                      removable="true" (removed)="removeCategory(tierSpecs, category)">
+              {{category}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New category"
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   matChipInputAddOnBlur="true"
+                   (matChipInputTokenEnd)="addCategory(tierSpecs, $event)">
+          </mat-chip-list>
+        </mat-form-field>
+        <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'PARSED'">
+          <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
+            <mat-option value="option">Option</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row [@rowsAnimation]="" *matRowDef="let tierSpecs; columns: displayedColumns;"></tr>
+  </table> -->
+
+
+  <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
+
+</div>
