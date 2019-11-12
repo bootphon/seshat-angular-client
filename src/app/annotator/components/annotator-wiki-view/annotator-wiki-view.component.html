@@ -1,6 +1,9 @@
-<mat-toolbar color="primary">
-  <span>Wiki page for {{campaignWikiData.profile.name}}</span>
-</mat-toolbar>
+<div *ngIf="campaignWikiData">
+  <mat-toolbar color="primary">
+    <span>Wiki page for {{campaignWikiData.profile.name}}</span>
+  </mat-toolbar>
 
-<em *ngIf="campaignWikiData.last_edit">Last edited on {{campaignWikiData.last_edit}}</em>
-<showdown [value]="campaignWikiData.content"></showdown>
+  <em *ngIf="campaignWikiData.last_edit">Last edited on {{campaignWikiData.last_edit}}</em>
+  <showdown [value]="campaignWikiData.content"></showdown>
+</div>
+

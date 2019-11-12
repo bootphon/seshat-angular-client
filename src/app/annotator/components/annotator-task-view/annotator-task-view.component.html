@@ -1,41 +1,144 @@
-<mat-toolbar color="primary">
-  <span>Annotation task for file {{taskData.filename}}</span>
-</mat-toolbar>
+<div *ngIf="taskData">
+  <mat-toolbar color="primary">
+    <span>Annotation task for file {{taskData.filename}}</span>
+  </mat-toolbar>
 
-<h3>Task Informations</h3>
+  <div *ngIf="taskData.is_locked">
+    <p>This task is locked. This means you shouldn't be working on it currently.</p>
+  </div>
 
-<div>
-  <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
-  <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
-  <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None}}</p>
-  <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
+  <div *ngIf="!taskData.is_locked">
+
+    <h3>Task Informations</h3>
+
+    <div>
+      <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
+      <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
+      <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None}}</p>
+      <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
+    </div>
+
+    <h3>Instructions</h3>
+
+    <div>
+
+
+      <ng-template #stepcontent>
+        <p>{{taskData.current_instructions}}</p>
+
+        <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton">
+        </div>
+        <ng-template #starterButton>
+          <button (click)="downloadStarter()"></button>
+        </ng-template>
+        <ng-template #currentTemplateButton>
+          <button (click)="downloadCurrentTextGridTemplate()"></button>
+        </ng-template>
+
+        <div *ngIf=""></div>
+      </ng-template>
+
+      <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="currentStepIdx">
+        <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent">
+          <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+
+
+    <div *ngIf="taskData.allow_file_upload">
+      <h3>Submission</h3>
+
+      <div>
+        <p>Once the file has been annotated, upload the file</p>
+        <p>If there are any errors on the upload, correct the errors and upload again.</p>
+        <p>You can check the validity of the file at all times (without actually uploading it) by clicking 'Validate'</p>
+        <form [formGroup]="uploadForm">
+          <mat-form-field>
+            <ngx-mat-file-input formControlName="tgFile" placeholder="TextGrid Upload"
+                                [accept]="'.TextGrid'"></ngx-mat-file-input>
+            <mat-icon matSuffix>insert_drive_file</mat-icon>
+            <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
+              Please select a TextGrid file
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button (click)="validateTextGrid()" color="primary">VALIDATE</button>
+          <button mat-raised-button (click)="submitTextGrid()" color="accent">SUBMIT</button>
+        </form>
+
+      </div>
+
+      <div *ngIf="tgErrors">
+        <div *ngIf="tgErrors.structural">
+          <h4>Structural Errors</h4>
+          <mat-card *ngFor="let error of tgErrors.structural">
+            <mat-card-header>
+              <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+              <mat-card-title>Structural Error</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{error.msg}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="tgErrors.annot">
+          <h4>Annotation errors</h4>
+          <div *ngFor="let annotErrors of tgErrors.annot | keyvalue">
+            <h5>For Tier {{annotErrors.key}}</h5>
+            <mat-card *ngFor="let error of annotErrors.value">
+              <mat-card-header>
+                <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+                <mat-card-title>
+                  Annotation error in tier {{error.tier}}, interval #{{error.index}}
+                  (from {{error.start}}s to {{error.end}}s)
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>{{error.msg}}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <div *ngIf="tgErrors.annot_mismatch">
+          <h4>Structural Errors</h4>
+          <mat-card *ngFor="let error of tgErrors.annot_mismatch">
+            <mat-card-header>
+              <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+              <mat-card-title>
+                Annotation mismatch between tiers {{error.ref_tier}} and tier {{error.target_tier}}, interval #{{error.index}}
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>The annotation {{error.ref_annot}} isn't the same as annot {{error.target_annot}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="tgErrors.time_conflict">
+          <h4>Structural Errors</h4>
+          <mat-card *ngFor="let error of tgErrors.time_conflict">
+            <mat-card-header>
+              <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+              <mat-card-title>
+                Can't merge annotations between intervals #{{error.index_before}} and #{{error.index_after}}
+                between tiers {{error.tier_a}} and {{error.tier_b}}
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>Impossible to merge frontiers between intervals #{{error.index_before}} and #{{error.index_after}}.
+              The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
+                is bigger than the authorised threshold of {{error.threshold}}s.</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+
+    <h3>Comments</h3>
+
+    <seshat-comments [taskID]="taskData.id"></seshat-comments>
+  </div>
 </div>
-
-<h3>Instructions</h3>
-
-<div>
-
-
-  <ng-template #stepcontent>
-    <p>{{taskData.i}}</p>
-  </ng-template>
-
-  <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="currentStepIdx">
-    <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent">
-      <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
-    </mat-step>
-  </mat-horizontal-stepper>
-</div>
-
-
-<h3>Submission</h3>
-
-<div>
-  <p>Once the file has been annotated, upload the file</p>
-  <p>If there are any errors on the upload, correct the errors and upload again.</p>
-  <p>You can check the validity of the file at all times (without actually uploading it) by clicking 'Validate'</p>
-</div>
-
-<h3>Comments</h3>
-
-<seshat-comments [taskID]="taskData.id"></seshat-comments>

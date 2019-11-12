@@ -2,7 +2,7 @@
 import { MergeConflicts } from './merge-conflicts';
 import { UserShortProfile } from './user-short-profile';
 export interface TaskFullStatusAnnotator  {
-  all_statuses?: Array<string>;
+  all_steps?: Array<string>;
   allow_file_upload: boolean;
   allow_starter_dl: boolean;
   annotators?: Array<string>;
@@ -10,13 +10,12 @@ export interface TaskFullStatusAnnotator  {
   campaign_slug: string;
   creation_time: string;
   current_instructions: string;
-  current_status_idx: number;
-  current_tg_download?: string;
+  current_step_idx: number;
   deadline?: string;
   filename: string;
   frontiers_merge_table?: MergeConflicts;
   id: string;
   is_locked: boolean;
-  status: string;
+  step: string;
   task_type: string;
 }

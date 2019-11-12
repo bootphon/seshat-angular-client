@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
     "ng-openapi-gen": "^0.6.0",
+    "ngx-material-file-input": "^2.0.0",
     "ngx-showdown": "^5.0.0",
     "rxjs": "~6.4.0",
     "showdown": "^1.9.0",

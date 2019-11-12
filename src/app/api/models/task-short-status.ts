@@ -9,6 +9,6 @@ export interface TaskShortStatus  {
   filename: string;
   id: string;
   is_locked: boolean;
-  status: string;
+  step: string;
   task_type: string;
 }

@@ -17,6 +17,7 @@ import {AnnotatorGuard, AuthGard} from '../commons/auth.gard';
 import {ShowdownModule} from 'ngx-showdown';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonsModule} from '../commons/commons.module';
+import {MaterialFileInputModule} from 'ngx-material-file-input';
 
 
 const routes: Routes = [
@@ -47,7 +48,8 @@ const routes: Routes = [
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonsModule
+    CommonsModule,
+    MaterialFileInputModule
   ]
 })
 export class AnnotatorModule {

@@ -24,7 +24,7 @@
     </tr>
     <tr>
       <td>Status</td>
-      <td>{{taskData.status}}</td>
+      <td>{{taskData.step}}</td>
     </tr>
     <tr>
       <td>Annotators</td>
@@ -60,7 +60,7 @@
         <mat-checkbox (click)="$event.stopPropagation()"
                       (change)="$event ? tgSelection.toggle(textgrid) : null"
                       [checked]="tgSelection.isSelected(textgrid)"
-                      [disabled]="textgrid.is_done">
+                      [disabled]="textgrid.has_been_submitted">
         </mat-checkbox>
       </td>
     </ng-container>
@@ -68,7 +68,7 @@
     <ng-container matColumnDef="download">
       <th mat-header-cell *matHeaderCellDef>Download</th>
       <td mat-cell *matCellDef="let textgrid" (click)="$event.stopPropagation()">
-        <button *ngIf="textgrid.is_done" mat-mini-fab color="primary"
+        <button *ngIf="textgrid.has_been_submitted" mat-mini-fab color="primary"
                 (click)="downloadTaskTextGrid(textgrid)">
           <mat-icon>get_app</mat-icon>
         </button>
@@ -78,7 +78,7 @@
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
       <td mat-cell *matCellDef="let textgrid" (click)="$event.stopPropagation()">
-        <button *ngIf="textgrid.is_done" mat-mini-fab color="warn"
+        <button *ngIf="textgrid.has_been_submitted" mat-mini-fab color="warn"
                 (click)="deleteTaskTextGrid(textgrid)">
           <mat-icon>delete</mat-icon>
         </button>
@@ -90,22 +90,22 @@
       <td mat-cell *matCellDef="let textgrid"> {{textgrid.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="is_done">
+    <ng-container matColumnDef="has_been_submitted">
       <th mat-header-cell *matHeaderCellDef> Is done</th>
-      <td mat-cell *matCellDef="let textgrid"> {{textgrid.is_done}} </td>
+      <td mat-cell *matCellDef="let textgrid"> {{textgrid.has_been_submitted}} </td>
     </ng-container>
 
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef> Creation</th>
       <td mat-cell *matCellDef="let textgrid">
-        {{textgrid.is_done ? textgrid.creation : null}}
+        {{textgrid.has_been_submitted ? textgrid.creation : null}}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="creator">
       <th mat-header-cell *matHeaderCellDef> Creators</th>
       <td mat-cell *matCellDef="let textgrid">
-        {{textgrid.is_done ? textgrid.creators.join(', ') : null}}
+        {{textgrid.has_been_submitted ? textgrid.creators.join(', ') : null}}
       </td>
     </ng-container>
 

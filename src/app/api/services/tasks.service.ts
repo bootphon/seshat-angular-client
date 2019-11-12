@@ -16,6 +16,7 @@ import { TaskLockRequest } from '../models/task-lock-request';
 import { TaskShortStatus } from '../models/task-short-status';
 import { TaskTextgridSubmission } from '../models/task-textgrid-submission';
 import { TasksAssignment } from '../models/tasks-assignment';
+import { TextGridErrors } from '../models/text-grid-errors';
 
 
 /**
@@ -390,7 +391,7 @@ export class TasksService extends BaseService {
     taskId: string;
 
     body: TaskTextgridSubmission
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<TextGridErrors>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksSubmitTaskIdPostPath, 'post');
     if (params) {
@@ -400,12 +401,12 @@ export class TasksService extends BaseService {
       rb.body(params.body, 'application/json');
     }
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TextGridErrors>;
       })
     );
   }
@@ -420,10 +421,10 @@ export class TasksService extends BaseService {
     taskId: string;
 
     body: TaskTextgridSubmission
-  }): Observable<void> {
+  }): Observable<TextGridErrors> {
 
     return this.tasksSubmitTaskIdPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<TextGridErrors>) => r.body as TextGridErrors)
     );
   }
 
@@ -442,7 +443,7 @@ export class TasksService extends BaseService {
     taskId: string;
 
     body: TaskTextgridSubmission
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<TextGridErrors>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksValidateTaskIdPostPath, 'post');
     if (params) {
@@ -452,12 +453,12 @@ export class TasksService extends BaseService {
       rb.body(params.body, 'application/json');
     }
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<TextGridErrors>;
       })
     );
   }
@@ -472,10 +473,10 @@ export class TasksService extends BaseService {
     taskId: string;
 
     body: TaskTextgridSubmission
-  }): Observable<void> {
+  }): Observable<TextGridErrors> {
 
     return this.tasksValidateTaskIdPost$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<TextGridErrors>) => r.body as TextGridErrors)
     );
   }
 

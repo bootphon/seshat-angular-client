@@ -3,6 +3,9 @@ import {TasksService} from '../../../api/services/tasks.service';
 import {TaskFullStatusAnnotator} from '../../../api/models/task-full-status-annotator';
 import {ActivatedRoute} from '@angular/router';
 import {StepState} from '@angular/cdk/stepper';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TextGridErrors} from '../../../api/models/text-grid-errors';
+import {MatSnackBar} from '@angular/material';
 
 
 @Component({
@@ -14,10 +17,15 @@ export class AnnotatorTaskViewComponent implements OnInit {
   taskData: TaskFullStatusAnnotator;
   taskId: string;
   currentStepIdx = 0;
+  uploadForm: FormGroup;
+  tgContent: string;
+  tgErrors : TextGridErrors;
 
   constructor(
     private tasksService: TasksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -28,12 +36,57 @@ export class AnnotatorTaskViewComponent implements OnInit {
         this.taskData = data;
       }
     );
+    this.uploadForm = this.formBuilder.group({
+      tgFile: [Validators.required]
+    });
+  }
+
+  loadTextGridFile() {
+    const file: File = this.uploadForm.get('tgFile').value.files[0];
+    const myReader: FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      console.log(myReader.result);
+      const result = myReader.result;
+      if (!(result instanceof ArrayBuffer)) {
+        this.tgContent = result;
+      }
+    };
+
+    myReader.readAsText(file);
+  }
+
+  notifyEmptyTg() {
+    this.snackBar.open('You have to specify a TextGrid file for validation',
+      'Error',
+      {verticalPosition: 'top', duration: 10 * 1000});
   }
 
   validateTextGrid() {
+    this.loadTextGridFile();
+    if (!this.tgContent){
+      this.notifyEmptyTg();
+    }
+    this.tasksService.tasksValidateTaskIdPost({taskId: this.taskId, body: {textgrid_str: this.tgContent}}).subscribe(
+      (data) => {
+        this.tgErrors = data;
+      }
+    );
   }
 
   submitTextGrid() {
+    this.loadTextGridFile();
+    if (!this.tgContent){
+      this.notifyEmptyTg();
+    }
+    this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: this.tgContent}}).subscribe(
+      (data) => {
+        this.tgErrors = data;
+      }
+    );
   }
+  downloadStarter() {}
+  downloadCurrentTextGridTemplate() {}
+
+
 
 }

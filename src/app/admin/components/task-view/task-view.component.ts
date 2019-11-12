@@ -15,7 +15,7 @@ import {DownloadsService} from '../../../commons/downloads.service';
 export class TaskViewComponent implements OnInit {
   @Input() taskID?: string;
   taskData: TaskFullStatusAdmin;
-  displayedColumns = ['select', 'download', 'delete', 'name', 'is_done', 'creator', 'created'];
+  displayedColumns = ['select', 'download', 'delete', 'name', 'has_been_submitted', 'creator', 'created'];
   textgridDataSource = new MatTableDataSource<TaskTextGrid>();
   tgSelection = new SelectionModel<TaskTextGrid>(true, []);
 
@@ -86,7 +86,7 @@ export class TaskViewComponent implements OnInit {
   deleteTaskTextGrid(tg: TaskTextGrid) {
     this.tasksService.tasksDeleteTaskIdTextgridTgNameDelete({taskId: this.taskID, tgName: tg.name}).subscribe(
       () => {
-        tg.is_done = false;
+        tg.has_been_submitted = false;
         tg.created = null;
         tg.creators = null;
         tg.id = null;

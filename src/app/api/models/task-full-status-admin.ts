@@ -12,7 +12,7 @@ export interface TaskFullStatusAdmin  {
   filename: string;
   id: string;
   is_locked: boolean;
-  status: string;
+  step: string;
   task_type: string;
   textgrids?: Array<TaskTextGrid>;
 }
