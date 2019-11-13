@@ -103,7 +103,7 @@
       <h3>Assign Task</h3>
     </div>
 
-    <div class="col-12 mb-2">
+    <div class="col-12 mb-4">
       <div class="mb-2">
         <h3 style="color:var(--text-medium-light)">1. Select Files</h3>
       </div>
@@ -153,7 +153,7 @@
           </mat-card>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 mb-4">
       <div class="mb-2">
         <h3 style="color:var(--text-medium-light)">2. Select Annotators</h3>
       </div>
@@ -201,24 +201,24 @@
       </mat-card>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 mb-4">
       <div class="mb-2">
         <h3 style="color:var(--text-medium-light)">3. Set Deadline (optional)</h3>
       </div>
       <mat-card>
         <!-- this is causing and error!!!!! -->
-          <!-- <mat-form-field>
+          <mat-form-field class="col-6">
               <input matInput [matDatepicker]="picker" placeholder="Deadline"
                      [(ngModel)]="deadline" [min]="minDeadline">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field> -->
+            </mat-form-field>
       </mat-card>
     </div>
   </div>
   <div class="row">
-    <div class="action-buttons">
-        <button mat-button>CANCEL</button>
+    <div class="col-12 action-buttons d-flex justify-content-end w-100">
+        <button mat-button class="mr-2">CANCEL</button>
         <button mat-raised-button color="primary" (click)="submitAssigment()">
           <mat-icon>check</mat-icon>
           Assign Task

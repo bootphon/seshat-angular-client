@@ -5,8 +5,8 @@
     </button>
   </div>
   <div class="alt-mat-theme">
-  <button class="mr-3" mat-raised-button color="{{ currentUserIsSubscriber ? 'accent' : 'primary'}}"
-          (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'UNFOLLOW' : 'FOLLOW'}}</button>
+  <button class="mr-3" mat-raised-button color="{{ currentUserIsSubscriber ? 'warn' : 'accent'}}"
+          (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'Unfollow' : 'Follow'}}</button>
   </div>
 </mat-toolbar>
 
@@ -110,27 +110,46 @@
                 <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
               </div>
           </div>
-          <div class="campaign-divider"><hr/></div>
+
+          <div class="progress-row row d-flex align-items-start pt-2 mb-2 pb-1">
+            <div class="progress-row-title col-auto">
+              <h4 class="m-0">Description:</h4>
+            </div>
+            <div class="col">
             <mat-card-subtitle>
-              This is the description of the campaign. Weeeee. Let's say things. This section still needs some editing because it is not very pretty. Also I don't think the green that light works. We shall see. I put it in an ng-container because it (at the moment) shouldn't be shown unless it has content to not mess up the spacing. Wait i don't think it needed it. so i deleted it. weeeee.
+                This is the description of the campaign. Weeeee. Let's say things. This section still needs some editing because it is not very pretty. Also I don't think the green that light works. We shall see. I put it in an ng-container because it (at the moment) shouldn't be shown unless it has content to not mess up the spacing. Wait i don't think it needed it. so i deleted it. weeeee.
             </mat-card-subtitle>
-          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
-            <div class="col-auto">
-              <h4 class="m-0 d-inline pr-1">Annotators: &nbsp;</h4>
-              <a class="d-inline" [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
-         *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
             </div>
           </div>
-          <div class="progress-row row d-flex align-items-center mb-1" style="padding-left: 15px;">
-            <h4 class="mr-4">Annotations archive:</h4>
-            <button mat-raised-button color="primary" (click)="getCampaignArchive()">
-              Download Full Archive
-            </button>
+          <div class="progress-row row d-flex align-items-start pt-2 pb-1">
+            <div class="progress-row-title col-auto">
+                <h4 class="m-0">Annotators:</h4>
+              </div>
+              <div class="col mt-n1">
+                  <a class="d-inline" [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
+                  *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+              </div>
           </div>
-          <div class="progress-row row d-flex align-items-center pt-2 mb-2 pb-1">
-            <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">Edit campaign wiki</button>
-            <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">View Campaign Analytics</button>
-            <button mat-raised-button color="warn" (click)="deleteCampaign()"><mat-icon>clear</mat-icon>Delete Campaign</button>
+          <div class="progress-row row d-flex align-items-start pt-2 pb-1">
+            <div class="progress-row-title col-auto">
+                <h4 class="m-0">Annotation archive:</h4>
+              </div>
+              <div class="col alt-mat-theme">
+              <button mat-stroked-button color="primary" (click)="getCampaignArchive()">
+                Download Full Archive
+              </button>
+            </div>
+          </div>
+
+          <div class="progress-row row d-flex align-items-start pt-2 pb-1">
+            <div class="progress-row-title col-auto">
+                <h4 class="m-0">Other Actions:</h4>
+            </div>
+            <div class="col alt-mat-theme">
+              <button class="mr-3 mb-3" mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">Edit Campaign Wiki</button>
+              <button class="mr-3 mb-3"mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">View Campaign Analytics</button>
+              <button class="float-none float-lg-right delete-campaign" mat-flat-button color="warn" (click)="deleteCampaign()"><mat-icon>delete</mat-icon>&nbsp;Delete Campaign</button>
+            </div>
           </div>
       </mat-card>
     </div>
@@ -145,7 +164,7 @@
       </div>
     <mat-card class="campaign-card m-3 p-0">
       <div class="w-100 justify-content-end d-flex p-4 task-button">
-          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon>add</mat-icon> Create tasks</button>
+          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon style="color: var(--text-white);">add</mat-icon> Assign Task</button>
       </div>
       <seshat-tasks-list class="w-100" [campaignSlug]="campaign.slug"></seshat-tasks-list>
     </mat-card>
