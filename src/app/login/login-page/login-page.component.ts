@@ -23,6 +23,18 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.eventsService.logInEvent.emit(false);
+    this.eventsService.logInEvent.subscribe(
+      (isLoggedIn) => {
+          if (isLoggedIn) {
+            if (this.roleProvider.isAdmin()) {
+              this.router.navigate(['/admin']);
+            } else if (this.roleProvider.isAnnotator()) {
+              console.log('redirect to annotator tasks');
+              this.router.navigate(['/annotator']);
+            }
+          }
+      }
+    );
   }
 
   login() {
@@ -30,12 +42,6 @@ export class LoginPageComponent implements OnInit {
     this.roleProvider.login(this.username, this.password).then(
       (tokenData: ConnectionToken) => {
         this.roleProvider.setToken(tokenData);
-        if (this.roleProvider.isAdmin()) {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/annotator']);
-        }
-
       }
     );
   }

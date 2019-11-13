@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {TaskFullStatusAnnotator} from '../../../api/models/task-full-status-annotator';
 import {ActivatedRoute} from '@angular/router';
-import {StepState} from '@angular/cdk/stepper';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TextGridErrors} from '../../../api/models/text-grid-errors';
-import {MatSnackBar} from '@angular/material';
+import {MatHorizontalStepper, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {TimeMergeError} from '../../../api/models/time-merge-error';
 
 
 @Component({
@@ -16,11 +16,13 @@ import {MatSnackBar} from '@angular/material';
 export class AnnotatorTaskViewComponent implements OnInit {
   taskData: TaskFullStatusAnnotator;
   taskId: string;
-  currentStepIdx = 0;
   uploadForm: FormGroup;
   tgContent: string;
-  tgErrors : TextGridErrors;
+  tgErrors: TextGridErrors;
+  timesMergeMismatch = new MatTableDataSource<TimeMergeError>();
+  conflictsTableColumns = ['tier_a', 'tier_b', 'time_a', 'time_b', 'index_before', 'index_after'];
 
+  @ViewChild('stepper', {static: true}) public stepper: MatHorizontalStepper;
   constructor(
     private tasksService: TasksService,
     private route: ActivatedRoute,
@@ -34,6 +36,9 @@ export class AnnotatorTaskViewComponent implements OnInit {
     this.tasksService.tasksStatusAnnotatorTaskIdGet({taskId: this.taskId}).subscribe(
       (data) => {
         this.taskData = data;
+        if (data.frontiers_merge_table) {
+          this.timesMergeMismatch = new MatTableDataSource<TimeMergeError>(data.frontiers_merge_table);
+        }
       }
     );
     this.uploadForm = this.formBuilder.group({
@@ -84,8 +89,17 @@ export class AnnotatorTaskViewComponent implements OnInit {
       }
     );
   }
-  downloadStarter() {}
-  downloadCurrentTextGridTemplate() {}
+  updateInProgress(){
+    if (this.taskData.current_step_idx === 0) {
+      this.taskData.current_step_idx = 1;
+    }
+  }
+  downloadStarter() {
+    this.updateInProgress();
+  }
+  downloadCurrentTextGridTemplate() {
+    this.updateInProgress();
+  }
 
 
 

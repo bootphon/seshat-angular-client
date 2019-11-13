@@ -8,6 +8,7 @@ export interface TaskShortStatus  {
   deadline?: string;
   filename: string;
   id: string;
+  is_done: boolean;
   is_locked: boolean;
   step: string;
   task_type: string;

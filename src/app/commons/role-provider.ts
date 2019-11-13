@@ -67,11 +67,13 @@ export class RoleProvider {
 
   public setToken(t) {
     window.localStorage.setItem('token', t.token);
-    this.eventsService.logInEvent.emit(true);
+    this.getUserData().then((data) => this.eventsService.logInEvent.emit(true));
   }
 
   public logout() {
     window.localStorage.clear();
+    this.userData = undefined;
+    this.userToken = undefined;
     this.eventsService.logInEvent.emit(false);
   }
 }

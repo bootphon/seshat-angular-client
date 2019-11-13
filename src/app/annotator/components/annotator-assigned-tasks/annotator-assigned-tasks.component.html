@@ -5,13 +5,14 @@
 
 <mat-tab-group>
   <mat-tab label="Assigned Tasks">
-    <table mat-table [dataSource]="assignedTasksList" matSort class="mat-elevation-z8">
+    <table mat-table #assignedTasksSort="matSort"
+           [dataSource]="assignedTasksList" matSort class="mat-elevation-z2">
 
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let task">
           <!-- TODO: router link to reach the task -->
-          <a mat-fab aria-label="View task">
+          <a mat-mini-fab aria-label="View task">
             <mat-icon>pageview</mat-icon>
           </a>
         </td>
@@ -29,28 +30,31 @@
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Status</th>
-        <td mat-cell *matCellDef="let task"> {{task.status}} </td>
+        <td mat-cell *matCellDef="let task"> {{task.step}} </td>
       </ng-container>
 
       <ng-container matColumnDef="deadline">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Deadline</th>
-        <td mat-cell *matCellDef="let task"> {{task.deadline}} </td>
+        <td mat-cell *matCellDef="let task"> {{task.deadline ? task.deadline : 'None'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="assignedColumns"></tr>
-      <tr mat-row *matRowDef="let task; columns: assignedColumns;"></tr>
+      <tr mat-row *matRowDef="let task; columns: assignedColumns;"
+      [routerLink]="['/annotator', 'task', task.id]"
+      ></tr>
     </table>
 
   </mat-tab>
   <mat-tab label="Finished Tasks">
 
-    <table mat-table [dataSource]="finishedTasksList" matSort class="mat-elevation-z8">
+    <table mat-table #finishedTasksSort="matSort"
+           [dataSource]="finishedTasksList" matSort class="mat-elevation-z2">
 
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let task">
           <!-- TODO: router link to reach the task -->
-          <a mat-fab aria-label="View task">
+          <a mat-mini-fab aria-label="View task">
             <mat-icon>pageview</mat-icon>
           </a>
         </td>
@@ -71,9 +75,9 @@
         <td mat-cell *matCellDef="let task"> {{task.status}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="deadline">
+      <ng-container matColumnDef="finish-date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Finish Date</th>
-        <td mat-cell *matCellDef="let task"> {{task.finish_date}} </td>
+        <td mat-cell *matCellDef="let task"> {{task.finish_date? task.finish_date : 'none'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="finishedColumns"></tr>

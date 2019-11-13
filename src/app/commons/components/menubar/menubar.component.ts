@@ -32,21 +32,27 @@ export class MenubarComponent implements OnInit {
         this.updateActivatedMenuItem(event);
       }
     });
+    if (this.roleProvider.isLogged()) {
+      this.loadProfileData()
+    }
 
-    this.roleProvider.getUserData().then((data) => this.userData = data);
-    this.loadCampaignsList();
     this.eventsService.logInEvent.subscribe((loggedIn) => {
       if (loggedIn) {
-        this.accountsService.accountsNotificationsCountGet().subscribe(
-          (data) => this.notifCount = data.count
-        );
-        this.loadCampaignsList();
+       this.loadProfileData();
       }
     });
     this.eventsService.campaignsChange.subscribe(() =>{
       this.loadCampaignsList();
     });
 
+  }
+
+  loadProfileData() {
+    this.roleProvider.getUserData().then((data) => this.userData = data);
+    this.loadCampaignsList();
+    this.accountsService.accountsNotificationsCountGet().subscribe(
+      (data) => this.notifCount = data.count
+    );
   }
 
   loadCampaignsList() {

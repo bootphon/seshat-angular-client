@@ -14,32 +14,32 @@
     <div>
       <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
       <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
-      <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None}}</p>
+      <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None'}}</p>
       <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
     </div>
 
     <h3>Instructions</h3>
 
     <div>
-
-
       <ng-template #stepcontent>
         <p>{{taskData.current_instructions}}</p>
 
         <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton">
         </div>
         <ng-template #starterButton>
-          <button (click)="downloadStarter()"></button>
+          <button mat-raised-button (click)="downloadStarter()">Download</button>
         </ng-template>
         <ng-template #currentTemplateButton>
-          <button (click)="downloadCurrentTextGridTemplate()"></button>
+          <button mat-raised-button (click)="downloadCurrentTextGridTemplate()">Download</button>
         </ng-template>
 
-        <div *ngIf=""></div>
       </ng-template>
 
-      <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="currentStepIdx">
-        <mat-step *ngFor="let taskStatus of taskData.all_statuses" [label]="taskStatus" content="#stepcontent">
+      <mat-horizontal-stepper labelPosition="bottom" #stepper
+                              [selectedIndex]="taskData.current_step_idx" >
+        <mat-step *ngFor="let taskStatus of taskData.all_steps; index as i;"
+                  [label]="taskStatus" content="#stepcontent"
+                  [completed]="i <= taskData.current_step_idx">
           <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
         </mat-step>
       </mat-horizontal-stepper>
@@ -52,7 +52,7 @@
       <div>
         <p>Once the file has been annotated, upload the file</p>
         <p>If there are any errors on the upload, correct the errors and upload again.</p>
-        <p>You can check the validity of the file at all times (without actually uploading it) by clicking 'Validate'</p>
+        <p>You can check the validity of the file at all times (without actually saving it) by clicking 'Validate'</p>
         <form [formGroup]="uploadForm">
           <mat-form-field>
             <ngx-mat-file-input formControlName="tgFile" placeholder="TextGrid Upload"
@@ -128,12 +128,56 @@
             </mat-card-header>
             <mat-card-content>
               <p>Impossible to merge frontiers between intervals #{{error.index_before}} and #{{error.index_after}}.
-              The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
+                The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
                 is bigger than the authorised threshold of {{error.threshold}}s.</p>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="taskData.frontiers_merge_table">
+      <h3>Merging times mismatch</h3>
+
+      <table mat-table [dataSource]="timesMergeMismatch" class="mat-elevation-2">
+
+        <ng-container matColumnDef="tier_a">
+          <th mat-header-cell *matHeaderCellDef> Tier A </th>
+          <td mat-cell *matCellDef="let row"> {{row.tier_a}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tier_b">
+          <th mat-header-cell *matHeaderCellDef> Tier B </th>
+          <td mat-cell *matCellDef="let row"> {{row.tier_b}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time_a">
+          <th mat-header-cell *matHeaderCellDef> Time A </th>
+          <td mat-cell *matCellDef="let row"> {{row.time_a}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time_b">
+          <th mat-header-cell *matHeaderCellDef> Time B </th>
+          <td mat-cell *matCellDef="let row"> {{row.time_b}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="index_before">
+          <th mat-header-cell *matHeaderCellDef> Time Before</th>
+          <td mat-cell *matCellDef="let row"> {{row.index_before}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="index_after">
+          <th mat-header-cell *matHeaderCellDef> Index After </th>
+          <td mat-cell *matCellDef="let row"> {{row.index_after}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="conflictsTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: conflictsTableColumns;"></tr>
+      </table>
+
+
+
+
     </div>
 
 

@@ -57,13 +57,12 @@
     </mat-list-item>
     -->
   </ng-template>
-
   <div *ngIf="this.userData && this.userData.type === 'annotator'; then annotatorMenu">
   </div>
 
   <ng-template #annotatorMenu>
-    <mat-list-item>
-      <span>Tasks</span>
+    <mat-list-item class="mt-1">
+      <h1 class="navLink" [routerLink]="['/annotator']"><span>Tasks</span></h1>
     </mat-list-item>
   </ng-template>
 

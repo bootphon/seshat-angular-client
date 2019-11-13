@@ -1,5 +1,5 @@
 /* tslint:disable */
-import { MergeConflicts } from './merge-conflicts';
+import { TimeMergeError } from './time-merge-error';
 import { UserShortProfile } from './user-short-profile';
 export interface TaskFullStatusAnnotator  {
   all_steps?: Array<string>;
@@ -13,8 +13,9 @@ export interface TaskFullStatusAnnotator  {
   current_step_idx: number;
   deadline?: string;
   filename: string;
-  frontiers_merge_table?: MergeConflicts;
+  frontiers_merge_table?: Array<TimeMergeError>;
   id: string;
+  is_done: boolean;
   is_locked: boolean;
   step: string;
   task_type: string;
