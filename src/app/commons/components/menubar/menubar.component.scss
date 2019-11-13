@@ -16,7 +16,7 @@
     width: 0.75rem;
     height: 0.75rem;
     border-radius: 50%;
-    background-color: var(--color-lime);
+    background-color: var(--color-gold);
   }
 
   .mat-expansion-panel {
@@ -37,7 +37,7 @@
 
   ::ng-deep {
     .mat-expansion-indicator::after {
-      // color: var(--color-lime) !important;
+      // color: var(--color-gold) !important;
       //color to be decided. if white there needs to be more of an in
       color: var(--text-white) !important;
     }

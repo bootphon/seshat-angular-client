@@ -8,13 +8,20 @@
   width: 90%;
   margin: auto;
 }
+.mat-stroked-button{
+  border: 1px solid rgba(136,136,136, 1) !important;
+}
 
 .mat-icon {
   color: var(--text-dark);
 }
 
 .progress-row-title {
-  width: 60px;
+  width: 150px;
+  text-align:right;
+  h4{
+    color: var(--text-medium-light);
+  }
 }
 
 .progress-row-total {
@@ -22,36 +29,23 @@
 }
 
 .progress-bar {
-  width: 0;
-  animation: progress 2.5s ease-in-out forwards;
-  background-color: var(--color-lime);
+  width: 100%;
+  background-color: var(--color-gold);
   border-radius: .25rem;
 
-  // h5 {
-  //   opacity: 0;
-  //   animation: show 0.5s forwards ease-in-out 1s;
-  // }
-}
-
-@keyframes progress {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes show {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 
 .task-button{
   margin-bottom: calc(-1rem * 4);
+}
+
+
+::ng-deep{
+  .delete-campaign{
+  .mat-button-wrapper{
+    display: flex !important;
+    align-items: center !important
+  }
+  }
 }

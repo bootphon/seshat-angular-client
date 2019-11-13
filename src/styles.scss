@@ -13,6 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
+$dark-primary-text:rgb(74,74,70);
 
 $seshat-olive: (
   A100: #c8e4a0,
@@ -25,10 +26,10 @@ $seshat-olive: (
   )
 );
 
-$seshat-lime: (
-  A100: #ffff8e,
-  A200: #dedb5d,
-  A400: #aaaa2b,
+$seshat-gold: (
+  A100: #fff993,
+  A200: #e3c663,
+  A400: #af9634,
   contrast: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
@@ -37,9 +38,9 @@ $seshat-lime: (
 );
 
 $seshat-warn:(
-  A100: #ff8660,
-  A200: #cc5635,
-  A400: #95260b,
+  A100: #fe8370,
+  A200: #c75344,
+  A400: #91221c,
   contrast: (
     A100: $dark-primary-text,
     A200: $light-primary-text,
@@ -48,10 +49,10 @@ $seshat-warn:(
 );
 
 
-$seshat-alt-accent:(
+$seshat-alt-warn:(
   A100: #ffffff,
-  A200: #e8eaeb,
-  A400: #b6b8b9,
+  A200: #e9ecef,
+  A400: #b7babd,
   contrast: (
     A100: $dark-primary-text,
     A200: $dark-primary-text,
@@ -59,8 +60,19 @@ $seshat-alt-accent:(
   )
 );
 
+$seshat-alt-primary:(
+  A100: #b8b8b8,
+  A200: #888888,
+  A400: #5b5b5b,
+  contrast: (
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+  )
+);
+
 $seshat-angular-client-primary: mat-palette($seshat-olive, A200, A100, A400);
-$seshat-angular-client-accent: mat-palette($seshat-lime, A200, A100, A400);
+$seshat-angular-client-accent: mat-palette($seshat-gold, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $seshat-angular-client-warn: mat-palette($seshat-warn, A200, A100, A400);
@@ -74,9 +86,9 @@ $seshat-angular-client-theme: mat-light-theme($seshat-angular-client-primary, $s
 @include angular-material-theme($seshat-angular-client-theme);
 
 // Define an alternate dark theme.
-$dark-primary: mat-palette($seshat-olive, A200, A100, A400);
-$dark-accent:  mat-palette($seshat-alt-accent, A200, A100, A400);
-$dark-warn:    mat-palette($seshat-warn, A200, A100, A400);
+$dark-primary: mat-palette($seshat-alt-primary, A200, A100, A400);
+$dark-accent:  mat-palette($seshat-olive, A200, A100, A400);
+$dark-warn:    mat-palette($seshat-alt-warn, A200, A100, A400);
 $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 // Include the alternative theme styles inside of a block with a CSS class. You can make this
@@ -96,12 +108,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   --main-bg-color: brown;
 
-  --color-forest:rgb(97,123,128); //#617b80
+  --color-forest:rgb(84,125,130); //#547d82
   --color-olive:rgb(151,178,113); //#97b271
-  --color-lime:rgb(222,219,93); //#dedb5d
-  --color-teal: rgb(32,138,148); //#208a94
+  --color-gold:rgb(227,198,99); //#e3c663
   --color-light-gray: rgb(246,248,249); //#f6f8f9
   --color-table-hover: rgb(232,234,235); //#e8eaeb
+  --color-progress-bar-empty: rgb(233,236,239); //#e9ecef
 
 
   --text-dark: rgb(74,74,70); //#4a4a46
@@ -282,7 +294,7 @@ h5{
   }
   a{
     font-family: 'Open Sans', sans-serif;
-    color: var(--color-teal);
+    color: var(--color-forest);
     font-size: 0.75rem;
     font-weight: 200;
     margin-bottom: 0 !important;
