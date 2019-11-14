@@ -159,6 +159,9 @@ h4{
   font-size: 0.9rem;
   font-weight: 200;
   margin-bottom: 0;
+  span{
+    color: var(--text-medium-light);
+  }
 }
 
 h5{
@@ -173,16 +176,44 @@ h5{
   }
 }
 
+table{
+  font-family: 'Open Sans', sans-serif;
+}
+
 //progress row fonts
+
+.progress-row{
+  h3{
+    color: var(--text-medium-light);
+    font-size: 1.2rem;
+  }
+  .progress-row-title {
+    h4{
+      color: var(--text-medium-light);
+    }
+  }
+}
+
 .progress-row{
   h4{
     span{
-      font-family: 'Open Sans', sans-serif;
-      color: var(--text-medium);
-      font-size: 0.75rem;
-      font-weight: 200;
-      margin-bottom: 0 !important;
+      color: var(--text-dark);
     }
+  }
+  a{
+    font-family: 'Open Sans', sans-serif;
+    color: var(--color-forest);
+    font-size: 0.75rem;
+    font-weight: 200;
+    margin-bottom: 0 !important;
+    margin-right: 0.33rem;
+  }
+
+  a::after {
+    content: ","
+  }
+  a:last-of-type::after{
+     display: none;
   }
 }
 
@@ -284,28 +315,6 @@ h5{
     font-size: 1.2rem;
     font-weight: 300;
     margin-bottom: 0;
-  }
-}
-
-.progress-row{
-  h3{
-    color: var(--text-medium-light);
-    font-size: 1.2rem;
-  }
-  a{
-    font-family: 'Open Sans', sans-serif;
-    color: var(--color-forest);
-    font-size: 0.75rem;
-    font-weight: 200;
-    margin-bottom: 0 !important;
-    margin-right: 0.33rem;
-  }
-
-  a::after {
-    content: ","
-  }
-  a:last-of-type::after{
-     display: none;
   }
 }
 

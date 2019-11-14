@@ -15,7 +15,7 @@ import {DownloadsService} from '../../../api/services';
 export class TaskViewComponent implements OnInit {
   @Input() taskID?: string;
   taskData: TaskFullStatusAdmin;
-  displayedColumns = ['select', 'download', 'delete', 'name', 'has_been_submitted', 'creator', 'created'];
+  displayedColumns = ['select', 'name', 'has_been_submitted', 'creator', 'created', 'delete'];
   textgridDataSource = new MatTableDataSource<TaskTextGrid>();
   tgSelection = new SelectionModel<TaskTextGrid>(true, []);
 

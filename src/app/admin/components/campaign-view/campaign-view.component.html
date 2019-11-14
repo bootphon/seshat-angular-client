@@ -132,12 +132,11 @@
           </div>
           <div class="progress-row row d-flex align-items-start pt-2 pb-1">
             <div class="progress-row-title col-auto">
-                <h4 class="m-0">Annotation archive:</h4>
+                <h4 class="m-0">Download:</h4>
               </div>
               <div class="col alt-mat-theme">
-              <button mat-stroked-button color="primary" (click)="getCampaignArchive()">
-                Download Full Archive
-              </button>
+              <button class="mr-3" mat-stroked-button color="primary" (click)="getCampaignArchive()"><mat-icon color="primary">get_app</mat-icon>&nbsp;Full Annotation Archive</button>
+              <button class="mr-3" mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']"><mat-icon color="primary">get_app</mat-icon>&nbsp;Consistency Analytics CSV</button>
             </div>
           </div>
 
@@ -146,8 +145,7 @@
                 <h4 class="m-0">Other Actions:</h4>
             </div>
             <div class="col alt-mat-theme">
-              <button class="mr-3 mb-3" mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">Edit Campaign Wiki</button>
-              <button class="mr-3 mb-3"mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">View Campaign Analytics</button>
+              <button class="mr-3 mb-3" mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']"><mat-icon color="primary">edit</mat-icon>&nbsp;Edit Campaign Wiki</button>
               <button class="float-none float-lg-right delete-campaign" mat-flat-button color="warn" (click)="deleteCampaign()"><mat-icon>delete</mat-icon>&nbsp;Delete Campaign</button>
             </div>
           </div>

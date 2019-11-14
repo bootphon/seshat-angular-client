@@ -1,20 +1,29 @@
-<mat-list>
-  <mat-list-item *ngFor="let comment of comments"
-                 [ngClass]="currentUser.username === comment.author.username ? 'by-current-user' : 'by-other-user'">
-    <span>By {{ comment.author.fullname}}, on {{ comment.creation }}</span>
-    <p>{{ comment.content }}</p>
-  </mat-list-item>
-</mat-list>
+<div class="row">
+  <div class="col-12 comments">
+    <div class="row" *ngFor="let comment of comments"
+                    [ngClass]="currentUser.username === comment.author.username ? 'by-current-user' : 'by-other-user'">
+      <div class="col-auto comment-creator-info">By {{ comment.author.fullname}}<br> on {{ comment.creation }}</div>
+      <div class="col"><p>{{ comment.content }}</p><hr></div>
+    </div>
+  </div>
+</div>
 
-<form class="comment-submission">
-  <mat-form-field class="">
-    <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="4"
-              name="comment-content"
-              placeholder="New comment..." [(ngModel)]="newCommentContent"></textarea>
-  </mat-form-field>
-  <button mat-raised-button (click)="submitComment()" color="primary">
-    <mat-icon>send</mat-icon>
-    SUBMIT
-  </button>
-</form>
+<div class="row pt-3">
+  <div class="col-12">
+      <form class="comment-submission w-100">
+          <mat-form-field class="col-10 offset-1">
+            <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="4"
+                      name="comment-content"
+                      placeholder="New comment..." [(ngModel)]="newCommentContent"></textarea>
+          </mat-form-field>
+          <div class="col-10 offset-1 d-flex justify-content-end mt-3">
+            <button mat-raised-button (click)="submitComment()" color="primary">
+              <mat-icon>send</mat-icon>
+              SUBMIT
+            </button>
+         </div>
+        </form>
+  </div>
+</div>
+
 
