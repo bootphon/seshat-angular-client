@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TextGridErrors} from '../../../api/models/text-grid-errors';
 import {MatHorizontalStepper, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {TimeMergeError} from '../../../api/models/time-merge-error';
+import {DownloadsService} from '../../../api/services';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class AnnotatorTaskViewComponent implements OnInit {
     private tasksService: TasksService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private downloadsService: DownloadsService
   ) {
   }
 
@@ -89,16 +91,18 @@ export class AnnotatorTaskViewComponent implements OnInit {
       }
     );
   }
-  updateInProgress(){
+  updateProgress(){
     if (this.taskData.current_step_idx === 0) {
       this.taskData.current_step_idx = 1;
     }
   }
   downloadStarter() {
-    this.updateInProgress();
+    this.updateProgress();
+    this.downloadsService.downloadsTaskTaskIdStarterGet({taskId: this.taskId}).subscribe();
   }
   downloadCurrentTextGridTemplate() {
-    this.updateInProgress();
+    this.updateProgress();
+    this.downloadsService.downloadsTaskTaskIdCurrentTextgridGet({taskId: this.taskId}).subscribe();
   }
 
 

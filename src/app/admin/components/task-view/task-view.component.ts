@@ -5,7 +5,7 @@ import {TaskFullStatusAdmin} from '../../../api/models/task-full-status-admin';
 import {MatSnackBar, MatTableDataSource} from '@angular/material';
 import {TaskTextGrid} from '../../../api/models';
 import {SelectionModel} from '@angular/cdk/collections';
-import {DownloadsService} from '../../../commons/downloads.service';
+import {DownloadsService} from '../../../api/services';
 
 @Component({
   selector: 'seshat-admin-task-view',
@@ -57,7 +57,7 @@ export class TaskViewComponent implements OnInit {
     if (this.tgSelection.hasValue()) {
       const tgNames = this.tgSelection.selected.map(tg => tg.name);
       this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-        {taskId: this.taskID, body: {names: tgNames}});
+        {taskId: this.taskID, body: {names: tgNames}}).subscribe();
     } else {
       this.snackBar.open('No file selected!', 'Task Files Download',
         {verticalPosition: 'top', duration: 3 * 1000});
@@ -98,6 +98,6 @@ export class TaskViewComponent implements OnInit {
 
   downloadTaskTextGrid(tg: TaskTextGrid) {
     this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-      {taskId: this.taskID, body: {names: [tg.name]}});
+      {taskId: this.taskID, body: {names: [tg.name]}}).subscribe();
   }
 }

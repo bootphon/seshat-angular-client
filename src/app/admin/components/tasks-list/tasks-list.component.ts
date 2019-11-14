@@ -12,7 +12,7 @@ import {TaskShortStatus} from '../../../api/models/task-short-status';
   styleUrls: ['./tasks-list.component.scss']
 })
 export class TasksListComponent implements OnInit, OnChanges {
-  taskColumns: string[] = ['file', 'annotators', 'type', 'deadline', 'status', 'lock-action', 'delete-action'];
+  taskColumns: string[] = [];
   tasks: MatTableDataSource<TaskShortStatus>;
   @Input() campaignSlug: string;
   @Input() annotatorUsername: string;
@@ -29,10 +29,12 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   public refreshTaskList() {
     if (this.campaignSlug) {
+      this.taskColumns = ['file', 'annotators', 'type', 'deadline', 'step', 'lock-action', 'delete-action'];
       this.campaignsService.campaignsListTasksCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
         (data) => this.tasks = new MatTableDataSource<TaskShortStatus>(data)
       );
     } else {
+      this.taskColumns = ['file', 'campaign', 'annotators', 'type', 'deadline', 'step', 'lock-action', 'delete-action'];
       this.annotatorsService.annotatorsListTasksUsernameGet({username: this.annotatorUsername}).subscribe(
         (data) => this.tasks = new MatTableDataSource<TaskShortStatus>(data)
       );
