@@ -1,3 +1,18 @@
-table {
-  width: 500px;
+.task-filename{
+  h3{
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+}
+
+.task-info{
+  h4{
+    line-height: initial;
+  }
+  a{
+    font-size: 0.9rem;
+  }
 }

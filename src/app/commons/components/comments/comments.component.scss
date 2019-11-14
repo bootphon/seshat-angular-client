@@ -1,0 +1,15 @@
+.comment-creator-info{
+  width: 225px;
+}
+
+mat-form-field{
+  background-color: rgba(0,0,0,0.015);
+  border: 1px solid rgba(255,255,255,0.02);
+  border-radius: 5px;
+  padding: calc(1rem /1);
+}
+
+.comments{
+  max-height: 600px;
+  overflow: scroll;
+}
