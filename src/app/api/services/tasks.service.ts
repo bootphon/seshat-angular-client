@@ -189,16 +189,16 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete$Response(params: {
-    tgName: string;
     taskId: string;
+    tgName: string;
 
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksDeleteTaskIdTextgridTgNameDeletePath, 'delete');
     if (params) {
 
-      rb.path('tg_name', params.tgName);
       rb.path('task_id', params.taskId);
+      rb.path('tg_name', params.tgName);
 
     }
     return this.http.request(rb.build({
@@ -219,8 +219,8 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete(params: {
-    tgName: string;
     taskId: string;
+    tgName: string;
 
   }): Observable<void> {
 

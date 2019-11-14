@@ -6,7 +6,6 @@ export interface TaskFullStatusAdmin  {
   annotators?: Array<string>;
   assigner: UserShortProfile;
   campaign: CampaignShortProfile;
-  campaign_slug: string;
   creation_time: string;
   deadline?: string;
   filename: string;

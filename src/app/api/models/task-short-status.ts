@@ -1,9 +1,10 @@
 /* tslint:disable */
+import { CampaignShortProfile } from './campaign-short-profile';
 import { UserShortProfile } from './user-short-profile';
 export interface TaskShortStatus  {
   annotators?: Array<string>;
   assigner: UserShortProfile;
-  campaign_slug: string;
+  campaign?: CampaignShortProfile;
   creation_time: string;
   deadline?: string;
   filename: string;

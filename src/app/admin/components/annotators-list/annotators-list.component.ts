@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./annotators-list.component.scss']
 })
 export class AnnotatorsListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks'];
+  displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks', 'lock-action'];
   annotatorsList: MatTableDataSource<AnnotatorProfile>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -35,6 +35,18 @@ export class AnnotatorsListComponent implements OnInit {
 
   openAnnotatorDialog(username: string) {
     this.router.navigate(['/admin', 'annotators', 'view', username]);
+  }
+
+  updateAnnotatorLock(annotator: AnnotatorProfile){
+    this.annotatorsService.annotatorsLockPost(
+      {body:
+          {username: annotator.username,
+          lock_status: !annotator.is_locked}}
+          ).subscribe(
+      () => {
+        annotator.is_locked = !annotator.is_locked;
+      }
+    );
   }
 
   openAddAnnotatorDialog() {
