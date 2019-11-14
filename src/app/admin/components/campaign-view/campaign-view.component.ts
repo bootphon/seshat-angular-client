@@ -6,7 +6,7 @@ import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 import {MatSnackBar} from '@angular/material';
 import {SeshatEventsService} from '../../../commons/seshat-events.service';
-import {DownloadsService} from '../../../commons/downloads.service';
+import {DownloadsService} from '../../../api/services';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -79,7 +79,7 @@ export class CampaignViewComponent implements OnInit {
   }
 
   getCampaignArchive() {
-    // TODO
+    this.downloadService.downloadsCampaignArchiveCampaignSlugGet({campaignSlug: this.campaign.slug}).subscribe();
   }
 
 }

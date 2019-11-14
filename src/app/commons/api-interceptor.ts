@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, EMPTY} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {RoleProvider} from './role-provider';
 import {MatSnackBar} from '@angular/material';
@@ -14,18 +14,26 @@ export class ApiInterceptor implements HttpInterceptor {
   ) {
   }
 
+  private static download(url: string): Observable<any> {
+    window.open(url);
+    return EMPTY;
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Apply the headers
     const token = this.roleProvider.getToken();
     req = req.clone({
       setHeaders: {
         'Auth-token': `${token}`
-      }
+      },
     });
 
-    // Also handle errors globally
-    // TODO : intercept requests that are not application/json and download them right away
-    // Also handle errors globally
+    // If the request is on the /downloads/ service, use the browser's download service
+    if (req.url.match('\/downloads')) {
+      req = req.clone({setParams: {token: this.roleProvider.getToken()}});
+      return ApiInterceptor.download(req.urlWithParams);
+    }
+
     return next.handle(req).pipe(
       tap(x => x, err => {
         // Handle this err

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {BaseService} from '../api/base-service';
 import {ApiConfiguration} from '../api/api-configuration';
 import {RequestBuilder} from '../api/request-builder';
+import {RoleProvider} from './role-provider';
 
 export interface TaskTextGridList {
   names?: Array<string>;
@@ -16,7 +17,8 @@ export interface TaskTextGridList {
 export class DownloadsService extends BaseService {
   constructor(
     config: ApiConfiguration,
-    http: HttpClient
+    http: HttpClient,
+    private roleProvider: RoleProvider
   ) {
     super(config, http);
   }
@@ -134,9 +136,10 @@ export class DownloadsService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsCampaignArchiveCampaignSlugGetPath, 'get');
     if (params) {
-
       rb.path('campaign_slug', params.campaignSlug);
-
+      rb.query('token', this.roleProvider.getToken());
+      let req = rb.build();
+      window.open(req.urlWithParams);
     }
   }
 
