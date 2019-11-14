@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./annotators-list.component.scss']
 })
 export class AnnotatorsListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'username', 'last-activity', 'assigned-tasks', 'active-tasks', 'finished-tasks', 'lock-action'];
+  displayedColumns: string[] = ['fullname', 'username', 'last_activity', 'assigned_tasks', 'active_tasks', 'finished_tasks', 'is_locked'];
   annotatorsList: MatTableDataSource<AnnotatorProfile>;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -25,6 +25,7 @@ export class AnnotatorsListComponent implements OnInit {
     this.annotatorsService.annotatorsListGet().subscribe(
       (data) => {
         this.annotatorsList = new MatTableDataSource(data);
+        this.annotatorsList.sort = this.sort;
       }
     );
   }

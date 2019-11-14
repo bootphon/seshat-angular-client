@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {RoleProvider} from '../../../commons/role-provider';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {CorpusFile} from '../../../api/models/corpus-file';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
 import {CampaignsService} from '../../../api/services/campaigns.service';
@@ -20,7 +20,7 @@ import {TasksAssignment} from '../../../api/models';
 })
 export class TaskAssignComponent implements OnInit {
   campaignSlug: string;
-  displayedColumns: string[] = ['select', 'path', 'assigned_tasks'];
+  displayedColumns: string[] = ['select', 'path', 'tasks_count'];
   corpusFilesDataSource: MatTableDataSource<CorpusFile>;
   selectedFiles = new SelectionModel<CorpusFile>(true, []);
   annotatorsList: Array<AnnotatorProfile> = [];
@@ -30,8 +30,9 @@ export class TaskAssignComponent implements OnInit {
   firstAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
   secondAnnotatorCtrl = new FormControl();  // not set for a Single Annot task
   secondAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
-  taskType : string;
+  taskType: string;
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
     private taskService: TasksService,
     private annotatorsService: AnnotatorsService,
@@ -61,6 +62,7 @@ export class TaskAssignComponent implements OnInit {
     this.campaignService.campaignsFilesListCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
         this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data);
+        this.corpusFilesDataSource.sort = this.sort;
       }
     );
     this.annotatorsService.annotatorsListGet().subscribe(

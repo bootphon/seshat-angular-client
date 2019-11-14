@@ -29,14 +29,20 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   public refreshTaskList() {
     if (this.campaignSlug) {
-      this.taskColumns = ['file', 'annotators', 'type', 'deadline', 'step', 'lock-action', 'delete-action'];
+      this.taskColumns = ['filename', 'annotators', 'type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.campaignsService.campaignsListTasksCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
-        (data) => this.tasks = new MatTableDataSource<TaskShortStatus>(data)
+        (data) => {
+          this.tasks = new MatTableDataSource<TaskShortStatus>(data);
+          this.tasks.sort = this.sort;
+        }
       );
     } else {
-      this.taskColumns = ['file', 'campaign', 'annotators', 'type', 'deadline', 'step', 'lock-action', 'delete-action'];
+      this.taskColumns = ['filename', 'campaign', 'annotators', 'type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.annotatorsService.annotatorsListTasksUsernameGet({username: this.annotatorUsername}).subscribe(
-        (data) => this.tasks = new MatTableDataSource<TaskShortStatus>(data)
+        (data) => {
+          this.tasks = new MatTableDataSource<TaskShortStatus>(data);
+          this.tasks.sort = this.sort;
+        }
       );
     }
     this.tasks.sort = this.sort;
