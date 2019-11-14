@@ -52,10 +52,10 @@ export class AnnotatorTaskViewComponent implements OnInit {
     const file: File = this.uploadForm.get('tgFile').value.files[0];
     const myReader: FileReader = new FileReader();
     myReader.onloadend = (e) => {
-      console.log(myReader.result);
       const result = myReader.result;
       if (!(result instanceof ArrayBuffer)) {
         this.tgContent = result;
+        console.log(this.tgContent);
       }
     };
 
@@ -70,9 +70,10 @@ export class AnnotatorTaskViewComponent implements OnInit {
 
   validateTextGrid() {
     this.loadTextGridFile();
-    if (!this.tgContent){
+    if (!this.tgContent) {
       this.notifyEmptyTg();
     }
+    console.log(this.tgContent);
     this.tasksService.tasksValidateTaskIdPost({taskId: this.taskId, body: {textgrid_str: this.tgContent}}).subscribe(
       (data) => {
         this.tgErrors = data;
