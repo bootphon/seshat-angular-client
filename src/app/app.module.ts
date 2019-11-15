@@ -10,6 +10,7 @@ import {ApiModule} from './api/api.module';
 import {MatSidenavModule} from '@angular/material';
 import {CommonsModule} from './commons/commons.module';
 import {MatDialogModule} from '@angular/material/dialog'; // todo remove
+import { environment } from '../environments/environment';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -29,7 +30,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     MatSidenavModule,
     MatDialogModule,
     // TODO: set URL using some kind of configuration
-    ApiModule.forRoot({rootUrl: 'http://127.0.0.1:5000'}),
+    ApiModule.forRoot({rootUrl: environment.server_root}),
     CommonsModule,
   ],
   providers: [
