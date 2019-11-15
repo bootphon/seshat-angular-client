@@ -51,54 +51,6 @@
     </table>
   </div>
 
-  <div class="col-12 text-center task-filename">
-    <h3>{{taskData.filename}}</h3>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-12 mx-auto">
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Campaign:</h4></div>
-        <div class="task-info-detail col-6 text-left"><h4><span><a [routerLink]="['/admin', 'campaign', taskData.campaign.slug]">{{taskData.campaign.name}}</a></span></h4></div>
-      </div>
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Assigned by:</h4></div>
-        <div class="task-info-detail col-6 text-left"><h4><span>{{taskData.assigner.fullname}}</span></h4></div>
-      </div>
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Created:</h4></div>
-        <div class="task-info-detail col-6 text-left"><h4><span>{{taskData.creation_time}}</span></h4></div>
-      </div>
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Status:</h4></div>
-        <div class="task-info-detail col-6 text-left"><h4><span>{{taskData.step}}</span></h4></div>
-      </div>
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Annotators:</h4></div>
-        <div class="task-info-detail col-6 text-left"><h4><span style="color:hotpink !important;">{{taskData.annotators.join(", ")}}</span></h4></div>
-      </div>
-      <div class="progress-row row">
-        <div class="progress-row-title col-6 text-right"><h4>Actions:</h4>
-        </div>
-        <div class="task-info-detail col-6 text-left">
-            <button mat-raised-button [color]="taskData.is_locked? 'accent' : 'primary'"
-            [matTooltip]="taskData.is_locked? 'Click to unlock the task' : 'Click to lock the task'"
-            (click)="changeTaskLock()" class="mr-3">
-              <mat-icon>{{taskData.is_locked ? 'lock' : 'lock_open'}}</mat-icon>&nbsp;
-              {{taskData.is_locked ? 'Locked' : 'Unlocked'}}
-            </button>
-            <div class="alt-mat-theme d-inline">
-              <button mat-flat-button color="warn"
-              matTooltip="Delete the task"
-              (click)="deleteTask()">
-              <mat-icon>delete_forever</mat-icon>&nbsp;Delete Task
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <div class="mt-5 mb-5 col-8 mx-auto"><hr></div>
 
   <div class="row">
