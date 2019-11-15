@@ -176,6 +176,15 @@ h5{
   }
 }
 
+p{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  span{
+    color: var(--text-light);
+  }
+}
+
 table{
   font-family: 'Open Sans', sans-serif;
 }

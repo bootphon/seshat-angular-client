@@ -9,7 +9,7 @@ mat-form-field{
   padding: calc(1rem /1);
 }
 
-.comments{
+.comments-container{
   max-height: 600px;
-  overflow: scroll;
+  overflow-x: auto;
 }

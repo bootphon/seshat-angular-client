@@ -240,8 +240,8 @@
           (click)="tgSelection.toggle(row)">
       </tr>
     </table>
-    <div class="col-12 p-2 ml-n2 alt-mat-theme" style="background-color: white;">
-      <button style="margin-left: 24px;" mat-raised-button [disabled]="!tgSelection.hasValue()" [color]="tgSelection.hasValue()? 'accent' : 'primary'" (click)="downloadTextGrids()">
+    <div class="col-12 p-2 alt-mat-theme" style="background-color: white;">
+      <button class="ml-3" style="margin-left: 24px;" mat-raised-button [disabled]="!tgSelection.hasValue()" [color]="tgSelection.hasValue()? 'accent' : 'primary'" (click)="downloadTextGrids()">
         <mat-icon>get_app</mat-icon>
         Download
       </button>
