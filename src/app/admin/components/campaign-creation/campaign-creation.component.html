@@ -224,7 +224,7 @@
   </div>
 
   <div class="row m-0 p3">
-      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="9">
+      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
         <tr>
           <td><h4>Serve audio files to annotators</h4></td>
           <td style="width: 50px;">
@@ -232,12 +232,13 @@
               matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
               labelPosition="before"
               [(ngModel)]="campaignCreation.enable_audio_dl"
-              appearance="standard">
+              appearance="standard"
+              class="d-flex">
             </mat-slide-toggle>
           </td>
         </tr>
       </table>
-      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="9">
+      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
         <tr>
           <td><h4>Enable TextGrid checking&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h4></td>
           <td style="width: 50px;">
@@ -246,7 +247,8 @@
               labelPosition="before"
               matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
               [(ngModel)]="campaignCreation.check_textgrids"
-              appearance="standard">
+              appearance="standard"
+              class="d-flex">
             </mat-slide-toggle>
           </td>
         </tr>
