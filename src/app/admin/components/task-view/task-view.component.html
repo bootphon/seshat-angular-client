@@ -127,7 +127,58 @@
 
 
 <div *ngIf="taskData" class="container p-4 task-info">
-  <div class="row mb-4">
+  <div class="row">
+    <table class="mx-auto task-table-info">
+      <tr class="title-row">
+        <td class="w-100 text-center pb-4" colspan="2"><h3>{{taskData.filename}}</h3></td>
+      </tr>
+      <tr>
+        <td><h4><span>Campaign:</span></h4></td>
+        <td>
+          <a [routerLink]="['/admin', 'campaign', taskData.campaign.slug]">
+            {{taskData.campaign.name}}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td><h4><span>Assigned by:</span></h4></td>
+        <td><h4>{{taskData.assigner.fullname}}</h4></td>
+      </tr>
+      <tr>
+        <td><h4><span>Created:</span></h4></td>
+        <td><h4>{{taskData.creation_time}}</h4></td>
+      </tr>
+      <tr>
+        <td><h4><span>Deadline</span></h4></td>
+        <td><h4>{{taskData.deadline}}</h4></td>
+      </tr>
+      <tr>
+        <td><h4><span>Status</span></h4></td>
+        <td><h4>{{taskData.step}}</h4></td>
+      </tr>
+      <tr>
+        <td><h4><span>Annotators</span></h4></td>
+        <td><h4>{{taskData.annotators.join(", ")}}</h4></td>
+      </tr>
+      <tr>
+        <td><h4><span>Actions</span></h4></td>
+        <td><button mat-raised-button [color]="taskData.is_locked? 'accent' : 'primary'"
+          [matTooltip]="taskData.is_locked? 'Click to unlock the task' : 'Click to lock the task'"
+          (click)="changeTaskLock()" class="mr-3">
+            <mat-icon>{{taskData.is_locked ? 'lock' : 'lock_open'}}</mat-icon>&nbsp;
+            {{taskData.is_locked ? 'Locked' : 'Unlocked'}}
+          </button>
+          <div class="alt-mat-theme d-inline">
+            <button mat-flat-button color="warn"
+            matTooltip="Delete the task"
+            (click)="deleteTask()">
+            <mat-icon>delete_forever</mat-icon>&nbsp;Delete Task
+          </button>
+        </div></td>
+      </tr>
+    </table>
+  </div>
+  <!-- <div class="row mb-4">
     <div class="col-12 text-center task-filename">
       <h3>{{taskData.filename}}</h3>
     </div>
@@ -174,16 +225,16 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="mt-5 mb-5 col-8 mx-auto"><hr></div>
 
   <div class="row">
-    <div class="col-12 text-center pt-2" style="background-color: white;">
+    <div class="col-10 mx-auto text-center pt-2" style="background-color: white;">
         <h3>Task Files</h3>
     </div>
 
-    <table mat-table [dataSource]="textgridDataSource" class="mat-elevation-z0 w-100">
+    <table mat-table [dataSource]="textgridDataSource" class="col-10 mx-auto mat-elevation-z0 w-100">
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -240,7 +291,7 @@
           (click)="tgSelection.toggle(row)">
       </tr>
     </table>
-    <div class="col-12 p-2 alt-mat-theme" style="background-color: white;">
+    <div class="col-10 mx-auto p-2 alt-mat-theme" style="background-color: white;">
       <button class="ml-3" style="margin-left: 24px;" mat-raised-button [disabled]="!tgSelection.hasValue()" [color]="tgSelection.hasValue()? 'accent' : 'primary'" (click)="downloadTextGrids()">
         <mat-icon>get_app</mat-icon>
         Download

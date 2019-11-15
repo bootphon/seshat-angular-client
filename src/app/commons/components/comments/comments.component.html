@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col-12 comments-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div class="col-10 mx-auto comments-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="row" *ngFor="let comment of comments"
                     [ngClass]="currentUser.username === comment.author.username ? 'by-current-user' : 'by-other-user'">
-      <div class="col-auto comment-creator-info"><h4>By {{ comment.author.fullname}}<br><span>{{ comment.creation }}</span></h4></div>
-      <div class="col"><p>{{ comment.content }}</p><hr></div>
+      <div class="col-12 comment-creator-info"><p class="mb-1"><b>{{ comment.author.fullname}}</b><span>  -  {{ comment.creation }}</span></p></div>
+      <div class="col-12 pb-2"><p>{{ comment.content }}</p></div>
     </div>
   </div>
 </div>
