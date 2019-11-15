@@ -11,3 +11,10 @@ mat-form-field {
   // Set as an example
   height: 500px;
 }
+
+.campaign-creation-buttons{
+  border-radius: 5px !important;
+  border: 1px solid var(--color-table-hover);
+  margin-bottom: 1rem;
+  border-collapse: separate;
+}

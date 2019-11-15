@@ -221,34 +221,40 @@
                   [(ngModel)]="campaignCreation.description"></textarea>
       </mat-form-field>
     </div>
-
-    <div class="col-12 pb-3">
-      <mat-slide-toggle
-        matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
-        labelPosition="before"
-        [(ngModel)]="campaignCreation.enable_audio_dl"
-        appearance="standard"
-        >
-        Serve audio files to annotators
-      </mat-slide-toggle>
-    </div>
-
-    <div class="col-12">
-      <mat-slide-toggle
-        (change)="toggleTiersTable()"
-        labelPosition="before"
-        matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
-        [(ngModel)]="campaignCreation.check_textgrids"
-        appearance="standard">
-        Enable TextGrid checking
-      </mat-slide-toggle>
-    </div>
-
   </div>
 
-  <div class="row">
-    <div class="col-12">
-        <table mat-table [dataSource]="tiersTableDataSource" class="mat-elevation-z2 campaign-specs-creator w-100"
+  <div class="row m-0 p3">
+      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
+        <tr>
+          <td><h4>Serve audio files to annotators</h4></td>
+          <td style="width: 50px;">
+              <mat-slide-toggle
+              matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
+              labelPosition="before"
+              [(ngModel)]="campaignCreation.enable_audio_dl"
+              appearance="standard"
+              class="d-flex">
+            </mat-slide-toggle>
+          </td>
+        </tr>
+      </table>
+      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
+        <tr>
+          <td><h4>Enable TextGrid checking&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h4></td>
+          <td style="width: 50px;">
+              <mat-slide-toggle
+              (change)="toggleTiersTable()"
+              labelPosition="before"
+              matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
+              [(ngModel)]="campaignCreation.check_textgrids"
+              appearance="standard"
+              class="d-flex">
+            </mat-slide-toggle>
+          </td>
+        </tr>
+            <tr *ngIf="campaignCreation.check_textgrids">
+              <td colspan="2">
+                <table mat-table [dataSource]="tiersTableDataSource" class="mat-elevation-z2 campaign-specs-creator w-100"
         [ngStyle]="!campaignCreation.check_textgrids && {'background-color': 'lightgrey'}">
         <ng-container matColumnDef="delete_tier">
             <th mat-header-cell *matHeaderCellDef>
@@ -321,14 +327,14 @@
           </ng-container>
 
           <ng-container matColumnDef="checking_params">
-            <th mat-header-cell *matHeaderCellDef>
+            <td mat-header-cell *matHeaderCellDef>
               <button mat-mini-fab color="primary"
                       [disabled]="!campaignCreation.check_textgrids"
                       matTooltip="Add a tier specification"
                       (click)="addTier()">
                 <mat-icon>playlist_add</mat-icon>
               </button>
-            </th>
+            </td>
             <td mat-cell *matCellDef="let tierSpecs">
               <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'CATEGORICAL'">
                 <mat-chip-list #chipList aria-label="Fruit selection">
@@ -355,8 +361,11 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row [@rowsAnimation]="" *matRowDef="let tierSpecs; columns: displayedColumns;"></tr>
         </table>
-    </div>
+              </td>
+            </tr>
+      </table>
   </div>
+
   <!-- <table mat-table [dataSource]="tiersTableDataSource" class="mat-elevation-z2 campaign-specs-creator"
          [ngStyle]="!campaignCreation.check_textgrids && {'background-color': 'lightgrey'}"> -->
 
