@@ -46,16 +46,6 @@
       <h1 class="navLink" [routerLink]="['/admin', 'annotators']"><span>Annotators</span></h1>
     </mat-list-item>
 
-    <!--
-    <mat-list-item *ngIf="campaignsData">
-      <button mat-button [matMenuTriggerFor]="menu">Campaigns</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/admin', 'campaign', campaign.slug]"
-                *ngFor="let campaign of campaignsData">{{campaign.name}}</button>
-      </mat-menu>
-
-    </mat-list-item>
-    -->
   </ng-template>
   <div *ngIf="this.userData && this.userData.type === 'annotator'; then annotatorMenu">
   </div>
