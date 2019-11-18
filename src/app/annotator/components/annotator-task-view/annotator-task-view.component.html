@@ -55,16 +55,16 @@
         <mat-card class="campaign-card m-3 p-4">
 
           <div>
-            <ng-template #stepcontent class="w-100 text-center d-flex justify-content-center">
-              <p class="test1234 col-3 text-center">{{taskData.current_instructions}}</p>
+            <ng-template #stepcontent>
+              <h6 class="col-3 text-center pb-2">{{taskData.current_instructions}}</h6>
 
               <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton">
               </div>
               <ng-template #starterButton>
-                <div class="col-3 d-flex justify-content-center"><button mat-raised-button (click)="downloadStarter()">Download</button></div>
+                <div class="col-3 d-flex justify-content-center"><button mat-raised-button color="primary" (click)="downloadStarter()">Download</button></div>
               </ng-template>
               <ng-template #currentTemplateButton>
-                  <div class="col-3 d-flex justify-content-center"><button mat-raised-button (click)="downloadCurrentTextGridTemplate()">Download</button></div>
+                  <div class="col-3 d-flex justify-content-center"><button mat-raised-button color="accent" (click)="downloadCurrentTextGridTemplate()">Download</button></div>
               </ng-template>
 
             </ng-template>
@@ -93,11 +93,8 @@
           </div>
           <mat-card class="campaign-card m-3 p-4">
             <div>
-              <p>Once the file has been annotated, upload the file</p>
-              <p>If there are any errors on the upload, correct the errors and upload again.</p>
-              <p>You can check the validity of the file at all times (without actually saving it) by clicking 'Validate'
-              </p>
-              <form [formGroup]="uploadForm">
+              <p>Once the file has been annotated, upload the file. Press validate to check the file for errors. If there are any errors, correct the errors and then upload the file again. Check the validity of the file at all times (without actually submitting it) by clicking 'validate'.</p>
+              <form [formGroup]="uploadForm" class="d-flex justify-content-center align-items-center">
                 <mat-form-field>
                   <ngx-mat-file-input formControlName="tgFile" placeholder="TextGrid Upload" [accept]="'.TextGrid'">
                   </ngx-mat-file-input>
@@ -106,10 +103,11 @@
                     Please select a TextGrid file
                   </mat-error>
                 </mat-form-field>
-                <button mat-raised-button (click)="validateTextGrid()" color="primary">VALIDATE</button>
-                <button mat-raised-button (click)="submitTextGrid()" color="accent">SUBMIT</button>
+                <div class="">
+                <button class="ml-4" mat-raised-button (click)="validateTextGrid()" color="primary">VALIDATE</button>
+                <button class="ml-4" mat-raised-button (click)="submitTextGrid()" color="accent">SUBMIT</button>
+              </div>
               </form>
-
             </div>
 
             <div *ngIf="tgErrors">

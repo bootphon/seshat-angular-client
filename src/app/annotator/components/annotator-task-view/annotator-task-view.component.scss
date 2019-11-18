@@ -4,8 +4,8 @@
     pointer-events: none !important;
   }
   .mat-horizontal-stepper-header-container{
-    width: 85%;
-    margin: auto;
+    padding-left: 8.33333333%;
+    padding-right: 8.33333333%;
   }
   .mat-step-icon, .mat-step-icon-selected{
     width: 36px !important;
@@ -18,22 +18,6 @@
     z-index: 10;
   }
 
-}
-
-
-// .test1234{
-//   color: chartreuse !important;
-//   background-color: orange;
-//   p{
-//     color: chartreuse !important;
-//     overflow: visible !important;
-//   }
-// }
-
-.mat-step-icon{
-  background-color: yellow;
-  padding: 4px;
-  border: 4px solid salmon;
 }
 
 

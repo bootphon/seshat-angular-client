@@ -112,7 +112,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --color-olive:rgb(151,178,113); //#97b271
   --color-gold:rgb(227,198,99); //#e3c663
   --color-light-gray: rgb(246,248,249); //#f6f8f9
-  --color-tiers-gray: rgb(241,243,244);
   --color-table-hover: rgb(232,234,235); //#e8eaeb
   --color-progress-bar-empty: rgb(233,236,239); //#e9ecef
 
@@ -175,6 +174,12 @@ h5{
     color: var(--text-white);
     font-weight: 500;
   }
+}
+
+h6{
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text-dark);
+  font-size: 0.75rem;
 }
 
 p{
