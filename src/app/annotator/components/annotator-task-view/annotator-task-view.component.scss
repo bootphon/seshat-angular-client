@@ -3,6 +3,10 @@
   .mat-horizontal-stepper-header {
     pointer-events: none !important;
   }
+  .mat-horizontal-stepper-header-container{
+    width: 85%;
+    margin: auto;
+  }
   .mat-step-icon, .mat-step-icon-selected{
     width: 36px !important;
     height: 36px !important;
@@ -13,15 +17,18 @@
     box-shadow: 0 0 0 3px white, 0 0 0 5px var(--color-olive);
     z-index: 10;
   }
+
 }
 
 
-.test1234{
-  color: chartreuse !important;
-  p{
-    color: chartreuse !important;
-  }
-}
+// .test1234{
+//   color: chartreuse !important;
+//   background-color: orange;
+//   p{
+//     color: chartreuse !important;
+//     overflow: visible !important;
+//   }
+// }
 
 .mat-step-icon{
   background-color: yellow;
@@ -31,6 +38,7 @@
 
 
 .task-table-info{
+  line-height: initial;
   tr{
     td:first-child{
       text-align: right;

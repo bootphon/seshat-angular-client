@@ -55,21 +55,21 @@
         <mat-card class="campaign-card m-3 p-4">
 
           <div>
-            <ng-template #stepcontent>
-              <p class="test1234 col-4">{{taskData.current_instructions}}</p>
+            <ng-template #stepcontent class="w-100 text-center d-flex justify-content-center">
+              <p class="test1234 col-3 text-center">{{taskData.current_instructions}}</p>
 
               <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton">
               </div>
               <ng-template #starterButton>
-                <button mat-raised-button (click)="downloadStarter()">Download</button>
+                <div class="col-3 d-flex justify-content-center"><button mat-raised-button (click)="downloadStarter()">Download</button></div>
               </ng-template>
               <ng-template #currentTemplateButton>
-                <button mat-raised-button (click)="downloadCurrentTextGridTemplate()">Download</button>
+                  <div class="col-3 d-flex justify-content-center"><button mat-raised-button (click)="downloadCurrentTextGridTemplate()">Download</button></div>
               </ng-template>
 
             </ng-template>
 
-            <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="taskData.current_step_idx">
+            <mat-horizontal-stepper style="overflow: visible;" labelPosition="bottom" #stepper [selectedIndex]="taskData.current_step_idx">
               <ng-template matStepperIcon="edit">
                   <mat-icon>check</mat-icon>
                 </ng-template>
@@ -231,8 +231,16 @@
     </div>
 
 
-    <h3>Comments</h3>
 
-    <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
+    <div class="row m-3">
+      <div class="col-12">
+        <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+          <h3 style="color:var(--text-medium-light)">Discussion</h3>
+        </div>
+        <div class="campaign-card ml-3 p-4">
+            <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
