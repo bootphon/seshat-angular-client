@@ -5,7 +5,7 @@ import {CampaignCreation} from '../../../api/models/campaign-creation';
 import {Router} from '@angular/router';
 import {TierSpecifications} from '../../../api/models/tier-specifications';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MatChipInputEvent} from '@angular/material';
 import {animate, sequence, style, transition, trigger} from '@angular/animations';
 import {SeshatEventsService} from '../../../commons/seshat-events.service';
 
@@ -37,8 +37,6 @@ export class CampaignCreationComponent implements OnInit {
   chosenCorpora: CorporaSelection;
   campaignCreation: CampaignCreation;
   availableCorpora: CorporaListing;
-  tiersTableDataSource: MatTableDataSource<TierSpecifications> = new MatTableDataSource<TierSpecifications>();
-  displayedColumns: string[] = ['delete_tier', 'tier_name', 'tier_required', 'tier_validated', 'allow_empty', 'content_type', 'checking_params'];
 
   constructor(
     private campaignsAPI: CampaignsService,
@@ -56,6 +54,7 @@ export class CampaignCreationComponent implements OnInit {
   ngOnInit() {
     // retrieving available corpora
     this.campaignsAPI.campaignsAvailableCorporaGet().subscribe((data) => this.availableCorpora = data);
+    this.addTier(); // setting a default empty tier
   }
 
   createCampaign() {
@@ -75,33 +74,28 @@ export class CampaignCreationComponent implements OnInit {
     );
   }
 
-  toggleTiersTable() {
-    if (this.campaignCreation.check_textgrids) {
-      this.tiersTableDataSource = new MatTableDataSource<TierSpecifications>(this.campaignCreation.checking_scheme);
-    } else {
-      this.tiersTableDataSource = new MatTableDataSource<TierSpecifications>();
-    }
+  duplicateTier(tierSpec: TierSpecifications) {
+    const tierCopy = Object.assign({}, tierSpec);
+    const index = this.campaignCreation.checking_scheme.indexOf(tierSpec);
+    this.campaignCreation.checking_scheme.splice(index, 0, tierCopy);
   }
 
   addTier() {
-    this.tiersTableDataSource.data.push({
+    this.campaignCreation.checking_scheme.push({
       name: '',
       required: true,
       validate_tier: false,
       allow_empty: true,
       categories: [],
     });
-    // somehow this tells the table to update
-    this.tiersTableDataSource.filter = '';
   }
 
   deleteTier(tier: TierSpecifications) {
-    const index = this.tiersTableDataSource.data.indexOf(tier);
+    const index = this.campaignCreation.checking_scheme.indexOf(tier);
 
     if (index >= 0) {
-      this.tiersTableDataSource.data.splice(index, 1);
+      this.campaignCreation.checking_scheme.splice(index, 1);
     }
-    this.tiersTableDataSource.filter = '';
   }
 
   addCategory(tier: TierSpecifications, event: MatChipInputEvent) {
