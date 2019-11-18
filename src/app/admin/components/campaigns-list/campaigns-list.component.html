@@ -21,7 +21,7 @@
           <mat-card-content>
           <div class="progress-row row d-flex align-items-center pt-2">
             <div class="progress-row-title col-auto">
-              <h4 class="m-0">Files:</h4>
+              <h4 class="m-0"><span>Files:</span></h4>
             </div>
             <div class="col">
               <div class="progress-container w-100" *ngIf="campaign.stats.total_files != 0; else progressZeroFiles">
@@ -67,7 +67,7 @@
           </div>
           <div class="progress-row row d-flex align-items-center pt-2">
             <div class="progress-row-title col-auto">
-              <h4 class="m-0">Tasks:</h4>
+              <h4 class="m-0"><span>Tasks:</span></h4>
             </div>
             <div class="col">
               <div class="progress-container w-100" *ngIf="campaign.stats.total_tasks != 0; else progressZeroTasks">
