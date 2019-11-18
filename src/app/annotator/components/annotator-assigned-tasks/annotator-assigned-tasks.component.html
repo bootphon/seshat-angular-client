@@ -6,8 +6,10 @@
 <mat-tab-group>
   <mat-tab label="Assigned Tasks">
     <table mat-table #assignedTasksSort="matSort"
-           [dataSource]="assignedTasksList" matSort class="mat-elevation-z2">
+           [dataSource]="assignedTasksList" matSort class="mat-elevation-z2 table-styling">
 
+
+           <!-- <div class="text-center py-3" *ngIf="!assignedTasksList.length" style="background: white; box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)">No record found</div> -->
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let task">
@@ -81,8 +83,11 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="finishedColumns"></tr>
-      <tr mat-row *matRowDef="let task; columns: finishedColumns;"></tr>
+      <tr mat-row *matRowDef="let task; columns: finishedColumns;">asdfadsfadsfadf</tr>
+      <!-- <tr *ngIf="noDateFinished"> Row row row row</tr> -->
     </table>
-
+    <div *ngIf="noDateFinished" class="no-data col-12 text-center">
+        No records found<br>No records found<br>No records found<br>No records found<br> No records found<br>No records found<br>No records found<br>No records found<br>
+      </div>
   </mat-tab>
 </mat-tab-group>

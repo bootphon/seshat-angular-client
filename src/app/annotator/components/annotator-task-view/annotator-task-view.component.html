@@ -1,10 +1,11 @@
-<mat-toolbar class="d-flex justify-content-center align-items-center">
+<mat-toolbar class="d-flex justify-content-between align-items-center">
   <button *ngIf="taskData" mat-flat-button [routerLink]="['/annotator']">
     <span class="d-flex align-items-center justify-content-center w-100">
       <mat-icon>keyboard_arrow_left</mat-icon>
-      <h3>{{taskData.filename}}</h3>
     </span>
   </button>
+  <h3>{{taskData.filename}}</h3>
+  <div style="width:64px;"></div>
 </mat-toolbar>
 
 <div *ngIf="taskData" class="container-fluid">
@@ -23,15 +24,25 @@
         <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
           <h3 style="color:var(--text-medium-light)">Task Information</h3>
         </div>
-        <mat-card class="campaign-card m-3 p-4">
-
-          <div>
-            <p><strong>Assigned by:</strong> {{taskData.assigner.fullname}}</p>
-            <p><strong>Created on:</strong> {{taskData.creation_time}}</p>
-            <p><strong>Deadline:</strong> {{taskData.deadline ? taskData.deadline : 'None'}}</p>
-            <p><strong>Task Type:</strong> {{taskData.task_type}}</p>
-          </div>
-
+        <mat-card class="campaign-card m-3 p-4 d-flex justify-content-center">
+          <table class="task-table-info">
+            <tr>
+              <td><h4><span>Assigned by:</span></h4></td>
+              <td><h4>{{taskData.assigner.fullname}}</h4></td>
+            </tr>
+            <tr>
+                <td><h4><span>Created:</span></h4></td>
+                <td><h4>{{taskData.creation_time}}</h4></td>
+            </tr>
+            <tr>
+                <td><h4><span>Deadline:</span></h4></td>
+                <td><h4>{{taskData.deadline ? taskData.deadline : 'None'}}</h4></td>
+            </tr>
+            <tr>
+                <td><h4><span>Task Type:</span></h4></td>
+                <td><h4>{{taskData.task_type}}</h4></td>
+            </tr>
+          </table>
         </mat-card>
       </div>
     </div>
@@ -45,7 +56,7 @@
 
           <div>
             <ng-template #stepcontent>
-              <p>{{taskData.current_instructions}}</p>
+              <p class="test1234 col-4">{{taskData.current_instructions}}</p>
 
               <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton">
               </div>
@@ -59,6 +70,9 @@
             </ng-template>
 
             <mat-horizontal-stepper labelPosition="bottom" #stepper [selectedIndex]="taskData.current_step_idx">
+              <ng-template matStepperIcon="edit">
+                  <mat-icon>check</mat-icon>
+                </ng-template>
               <mat-step *ngFor="let taskStatus of taskData.all_steps; index as i;" [label]="taskStatus"
                 content="#stepcontent" [completed]="i <= taskData.current_step_idx">
                 <ng-container *ngTemplateOutlet="stepcontent"></ng-container>
@@ -219,6 +233,6 @@
 
     <h3>Comments</h3>
 
-    <seshat-comments [taskID]="taskData.id"></seshat-comments>
+    <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
   </div>
 </div>
