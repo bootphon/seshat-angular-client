@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CommentsComponent, MenubarComponent, NotificationsListComponent} from './components';
+import {CommentsComponent, MenubarComponent} from './components';
 import {
   MatBadgeModule,
   MatButtonModule,
@@ -21,7 +21,6 @@ import {FormsModule} from '@angular/forms';
   declarations: [
     CommentsComponent,
     MenubarComponent,
-    NotificationsListComponent,
   ],
   imports: [
     CommonModule,
@@ -40,13 +39,12 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     MatInputModule,
     MatBadgeModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   exports: [
     CommentsComponent,
     MenubarComponent,
-    NotificationsListComponent,
-  ]
+  ],
 })
 export class CommonsModule {
 }

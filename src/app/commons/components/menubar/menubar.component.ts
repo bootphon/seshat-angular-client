@@ -6,6 +6,8 @@ import {AccountsService} from '../../../api/services/accounts.service';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 import {UserShortProfile} from '../../../api/models/user-short-profile';
 import {SeshatEventsService} from '../../seshat-events.service';
+import {MatDialog} from '@angular/material';
+import {NotificationData} from '../../../api/models/notification-data';
 
 @Component({
   selector: 'seshat-menubar',
@@ -15,7 +17,14 @@ import {SeshatEventsService} from '../../seshat-events.service';
 export class MenubarComponent implements OnInit {
   campaignsData: Array<CampaignStatus>;
   userData: UserShortProfile;
-  notifCount = 0;
+  notifList: NotificationData[] = [];
+  iconMap = new Map([
+    [ 'assignment', 'assignment_returned'],
+    [ 'comment', 'insert_comment' ],
+    [ 'upload', 'publish' ],
+    [ 'finished', 'assignment_turned_in'],
+    [ 'alert', 'assignment_late' ],
+  ]);
 
   constructor(
     private roleProvider: RoleProvider,
@@ -33,12 +42,12 @@ export class MenubarComponent implements OnInit {
       }
     });
     if (this.roleProvider.isLogged()) {
-      this.loadProfileData()
+      this.loadProfileData();
     }
 
     this.eventsService.logInEvent.subscribe((loggedIn) => {
       if (loggedIn) {
-       this.loadProfileData();
+        this.loadProfileData();
       }
     });
     this.eventsService.campaignsChange.subscribe(() =>{
@@ -50,8 +59,8 @@ export class MenubarComponent implements OnInit {
   loadProfileData() {
     this.roleProvider.getUserData().then((data) => this.userData = data);
     this.loadCampaignsList();
-    this.accountsService.accountsNotificationsCountGet().subscribe(
-      (data) => this.notifCount = data.count
+    this.accountsService.accountsNotificationsGet().subscribe(
+      (data) => this.notifList = data
     );
   }
 
@@ -69,9 +78,47 @@ export class MenubarComponent implements OnInit {
     // TODO
   }
 
-  displayNotifications() {
-    // TODO
+  deleteNotif(notif: NotificationData) {
+    this.accountsService.accountsNotificationsDelete({body: {notif_id: notif.notid_id}})
+      .subscribe(() => {
+        const index = this.notifList.indexOf(notif);
+
+        if (index >= 0) {
+          this.notifList.splice(index, 1);
+        }
+      });
+
   }
+
+  reachNotification(notif: NotificationData){
+    // deleting the notification
+    this.deleteNotif(notif);
+    let route: string[];
+    switch (notif.object_type) {
+      case 'task':
+        if (this.roleProvider.isAdmin()){
+          route = ['/admin', 'tasks', 'view', notif.object_id];
+        } else if (this.roleProvider.isAnnotator()) {
+          route = ['/annotator', 'task', notif.object_id];
+        }
+        break;
+      case 'user':
+        route = ['/admin', 'annotators', 'view', notif.object_id];
+        break;
+      case 'campaign':
+        route = ['/admin', 'campaign', notif.object_id];
+        break;
+      case 'dasboard':
+        if (this.roleProvider.isAdmin()) {
+          route = ['/admin', 'campaign', 'list'];
+        } else if (this.roleProvider.isAnnotator()) {
+          route = ['/annotator', 'tasks'];
+        }
+        break;
+    }
+    this.router.navigate(route);
+  }
+
 
   logout() {
     this.roleProvider.logout();

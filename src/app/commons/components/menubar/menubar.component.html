@@ -2,12 +2,26 @@
   <mat-list-item class="seshat-menubar-title">
     <div class="w-100 d-flex justify-content-between align-items-center pt-3">
       <div class="seshat-logo"><img src="../assets/images/seshat-logo.png" alt="Seshat"></div>
-      <button mat-icon-button>
-        <mat-icon class="example-icon" [matBadge]="notifCount ? notifCount.toString() : null" matBadgeColor="warn"
-                  (click)="displayNotifications()">
+
+      <button mat-icon-button *ngIf="notifList.length" [matMenuTriggerFor]="notifMenu">
+        <mat-icon class="example-icon" [matBadge]="notifList.length.toString()" matBadgeColor="warn">
           notification_important
         </mat-icon>
       </button>
+      <mat-menu #notifMenu="matMenu">
+        <div mat-menu-item *ngFor="let notif of notifList" class="notif-list-item"
+             (click)="reachNotification(notif)">
+          <p mat-line>
+            <mat-icon >{{iconMap.get(notif.notif_type)}}</mat-icon>
+            {{notif.message}}
+            <button mat-flat-button (click)="$event.stopPropagation(); deleteNotif(notif)">
+              <mat-icon>clear</mat-icon>
+            </button>
+
+          </p>
+        </div>
+      </mat-menu>
+
     </div>
 
   </mat-list-item>
