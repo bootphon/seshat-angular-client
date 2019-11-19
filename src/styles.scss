@@ -180,6 +180,9 @@ h6{
   font-family: 'Open Sans', sans-serif;
   color: var(--text-dark);
   font-size: 0.75rem;
+  span{
+    color: var(--text-light);
+  }
 }
 
 p{

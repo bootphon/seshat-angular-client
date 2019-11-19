@@ -22,7 +22,7 @@
       </tr>
       <tr>
         <td><h4><span>Deadline:</span></h4></td>
-        <td><h4>{{taskData.deadline}}</h4></td>
+        <td><h4>{{taskData.deadline ? taskData.deadline : 'None'}}</h4></td>
       </tr>
       <tr>
         <td><h4><span>Status:</span></h4></td>
@@ -130,7 +130,7 @@
     <div class="col-12 text-center pt-2 pb-4">
         <h3>Discussion</h3>
     </div>
-    <div class="col-12">
+    <div class="col-10 p-0 mx-auto">
         <seshat-comments [taskID]="taskData.id"></seshat-comments>
     </div>
 

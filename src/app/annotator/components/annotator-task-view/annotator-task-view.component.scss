@@ -1,7 +1,7 @@
 ::ng-deep {
   // used to disable interactions with the stepper
   .mat-horizontal-stepper-header {
-    pointer-events: none !important;
+    // pointer-events: none !important;
   }
   .mat-horizontal-stepper-header-container{
     padding-left: 8.33333333%;
@@ -16,6 +16,9 @@
   .mat-step-icon-selected{
     box-shadow: 0 0 0 3px white, 0 0 0 5px var(--color-olive);
     z-index: 10;
+  }
+  .mat-form-field-disabled{
+    color: var(--text-light) !important;
   }
 
 }
@@ -36,4 +39,8 @@
       margin-right: 0.33rem;
     }
   }
+}
+
+.mat-form-field-disabled{
+  color: var(--text-light) !important;
 }
