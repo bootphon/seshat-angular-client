@@ -1,15 +1,13 @@
 <mat-toolbar color="primary">
-  <span>Assigned Tasks</span>
+  <span>Tasks</span>
 </mat-toolbar>
 
 
-<mat-tab-group>
+<mat-tab-group class="mb-5">
   <mat-tab label="Assigned Tasks">
     <table mat-table #assignedTasksSort="matSort"
            [dataSource]="assignedTasksList" matSort class="mat-elevation-z2 table-styling">
 
-
-           <!-- <div class="text-center py-3" *ngIf="!assignedTasksList.length" style="background: white; box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)">No record found</div> -->
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let task">
@@ -45,12 +43,14 @@
       [routerLink]="['/annotator', 'task', task.id]"
       ></tr>
     </table>
-
+    <div class="text-center py-3 mx-auto mat-elevation-z2 noTasks mb-2" *ngIf="0" style="width:90%; background: white;">
+        <p>No <i>pending</i> or <i>in progress</i> tasks</p>
+      </div>
   </mat-tab>
   <mat-tab label="Finished Tasks">
 
     <table mat-table #finishedTasksSort="matSort"
-           [dataSource]="finishedTasksList" matSort class="mat-elevation-z2">
+           [dataSource]="finishedTasksList" matSort class="mat-elevation-z2 table-styling">
 
       <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
@@ -83,11 +83,10 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="finishedColumns"></tr>
-      <tr mat-row *matRowDef="let task; columns: finishedColumns;">asdfadsfadsfadf</tr>
-      <!-- <tr *ngIf="noDateFinished"> Row row row row</tr> -->
+      <tr mat-row *matRowDef="let task; columns: finishedColumns;"></tr>
     </table>
-    <div *ngIf="noDateFinished" class="no-data col-12 text-center">
-        No records found<br>No records found<br>No records found<br>No records found<br> No records found<br>No records found<br>No records found<br>No records found<br>
-      </div>
+    <div class="text-center py-3 mx-auto mat-elevation-z2 mb-2 noTasks" *ngIf="1" style="width:90%; background: white;">
+      <p>No finished tasks</p>
+    </div>
   </mat-tab>
 </mat-tab-group>
