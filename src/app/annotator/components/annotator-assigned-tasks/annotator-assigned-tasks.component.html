@@ -43,7 +43,7 @@
       [routerLink]="['/annotator', 'task', task.id]"
       ></tr>
     </table>
-    <div class="text-center py-3 mx-auto mat-elevation-z2 noTasks mb-2" *ngIf="0" style="width:90%; background: white;">
+    <div class="text-center py-3 mx-auto mat-elevation-z2 noTasks mb-2" *ngIf="!assignedTasksList.data.length" style="width:90%; background: white;">
         <p>No <i>pending</i> or <i>in progress</i> tasks</p>
       </div>
   </mat-tab>
@@ -85,7 +85,7 @@
       <tr mat-header-row *matHeaderRowDef="finishedColumns"></tr>
       <tr mat-row *matRowDef="let task; columns: finishedColumns;"></tr>
     </table>
-    <div class="text-center py-3 mx-auto mat-elevation-z2 mb-2 noTasks" *ngIf="1" style="width:90%; background: white;">
+    <div class="text-center py-3 mx-auto mat-elevation-z2 mb-2 noTasks" *ngIf="!finishedTasksList.data.length" style="width:90%; background: white;">
       <p>No finished tasks</p>
     </div>
   </mat-tab>
