@@ -32,7 +32,6 @@ import {AnnotatorCreationComponent} from './components/annotator-creation/annota
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TasksListComponent} from './components/tasks-list/tasks-list.component';
 import {CommonsModule} from '../commons/commons.module';
-import {CampaignAnalyticsComponent} from './components/campaign-analytics/campaign-analytics.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AdminGuard, AuthGard} from '../commons/auth.gard';
 import {TaskAssignComponent} from './components/task-assign/task-assign.component';
@@ -47,7 +46,6 @@ const routes: Routes = [
   {path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
-  {path: 'campaign/:campaign_slug/analytics', component: CampaignAnalyticsComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
@@ -66,7 +64,6 @@ const routes: Routes = [
     CampaignCreationComponent,
     AnnotatorCreationComponent,
     TasksListComponent,
-    CampaignAnalyticsComponent,
     TaskAssignComponent
   ],
   imports: [
