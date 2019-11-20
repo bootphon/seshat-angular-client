@@ -26,7 +26,7 @@
 
     <ng-container matColumnDef="last_activity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Activity</th>
-      <td mat-cell *matCellDef="let row"> {{row.last_activity}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.last_activity | date: 'medium'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="assigned_tasks">

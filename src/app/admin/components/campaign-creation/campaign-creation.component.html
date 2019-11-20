@@ -103,7 +103,7 @@
                   </mat-chip-list>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.validate_tier && tierSpecs.content_type === 'PARSED'">
+                <mat-form-field *ngIf="tierSpecs.content_type === 'PARSED'">
                   <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
                     <mat-option value="option">Option</mat-option>
                   </mat-select>

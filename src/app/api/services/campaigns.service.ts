@@ -15,6 +15,7 @@ import { CampaignStatus } from '../models/campaign-status';
 import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-update';
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
+import { CheckingSchemeSummary } from '../models/checking-scheme-summary';
 import { CorporaListing } from '../models/corpora-listing';
 import { CorpusFile } from '../models/corpus-file';
 import { TaskShortStatus } from '../models/task-short-status';
@@ -567,6 +568,55 @@ export class CampaignsService extends BaseService {
 
     return this.campaignsSubscribePost$Response(params).pipe(
       map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation campaignsCheckingSchemeCampaignSlugGet
+   */
+  static readonly CampaignsCheckingSchemeCampaignSlugGetPath = '/campaigns/checking_scheme/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsCheckingSchemeCampaignSlugGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsCheckingSchemeCampaignSlugGet$Response(params: {
+    campaignSlug: string;
+
+  }): Observable<StrictHttpResponse<CheckingSchemeSummary>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsCheckingSchemeCampaignSlugGetPath, 'get');
+    if (params) {
+
+      rb.path('campaign_slug', params.campaignSlug);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<CheckingSchemeSummary>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsCheckingSchemeCampaignSlugGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsCheckingSchemeCampaignSlugGet(params: {
+    campaignSlug: string;
+
+  }): Observable<CheckingSchemeSummary> {
+
+    return this.campaignsCheckingSchemeCampaignSlugGet$Response(params).pipe(
+      map((r: StrictHttpResponse<CheckingSchemeSummary>) => r.body as CheckingSchemeSummary)
     );
   }
 

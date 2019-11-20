@@ -16,7 +16,7 @@
       </mat-grid-tile>
       <mat-grid-tile>
         Account created on {{annotatorProfile.creation_date}} <br/>
-        Last activity : {{annotatorProfile.last_activity}}
+        Last activity : {{annotatorProfile.last_activity| date: 'medium'}}
       </mat-grid-tile>
       <mat-grid-tile colspan="2">
         <mat-form-field>

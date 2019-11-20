@@ -6,6 +6,7 @@ export interface CampaignStatus  {
   check_textgrids: boolean;
   corpus_path: string;
   creator: UserShortProfile;
+  description: string;
   name: string;
   slug: string;
   stats?: CampaignStats;

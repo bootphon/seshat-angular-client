@@ -18,7 +18,7 @@
       </tr>
       <tr>
         <td><h4><span>Created:</span></h4></td>
-        <td><h4>{{taskData.creation_time}}</h4></td>
+        <td><h4>{{taskData.creation_time | date: 'medium'}}</h4></td>
       </tr>
       <tr>
         <td><h4><span>Deadline:</span></h4></td>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td><h4><span>Annotators:</span></h4></td>
-        <td><h4>{{taskData.annotators.join(", ")}}</h4></td>
+        <td><h4><seshat-userlist [usernamesList]="taskData.annotators" [setLink]="true"></seshat-userlist></h4></td>
       </tr>
       <tr>
         <td><h4><span>Actions</span></h4></td>
@@ -96,7 +96,11 @@
       <ng-container matColumnDef="creator">
         <th mat-header-cell *matHeaderCellDef> Creators</th>
         <td mat-cell *matCellDef="let textgrid">
-          {{textgrid.has_been_submitted ? textgrid.creators.join(', ') : null}}
+          <seshat-userlist *ngIf="textgrid.has_been_submitted" [userList]="textgrid.annotators" [setLink]="true">
+          </seshat-userlist>
+          <ng-container *ngIf="textgrid.has_been_submitted && ! textgrid.annotators">
+            None
+          </ng-container>
         </td>
       </ng-container>
 

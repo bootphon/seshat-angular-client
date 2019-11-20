@@ -6,5 +6,4 @@ export interface TierSpecifications  {
   name: string;
   parser_name?: string;
   required: boolean;
-  validate_tier: boolean;
 }

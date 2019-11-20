@@ -84,7 +84,6 @@ export class CampaignCreationComponent implements OnInit {
     this.campaignCreation.checking_scheme.push({
       name: '',
       required: true,
-      validate_tier: false,
       allow_empty: true,
       categories: [],
     });
