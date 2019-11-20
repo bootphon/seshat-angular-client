@@ -15,6 +15,7 @@ export class AnnotatorsViewComponent implements OnInit {
   annotatorProfile: AnnotatorProfile;
   annotatorProfileEdit: AnnotatorEdition;
   newPassword: string;
+  hide = true;
 
   constructor(
     private annotatorsService: AnnotatorsService,

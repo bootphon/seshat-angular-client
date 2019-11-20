@@ -196,6 +196,13 @@ p{
   }
 }
 
+a{
+  color: var(--color-forest);
+  &:hover {
+    color: var(--color-forest);
+  }
+}
+
 table{
   font-family: 'Open Sans', sans-serif;
 }
@@ -222,7 +229,6 @@ table{
   }
   a{
     font-family: 'Open Sans', sans-serif;
-    color: var(--color-forest);
     font-size: 0.75rem;
     font-weight: 200;
     margin-bottom: 0 !important;

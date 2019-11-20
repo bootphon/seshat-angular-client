@@ -88,7 +88,7 @@
                   </mat-select>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.content_type === 'CATEGORICAL'" class="col-12 w-100">
+                <mat-form-field *ngIf="tierSpecs.content_type === 'CATEGORICAL'" class="col-6 w-100 float-right">
                   <mat-chip-list #chipList aria-label="Fruit selection">
                     <mat-chip *ngFor="let category of tierSpecs.categories"
                               removable="true" (removed)="removeCategory(tierSpecs, category)">
@@ -103,7 +103,7 @@
                   </mat-chip-list>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.content_type === 'PARSED'">
+                <mat-form-field *ngIf="tierSpecs.content_type === 'PARSED'" class="col-6 float-right">
                   <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
                     <mat-option value="option">Option</mat-option>
                   </mat-select>
@@ -112,8 +112,7 @@
                 <mat-slide-toggle
                   matTooltip="This tier's (and its intervals) can contain no annotation"
                   labelPosition="before"
-                  [(ngModel)]="tierSpecs.allow_empty"
-                  class="col-12 w-100 mt-3">
+                  [(ngModel)]="tierSpecs.allow_empty" class="col-12 w-100 mt-3">
                   Allow Empty
                 </mat-slide-toggle>
 

@@ -1,63 +1,132 @@
-<div *ngIf="annotatorProfile">
+<div *ngIf="annotatorProfile" class="container-fluid">
 
-  <div id="edition-container">
-    <mat-grid-list cols="2" rowHeight="100px">
-      <mat-grid-tile colspan="1">
-        <mat-form-field>
-          <mat-label>First Name</mat-label>
-          <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.first_name">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <mat-form-field>
-          <mat-label>Last Name</mat-label>
-          <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.last_name">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Account created on {{annotatorProfile.creation_date}} <br/>
-        Last activity : {{annotatorProfile.last_activity| date: 'medium'}}
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input matInput type="email" [(ngModel)]="annotatorProfileEdit.email">
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input matInput type="password" [(ngModel)]="newPassword">
-        </mat-form-field>
-        <button mat-raised-button (click)="updatePassword()">UPDATE PASSWORD</button>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="2">
-        <button mat-raised-button (click)="updateAnnotatorProfile()">
-          <mat-icon>save_alt</mat-icon>
-          Update user
+  <div class="row m-3">
+    <div class="col-12">
+      <div class="progress-row row d-flex align-items-center justify-content-between ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Account Information</h3>
+        <button mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
+          <mat-icon>save</mat-icon>
+          Save changes
         </button>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <button mat-raised-button color="accent"
-                matTooltip="Lock the task"
-                (click)="updateAnnotatorLock()">
-          <mat-icon>{{ annotatorProfile.is_locked ? 'lock_open' : 'lock' }}</mat-icon>
-          {{ annotatorProfile.is_locked ? 'UNLOCK ACCOUNT' : 'LOCK ACCOUNT' }}
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
-        <button mat-raised-button
-                color="warn"
-                (click)="deleteAnnotator()">
-          <mat-icon>clear</mat-icon>
-          Delete User
-        </button>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
+      <mat-card class="campaign-card m-3 p-4">
+        <div id="edition-container" class="row">
+          <table class="mx-auto annotator-info">
+            <tr>
+              <td>
+                <h4><span>Name:</span></h4>
+              </td>
+              <td>
+                <mat-form-field floatLabel="never" class="">
+                  <mat-label>
+                    <h4>First Name</h4>
+                  </mat-label>
+                  <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.first_name">
+                </mat-form-field>
+                &nbsp;
+                <mat-form-field floatLabel="never" class="">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput placeholder="First Name" [(ngModel)]="annotatorProfileEdit.last_name">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+                <td>
+                  <h4><span>Username:</span></h4>
+                </td>
+                <td>
+                  <h4>{{annotatorProfile.username}}</h4>
+                </td>
+              </tr>
+              <!-- is there a reason we cannot edit the username? -->
+              <!-- <tr>
+            <td><h4><span>Username:</span></h4></td>
+            <td>
+              <mat-form-field floatLabel="never" class="">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="Username" [(ngModel)]="annotatorProfileEdit.username">
+              </mat-form-field>
+            </td>
+          </tr> -->
+            <tr>
+              <td>
+                <h4><span>Email:</span></h4>
+              </td>
+              <td>
+                <mat-form-field floatLabel="never" class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" [(ngModel)]="annotatorProfileEdit.email">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <h4 class="mt-n4"><span>Password:</span></h4>
+              </td>
+              <td>
+                <mat-form-field floatLabel="never" class="w-100 mt-n4">
+                  <mat-label>Password</mat-label>
+                  <input matInput [(ngModel)]="newPassword" [type]="hide ? 'password' : 'text'">
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                </mat-form-field>
+                <!-- &nbsp;
+            <button mat-raised-button (click)="updatePassword()">Update Password</button> -->
+              </td>
+            </tr>
+            <tr>
+                <td>
+                  <h4><span>Account created:</span></h4>
+                </td>
+                <td>
+                  <h4>{{annotatorProfile.creation_date}}</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4 class="mt-4 mb-3"><span>Last activity:</span></h4>
+                </td>
+                <td>
+                  <h4 class="mt-4 mb-3">{{annotatorProfile.last_activity| date: 'medium'}}</h4>
+                </td>
+              </tr>
+            <tr>
+              <td>
+                <h4><span>Actions:</span></h4>
+              </td>
+              <td>
+                <button mat-raised-button [color]="annotatorProfile.is_locked? 'accent' : 'primary'"
+                  [matTooltip]="annotatorProfile.is_locked? 'Click to unlock account' : 'Click to lock account'"
+                  (click)="updateAnnotatorLock()">
+                  <mat-icon>{{ annotatorProfile.is_locked ? 'lock' : 'lock_open' }}</mat-icon>
+                  {{ annotatorProfile.is_locked ? 'Account Locked' : 'Account Unlocked' }}
+                </button>
+                &nbsp;
+                <div class="alt-mat-theme d-inline">
+                  <button mat-flat-button color="warn" (click)="deleteAnnotator()" class="float-right">
+                    <mat-icon>delete_forever</mat-icon>
+                    Delete User
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </mat-card>
+    </div>
   </div>
 
-  <div id="annotator-tasks">
-    <seshat-tasks-list [annotatorUsername]="annotatorProfile.username"></seshat-tasks-list>
+  <div class="row m-3">
+    <div class="col-12">
+      <div class="progress-row row d-flex align-items-center ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Assigned Tasks</h3>
+      </div>
+      <mat-card class="campaign-card m-3 p-0 pt-2">
+        <seshat-tasks-list [annotatorUsername]="annotatorProfile.username"></seshat-tasks-list>
+      </mat-card>
+    </div>
   </div>
 
 </div>
