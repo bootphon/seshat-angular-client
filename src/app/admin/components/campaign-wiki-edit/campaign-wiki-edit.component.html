@@ -2,32 +2,36 @@
   <button mat-flat-button [routerLink]="['/admin', 'campaign', campaignSlug]">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
-  <span class="campaign-name">Wiki page for {{campaignSlug}}</span>
+  <h3 class="campaign-name">Wiki page for {{campaignSlug}}</h3>
 </mat-toolbar>
 
-
-<button mat-raised-button class="wiki-save-button" color="primary" (click)="saveWiki()">
-  <mat-icon>save</mat-icon>
-  Save
-</button>
+<div class="w-100 text-right">
+  <button mat-raised-button class="wiki-save-button" color="primary" (click)="saveWiki()">
+    <mat-icon>save</mat-icon>
+    Save
+  </button>
+</div>
 
 <mat-tab-group class="wiki-edit-tabs mat-elevation-z2">
 
   <mat-tab label="Edit Content">
     <form>
-      <mat-form-field class="wiki-text-area">
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="200" cdkAutosizeMinRows="4"
+      <mat-form-field class="wiki-text-area w-100 m-0 p-0">
+          <!-- cdkTextareaAutosize cdkAutosizeMaxRows="200" cdkAutosizeMinRows="4" -->
+        <textarea matInput
+        cdkTextareaAutosize cdkAutosizeMaxRows="200" cdkAutosizeMinRows="10"
                   [(ngModel)]="wikiMarkDown" name="wiki-content"></textarea>
       </mat-form-field>
     </form>
   </mat-tab>
   <mat-tab label="Preview">
     <ng-template matTabContent>
-      <showdown [value]="wikiMarkDown" class="markdown-render"></showdown>
+      <showdown [value]="wikiMarkDown" class="markdown-render wiki-headings"></showdown>
     </ng-template>
   </mat-tab>
   <mat-tab label="Formatting Guide">
     <ng-template matTabContent>
+      <div class="wiki-headings">
       <p>
         This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements.
         It can’t cover every edge case, so if you need more information about any of these elements,
@@ -35,36 +39,36 @@
         for basic syntax and extended syntax.
       </p>
 
-      <h2 id="basic-syntax">Basic Syntax</h2>
+      <h3 id="basic-syntax"><b>Basic Syntax</b></h3>
 
       <table class="table table-bordered">
         <thead class="thead-light">
         <tr>
-          <th>Element</th>
-          <th>Markdown Syntax</th>
+          <th><h4>Element</h4></th>
+          <th><h4>Markdown Syntax</h4></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Heading</td>
+          <td><p>Heading</p></td>
           <td><code># H1<br />
             ## H2<br />
             ### H3</code></td>
         </tr>
         <tr>
-          <td>Bold</td>
+          <td><p>Bold</p></td>
           <td><code>**bold text**</code></td>
         </tr>
         <tr>
-          <td>Italic</td>
+          <td><p>Italic</p></td>
           <td><code>*italicized text*</code></td>
         </tr>
         <tr>
-          <td>Blockquote</td>
+          <td><p>Blockquote</p></td>
           <td><code>&gt; blockquote</code></td>
         </tr>
         <tr>
-          <td>Ordered List</td>
+          <td><p>Ordered List</p></td>
           <td><code>
             1. First item<br />
             2. Second item<br />
@@ -72,7 +76,7 @@
           </code></td>
         </tr>
         <tr>
-          <td>Unordered List</td>
+          <td><p>Unordered List</p></td>
           <td>
             <code>
               - First item<br />
@@ -82,38 +86,48 @@
           </td>
         </tr>
         <tr>
-          <td>Code</td>
+          <td><p>Bullet Points</p></td>
+          <td>
+            <code>
+              * First bullet<br />
+              * Second bullet<br />
+              * Third bullet<br />
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td><p>Code</p></td>
           <td><code>`code`</code></td>
         </tr>
         <tr>
-          <td>Horizontal Rule</td>
+          <td><p>Horizontal Rule</p></td>
           <td><code>---</code></td>
         </tr>
         <tr>
-          <td>Link</td>
+          <td><p>Link</p></td>
           <td><code>[title](https://www.example.com)</code></td>
         </tr>
         <tr>
-          <td>Image</td>
+          <td><p>Image</p></td>
           <td><code>![alt text](image.jpg)</code></td>
         </tr>
         </tbody>
       </table>
 
-      <h2 id="extended-syntax">Extended Syntax</h2>
+      <h3 id="extended-syntax"><b>Extended Syntax</b></h3>
 
       <p>These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.</p>
 
       <table class="table table-bordered">
         <thead class="thead-light">
         <tr>
-          <th>Element</th>
-          <th>Markdown Syntax</th>
+          <th><h4>Element</h4></th>
+          <th><h4>Markdown Syntax</h4></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Table</td>
+          <td><p>Table</p></td>
           <td><code>
             | Syntax      | Description |<br />
             | ----------- | ----------- |<br />
@@ -122,7 +136,7 @@
           </code></td>
         </tr>
         <tr>
-          <td>Fenced Code Block</td>
+          <td><p>Fenced Code Block</p></td>
           <td>
             <code>```<br />
               {{'{'}}<br />
@@ -135,7 +149,7 @@
           </td>
         </tr>
         <tr>
-          <td>Footnote</td>
+          <td><p>Footnote</p></td>
           <td><code>
             Here's a sentence with a footnote. [^1]<br /><br />
 
@@ -143,22 +157,22 @@
           </code></td>
         </tr>
         <tr>
-          <td>Heading ID</td>
+          <td><p>Heading ID</p></td>
           <td><code>### My Great Heading {{'{#custom-id}'}}</code></td>
         </tr>
         <tr>
-          <td>Definition List</td>
+          <td><p>Definition List</p></td>
           <td><code>
             term<br />
             : definition
           </code></td>
         </tr>
         <tr>
-          <td>Strikethrough</td>
+          <td><p>Strikethrough</p></td>
           <td><code>~~The world is flat.~~</code></td>
         </tr>
         <tr>
-          <td>Task List</td>
+          <td><p>Task List</p></td>
           <td><code>
             - [x] Write the press release<br />
             - [ ] Update the website<br />
@@ -167,7 +181,7 @@
         </tr>
         </tbody>
       </table>
-
+     </div>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
