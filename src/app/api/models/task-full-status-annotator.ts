@@ -1,6 +1,6 @@
 /* tslint:disable */
 import { CampaignShortProfile } from './campaign-short-profile';
-import { TimeMergeError } from './time-merge-error';
+import { DoubleAnnotatorData } from './double-annotator-data';
 import { UserShortProfile } from './user-short-profile';
 export interface TaskFullStatusAnnotator  {
   all_steps?: Array<string>;
@@ -13,8 +13,8 @@ export interface TaskFullStatusAnnotator  {
   current_instructions: string;
   current_step_idx: number;
   deadline?: string;
+  double_annot_data?: DoubleAnnotatorData;
   filename: string;
-  frontiers_merge_table?: Array<TimeMergeError>;
   id: string;
   is_done: boolean;
   is_locked: boolean;

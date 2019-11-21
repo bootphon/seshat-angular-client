@@ -1,12 +1,12 @@
 
 <ng-container *ngIf="userList">
-  <span *ngFor="let user of userList; let last = last">
+  <ng-container *ngFor="let user of userList; let last = last">
     <a [routerLink]="setLink ? ['/admin', 'view', user.username] : undefined">{{prop(user, field)}}</a>{{!last ? ', ' : ''}}
-  </span>
+  </ng-container>
 </ng-container>
 
 <ng-container *ngIf="usernamesList">
-  <span *ngFor="let username of usernamesList; let last = last">
+  <ng-container *ngFor="let username of usernamesList; let last = last">
     <a [routerLink]="setLink ? ['/admin', 'view', username] : undefined"> {{username}}</a>{{!last ? ', ' : ''}}
-  </span>
+  </ng-container>
 </ng-container>

@@ -39,6 +39,20 @@
                 <td><h4><span>Task Type:</span></h4></td>
                 <td><h4>{{taskData.task_type}}</h4></td>
             </tr>
+            <ng-container *ngIf="taskData.double_annot_data">
+              <tr>
+                <td><h4><span>Reference Annotator:</span></h4></td>
+                <td><h4>{{taskData.double_annot_data.reference.fullname}}</h4></td>
+              </tr>
+              <tr>
+                <td><h4><span>Target Annotator:</span></h4></td>
+                <td><h4>{{taskData.double_annot_data.target.fullname}}</h4></td>
+              </tr>
+              <tr>
+                <td><h4><span>Your Role:</span></h4></td>
+                <td><h4>{{taskData.double_annot_data.current_user_role}} annotator</h4></td>
+              </tr>
+            </ng-container>
           </table>
         </mat-card>
       </div>
@@ -255,7 +269,7 @@
     </div>
 
 
-    <div *ngIf="taskData.frontiers_merge_table">
+    <div *ngIf="taskData.double_annot_data && taskData.double_annot_data.frontiers_merge_table">
       <h3>Merging times mismatch</h3>
 
       <table mat-table [dataSource]="timesMergeMismatch" class="mat-elevation-2">

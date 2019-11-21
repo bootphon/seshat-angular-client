@@ -38,8 +38,8 @@ export class AnnotatorTaskViewComponent implements OnInit {
     this.tasksService.tasksStatusAnnotatorTaskIdGet({taskId: this.taskId}).subscribe(
       (data) => {
         this.taskData = data;
-        if (data.frontiers_merge_table) {
-          this.timesMergeMismatch = new MatTableDataSource<TimeMergeError>(data.frontiers_merge_table);
+        if (data.double_annot_data && data.double_annot_data.frontiers_merge_table) {
+          this.timesMergeMismatch = new MatTableDataSource<TimeMergeError>(data.double_annot_data.frontiers_merge_table);
         }
       }
     );
