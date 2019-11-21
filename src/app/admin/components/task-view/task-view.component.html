@@ -33,7 +33,7 @@
         <td><h4><seshat-userlist [usernamesList]="taskData.annotators" [setLink]="true"></seshat-userlist></h4></td>
       </tr>
       <tr>
-        <td><h4><span>Actions</span></h4></td>
+        <td><h4><span>Actions:</span></h4></td>
         <td><button mat-raised-button [color]="taskData.is_locked? 'accent' : 'primary'"
           [matTooltip]="taskData.is_locked? 'Click to unlock the task' : 'Click to lock the task'"
           (click)="changeTaskLock()" class="mr-3">

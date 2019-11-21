@@ -98,10 +98,17 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include angular-material-theme($dark-theme);
 }
 
+
+
+$custom-typography: mat-typography-config($font-family: '"Open Sans", Roboto, sans-serif;');
+@include mat-core($custom-typography);
+
+
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; min-height: 100vh;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Open Sans', Roboto, "Helvetica Neue", sans-serif; }
 
 :root {
   font-size: 13.5pt;
@@ -196,6 +203,13 @@ p{
   }
 }
 
+a{
+  color: var(--color-forest);
+  &:hover {
+    color: var(--color-forest);
+  }
+}
+
 table{
   font-family: 'Open Sans', sans-serif;
 }
@@ -222,7 +236,6 @@ table{
   }
   a{
     font-family: 'Open Sans', sans-serif;
-    color: var(--color-forest);
     font-size: 0.75rem;
     font-weight: 200;
     margin-bottom: 0 !important;

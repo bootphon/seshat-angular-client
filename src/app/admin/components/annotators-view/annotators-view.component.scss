@@ -1,0 +1,41 @@
+.annotator-info{
+  tr{
+    height: 2.5em;
+    td:first-child{
+      text-align: right;
+      padding-right: calc(1rem);
+    }
+    a{
+      font-family: 'Open Sans', sans-serif;
+      color: var(--color-forest);
+      font-weight: 200;
+      margin-bottom: 0 !important;
+      margin-right: 0.33rem;
+    }
+  }
+}
+
+// mat-form-field label {
+//   font-size: 50px;
+// }
+
+input {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark) !important;
+  font-size: 0.9rem;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+::ng-deep{
+  .annotator-profile-view{
+    .mat-form-field-flex{
+      height: 1rem !important;
+    }
+  .mat-form-field-wrapper{
+    margin-bottom: -1.25em !important;
+  }
+  }
+
+}
+
