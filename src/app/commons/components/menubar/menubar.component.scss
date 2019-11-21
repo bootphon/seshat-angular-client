@@ -67,7 +67,7 @@
     .submenu{
       .mat-list-item-content{
         padding-right:0px !important;
-        margin-right: -100px !important;
+        margin-right: -25px !important;
       }
       .mat-list-item-content:hover{
         margin-right: -5px !important;
@@ -80,10 +80,12 @@
   .navLink {
     cursor: pointer;
     z-index: 1000;
+    max-width: 210px;
   }
 
   .mat-list-item-content{
     margin-right: calc(1rem * 1.5) !important;
+    width: 100% !important;
   }
 
 }

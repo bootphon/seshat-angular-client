@@ -1,9 +1,9 @@
-<div *ngIf="annotatorProfile" class="container-fluid">
+<div *ngIf="annotatorProfile" class="container-fluid annotator-profile-view">
 
   <div class="row m-3">
     <div class="col-12">
       <div class="progress-row row d-flex align-items-center justify-content-between ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
-        <h3 style="color:var(--text-medium-light)">Account Information</h3>
+        <h3 style="color:var(--text-medium-light)">Annotator Information</h3>
         <button mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
           <mat-icon>save</mat-icon>
           Save changes
@@ -14,7 +14,7 @@
           <table class="mx-auto annotator-info">
             <tr>
               <td>
-                <h4><span>Name:</span></h4>
+                <h4 class=""><span>Name:</span></h4>
               </td>
               <td>
                 <mat-form-field floatLabel="never" class="">
@@ -61,10 +61,10 @@
             </tr>
             <tr>
               <td>
-                <h4 class="mt-n4"><span>Password:</span></h4>
+                <h4 class=""><span>Password:</span></h4>
               </td>
               <td>
-                <mat-form-field floatLabel="never" class="w-100 mt-n4">
+                <mat-form-field floatLabel="never" class="w-100">
                   <mat-label>Password</mat-label>
                   <input matInput [(ngModel)]="newPassword" [type]="hide ? 'password' : 'text'">
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -86,10 +86,10 @@
               </tr>
               <tr>
                 <td>
-                  <h4 class="mt-4 mb-3"><span>Last activity:</span></h4>
+                  <h4 class="mt-2 mb-3"><span>Last activity:</span></h4>
                 </td>
                 <td>
-                  <h4 class="mt-4 mb-3">{{annotatorProfile.last_activity| date: 'medium'}}</h4>
+                  <h4 class="mt-2 mb-3">{{annotatorProfile.last_activity| date: 'medium'}}</h4>
                 </td>
               </tr>
             <tr>
@@ -123,7 +123,7 @@
       <div class="progress-row row d-flex align-items-center ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
         <h3 style="color:var(--text-medium-light)">Assigned Tasks</h3>
       </div>
-      <mat-card class="campaign-card m-3 p-0 pt-2">
+      <mat-card class="campaign-card m-3 p-0 pt-4">
         <seshat-tasks-list [annotatorUsername]="annotatorProfile.username"></seshat-tasks-list>
       </mat-card>
     </div>
