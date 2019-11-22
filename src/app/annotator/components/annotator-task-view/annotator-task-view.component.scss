@@ -23,6 +23,16 @@
 
 }
 
+.task-instructions{
+  background-color: #fcfcfc;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display:flex;
+  flex-direction: column;
+  flex-grow:1;
+  text-align: left;
+}
 
 .task-table-info{
   line-height: initial;
