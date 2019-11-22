@@ -8,23 +8,25 @@
           notification_important
         </mat-icon>
       </button>
-      <mat-menu #notifMenu="matMenu">
-        <div mat-menu-item *ngFor="let notif of notifList" class="notif-list-item"
-             (click)="reachNotification(notif)">
-          <p mat-line>
-            <mat-icon >{{iconMap.get(notif.notif_type)}}</mat-icon>
-            {{notif.message}}
-            <button mat-flat-button (click)="$event.stopPropagation(); deleteNotif(notif)">
-              <mat-icon>clear</mat-icon>
-            </button>
-
-          </p>
-        </div>
-      </mat-menu>
 
     </div>
 
   </mat-list-item>
+  <mat-menu #notifMenu="matMenu">
+    <div mat-menu-item *ngFor="let notif of notifList" class="notif-list-item"
+         (click)="reachNotification(notif)">
+      <div mat-line class="d-flex justify-content-between align-items-center">
+        <span>
+          <mat-icon >{{iconMap.get(notif.notif_type)}}</mat-icon>
+          {{notif.message}}
+        </span>
+        <button mat-flat-button (click)="$event.stopPropagation(); deleteNotif(notif)" class="ml-2 text-center">
+          <mat-icon class="m-0">clear</mat-icon>
+        </button>
+
+      </div>
+    </div>
+  </mat-menu>
 
   <div *ngIf="userData; then nameMenuItem"></div>
 
