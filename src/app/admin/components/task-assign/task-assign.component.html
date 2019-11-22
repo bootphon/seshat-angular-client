@@ -55,11 +55,11 @@
     </div>
 
     <div class="col-12 mb-4">
-      <div class="mb-2">
+      <div class="mb-2" >
         <h3 style="color:var(--text-medium-light)">2. Select Annotators</h3>
       </div>
       <mat-card>
-        <div class="row">
+        <div class="row ml-0 pt-3">
           <div class="col-12">
             <mat-radio-group [(ngModel)]="taskType"
             (ngModelChange)="taskType === 'single' ? secondAnnotatorCtrl.disable() : secondAnnotatorCtrl.enable()">
