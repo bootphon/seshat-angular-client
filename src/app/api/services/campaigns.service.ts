@@ -18,6 +18,7 @@ import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
 import { CheckingSchemeSummary } from '../models/checking-scheme-summary';
 import { CorporaListing } from '../models/corpora-listing';
 import { CorpusFile } from '../models/corpus-file';
+import { ParsersList } from '../models/parsers-list';
 import { TaskShortStatus } from '../models/task-short-status';
 
 
@@ -78,6 +79,52 @@ export class CampaignsService extends BaseService {
 
     return this.campaignsAvailableCorporaGet$Response(params).pipe(
       map((r: StrictHttpResponse<CorporaListing>) => r.body as CorporaListing)
+    );
+  }
+
+  /**
+   * Path part for operation campaignsParsersListGet
+   */
+  static readonly CampaignsParsersListGetPath = '/campaigns/parsers/list/';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsParsersListGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsParsersListGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<ParsersList>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsParsersListGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<ParsersList>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsParsersListGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsParsersListGet(params?: {
+
+  }): Observable<ParsersList> {
+
+    return this.campaignsParsersListGet$Response(params).pipe(
+      map((r: StrictHttpResponse<ParsersList>) => r.body as ParsersList)
     );
   }
 
