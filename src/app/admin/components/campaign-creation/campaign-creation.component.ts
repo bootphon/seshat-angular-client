@@ -37,6 +37,7 @@ export class CampaignCreationComponent implements OnInit {
   chosenCorpora: CorporaSelection;
   campaignCreation: CampaignCreation;
   availableCorpora: CorporaListing;
+  availableParsers: string[];
 
   constructor(
     private campaignsAPI: CampaignsService,
@@ -54,6 +55,7 @@ export class CampaignCreationComponent implements OnInit {
   ngOnInit() {
     // retrieving available corpora
     this.campaignsAPI.campaignsAvailableCorporaGet().subscribe((data) => this.availableCorpora = data);
+    this.campaignsAPI.campaignsParsersListGet().subscribe((data) => this.availableParsers = data.parser_names);
     this.addTier(); // setting a default empty tier
   }
 
