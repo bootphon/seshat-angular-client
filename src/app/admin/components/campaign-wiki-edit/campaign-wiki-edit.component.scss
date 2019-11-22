@@ -11,10 +11,11 @@
 .wiki-edit-tabs {
   width: 90%;
   margin: auto;
+  margin-bottom: 5vw;
 }
 
 .wiki-save-button {
-  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 30px;
   margin-bottom: 20px;
 }
@@ -23,3 +24,93 @@
   width: 90%;
   margin: auto;
 }
+
+::ng-deep{
+  .wiki-edit-tabs{
+    .mat-form-field-wrapper{
+      padding-bottom: 0 !important;
+    }
+    .mat-form-field-underline{
+      display: none !important;
+    }
+    .mat-form-field-infix{
+      padding-bottom: 2px !important;
+      padding-top: 0px !important;
+      border-top: 0 !important;
+    }
+    // textarea class
+    .mat-input-element{
+      padding:0 !important;
+      overflow: hidden;
+    }
+    .mat-tab-body-content{
+      padding: 1.5rem 1.5rem 1.5rem 1.5rem !important;
+    }
+    // #mat-tab-content-0-0{
+    //   .mat-tab-body-content{
+    //     padding: 1.5rem 1.5rem 0 1.5rem !important;
+    //   }
+    // }
+  }
+  .mat-input-element{
+    font-family: 'Open Sans', sans-serif !important;
+    color: var(--text-dark) !important;
+    font-size: 0.85rem !important;
+  }
+
+  .wiki-headings{
+    h1{
+      font-family: 'Poppins', sans-serif;
+      font-size: 2em;
+      margin: .67em 0;
+      font-weight: 300;
+      color: var(--text-dark);
+    }
+    h2{
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5em;
+      margin: .75em 0;
+      font-weight: 300;
+      color: var(--text-dark);
+    }
+    h3{
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.17em;
+      margin: .83em 0;
+      font-weight: 200;
+      color: var(--text-dark);
+    }
+    h4{
+      font-family: 'Poppins', sans-serif;
+      font-size: 1em;
+      margin: 1.12em 0;
+      font-weight: 200;
+      color: var(--text-dark);
+    }
+    h5{
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.83em;
+      margin: 1.5em 0;
+      font-weight: 200;
+      color: var(--text-dark);
+    }
+    h6{
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75em;
+      margin: 1.67em 0;
+      font-weight: 200;
+      color: var(--text-dark);
+    }
+    p{
+      font-family: 'Open Sans', sans-serif !important;
+      color: var(--text-dark) !important;
+      font-size: 0.85em !important;
+      margin: 1.12em 0 ;
+    }
+    code{
+      color: var(--text-olive);
+    }
+  }
+
+}
+

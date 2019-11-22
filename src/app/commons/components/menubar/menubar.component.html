@@ -50,7 +50,7 @@
             <mat-expansion-panel class="mat-elevation-z0">
               <mat-expansion-panel-header class="d-flex justify-content-center"></mat-expansion-panel-header>
                 <span [routerLink]="['/admin', 'campaign', campaign.slug]" *ngFor="let campaign of campaignsData">
-                  <h2 class="navLink"><span>{{ campaign.name }}</span></h2>
+                  <h2 class="navLink subLink"><span>{{ campaign.name }}</span></h2>
                 </span>
             </mat-expansion-panel>
           </mat-accordion>

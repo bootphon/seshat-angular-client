@@ -83,6 +83,10 @@
     max-width: 210px;
   }
 
+  .subLink:hover{
+    font-weight: 300;
+  }
+
   .mat-list-item-content{
     margin-right: calc(1rem * 1.5) !important;
     width: 100% !important;
