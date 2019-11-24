@@ -128,6 +128,7 @@ body { margin: 0; font-family: 'Open Sans', Roboto, "Helvetica Neue", sans-serif
   --text-medium-light: rgb(179,179,179); //#b3b3b3
   --text-light: rgb(205,205,210); //#cdcdd2
   --text-white: rgb(255,255,255); //#ffffff
+  --text-olive: rgb(130, 155, 96); //#97b271
 }
 
 h1{
@@ -341,6 +342,8 @@ table{
   background-color: white !important;
   box-shadow: 0 1px 6px rgba(0,0,0,.2);
   color: var(--text-dark) !important;
+  // margin-bottom: 64px;
+  // position: fixed;
 
   h3{
     font-family: 'Poppins', sans-serif;

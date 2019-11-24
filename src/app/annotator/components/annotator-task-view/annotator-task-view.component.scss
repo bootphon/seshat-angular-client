@@ -1,7 +1,7 @@
 ::ng-deep {
   // used to disable interactions with the stepper
   .mat-horizontal-stepper-header {
-    // pointer-events: none !important;
+    pointer-events: none !important;
   }
   .mat-horizontal-stepper-header-container{
     padding-left: 8.33333333%;
@@ -20,12 +20,32 @@
   .mat-form-field-disabled{
     color: var(--text-light) !important;
   }
+    .mat-step-label{
+      overflow: visible !important;
+      white-space: normal !important;
+  }
+  .mat-step-text-label{
+    overflow: visible !important;
+    white-space: normal !important;
+    text-transform: capitalize !important;
+  }
 
 }
 
+.task-instructions{
+  background-color: #fcfcfc;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display:flex;
+  flex-direction: column;
+  flex-grow:1;
+  text-align: left;
+}
 
 .task-table-info{
   line-height: initial;
+  text-transform: capitalize;
   tr{
     td:first-child{
       text-align: right;
@@ -44,6 +64,7 @@
 .mat-form-field-disabled{
   color: var(--text-light) !important;
 }
+
 
 .mat-form-field{
   cursor: pointer;

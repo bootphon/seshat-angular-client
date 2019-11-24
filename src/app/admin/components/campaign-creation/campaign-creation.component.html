@@ -105,7 +105,9 @@
 
                 <mat-form-field *ngIf="tierSpecs.content_type === 'PARSED'" class="col-6 float-right">
                   <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
-                    <mat-option value="option">Option</mat-option>
+                    <mat-option *ngFor="let parser of availableParsers" [value]="parser">
+                      {{parser}}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
 
@@ -124,7 +126,7 @@
                 <button mat-flat-button matTooltip="Duplicate this Tier" (click)="duplicateTier(tierSpecs)">
                   <mat-icon>file_copy</mat-icon>
                 </button>
-                <button mat-flat-button matTooltip="Add a new tier" (click)="deleteTier(tierSpecs)">
+                <button mat-flat-button matTooltip="Delete this tier" (click)="deleteTier(tierSpecs)">
                   <mat-icon>delete</mat-icon>
                 </button>
                 <div class="vr"></div>
