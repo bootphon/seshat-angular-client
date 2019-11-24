@@ -27,7 +27,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import {CampaignWikiEditComponent} from './components/campaign-wiki-edit/campaign-wiki-edit.component';
-import {CampaignCreationComponent} from './components/campaign-creation/campaign-creation.component';
+import {CampaignCreationComponent, CorpusTypePipe} from './components/campaign-creation/campaign-creation.component';
 import {AnnotatorCreationComponent} from './components/annotator-creation/annotator-creation.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TasksListComponent} from './components/tasks-list/tasks-list.component';
@@ -37,6 +37,8 @@ import {AdminGuard, AuthGard} from '../commons/auth.gard';
 import {TaskAssignComponent} from './components/task-assign/task-assign.component';
 import {ShowdownModule} from 'ngx-showdown';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CorporaListComponent } from './components/corpora-list/corpora-list.component';
+import { CorporaViewComponent } from './components/corpora-view/corpora-view.component';
 
 
 const routes: Routes = [
@@ -46,6 +48,8 @@ const routes: Routes = [
   {path: 'campaign/:campaign_slug', component: CampaignViewComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'campaign/:campaign_slug/assign', component: TaskAssignComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'campaign/:campaign_slug/wiki/edit', component: CampaignWikiEditComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'corpora/list', component: CorporaListComponent, canActivate: [AuthGard, AdminGuard]},
+  {path: 'corpora/:corpus_name', component: CorporaViewComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'tasks/view/:task_id', component: TaskViewComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'annotators', component: AnnotatorsListComponent, canActivate: [AuthGard, AdminGuard]},
   {path: 'annotators/view/:username', component: AnnotatorsViewComponent, canActivate: [AuthGard, AdminGuard]},
@@ -64,7 +68,10 @@ const routes: Routes = [
     CampaignCreationComponent,
     AnnotatorCreationComponent,
     TasksListComponent,
-    TaskAssignComponent
+    TaskAssignComponent,
+    CorpusTypePipe,
+    CorporaListComponent,
+    CorporaViewComponent
   ],
   imports: [
     CommonModule,

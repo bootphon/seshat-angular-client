@@ -5,6 +5,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AccountsService } from './services/accounts.service';
 import { CampaignsService } from './services/campaigns.service';
+import { CorporaService } from './services/corpora.service';
 import { AnnotatorsService } from './services/annotators.service';
 import { AnalyticsService } from './services/analytics.service';
 import { TasksService } from './services/tasks.service';
@@ -20,6 +21,7 @@ import { DownloadsService } from './services/downloads.service';
   providers: [
     AccountsService,
     CampaignsService,
+    CorporaService,
     AnnotatorsService,
     AnalyticsService,
     TasksService,

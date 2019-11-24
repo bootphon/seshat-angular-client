@@ -14,20 +14,20 @@
     <div class="col-6">
       <mat-form-field appearance="standard" class="w-100">
         <mat-label>Campaign Corpus</mat-label>
-        <mat-select [(ngModel)]="chosenCorpora" required>
+        <mat-select [(ngModel)]="campaignCreation.corpus" required>
           <mat-option>&#45;&#45;</mat-option>
           <div *ngIf="availableCorpora; then options"></div>
           <ng-template #options>
             <mat-optgroup label="Folders">
-              <mat-option *ngFor="let corpora of availableCorpora.folders_corpora"
-                          [value]="{corporaType: 'folder', corporaName: corpora}">
-                {{corpora}}
+              <mat-option *ngFor="let corpus of availableCorpora | corpusType: 'FOLDER'"
+                          [value]="corpus.path">
+                {{corpus.path}}
               </mat-option>
             </mat-optgroup>
             <mat-optgroup label="CSV">
-              <mat-option *ngFor="let corpora of availableCorpora.csv_corpora"
-                          [value]="{corporaType: 'csv', corporaName: corpora}">
-                {{corpora}}
+              <mat-option *ngFor="let corpus of availableCorpora | corpusType: 'CSV'"
+                          [value]="corpus.path">
+                {{corpus.path}}
               </mat-option>
             </mat-optgroup>
           </ng-template>

@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {AnnotatorProfile} from '../../../api/models/annotator-profile';
 import {TasksAssignment} from '../../../api/models';
+import {CorporaService} from '../../../api/services/corpora.service';
 
 @Component({
   selector: 'seshat-task-assign',
@@ -20,7 +21,7 @@ import {TasksAssignment} from '../../../api/models';
 })
 export class TaskAssignComponent implements OnInit {
   campaignSlug: string;
-  displayedColumns: string[] = ['select', 'path', 'tasks_count'];
+  displayedColumns: string[] = ['select', 'filename', 'tasks_count'];
   corpusFilesDataSource: MatTableDataSource<CorpusFile>;
   selectedFiles = new SelectionModel<CorpusFile>(true, []);
   annotatorsList: Array<AnnotatorProfile> = [];
@@ -37,6 +38,7 @@ export class TaskAssignComponent implements OnInit {
     private taskService: TasksService,
     private annotatorsService: AnnotatorsService,
     private campaignService: CampaignsService,
+    private corporaService: CorporaService,
     private roleProvider: RoleProvider,
     private route: ActivatedRoute,
     private router: Router,
@@ -59,9 +61,9 @@ export class TaskAssignComponent implements OnInit {
   ngOnInit() {
     this.taskType = 'single';
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
-    this.campaignService.campaignsFilesListCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
+    this.corporaService.corporaListForCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
-        this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data);
+        this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data.files);
         this.corpusFilesDataSource.sort = this.sort;
       }
     );
@@ -111,7 +113,7 @@ export class TaskAssignComponent implements OnInit {
 
   submitAssigment() {
     const assignment = {
-      audio_files: this.selectedFiles.selected.map(file => file.path),
+      audio_files: this.selectedFiles.selected.map(file => file.filename),
       deadline: this.deadline ? this.deadline.toISOString().substring(0, 10) : undefined,
       campaign: this.campaignSlug,
     } as TasksAssignment;

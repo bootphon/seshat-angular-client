@@ -60,7 +60,12 @@
       <h1 class="navLink" [routerLink]="['/admin', 'annotators']"><span>Annotators</span></h1>
     </mat-list-item>
 
+    <mat-list-item class="mt-1">
+      <h1 class="navLink" [routerLink]="['/admin', 'corpora', 'list']"><span>Corpora</span></h1>
+    </mat-list-item>
+
   </ng-template>
+
   <div *ngIf="this.userData && this.userData.type === 'annotator'; then annotatorMenu">
   </div>
 

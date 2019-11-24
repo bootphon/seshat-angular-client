@@ -16,8 +16,7 @@ import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-upda
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
 import { CheckingSchemeSummary } from '../models/checking-scheme-summary';
-import { CorporaListing } from '../models/corpora-listing';
-import { CorpusFile } from '../models/corpus-file';
+import { ParsersList } from '../models/parsers-list';
 import { TaskShortStatus } from '../models/task-short-status';
 
 
@@ -36,21 +35,21 @@ export class CampaignsService extends BaseService {
   }
 
   /**
-   * Path part for operation campaignsAvailableCorporaGet
+   * Path part for operation campaignsParsersListGet
    */
-  static readonly CampaignsAvailableCorporaGetPath = '/campaigns/available_corpora';
+  static readonly CampaignsParsersListGetPath = '/campaigns/parsers/list/';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `campaignsAvailableCorporaGet()` instead.
+   * To access only the response body, use `campaignsParsersListGet()` instead.
    *
    * This method doesn't expect any response body
    */
-  campaignsAvailableCorporaGet$Response(params?: {
+  campaignsParsersListGet$Response(params?: {
 
-  }): Observable<StrictHttpResponse<CorporaListing>> {
+  }): Observable<StrictHttpResponse<ParsersList>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsAvailableCorporaGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsParsersListGetPath, 'get');
     if (params) {
 
 
@@ -61,23 +60,23 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<CorporaListing>;
+        return r as StrictHttpResponse<ParsersList>;
       })
     );
   }
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `campaignsAvailableCorporaGet$Response()` instead.
+   * To access the full response (for headers, for example), `campaignsParsersListGet$Response()` instead.
    *
    * This method doesn't expect any response body
    */
-  campaignsAvailableCorporaGet(params?: {
+  campaignsParsersListGet(params?: {
 
-  }): Observable<CorporaListing> {
+  }): Observable<ParsersList> {
 
-    return this.campaignsAvailableCorporaGet$Response(params).pipe(
-      map((r: StrictHttpResponse<CorporaListing>) => r.body as CorporaListing)
+    return this.campaignsParsersListGet$Response(params).pipe(
+      map((r: StrictHttpResponse<ParsersList>) => r.body as ParsersList)
     );
   }
 
@@ -369,55 +368,6 @@ export class CampaignsService extends BaseService {
 
     return this.campaignsListTasksCampaignSlugGet$Response(params).pipe(
       map((r: StrictHttpResponse<Array<TaskShortStatus>>) => r.body as Array<TaskShortStatus>)
-    );
-  }
-
-  /**
-   * Path part for operation campaignsFilesListCampaignSlugGet
-   */
-  static readonly CampaignsFilesListCampaignSlugGetPath = '/campaigns/files/list/{campaign_slug}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `campaignsFilesListCampaignSlugGet()` instead.
-   *
-   * This method doesn't expect any response body
-   */
-  campaignsFilesListCampaignSlugGet$Response(params: {
-    campaignSlug: string;
-
-  }): Observable<StrictHttpResponse<Array<CorpusFile>>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsFilesListCampaignSlugGetPath, 'get');
-    if (params) {
-
-      rb.path('campaign_slug', params.campaignSlug);
-
-    }
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json'
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Array<CorpusFile>>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `campaignsFilesListCampaignSlugGet$Response()` instead.
-   *
-   * This method doesn't expect any response body
-   */
-  campaignsFilesListCampaignSlugGet(params: {
-    campaignSlug: string;
-
-  }): Observable<Array<CorpusFile>> {
-
-    return this.campaignsFilesListCampaignSlugGet$Response(params).pipe(
-      map((r: StrictHttpResponse<Array<CorpusFile>>) => r.body as Array<CorpusFile>)
     );
   }
 

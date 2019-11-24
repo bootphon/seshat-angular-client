@@ -1,6 +1,6 @@
 /* tslint:disable */
 export interface CorpusFile  {
-  path: string;
-  tasks_count: number;
-  type: string;
+  duration: number;
+  filename: string;
+  tasks_count?: number;
 }

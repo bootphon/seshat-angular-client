@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
-import {CorporaListing} from '../../../api/models/corpora-listing';
 import {CampaignCreation} from '../../../api/models/campaign-creation';
 import {Router} from '@angular/router';
 import {TierSpecifications} from '../../../api/models/tier-specifications';
@@ -8,11 +7,20 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material';
 import {animate, sequence, style, transition, trigger} from '@angular/animations';
 import {SeshatEventsService} from '../../../commons/seshat-events.service';
+import {CorporaService} from '../../../api/services/corpora.service';
+import {CorpusShortSummary} from '../../../api/models/corpus-short-summary';
 
 
-interface CorporaSelection {
-  corporaType: string;
-  corporaName: string;
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'corpusType',
+  pure: false
+})
+export class CorpusTypePipe implements PipeTransform {
+  transform(items: CorpusShortSummary[], type: string): any {
+    return items.filter(item => item.type === type);
+  }
 }
 
 const rowsAnimation =
@@ -34,12 +42,12 @@ const rowsAnimation =
 })
 export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  chosenCorpora: CorporaSelection;
   campaignCreation: CampaignCreation;
-  availableCorpora: CorporaListing;
+  availableCorpora: Array<CorpusShortSummary>;
 
   constructor(
-    private campaignsAPI: CampaignsService,
+    private campaignsService: CampaignsService,
+    private coporaService: CorporaService,
     private router: Router,
     private eventsService: SeshatEventsService,
   ) {
@@ -47,26 +55,20 @@ export class CampaignCreationComponent implements OnInit {
       name: '',
       enable_audio_dl: false,
       check_textgrids: false,
-      checking_scheme: []
+      checking_scheme: [],
+      description: '',
+      corpus: undefined,
     };
   }
 
   ngOnInit() {
     // retrieving available corpora
-    this.campaignsAPI.campaignsAvailableCorporaGet().subscribe((data) => this.availableCorpora = data);
+    this.coporaService.corporaListAllGet().subscribe((data) => this.availableCorpora = data);
     this.addTier(); // setting a default empty tier
   }
 
   createCampaign() {
-    if (!this.chosenCorpora) {
-      return;
-    }
-    if (this.chosenCorpora.corporaType === 'csv') {
-      this.campaignCreation.data_csv = this.chosenCorpora.corporaName;
-    } else {
-      this.campaignCreation.data_folder = this.chosenCorpora.corporaName;
-    }
-    this.campaignsAPI.campaignsAdminPost({body: this.campaignCreation}).subscribe(
+    this.campaignsService.campaignsAdminPost({body: this.campaignCreation}).subscribe(
       (data) => {
         this.router.navigate(['/admin', 'campaign', data.slug]);
         this.eventsService.campaignsChange.emit();
