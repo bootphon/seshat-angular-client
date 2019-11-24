@@ -44,10 +44,11 @@ export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   campaignCreation: CampaignCreation;
   availableCorpora: Array<CorpusShortSummary>;
+  availableParsers : string[] = [];
 
   constructor(
     private campaignsService: CampaignsService,
-    private coporaService: CorporaService,
+    private corporaService: CorporaService,
     private router: Router,
     private eventsService: SeshatEventsService,
   ) {
@@ -63,7 +64,8 @@ export class CampaignCreationComponent implements OnInit {
 
   ngOnInit() {
     // retrieving available corpora
-    this.coporaService.corporaListAllGet().subscribe((data) => this.availableCorpora = data);
+    this.corporaService.corporaListAllGet().subscribe((data) => this.availableCorpora = data);
+    this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data.parser_names);
     this.addTier(); // setting a default empty tier
   }
 
