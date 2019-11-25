@@ -44,7 +44,7 @@ export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   campaignCreation: CampaignCreation;
   availableCorpora: Array<CorpusShortSummary>;
-  availableParsers : string[] = [];
+  availableParsers: string[] = [];
 
   constructor(
     private campaignsService: CampaignsService,

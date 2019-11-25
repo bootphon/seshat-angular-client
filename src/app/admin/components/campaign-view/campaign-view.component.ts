@@ -7,6 +7,7 @@ import {CampaignStatus} from '../../../api/models/campaign-status';
 import {MatSnackBar} from '@angular/material';
 import {SeshatEventsService} from '../../../commons/seshat-events.service';
 import {DownloadsService} from '../../../api/services';
+import {CheckingSchemeSummary} from '../../../api/models/checking-scheme-summary';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -15,6 +16,7 @@ import {DownloadsService} from '../../../api/services';
 })
 export class CampaignViewComponent implements OnInit {
   campaign: CampaignStatus;
+  checkingScheme: CheckingSchemeSummary;
   currentUserIsSubscriber: boolean;
 
   constructor(private campaignsService: CampaignsService,
@@ -33,6 +35,12 @@ export class CampaignViewComponent implements OnInit {
         this.campaign = data;
         this.currentUserIsSubscriber = this.campaign.subscribers.includes(
           this.roleProvider.getUserName()
+        );
+        this.campaignsService.campaignsCheckingSchemeCampaignSlugGet({campaignSlug: this.campaign.slug}).subscribe(
+          (scheme) => {
+            console.log(scheme);
+            this.checkingScheme = scheme;
+          }
         );
       }
     );

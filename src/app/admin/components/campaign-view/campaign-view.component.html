@@ -140,6 +140,45 @@
                *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
           </div>
         </div>
+
+        <div class="progress-row row d-flex align-items-start pt-2 pb-1">
+          <div class="progress-row-title col-auto">
+            <h4 class="m-0">Checking Scheme:</h4>
+          </div>
+          <div class="col">
+            <mat-card-subtitle *ngIf="!checkingScheme">
+              None
+            </mat-card-subtitle>
+
+            <mat-accordion *ngIf="checkingScheme">
+              <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    {{checkingScheme.tier_specs.length}} Tiers
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-list>
+                  <mat-list-item *ngFor="let tierSpecs of checkingScheme.tier_specs">
+                    <h3>Name: {{tierSpecs.name}}</h3>
+                    <p>Required : {{tierSpecs.required ? 'Yes' : 'No'}}</p>
+                    <p>Empty Annotations allowed : {{tierSpecs.allow_empty ? 'Yes' : 'No'}}</p>
+                    <p>Validation type: {{tierSpecs.content_type}}</p>
+                    <p *ngIf="tierSpecs.content_type === 'CATEGORICAL'">
+                      Accepted Categories : {{tierSpecs.categories.join(" ,")}}
+                    </p>
+                    <p *ngIf="tierSpecs.content_type === 'PARSED'">
+                      Parser Name : {{tierSpecs.parser_name}}
+                    </p>
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+
+          </div>
+        </div>
+
+
         <div class="progress-row row d-flex align-items-start pt-2 pb-1">
           <div class="progress-row-title col-auto">
             <h4 class="m-0">Download:</h4>
@@ -159,6 +198,7 @@
             <button class="float-none float-lg-right delete-campaign" mat-flat-button color="warn" (click)="deleteCampaign()"><mat-icon>delete</mat-icon>&nbsp;Delete Campaign</button>
           </div>
         </div>
+
       </mat-card>
     </div>
   </div>
