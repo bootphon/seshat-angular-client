@@ -1,15 +1,32 @@
+<mat-toolbar color="primary" class="d-flex justify-content-between">
+  <button mat-flat-button [routerLink]="['/admin', 'annotators']">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <div class="text-center d-flex">
+    <h3>{{annotatorProfileEdit.first_name}} {{annotatorProfileEdit.last_name}}</h3>
+    <h4> &nbsp; - &nbsp; {{annotatorProfile.username}}</h4>
+  </div>
+  <div style="width:64px;"></div>
+</mat-toolbar>
+
 <div *ngIf="annotatorProfile" class="container-fluid annotator-profile-view">
 
   <div class="row m-3">
     <div class="col-12">
-      <div class="progress-row row d-flex align-items-center justify-content-between ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
+      <div class="progress-row row d-flex align-items-end justify-content-between ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
         <h3 style="color:var(--text-medium-light)">Annotator Information</h3>
-        <button mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
+        <button class="mb-1" mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
           <mat-icon>save</mat-icon>
           Save changes
         </button>
       </div>
       <mat-card class="campaign-card m-3 p-4">
+        <!-- <div class="d-flex justify-content-end mb-3">
+            <button mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
+                <mat-icon>save</mat-icon>
+                Save changes
+              </button>
+        </div> -->
         <div id="edition-container" class="row">
           <table class="mx-auto annotator-info">
             <tr>
@@ -38,16 +55,6 @@
                 <h4>{{annotatorProfile.username}}</h4>
               </td>
             </tr>
-            <!-- is there a reason we cannot edit the username? -->
-            <!-- <tr>
-          <td><h4><span>Username:</span></h4></td>
-          <td>
-            <mat-form-field floatLabel="never" class="">
-              <mat-label>Username</mat-label>
-              <input matInput placeholder="Username" [(ngModel)]="annotatorProfileEdit.username">
-            </mat-form-field>
-          </td>
-        </tr> -->
             <tr>
               <td>
                 <h4><span>Email:</span></h4>
@@ -60,21 +67,25 @@
               </td>
             </tr>
             <tr>
-              <td>
-                <h4 class=""><span>Password:</span></h4>
-              </td>
-              <td>
-                <mat-form-field floatLabel="never" class="w-100">
-                  <mat-label>Password</mat-label>
-                  <input matInput [(ngModel)]="newPassword" [type]="hide ? 'password' : 'text'">
-                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                          [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  </button>
-                </mat-form-field>
-                <button mat-raised-button (click)="updatePassword()">Update Password</button>
-              </td>
-            </tr>
+                <td>
+                  <h4 class=""><span>Password:</span></h4>
+                </td>
+                <td>
+                  <div class="d-flex justify-content-between">
+                  <mat-form-field floatLabel="never">
+                    <mat-label>Password</mat-label>
+                    <input matInput [(ngModel)]="newPassword" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <div class="alt-mat-theme">
+                    <button mat-flat-button (click)="updatePassword()" color="warn">Update Password</button>
+                  </div>
+                </div>
+                </td>
+              </tr>
             <tr>
               <td>
                 <h4><span>Account created:</span></h4>

@@ -1,16 +1,22 @@
 <mat-toolbar class="d-flex justify-content-between">
   <h3 class="ml-3">Corpora List</h3>
-  <span class="space-filler"></span>
-  <button mat-raised-button color="primary"
-          [disabled]="refreshing"
-          (click)="refreshCorporaList()">
-    <mat-icon>refresh</mat-icon>REFRESH CORPORA
-  </button>
 </mat-toolbar>
 
-
+<div class="row">
+  <div class="col-9 mx-auto">
+    <h4>Use this page to check the validity of your files. Files corrupted files or files with incorrect filetypes will not show up here. Changes will not show up until refreshed.</h4>
+    <h4><b>Warning: Refreshing can take several minutes- depending on number and length of files.</b></h4>
+  </div>
+</div>
 
 <div class="mat-elevation-z2 table-styling corpora-table">
+  <div class="w-100 justify-content-end d-flex p-4 refresh-button"><button mat-raised-button color="primary"
+        [disabled]="refreshing"
+        (click)="refreshCorporaList()">
+    <mat-icon>refresh</mat-icon>&nbsp;Refresh Corpora
+    </button>
+  </div>
+
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Corpus">
   </mat-form-field>

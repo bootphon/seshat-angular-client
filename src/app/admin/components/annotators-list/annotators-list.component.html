@@ -1,13 +1,15 @@
 <mat-toolbar class="d-flex justify-content-between">
   <h3 class="ml-3">Annotators</h3>
-  <button class="mr-3" mat-flat-button color="primary" [routerLink]="['/admin', 'annotators', 'create']">
-    <mat-icon>add</mat-icon>
-    Add annotator
-  </button>
 </mat-toolbar>
 
 
 <div class="mat-elevation-z2 annotators-table table-styling">
+  <div class="w-100 justify-content-end d-flex p-4 add-button">
+      <button class="mr-3" mat-flat-button color="primary" [routerLink]="['/admin', 'annotators', 'create']">
+        <mat-icon>add</mat-icon>
+        Add annotator
+      </button>
+  </div>
   <mat-form-field class="filter-field">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>

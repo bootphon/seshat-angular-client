@@ -2,13 +2,17 @@
   <h3 class="ml-3">Campaigns</h3>
   <span class="space-filler"></span>
   <button class="mr-3" mat-raised-button
-          [routerLink]="['/admin', 'campaign', 'create']" color="primary">Add campaign
+          [routerLink]="['/admin', 'campaign', 'create']" color="primary"><mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Add campaign
   </button>
 </mat-toolbar>
 
 
 <div class="container-fluid">
   <div class="row m-3">
+    <div class="col-10 mx-auto text-center pt-5 noCampaignMessage" *ngIf="campaignsList.length === 0">
+      <h4>Add new campaigns to your account by clicking the button in the upper right of the window.</h4>
+      <div class="arrow float-right mr-n5 pr-n5"><img src="../assets/images/arrow.png"></div>
+    </div>
     <div class="col-12 col-lg-6 d-flex" *ngFor="let campaign of campaignsList">
       <mat-card class="campaign-card m-3 p-4 w-100 d-flex flex-column">
         <mat-card-header>

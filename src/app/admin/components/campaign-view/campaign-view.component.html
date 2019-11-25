@@ -1,9 +1,10 @@
 <mat-toolbar class="d-flex justify-content-between">
-  <div class="d-inline">
+
     <button *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
-      <span class="d-flex align-items-center justify-content-center w-100"><mat-icon>keyboard_arrow_left</mat-icon><h3>{{campaign.name}}</h3></span>
+      <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
-  </div>
+
+  <h3>{{campaign.name}}</h3>
   <div class="alt-mat-theme">
     <button class="mr-3" mat-raised-button color="{{ currentUserIsSubscriber ? 'warn' : 'accent'}}"
             (click)="changeFollowState()"> {{ currentUserIsSubscriber ? 'Unfollow' : 'Follow'}}</button>
@@ -150,28 +151,46 @@
               None
             </mat-card-subtitle>
 
-            <mat-accordion *ngIf="checkingScheme">
+            <mat-accordion *ngIf="checkingScheme" class="tiers-expansion">
               <mat-expansion-panel class="mat-elevation-z0">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{checkingScheme.tier_specs.length}} Tiers
+                    <p>{{checkingScheme.tier_specs.length}} Tier(s)</p>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-
+                <table class="tier-styling w-100">
+                    <tr>
+                      <th>Name</th>
+                      <th>Required</th>
+                      <th>Allow Empty</th>
+                      <th>Validation Type</th>
+                      <th>Accepted Categories</th>
+                      <th>Parser Name</th>
+                    </tr>
+                    <tr *ngFor="let tierSpecs of checkingScheme.tier_specs">
+                      <td>{{tierSpecs.name}}</td>
+                      <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
+                      <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
+                      <td><h4 style="text-transform:capitalize!important;">{{tierSpecs.content_type}}</h4></td>
+                      <td><span *ngIf="tierSpecs.content_type === 'CATEGORICAL'">{{tierSpecs.categories.join(" ,")}}</span></td>
+                      <td><span *ngIf="tierSpecs.content_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
+                    </tr>
+                  </table>
+<!--
                 <mat-list>
                   <mat-list-item *ngFor="let tierSpecs of checkingScheme.tier_specs">
-                    <h3>Name: {{tierSpecs.name}}</h3>
-                    <p>Required : {{tierSpecs.required ? 'Yes' : 'No'}}</p>
-                    <p>Empty Annotations allowed : {{tierSpecs.allow_empty ? 'Yes' : 'No'}}</p>
-                    <p>Validation type: {{tierSpecs.content_type}}</p>
+                    <p><b>Name:</b> {{tierSpecs.name}} | &nbsp;</p>
+                    <p><b>Required :</b> {{tierSpecs.required ? 'Yes' : 'No'}} | &nbsp;</p>
+                    <p><b>Empty Annotations allowed :</b> {{tierSpecs.allow_empty ? 'Yes' : 'No'}} | &nbsp;</p>
+                    <p><b>Validation type:</b> {{tierSpecs.content_type}}</p>
                     <p *ngIf="tierSpecs.content_type === 'CATEGORICAL'">
-                      Accepted Categories : {{tierSpecs.categories.join(" ,")}}
+                      <b>Accepted Categories :</b> {{tierSpecs.categories.join(" ,")}}
                     </p>
                     <p *ngIf="tierSpecs.content_type === 'PARSED'">
-                      Parser Name : {{tierSpecs.parser_name}}
+                      <b>Parser Name :</b> {{tierSpecs.parser_name}}
                     </p>
                   </mat-list-item>
-                </mat-list>
+                </mat-list> -->
               </mat-expansion-panel>
             </mat-accordion>
 
@@ -212,7 +231,7 @@
       </div>
       <mat-card class="campaign-card m-3 p-0">
         <div class="w-100 justify-content-end d-flex p-4 task-button">
-          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon style="color: var(--text-white);">add</mat-icon> Assign Task</button>
+          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Assign Task</button>
         </div>
         <seshat-tasks-list class="w-100" [campaignSlug]="campaign.slug"></seshat-tasks-list>
       </mat-card>
