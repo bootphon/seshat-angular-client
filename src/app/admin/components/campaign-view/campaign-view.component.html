@@ -163,11 +163,11 @@
                     <h3>Name: {{tierSpecs.name}}</h3>
                     <p>Required : {{tierSpecs.required ? 'Yes' : 'No'}}</p>
                     <p>Empty Annotations allowed : {{tierSpecs.allow_empty ? 'Yes' : 'No'}}</p>
-                    <p>Validation type: {{tierSpecs.content_type}}</p>
-                    <p *ngIf="tierSpecs.content_type === 'CATEGORICAL'">
+                    <p>Validation type: {{tierSpecs.checking_type | titlecase}}</p>
+                    <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">
                       Accepted Categories : {{tierSpecs.categories.join(" ,")}}
                     </p>
-                    <p *ngIf="tierSpecs.content_type === 'PARSED'">
+                    <p *ngIf="tierSpecs.checking_type === 'PARSED'">
                       Parser Name : {{tierSpecs.parser_name}}
                     </p>
                   </mat-list-item>
