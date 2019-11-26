@@ -90,6 +90,7 @@ export class CampaignCreationComponent implements OnInit {
       required: true,
       allow_empty: true,
       categories: [],
+      checking_type: 'NONE'
     });
   }
 

@@ -171,9 +171,9 @@
                       <td>{{tierSpecs.name}}</td>
                       <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
                       <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
-                      <td><h4 style="text-transform:capitalize!important;">{{tierSpecs.content_type}}</h4></td>
-                      <td><span *ngIf="tierSpecs.content_type === 'CATEGORICAL'">{{tierSpecs.categories.join(" ,")}}</span></td>
-                      <td><span *ngIf="tierSpecs.content_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
+                      <td>{{tierSpecs.checking_type | titlecase}}</td>
+                      <td><span *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(" ,")}}</span></td>
+                      <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
                     </tr>
                   </table>
 <!--

@@ -81,14 +81,14 @@
 
                 <mat-form-field class="col-6">
                   <mat-label>Select a validation option</mat-label>
-                  <mat-select [(value)]="tierSpecs.content_type">
+                  <mat-select [(value)]="tierSpecs.checking_type">
                     <mat-option value="NONE">None</mat-option>
                     <mat-option value="CATEGORICAL">Categorical</mat-option>
                     <mat-option value="PARSED">Parsed</mat-option>
                   </mat-select>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.content_type === 'CATEGORICAL'" class="col-6 w-100 float-right">
+                <mat-form-field *ngIf="tierSpecs.checking_type === 'CATEGORICAL'" class="col-6 w-100 float-right">
                   <mat-chip-list #chipList aria-label="Fruit selection">
                     <mat-chip *ngFor="let category of tierSpecs.categories"
                               removable="true" (removed)="removeCategory(tierSpecs, category)">
@@ -103,7 +103,7 @@
                   </mat-chip-list>
                 </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.content_type === 'PARSED'" class="col-6 float-right">
+                <mat-form-field *ngIf="tierSpecs.checking_type === 'PARSED'" class="col-6 float-right">
                   <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
                     <mat-option *ngFor="let parser of availableParsers" [value]="parser">
                       {{parser}}
