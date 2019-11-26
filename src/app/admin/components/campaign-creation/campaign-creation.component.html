@@ -11,7 +11,7 @@
       </mat-form-field>
     </div>
 
-    <div class="col-6">
+    <div class="col-4">
       <mat-form-field appearance="standard" class="w-100">
         <mat-label>Campaign Corpus</mat-label>
         <mat-select [(ngModel)]="campaignCreation.corpus" required>
@@ -33,6 +33,14 @@
           </ng-template>
         </mat-select>
       </mat-form-field>
+    </div>
+
+    <div class="col-2">
+      <button mat-raised-button color="primary" class="refresh-corpora-button"
+              (click)="refreshCorpora()"
+              [disabled]="refreshingCorpora">
+        <mat-icon>refresh</mat-icon>Refresh Corpora
+      </button>
     </div>
 
     <div class="col-12">

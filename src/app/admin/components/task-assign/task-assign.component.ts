@@ -11,7 +11,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {AnnotatorProfile} from '../../../api/models/annotator-profile';
-import {TasksAssignment} from '../../../api/models';
+import {CorpusFullSummary, TasksAssignment} from '../../../api/models';
 import {CorporaService} from '../../../api/services/corpora.service';
 
 @Component({
@@ -32,6 +32,8 @@ export class TaskAssignComponent implements OnInit {
   secondAnnotatorCtrl = new FormControl();  // not set for a Single Annot task
   secondAutoCompleteFiltered = new Observable<AnnotatorProfile[]>();
   taskType: string;
+  corpusSummary: CorpusFullSummary;
+  refreshingCorpus = true;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   constructor(
@@ -61,12 +63,7 @@ export class TaskAssignComponent implements OnInit {
   ngOnInit() {
     this.taskType = 'single';
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
-    this.corporaService.corporaListForCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
-      (data) => {
-        this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data.files);
-        this.corpusFilesDataSource.sort = this.sort;
-      }
-    );
+    this.loadCorpusFiles();
     this.annotatorsService.annotatorsListGet().subscribe(
       (data) => {
         this.annotatorsList = data;
@@ -75,6 +72,21 @@ export class TaskAssignComponent implements OnInit {
       }
     );
 
+  }
+
+  loadCorpusFiles(notify = false) {
+    this.corporaService.corporaListForCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
+      (data) => {
+        this.corpusSummary = data;
+        this.corpusFilesDataSource = new MatTableDataSource<CorpusFile>(data.files);
+        this.corpusFilesDataSource.sort = this.sort;
+        this.refreshingCorpus = false;
+        if (notify) {
+          this.snackBar.open('Refreshed corpus files', 'Corpus Refresh',
+            {verticalPosition: 'top', duration: 3 * 1000});
+        }
+      }
+    );
   }
 
   // Methods dedicated to the files table
@@ -133,5 +145,14 @@ export class TaskAssignComponent implements OnInit {
         this.router.navigate(['/admin', 'campaign', this.campaignSlug]);
       }
     );
+  }
+
+  refreshCorpus() {
+    this.refreshingCorpus = true;
+    this.corporaService.corporaRefreshCorpusNameGet({corpusName: this.corpusSummary.path}).subscribe(
+      () => {
+        this.loadCorpusFiles(true);
+      }
+    )
   }
 }

@@ -45,6 +45,7 @@ export class CampaignCreationComponent implements OnInit {
   campaignCreation: CampaignCreation;
   availableCorpora: Array<CorpusShortSummary>;
   availableParsers: string[] = [];
+  refreshingCorpora = true;
 
   constructor(
     private campaignsService: CampaignsService,
@@ -63,10 +64,20 @@ export class CampaignCreationComponent implements OnInit {
   }
 
   ngOnInit() {
-    // retrieving available corpora
-    this.corporaService.corporaListAllGet().subscribe((data) => this.availableCorpora = data);
+    this.loadCorpora();
     this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data.parser_names);
     this.addTier(); // setting a default empty tier
+  }
+
+  loadCorpora() {
+    // retrieving all available corpora
+    this.corporaService.corporaListAllGet().subscribe(
+      (data) => {
+        this.availableCorpora = data;
+        this.refreshingCorpora = false;
+      }
+    );
+
   }
 
   createCampaign() {
@@ -123,6 +134,15 @@ export class CampaignCreationComponent implements OnInit {
     if (index >= 0) {
       tier.categories.splice(index, 1);
     }
+  }
+
+  refreshCorpora(){
+    this.refreshingCorpora = true;
+    this.corporaService.corporaRefreshGet().subscribe(
+      () => {
+        this.loadCorpora();
+      }
+    )
   }
 
 }
