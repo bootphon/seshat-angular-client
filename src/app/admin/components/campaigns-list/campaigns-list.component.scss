@@ -4,15 +4,14 @@
   flex: 1 1 auto;
 }
 
-.campaign-test-1234{
-  // display: flex;
-  // flex-direction: column;
-  // flex: 1;
+.mat-stroked-button{
+  border: 1px solid rgba(136,136,136, 1) !important;
 }
 
 ::ng-deep {
   .mat-card-header-text {
     margin: 0 !important;
+    cursor: pointer;
   }
 }
 

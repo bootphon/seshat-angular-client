@@ -100,7 +100,10 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 
 
-$custom-typography: mat-typography-config($font-family: '"Open Sans", Roboto, sans-serif;');
+$custom-typography: mat-typography-config(
+  $font-family: '"Open Sans", Roboto, sans-serif;',
+  $button: mat-typography-level(14px, 14px, 600, $font-family:   'Open Sans'),
+);
 @include mat-core($custom-typography);
 
 
@@ -215,6 +218,12 @@ table{
   font-family: 'Open Sans', sans-serif;
 }
 
+button{
+  // this is not working correctly. it is either waaaay too thin or way too dark.
+  // font-weight: bold !important;
+  // font-weight: bolder !important;
+}
+
 //progress row fonts
 
 .progress-row{
@@ -285,10 +294,12 @@ table{
 //tables fonts
 .mat-cell{
   font-family: 'Open Sans', sans-serif;
+  color: var(--text-dark);
 }
 .mat-header-cell{
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
+  color: var(--text-medium);
 }
 .mat-paginator{
   font-family: 'Open Sans', sans-serif;

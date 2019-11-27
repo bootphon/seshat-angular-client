@@ -8,20 +8,24 @@
       <div class="mb-2">
         <h3 style="color:var(--text-medium-light)">1. Select Files</h3>
       </div>
-      <mat-card>
-        <div class="row">
-          <div class="col-12">
-            <mat-form-field>
+      <mat-card class="p-4">
+        <!-- <div class="row">
+          <div class="col-12"> -->
+            <div class="d-flex justify-content-between">
+            <mat-form-field class="mt-n2">
               <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Files">
             </mat-form-field>
-            <button mat-raised-button color="primary" class="refresh-corpus-button"
-                    [disabled]="refreshingCorpus"
-                    matTooltip="Tell seshat to look for new files in this corpus"
-                    (click)="refreshCorpus()">
-              <mat-icon>refresh</mat-icon>Refresh Corpus files
-            </button>
-          </div>
-        </div>
+            <div>
+              <button mat-raised-button color="primary" class="refresh-corpus-button"
+                      [disabled]="refreshingCorpus"
+                      matTooltip="Tell seshat to look for new files in this corpus"
+                      (click)="refreshCorpus()">
+                <mat-icon>refresh</mat-icon>&nbsp;Refresh Corpus Files
+              </button>
+            </div>
+            </div>
+          <!-- </div>
+        </div> -->
             <table mat-table [dataSource]="corpusFilesDataSource" matSort class="mat-elevation-z0 w-100">
 
               <!-- Checkbox Column -->
@@ -125,7 +129,7 @@
   </div>
   <div class="row">
     <div class="col-12 action-buttons d-flex justify-content-end w-100">
-        <button mat-button class="mr-2">CANCEL</button>
+        <button mat-button class="mr-2" [routerLink]="['/admin', 'campaign', campaignSlug]">Cancel</button>
         <button mat-raised-button color="primary" (click)="submitAssigment()">
           <mat-icon>check</mat-icon>
           Assign Task

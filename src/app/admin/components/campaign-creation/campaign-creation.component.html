@@ -11,11 +11,20 @@
       </mat-form-field>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <mat-form-field appearance="standard" class="w-100">
         <mat-label>Campaign Corpus</mat-label>
         <mat-select [(ngModel)]="campaignCreation.corpus" required>
-          <mat-option>&#45;&#45;</mat-option>
+            <mat-label class="d-flex mt-3 mb-3 justify-content-center">
+                <button mat-raised-button color="primary" class="refresh-corpora-button"
+                        (click)="refreshCorpora()"
+                        [disabled]="refreshingCorpora">
+                  <mat-icon>refresh</mat-icon>&nbsp;Refresh Corpora
+                </button>
+            </mat-label>
+            <!-- do we need this for some UX reason? -->
+          <!-- <mat-option>&#45;&#45;</mat-option> -->
+
           <div *ngIf="availableCorpora; then options"></div>
           <ng-template #options>
             <mat-optgroup label="Folders">
@@ -33,14 +42,6 @@
           </ng-template>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="col-2">
-      <button mat-raised-button color="primary" class="refresh-corpora-button"
-              (click)="refreshCorpora()"
-              [disabled]="refreshingCorpora">
-        <mat-icon>refresh</mat-icon>Refresh Corpora
-      </button>
     </div>
 
     <div class="col-12">
@@ -157,6 +158,7 @@
   </div>
 
   <div class="col-12 d-flex justify-content-end p-0">
+    <button mat-button class="mr-2" [routerLink]="['/admin', 'campaign', 'list']">Cancel</button>
     <button mat-raised-button color="primary" (click)="createCampaign()">Create campaign</button>
   </div>
 

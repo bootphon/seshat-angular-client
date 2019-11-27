@@ -80,17 +80,17 @@ tr{
     width: 100%;
   }
 
-  .mat-cell {
-    // border: none;
-  }
-
   th{
     padding-left: calc(1rem / 2) !important;
     padding-right: calc(1rem / 2) !important;
+    padding-top: calc(1rem / 2) !important;
+    padding-bottom: calc(1rem / 2) !important;
   }
   td{
     padding-left: calc(1rem / 2) !important;
     padding-right: calc(1rem / 2) !important;
+    padding-top: calc(1rem / 4) !important;
+    padding-bottom: calc(1rem / 4) !important;
   }
 
   .mat-row{
@@ -115,11 +115,5 @@ tr{
 
   .mat-header-row {
     background: var(--text-white) !important;
-  }
-
-  mat-paginator {
-    // background: hotpink !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.12) !important;
-    border-radius: 0px 0px 4px 4px;
   }
 }

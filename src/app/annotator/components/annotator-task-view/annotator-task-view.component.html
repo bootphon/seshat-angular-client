@@ -11,7 +11,84 @@
 <div *ngIf="taskData" class="container-fluid">
 
   <div *ngIf="taskData.is_locked">
-    <p>This task is locked. This means you shouldn't be working on it currently.</p>
+    <div class="row m-3">
+      <div class="col-12">
+        <mat-card class="campaign-card row m-3 p-4 d-flex justify-content-center">
+          <div class="col-12 text-center"><mat-icon>lock</mat-icon></div>
+          <div class="col-12 text-center pb-4"><h3>This task is locked.<br>You should not be actively working on it.</h3></div>
+          <table class="task-table-info col-auto">
+              <tr>
+                <td>
+                  <h4><span>Assigned by:</span></h4>
+                </td>
+                <td>
+                  <h4>{{taskData.assigner.fullname}}</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4><span>Created:</span></h4>
+                </td>
+                <td>
+                  <h4>{{taskData.creation_time | date:'medium'}}</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4><span>Deadline:</span></h4>
+                </td>
+                <td>
+                  <h4>{{taskData.deadline ? taskData.deadline : 'None'}}</h4>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h4><span>Task Type:</span></h4>
+                </td>
+                <td>
+                  <h4>{{taskData.task_type}}</h4>
+                </td>
+              </tr>
+              <ng-container *ngIf="taskData.double_annot_data">
+                <tr>
+                  <td>
+                    <h4><span>Reference Annotator:</span></h4>
+                  </td>
+                  <td>
+                    <h4>{{taskData.double_annot_data.reference.fullname}}</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h4><span>Target Annotator:</span></h4>
+                  </td>
+                  <td>
+                    <h4>{{taskData.double_annot_data.target.fullname}}</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h4><span>Your Role:</span></h4>
+                  </td>
+                  <td>
+                    <h4>{{taskData.double_annot_data.current_user_role}} annotator</h4>
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </mat-card>
+      </div>
+    </div>
+    <div class="row m-3">
+        <div class="col-12">
+          <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+            <h3 style="color:var(--text-medium-light)">Discussion</h3>
+          </div>
+          <div class="campaign-card ml-3 p-4">
+            <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
+          </div>
+        </div>
+      </div>
   </div>
 
   <div *ngIf="!taskData.is_locked">

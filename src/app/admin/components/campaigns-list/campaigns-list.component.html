@@ -14,7 +14,7 @@
       <div class="arrow float-right mr-n5 pr-n5"><img src="../assets/images/arrow.png"></div>
     </div>
     <div class="col-12 col-lg-6 d-flex" *ngFor="let campaign of campaignsList">
-      <mat-card class="campaign-card m-3 p-4 w-100 d-flex flex-column">
+      <mat-card class="campaign-card m-3 p-4 w-100 d-flex flex-column" [routerLink]="['/admin', 'campaign', campaign.slug]">
         <mat-card-header>
           <mat-card-title>{{ campaign.name }}</mat-card-title>
           <mat-card-subtitle>Created by {{campaign.creator.fullname}}</mat-card-subtitle>
@@ -126,8 +126,8 @@
             </div>
           </div>
         </mat-card-content>
-        <mat-card-actions class="mt-auto">
-          <button [routerLink]="['/admin', 'campaign', campaign.slug]" mat-button color="primary">View</button>
+        <mat-card-actions class="mt-auto d-flex justify-content-end">
+          <button [routerLink]="['/admin', 'campaign', campaign.slug]" mat-button color="primary">View Details</button>
         </mat-card-actions>
       </mat-card>
     </div>
