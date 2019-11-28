@@ -1,5 +1,5 @@
 <mat-toolbar class="d-flex justify-content-between align-items-center">
-  <button *ngIf="taskData" mat-flat-button [routerLink]="['/annotator']">
+  <button matTooltip="Tasks" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="taskData" mat-flat-button [routerLink]="['/annotator']">
     <span class="d-flex align-items-center justify-content-center w-100">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </span>
