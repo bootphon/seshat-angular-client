@@ -117,12 +117,14 @@
           </div>
 
           <div class="progress-row row d-flex align-items-center pt-2">
-            <div class=" col-auto">
+            <div class="col-auto">
               <h4 class="m-0 d-inline pr-1">Annotators:</h4>
-              <!-- <h5>John Smith, Aaron Robert, Rhys McCallan, James Roberts, Jane Smith, Antonia Roberts</h5> -->
-              <a class="d-inline"
+              <span *ngIf="campaign.annotators.length; else noAnnotators">
+                <a class="d-inline"
               [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
          *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+              </span>
+              <ng-template #noAnnotators><h5 class="d-inline">None</h5></ng-template>
             </div>
           </div>
         </mat-card-content>

@@ -207,7 +207,7 @@
                     <div class="my-auto">
                       <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
                       <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
-                        <mat-form-field class="col-12" floatLabel="never">
+                        <mat-form-field class="col-12" floatLabel="never" class="uploadTextGrid">
                           <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
                             [accept]="'.TextGrid'">
                           </ngx-mat-file-input>
@@ -253,7 +253,7 @@
                     <div class="my-auto">
                       <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
                       <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
-                        <mat-form-field class="col-12" floatLabel="never">
+                        <mat-form-field class="col-12 uploadTextGrid" floatLabel="never">
                           <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
                             [accept]="'.TextGrid'">
                           </ngx-mat-file-input>
@@ -318,7 +318,7 @@
                 the file again.</p>
               <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
                 <div class="col-12 d-flex justify-content-center">
-                  <mat-form-field floatLabel="never">
+                  <mat-form-field floatLabel="never" class="col-6 uploadTextGrid">
                     <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid" [accept]="'.TextGrid'">
                     </ngx-mat-file-input>
                     <mat-icon matSuffix>insert_drive_file</mat-icon>
