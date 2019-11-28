@@ -128,7 +128,9 @@
           </div>
           <div class="col">
             <mat-card-subtitle>
-              {{campaign.corpus_path}}
+              <a [routerLink]="['/admin', 'corpora', campaign.corpus_path]">
+                {{campaign.corpus_path}}
+              </a>
             </mat-card-subtitle>
           </div>
         </div>
@@ -181,21 +183,6 @@
                       <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
                     </tr>
                   </table>
-<!--
-                <mat-list>
-                  <mat-list-item *ngFor="let tierSpecs of checkingScheme.tier_specs">
-                    <p><b>Name:</b> {{tierSpecs.name}} | &nbsp;</p>
-                    <p><b>Required :</b> {{tierSpecs.required ? 'Yes' : 'No'}} | &nbsp;</p>
-                    <p><b>Empty Annotations allowed :</b> {{tierSpecs.allow_empty ? 'Yes' : 'No'}} | &nbsp;</p>
-                    <p><b>Validation type:</b> {{tierSpecs.content_type}}</p>
-                    <p *ngIf="tierSpecs.content_type === 'CATEGORICAL'">
-                      <b>Accepted Categories :</b> {{tierSpecs.categories.join(" ,")}}
-                    </p>
-                    <p *ngIf="tierSpecs.content_type === 'PARSED'">
-                      <b>Parser Name :</b> {{tierSpecs.parser_name}}
-                    </p>
-                  </mat-list-item>
-                </mat-list> -->
               </mat-expansion-panel>
             </mat-accordion>
 

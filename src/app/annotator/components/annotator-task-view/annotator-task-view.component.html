@@ -1,4 +1,4 @@
-<mat-toolbar class="d-flex justify-content-between align-items-center">
+<mat-toolbar *ngIf="taskData" class="d-flex justify-content-between align-items-center">
   <button matTooltip="Tasks" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="taskData" mat-flat-button [routerLink]="['/annotator']">
     <span class="d-flex align-items-center justify-content-center w-100">
       <mat-icon>keyboard_arrow_left</mat-icon>
@@ -10,159 +10,8 @@
 
 <div *ngIf="taskData" class="container-fluid">
 
-  <div *ngIf="taskData.is_locked">
-    <div class="row m-3">
-      <div class="col-12">
-        <mat-card class="campaign-card row m-3 p-4 d-flex justify-content-center">
-          <div class="col-12 text-center"><mat-icon>lock</mat-icon></div>
-          <div class="col-12 text-center pb-4"><h3>This task is locked.<br>You should not be actively working on it.</h3></div>
-          <table class="task-table-info col-auto">
-              <tr>
-                <td>
-                  <h4><span>Assigned by:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.assigner.fullname}}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4><span>Created:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.creation_time | date:'medium'}}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4><span>Deadline:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.deadline ? taskData.deadline : 'None'}}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4><span>Task Type:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.task_type}}</h4>
-                </td>
-              </tr>
-              <ng-container *ngIf="taskData.double_annot_data">
-                <tr>
-                  <td>
-                    <h4><span>Reference Annotator:</span></h4>
-                  </td>
-                  <td>
-                    <h4>{{taskData.double_annot_data.reference.fullname}}</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4><span>Target Annotator:</span></h4>
-                  </td>
-                  <td>
-                    <h4>{{taskData.double_annot_data.target.fullname}}</h4>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4><span>Your Role:</span></h4>
-                  </td>
-                  <td>
-                    <h4>{{taskData.double_annot_data.current_user_role}} annotator</h4>
-                  </td>
-                </tr>
-              </ng-container>
-            </table>
-          </mat-card>
-      </div>
-    </div>
-    <div class="row m-3">
-        <div class="col-12">
-          <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-            <h3 style="color:var(--text-medium-light)">Discussion</h3>
-          </div>
-          <div class="campaign-card ml-3 p-4">
-            <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
-          </div>
-        </div>
-      </div>
-  </div>
-
-  <div *ngIf="!taskData.is_locked">
-
-    <div class="row m-3">
-      <div class="col-12">
-        <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-          <h3 style="color:var(--text-medium-light)">Task Information</h3>
-        </div>
-        <mat-card class="campaign-card m-3 p-4 d-flex justify-content-center">
-          <table class="task-table-info">
-            <tr>
-              <td>
-                <h4><span>Assigned by:</span></h4>
-              </td>
-              <td>
-                <h4>{{taskData.assigner.fullname}}</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><span>Created:</span></h4>
-              </td>
-              <td>
-                <h4>{{taskData.creation_time | date:'medium'}}</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><span>Deadline:</span></h4>
-              </td>
-              <td>
-                <h4>{{taskData.deadline ? taskData.deadline : 'None'}}</h4>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <h4><span>Task Type:</span></h4>
-              </td>
-              <td>
-                <h4>{{taskData.task_type}}</h4>
-              </td>
-            </tr>
-            <ng-container *ngIf="taskData.double_annot_data">
-              <tr>
-                <td>
-                  <h4><span>Reference Annotator:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.double_annot_data.reference.fullname}}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4><span>Target Annotator:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.double_annot_data.target.fullname}}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h4><span>Your Role:</span></h4>
-                </td>
-                <td>
-                  <h4>{{taskData.double_annot_data.current_user_role}} annotator</h4>
-                </td>
-              </tr>
-            </ng-container>
-          </table>
-        </mat-card>
-      </div>
-    </div>
-
+  <seshat-task-status [taskData]="taskData"></seshat-task-status>
+  <ng-container *ngIf="!taskData.is_locked">
     <div class="row m-3">
       <div class="col-12">
         <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
@@ -187,7 +36,7 @@
               </ng-template>
               <ng-template #currentTemplateButton>
                 <div class=""><button mat-raised-button color="accent"
-                    (click)="downloadCurrentTextGridTemplate()">Download</button></div>
+                                      (click)="downloadCurrentTextGridTemplate()">Download</button></div>
               </ng-template>
 
             </ng-template>
@@ -198,7 +47,7 @@
                     <div class="my-auto">
                       <h6 class="pb-3">{{taskData.current_instructions}}</h6>
                       <div class=""><button mat-raised-button color="primary"
-                          (click)="downloadStarter()">Download</button></div>
+                                            (click)="downloadStarter()">Download</button></div>
                     </div>
                   </div>
                 </div>
@@ -209,7 +58,7 @@
                       <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
                         <mat-form-field class="col-12" floatLabel="never" class="uploadTextGrid">
                           <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
-                            [accept]="'.TextGrid'">
+                                              [accept]="'.TextGrid'">
                           </ngx-mat-file-input>
                           <mat-icon matSuffix>insert_drive_file</mat-icon>
                           <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
@@ -244,7 +93,7 @@
                     <div class="my-auto">
                       <h6 class="pb-3">{{taskData.current_instructions}}</h6>
                       <div class=""><button mat-raised-button color="primary"
-                          (click)="downloadStarter()">Download</button></div>
+                                            (click)="downloadStarter()">Download</button></div>
                     </div>
                   </div>
                 </div>
@@ -255,7 +104,7 @@
                       <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
                         <mat-form-field class="col-12 uploadTextGrid" floatLabel="never">
                           <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
-                            [accept]="'.TextGrid'">
+                                              [accept]="'.TextGrid'">
                           </ngx-mat-file-input>
                           <mat-icon matSuffix>insert_drive_file</mat-icon>
                           <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
@@ -280,12 +129,12 @@
             </ng-template>
 
             <mat-horizontal-stepper style="overflow: visible;" labelPosition="bottom" #stepper
-              [selectedIndex]="taskData.current_step_idx">
+                                    [selectedIndex]="taskData.current_step_idx">
               <ng-template matStepperIcon="edit">
                 <mat-icon>check</mat-icon>
               </ng-template>
               <mat-step *ngFor="let taskStatus of taskData.all_steps; index as i;" [label]="taskStatus"
-                [completed]="i <= taskData.current_step_idx">
+                        [completed]="i <= taskData.current_step_idx">
                 <br>
                 <ng-container *ngIf="!taskData.current_step_idx">
                   <ng-container *ngTemplateOutlet="stepcontent1"></ng-container>
@@ -330,139 +179,28 @@
                 <div class="col-12 d-flex justify-content-center">
                   <button class="" mat-raised-button (click)="loadAndSendTextGrid('validate')" color="accent">Validate</button>
                   <div class="alt-mat-theme"><button class="ml-3" mat-raised-button (click)="loadAndSendTextGrid('submit')"
-                      color="primary">Submit</button></div>
+                                                     color="primary">Submit</button></div>
                 </div>
               </form>
             </div>
 
-            <div *ngIf="tgErrors">
-              <div *ngIf="tgErrors.structural">
-                <h4>Structural Errors</h4>
-                <mat-card *ngFor="let error of tgErrors.structural">
-                  <mat-card-header>
-                    <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
-                    <mat-card-title>Structural Error</mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>{{error.msg}}</p>
-                  </mat-card-content>
-                </mat-card>
-              </div>
-
-              <div *ngIf="tgErrors.annot">
-                <h4>Annotation errors</h4>
-                <div *ngFor="let annotErrors of tgErrors.annot | keyvalue">
-                  <h5>For Tier {{annotErrors.key}}</h5>
-                  <mat-card *ngFor="let error of annotErrors.value">
-                    <mat-card-header>
-                      <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
-                      <mat-card-title>
-                        Annotation error in tier {{error.tier}}, interval #{{error.index}}
-                        (from {{error.start}}s to {{error.end}}s)
-                      </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                      <p>{{error.msg}}</p>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-              </div>
-
-              <div *ngIf="tgErrors.annot_mismatch">
-                <h4>Annotation Mismatches</h4>
-                <mat-card *ngFor="let error of tgErrors.annot_mismatch">
-                  <mat-card-header>
-                    <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
-                    <mat-card-title>
-                      Annotation mismatch between tiers {{error.ref_tier}} and tier {{error.target_tier}}, interval
-                      #{{error.index}}
-                    </mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>The annotation {{error.ref_annot}} isn't the same as annot {{error.target_annot}}</p>
-                  </mat-card-content>
-                </mat-card>
-              </div>
-
-              <div *ngIf="tgErrors.time_conflict">
-                <h4>Time Conflicts</h4>
-                <mat-card *ngFor="let error of tgErrors.time_conflict">
-                  <mat-card-header>
-                    <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
-                    <mat-card-title>
-                      Can't merge annotations between intervals #{{error.index_before}} and #{{error.index_after}}
-                      between tiers {{error.tier_a}} and {{error.tier_b}}
-                    </mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <p>Impossible to merge frontiers between intervals #{{error.index_before}} and
-                      #{{error.index_after}}.
-                      The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
-                      is bigger than the authorised threshold of {{error.threshold}}s.</p>
-                  </mat-card-content>
-                </mat-card>
-              </div>
-            </div>
+            <seshat-textgrid-errors [tgErrors]="tgErrors"></seshat-textgrid-errors>
           </mat-card>
         </div>
       </div>
     </div>
 
 
-    <div *ngIf="taskData.double_annot_data && taskData.double_annot_data.frontiers_merge_table">
-      <h3>Merging times mismatch</h3>
+    <seshat-merge-mismatch-table [timesMergeMismatch]="timesMergeMismatch"></seshat-merge-mismatch-table>
+  </ng-container>
 
-      <table mat-table [dataSource]="timesMergeMismatch" class="mat-elevation-2">
-
-        <ng-container matColumnDef="tier_a">
-          <th mat-header-cell *matHeaderCellDef> Tier A </th>
-          <td mat-cell *matCellDef="let row"> {{row.tier_a}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="tier_b">
-          <th mat-header-cell *matHeaderCellDef> Tier B </th>
-          <td mat-cell *matCellDef="let row"> {{row.tier_b}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="time_a">
-          <th mat-header-cell *matHeaderCellDef> Time A </th>
-          <td mat-cell *matCellDef="let row"> {{row.time_a}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="time_b">
-          <th mat-header-cell *matHeaderCellDef> Time B </th>
-          <td mat-cell *matCellDef="let row"> {{row.time_b}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="index_before">
-          <th mat-header-cell *matHeaderCellDef> Time Before</th>
-          <td mat-cell *matCellDef="let row"> {{row.index_before}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="index_after">
-          <th mat-header-cell *matHeaderCellDef> Index After </th>
-          <td mat-cell *matCellDef="let row"> {{row.index_after}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="conflictsTableColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: conflictsTableColumns;"></tr>
-      </table>
-
-
-
-
-    </div>
-
-
-
-    <div class="row m-3">
-      <div class="col-12">
-        <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-          <h3 style="color:var(--text-medium-light)">Discussion</h3>
-        </div>
-        <div class="campaign-card ml-3 p-4">
-          <seshat-comments [taskID]="taskData.id" [lockSubmit]="taskData.is_locked" class="mb-5 pb-5"></seshat-comments>
-        </div>
+  <div class="row m-3">
+    <div class="col-12">
+      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Discussion</h3>
+      </div>
+      <div class="campaign-card ml-3 p-4">
+        <seshat-comments [taskID]="taskData.id" [lockSubmit]="taskData.is_locked" class="mb-5 pb-5"></seshat-comments>
       </div>
     </div>
   </div>

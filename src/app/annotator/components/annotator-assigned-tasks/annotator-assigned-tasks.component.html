@@ -8,29 +8,24 @@
     <table mat-table #assignedTasksSort="matSort"
            [dataSource]="assignedTasksList" matSort class="mat-elevation-z2 table-styling">
 
-      <ng-container matColumnDef="view">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let task">
-          <!-- TODO: router link to reach the task -->
-          <a mat-mini-fab aria-label="View task">
-            <mat-icon>pageview</mat-icon>
-          </a>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="file">
+      <ng-container matColumnDef="filename">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>File</th>
         <td mat-cell *matCellDef="let task"> {{task.filename}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="type">
+      <ng-container matColumnDef="task_type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
         <td mat-cell *matCellDef="let task"> {{task.task_type}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="status">
+      <ng-container matColumnDef="step">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Status</th>
         <td mat-cell *matCellDef="let task"> {{task.step}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="campaign">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Status</th>
+        <td mat-cell *matCellDef="let task"> {{task.campaign.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="deadline">
@@ -52,32 +47,22 @@
     <table mat-table #finishedTasksSort="matSort"
            [dataSource]="finishedTasksList" matSort class="mat-elevation-z2 table-styling">
 
-      <ng-container matColumnDef="view">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-        <td mat-cell *matCellDef="let task">
-          <!-- TODO: router link to reach the task -->
-          <a mat-mini-fab aria-label="View task">
-            <mat-icon>pageview</mat-icon>
-          </a>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="file">
+      <ng-container matColumnDef="filename">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>File</th>
         <td mat-cell *matCellDef="let task"> {{task.filename}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="type">
+      <ng-container matColumnDef="task_type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
         <td mat-cell *matCellDef="let task"> {{task.task_type}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="status">
+      <ng-container matColumnDef="campaign">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Status</th>
-        <td mat-cell *matCellDef="let task"> {{task.status}} </td>
+        <td mat-cell *matCellDef="let task"> {{task.campaign.name}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="finish-date">
+      <ng-container matColumnDef="finish_date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Finish Date</th>
         <td mat-cell *matCellDef="let task"> {{task.finish_date? task.finish_date : 'none'}} </td>
       </ng-container>

@@ -20,7 +20,6 @@ export class AnnotatorTaskViewComponent implements OnInit {
   uploadForm: FormGroup;
   tgErrors: TextGridErrors;
   timesMergeMismatch = new MatTableDataSource<TimeMergeError>();
-  conflictsTableColumns = ['tier_a', 'tier_b', 'time_a', 'time_b', 'index_before', 'index_after'];
 
   @ViewChild('stepper', {static: true}) public stepper: MatHorizontalStepper;
   constructor(
@@ -34,6 +33,13 @@ export class AnnotatorTaskViewComponent implements OnInit {
 
   ngOnInit() {
     this.taskId = this.route.snapshot.paramMap.get('task_id');
+    this.loadTaskStatus();
+    this.uploadForm = this.formBuilder.group({
+      tgFile: [Validators.required]
+    });
+  }
+
+  loadTaskStatus() {
     this.tasksService.tasksStatusAnnotatorTaskIdGet({taskId: this.taskId}).subscribe(
       (data) => {
         this.taskData = data;
@@ -42,9 +48,6 @@ export class AnnotatorTaskViewComponent implements OnInit {
         }
       }
     );
-    this.uploadForm = this.formBuilder.group({
-      tgFile: [Validators.required]
-    });
   }
 
   uploadTextGrid(uploadType: 'submit' | 'validate', tgContent: string) {
@@ -59,6 +62,9 @@ export class AnnotatorTaskViewComponent implements OnInit {
       this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
         (data) => {
           this.tgErrors = data;
+          if (!this.tgErrors) {
+            this.loadTaskStatus();
+          }
         }
       );
     }

@@ -1,0 +1,39 @@
+<div *ngIf="timesMergeMismatch.data.length !== 0">
+  <h3>Merging times mismatch</h3>
+
+  <table mat-table [dataSource]="timesMergeMismatch" class="mat-elevation-2">
+
+    <ng-container matColumnDef="tier_a">
+      <th mat-header-cell *matHeaderCellDef> Tier A </th>
+      <td mat-cell *matCellDef="let row"> {{row.tier_a}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tier_b">
+      <th mat-header-cell *matHeaderCellDef> Tier B </th>
+      <td mat-cell *matCellDef="let row"> {{row.tier_b}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="time_a">
+      <th mat-header-cell *matHeaderCellDef> Time A </th>
+      <td mat-cell *matCellDef="let row"> {{row.time_a}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="time_b">
+      <th mat-header-cell *matHeaderCellDef> Time B </th>
+      <td mat-cell *matCellDef="let row"> {{row.time_b}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="index_before">
+      <th mat-header-cell *matHeaderCellDef> Time Before</th>
+      <td mat-cell *matCellDef="let row"> {{row.index_before}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="index_after">
+      <th mat-header-cell *matHeaderCellDef> Index After </th>
+      <td mat-cell *matCellDef="let row"> {{row.index_after}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="conflictsTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: conflictsTableColumns;"></tr>
+  </table>
+</div>

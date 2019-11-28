@@ -1,0 +1,68 @@
+<div *ngIf="tgErrors">
+  <div *ngIf="tgErrors.structural">
+    <h4>Structural Errors</h4>
+    <mat-card *ngFor="let error of tgErrors.structural">
+      <mat-card-header>
+        <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+        <mat-card-title>Structural Error</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{error.msg}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="tgErrors.annot">
+    <h4>Annotation errors</h4>
+    <div *ngFor="let annotErrors of tgErrors.annot | keyvalue">
+      <h5>For Tier {{annotErrors.key}}</h5>
+      <mat-card *ngFor="let error of annotErrors.value">
+        <mat-card-header>
+          <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+          <mat-card-title>
+            Annotation error in tier {{error.tier}}, interval #{{error.index}}
+            (from {{error.start}}s to {{error.end}}s)
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{error.msg}}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="tgErrors.annot_mismatch">
+    <h4>Annotation Mismatches</h4>
+    <mat-card *ngFor="let error of tgErrors.annot_mismatch">
+      <mat-card-header>
+        <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+        <mat-card-title>
+          Annotation mismatch between tiers {{error.ref_tier}} and tier {{error.target_tier}}, interval
+          #{{error.index}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>The annotation {{error.ref_annot}} isn't the same as annot {{error.target_annot}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="tgErrors.time_conflict">
+    <h4>Time Conflicts</h4>
+    <mat-card *ngFor="let error of tgErrors.time_conflict">
+      <mat-card-header>
+        <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
+        <mat-card-title>
+          Can't merge annotations between intervals #{{error.index_before}} and #{{error.index_after}}
+          between tiers {{error.tier_a}} and {{error.tier_b}}
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Impossible to merge frontiers between intervals #{{error.index_before}} and
+          #{{error.index_after}}.
+          The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
+          is bigger than the authorised threshold of {{error.threshold}}s.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

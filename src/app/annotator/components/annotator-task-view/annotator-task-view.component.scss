@@ -43,23 +43,7 @@
   text-align: left;
 }
 
-.task-table-info{
-  line-height: initial;
-  text-transform: capitalize;
-  tr{
-    td:first-child{
-      text-align: right;
-      padding-right: calc(1rem);
-    }
-    a{
-      font-family: 'Open Sans', sans-serif;
-      color: var(--color-forest);
-      font-weight: 200;
-      margin-bottom: 0 !important;
-      margin-right: 0.33rem;
-    }
-  }
-}
+
 
 .mat-form-field-disabled{
   color: var(--text-light) !important;

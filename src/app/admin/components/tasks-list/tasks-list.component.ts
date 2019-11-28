@@ -29,7 +29,7 @@ export class TasksListComponent implements OnInit, OnChanges {
 
   public refreshTaskList() {
     if (this.campaignSlug) {
-      this.taskColumns = ['filename', 'annotators', 'type', 'deadline', 'step', 'is_locked', 'delete-action'];
+      this.taskColumns = ['filename', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.campaignsService.campaignsListTasksCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
         (data) => {
           this.tasks = new MatTableDataSource<TaskShortStatus>(data);
@@ -37,7 +37,7 @@ export class TasksListComponent implements OnInit, OnChanges {
         }
       );
     } else {
-      this.taskColumns = ['filename', 'campaign', 'annotators', 'type', 'deadline', 'step', 'is_locked', 'delete-action'];
+      this.taskColumns = ['filename', 'campaign', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.annotatorsService.annotatorsListTasksUsernameGet({username: this.annotatorUsername}).subscribe(
         (data) => {
           this.tasks = new MatTableDataSource<TaskShortStatus>(data);

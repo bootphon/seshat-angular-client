@@ -19,6 +19,9 @@ import {ShowdownModule} from 'ngx-showdown';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonsModule} from '../commons/commons.module';
 import {MaterialFileInputModule} from 'ngx-material-file-input';
+import { TaskStatusComponent } from './components/annotator-task-view/task-status/task-status.component';
+import { TextgridErrorsComponent } from './components/annotator-task-view/textgrid-errors/textgrid-errors.component';
+import { MergeMismatchTableComponent } from './components/annotator-task-view/merge-mismatch-table/merge-mismatch-table.component';
 
 
 const routes: Routes = [
@@ -33,6 +36,9 @@ const routes: Routes = [
     AnnotatorTaskViewComponent,
     AnnotatorTaskHelpComponent,
     AnnotatorAssignedTasksComponent,
+    TaskStatusComponent,
+    TextgridErrorsComponent,
+    MergeMismatchTableComponent,
   ],
   imports: [
     CommonModule,
