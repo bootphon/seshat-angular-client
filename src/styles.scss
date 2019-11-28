@@ -306,6 +306,16 @@ button{
 }
 
 
+.uploadTextGrid{
+  .mat-form-field-infix{
+    /* currently doesn't work :/ */
+    // text-overflow: ellipsis !important;
+
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
 .seshat-toolbar{
   button{
     //h1 styling for logout in the navbar
