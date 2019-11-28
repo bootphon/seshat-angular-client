@@ -263,7 +263,7 @@
                           </mat-error>
                         </mat-form-field>
                         <div class="col-12">
-                          <button mat-raised-button (click)="validateTextGrid()" color="primary">Check TextGrid</button>
+                          <button mat-raised-button (click)="loadAndSendTextGrid('submit')" color="primary">Check TextGrid</button>
                         </div>
                       </form>
                     </div>
@@ -328,8 +328,8 @@
                   </mat-form-field>
                 </div>
                 <div class="col-12 d-flex justify-content-center">
-                  <button class="" mat-raised-button (click)="validateTextGrid()" color="accent">Validate</button>
-                  <div class="alt-mat-theme"><button class="ml-3" mat-raised-button (click)="submitTextGrid()"
+                  <button class="" mat-raised-button (click)="loadAndSendTextGrid('validate')" color="accent">Validate</button>
+                  <div class="alt-mat-theme"><button class="ml-3" mat-raised-button (click)="loadAndSendTextGrid('submit')"
                       color="primary">Submit</button></div>
                 </div>
               </form>
@@ -369,7 +369,7 @@
               </div>
 
               <div *ngIf="tgErrors.annot_mismatch">
-                <h4>Structural Errors</h4>
+                <h4>Annotation Mismatches</h4>
                 <mat-card *ngFor="let error of tgErrors.annot_mismatch">
                   <mat-card-header>
                     <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>
@@ -385,7 +385,7 @@
               </div>
 
               <div *ngIf="tgErrors.time_conflict">
-                <h4>Structural Errors</h4>
+                <h4>Time Conflicts</h4>
                 <mat-card *ngFor="let error of tgErrors.time_conflict">
                   <mat-card-header>
                     <mat-icon mat-card-avatar aria-hidden="false">list</mat-icon>

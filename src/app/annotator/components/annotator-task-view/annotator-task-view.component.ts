@@ -18,7 +18,6 @@ export class AnnotatorTaskViewComponent implements OnInit {
   taskData: TaskFullStatusAnnotator;
   taskId: string;
   uploadForm: FormGroup;
-  tgContent: string;
   tgErrors: TextGridErrors;
   timesMergeMismatch = new MatTableDataSource<TimeMergeError>();
   conflictsTableColumns = ['tier_a', 'tier_b', 'time_a', 'time_b', 'index_before', 'index_after'];
@@ -48,14 +47,34 @@ export class AnnotatorTaskViewComponent implements OnInit {
     });
   }
 
-  loadTextGridFile() {
+  uploadTextGrid(uploadType: 'submit' | 'validate', tgContent: string) {
+
+    if (uploadType === 'validate') {
+      this.tasksService.tasksValidateTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
+        (data) => {
+          this.tgErrors = data;
+        }
+      );
+    } else {
+      this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
+        (data) => {
+          this.tgErrors = data;
+        }
+      );
+    }
+  }
+
+  loadAndSendTextGrid(uploadType: 'submit' | 'validate') {
     const file: File = this.uploadForm.get('tgFile').value.files[0];
     const myReader: FileReader = new FileReader();
     myReader.onloadend = (e) => {
       const result = myReader.result;
       if (!(result instanceof ArrayBuffer)) {
-        this.tgContent = result;
-        console.log(this.tgContent);
+        if (!result) {
+          this.notifyEmptyTg();
+          return;
+        }
+        this.uploadTextGrid(uploadType, result);
       }
     };
 
@@ -68,30 +87,6 @@ export class AnnotatorTaskViewComponent implements OnInit {
       {verticalPosition: 'top', duration: 10 * 1000});
   }
 
-  validateTextGrid() {
-    this.loadTextGridFile();
-    if (!this.tgContent) {
-      this.notifyEmptyTg();
-    }
-    console.log(this.tgContent);
-    this.tasksService.tasksValidateTaskIdPost({taskId: this.taskId, body: {textgrid_str: this.tgContent}}).subscribe(
-      (data) => {
-        this.tgErrors = data;
-      }
-    );
-  }
-
-  submitTextGrid() {
-    this.loadTextGridFile();
-    if (!this.tgContent){
-      this.notifyEmptyTg();
-    }
-    this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: this.tgContent}}).subscribe(
-      (data) => {
-        this.tgErrors = data;
-      }
-    );
-  }
   updateProgress(){
     if (this.taskData.current_step_idx === 0) {
       this.taskData.current_step_idx = 1;
