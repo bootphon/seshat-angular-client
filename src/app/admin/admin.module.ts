@@ -39,6 +39,7 @@ import {ShowdownModule} from 'ngx-showdown';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CorporaListComponent } from './components/corpora-list/corpora-list.component';
 import { CorporaViewComponent } from './components/corpora-view/corpora-view.component';
+import { CampaignProgressComponent } from './components/campaign-progress/campaign-progress.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,8 @@ const routes: Routes = [
     TaskAssignComponent,
     CorpusTypePipe,
     CorporaListComponent,
-    CorporaViewComponent
+    CorporaViewComponent,
+    CampaignProgressComponent
   ],
   imports: [
     CommonModule,

@@ -17,7 +17,9 @@ import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
 import { CheckingSchemeSummary } from '../models/checking-scheme-summary';
 import { ParsersList } from '../models/parsers-list';
+import { QuickCheckResponse } from '../models/quick-check-response';
 import { TaskShortStatus } from '../models/task-short-status';
+import { TierQuickCheck } from '../models/tier-quick-check';
 
 
 /**
@@ -567,6 +569,58 @@ export class CampaignsService extends BaseService {
 
     return this.campaignsCheckingSchemeCampaignSlugGet$Response(params).pipe(
       map((r: StrictHttpResponse<CheckingSchemeSummary>) => r.body as CheckingSchemeSummary)
+    );
+  }
+
+  /**
+   * Path part for operation campaignsQuickcheckCampaignSlugGet
+   */
+  static readonly CampaignsQuickcheckCampaignSlugGetPath = '/campaigns/quickcheck/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsQuickcheckCampaignSlugGet()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  campaignsQuickcheckCampaignSlugGet$Response(params: {
+    campaignSlug: string;
+
+    body: TierQuickCheck
+  }): Observable<StrictHttpResponse<QuickCheckResponse>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsQuickcheckCampaignSlugGetPath, 'get');
+    if (params) {
+
+      rb.path('campaign_slug', params.campaignSlug);
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<QuickCheckResponse>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsQuickcheckCampaignSlugGet$Response()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  campaignsQuickcheckCampaignSlugGet(params: {
+    campaignSlug: string;
+
+    body: TierQuickCheck
+  }): Observable<QuickCheckResponse> {
+
+    return this.campaignsQuickcheckCampaignSlugGet$Response(params).pipe(
+      map((r: StrictHttpResponse<QuickCheckResponse>) => r.body as QuickCheckResponse)
     );
   }
 

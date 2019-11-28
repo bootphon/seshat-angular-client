@@ -6,7 +6,7 @@ import {AnnotatorAssignedTasksComponent} from './components/annotator-assigned-t
 import {
   MatButtonModule,
   MatCardModule,
-  MatIconModule, MatInputModule,
+  MatIconModule, MatInputModule, MatListModule,
   MatSortModule, MatStepperModule,
   MatTableModule,
   MatTabsModule,
@@ -27,6 +27,7 @@ import { MergeMismatchTableComponent } from './components/annotator-task-view/me
 const routes: Routes = [
   {path: 'tasks', component: AnnotatorAssignedTasksComponent, canActivate: [AuthGard, AnnotatorGuard]},
   {path: 'task/:task_id', component: AnnotatorTaskViewComponent, canActivate: [AuthGard, AnnotatorGuard]},
+  {path: 'campaign/help/:campaign_slug', component: AnnotatorTaskHelpComponent, canActivate: [AuthGard, AnnotatorGuard]},
   {path: '', redirectTo: 'tasks', pathMatch: 'full'}
 ];
 
@@ -57,7 +58,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     CommonsModule,
     MaterialFileInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatListModule
   ]
 })
 export class AnnotatorModule {

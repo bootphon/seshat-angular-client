@@ -1,8 +1,40 @@
 <div *ngIf="campaignWikiData">
   <mat-toolbar color="primary">
-    <span>Wiki page for {{campaignWikiData.profile.name}}</span>
+    <span>Help page for {{campaignWikiData.profile.name}}</span>
   </mat-toolbar>
+  <mat-card *ngIf="checkingSchemeData">
+    <mat-card-header>
+      <h3>Checking Scheme Help</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <p>This is the tiers that should be contained the TextGrids for this campaign's tasks.</p>
+      <mat-list>
+        <mat-list-item *ngFor="let tierSpecs of checkingSchemeData.tier_specs">
+          <p>Name: {{tierSpecs.name}}</p>
+          <p *ngIf="tierSpecs.required"><mat-icon>warning</mat-icon>This tier <strong>has to be</strong> in the TextGrid for it to be valid</p>
+          <p *ngIf="!tierSpecs.required">This tier is optional, you can remove it from the TextGrid if you feel that it's not needed</p>
+          <p *ngIf="!tierSpecs.allow_empty"><mat-icon>warning</mat-icon>There <strong>can't be</strong> any empty Intervals in this Tier.</p>
+          <!-- I'll put the categories in some nice tags later on so they can be styled bold or something-->
+          <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">The only possible annotations for this tier are {{tierSpecs.categories.join(", ")}}</p>
+          <div *ngIf="tierSpecs.checking_type === 'PARSED'" class="container-fluid">
+            This Tier's annotations are being checked by a parser (whose name is {{tierSpecs.parser_name}}) <br/>
+            If there isn't any help written by your campaign manager in the Wiki below, you still can check if
+            an annotation is valid in via this interface:
+            <div class="row">
+              <mat-form-field class="col-10">
+                <input matInput [(ngModel)]="tierSpecs.annot">
+              </mat-form-field>
+              <button mat-raised-button color="primary" class="col-2"
+              (click)="quickcheckAnnotation()">CHECK</button>
+              <p *ngIf="tierSpecs.error_msg">{{tierSpecs.error_msg}}</p>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 
+  <h3>Wiki Help</h3>
   <em *ngIf="campaignWikiData.last_edit">Last edited on {{campaignWikiData.last_edit}}</em>
   <showdown [value]="campaignWikiData.content"></showdown>
 </div>

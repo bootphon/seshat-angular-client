@@ -1,0 +1,37 @@
+.progress-row-title {
+  width: 60px;
+}
+
+.progress-row-total {
+  width: 35px;
+}
+
+.progress-bar {
+  width: 0;
+  animation: progress 2.5s ease-in-out forwards;
+  background-color: var(--color-gold);
+  border-radius: .25rem;
+
+  // h5 {
+  //   opacity: 0;
+  //   animation: show 0.5s forwards ease-in-out 1s;
+  // }
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
