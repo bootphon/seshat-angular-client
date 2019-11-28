@@ -136,10 +136,18 @@
           <div class="progress-row-title col-auto">
             <h4 class="m-0">Annotators:</h4>
           </div>
-          <div class="col mt-n1">
-            <a class="d-inline" [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
+          <div class="col mt-n1" *ngIf="campaign.annotators.length; else noAnnotators">
+            <!-- <ng-container *ngIf="campaign.annotators.length; else noAnnotators"> -->
+              <a class="d-inline" [routerLink]="['/admin', 'annotators', 'view', annotator.username]"
                *ngFor="let annotator of campaign.annotators">{{annotator.fullname}}</a>
+            <!-- </ng-container> -->
+            <!-- <ng-template #noAnnotators><mat-card-subtitle>None</mat-card-subtitle></ng-template> -->
           </div>
+          <ng-template #noAnnotators>
+            <div class="col">
+                <mat-card-subtitle>None</mat-card-subtitle>
+            </div>
+          </ng-template>
         </div>
 
         <div class="progress-row row d-flex align-items-start pt-2 pb-1">
