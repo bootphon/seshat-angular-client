@@ -46,6 +46,13 @@
   }
   }
   .tiers-expansion{
+
+    td{
+      color: var(--text-dark) !important;
+      font-size: 0.75rem;
+      font-weight: 200;
+    }
+
     .mat-expansion-panel-body{
       padding: 0;
       padding-left: 0px !important;

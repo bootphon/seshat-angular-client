@@ -10,7 +10,8 @@ import {
   MatSortModule, MatStepperModule,
   MatTableModule,
   MatTabsModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 import {RouterModule, Routes} from '@angular/router';
 import {AnnotatorGuard, AuthGard} from '../commons/auth.gard';
@@ -49,7 +50,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     CommonsModule,
-    MaterialFileInputModule
+    MaterialFileInputModule,
+    MatTooltipModule
   ]
 })
 export class AnnotatorModule {

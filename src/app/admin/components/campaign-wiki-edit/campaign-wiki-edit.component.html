@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-flat-button [routerLink]="['/admin', 'campaign', campaignSlug]">
+  <button [matTooltip]="campaignSlug" matTooltipPosition="right" matTooltipShowDelay="500" mat-flat-button [routerLink]="['/admin', 'campaign', campaignSlug]">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
   <h3 class="campaign-name">Wiki page for {{campaignSlug}}</h3>

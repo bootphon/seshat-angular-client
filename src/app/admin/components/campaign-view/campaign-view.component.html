@@ -1,6 +1,6 @@
 <mat-toolbar class="d-flex justify-content-between">
 
-    <button *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
+    <button matTooltip="Campaigns" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
       <mat-icon>keyboard_arrow_left</mat-icon>
     </button>
 

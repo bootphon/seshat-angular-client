@@ -1,6 +1,6 @@
 <mat-toolbar class="d-flex justify-content-between">
   <div class="d-inline">
-    <button *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
+    <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
       <span class="d-flex align-items-center justify-content-center w-100">
         <mat-icon>keyboard_arrow_left</mat-icon>
         <h3>{{corpusSummary.path}} ({{corpusSummary.type | titlecase}} , {{corpusSummary.files_count}} files)</h3></span>

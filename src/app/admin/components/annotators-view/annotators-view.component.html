@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="d-flex justify-content-between">
-  <button mat-flat-button [routerLink]="['/admin', 'annotators']">
-    <mat-icon>keyboard_arrow_left</mat-icon>
+  <button matTooltip="Annotators" matTooltipPosition="right" matTooltipShowDelay="500" mat-flat-button [routerLink]="['/admin', 'annotators']">
+    <mat-icon >keyboard_arrow_left</mat-icon>
   </button>
   <div class="text-center d-flex">
     <h3>{{annotatorProfileEdit.first_name}} {{annotatorProfileEdit.last_name}}</h3>
