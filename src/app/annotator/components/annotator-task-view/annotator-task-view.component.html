@@ -461,7 +461,7 @@
           <h3 style="color:var(--text-medium-light)">Discussion</h3>
         </div>
         <div class="campaign-card ml-3 p-4">
-          <seshat-comments [taskID]="taskData.id" class="mb-5 pb-5"></seshat-comments>
+          <seshat-comments [taskID]="taskData.id" [lockSubmit]="taskData.is_locked" class="mb-5 pb-5"></seshat-comments>
         </div>
       </div>
     </div>

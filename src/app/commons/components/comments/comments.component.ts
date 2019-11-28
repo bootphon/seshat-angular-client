@@ -12,6 +12,7 @@ import {UserShortProfile} from '../../../api/models/user-short-profile';
 })
 export class CommentsComponent implements OnInit {
   @Input() taskID: string;
+  @Input() lockSubmit = false;
   comments: Array<TaskComment> = [];
   newCommentContent: string;
   currentUser: UserShortProfile;

@@ -15,12 +15,14 @@
 <div class="row pt-3">
   <div class="col-12">
     <form class="comment-submission w-100">
-      <mat-form-field class="col-12">
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10" cdkAutosizeMinRows="4" name="comment-content"
+      <mat-form-field class="col-12" >
+        <textarea matInput cdkTextareaAutosize cdkAutosizeMaxRows="10"
+                  cdkAutosizeMinRows="4" name="comment-content"
+                  [disabled]="lockSubmit"
           placeholder="New comment..." [(ngModel)]="newCommentContent"></textarea>
       </mat-form-field>
       <div class="col-12 d-flex justify-content-end mt-3">
-        <button mat-raised-button (click)="submitComment()" color="primary">
+        <button mat-raised-button [disabled]="lockSubmit" (click)="submitComment()" color="primary">
           <mat-icon>send</mat-icon>
           SUBMIT
         </button>
