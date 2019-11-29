@@ -23,7 +23,35 @@
         <div class="campaign-divider"><hr/></div>
 
         <mat-card-content>
-          <seshat-campaign-progress [campaignStats]="campaign.stats"></seshat-campaign-progress>
+          <div class="progress-row row d-flex align-items-center pt-2">
+            <div class="progress-row-title col-auto">
+              <h4 class="m-0"><span>Files:</span></h4>
+            </div>
+            <div class="col">
+              <seshat-progress-bar [completed]="campaign.stats.assigned_files"
+                                   [total]="campaign.stats.total_files"
+                                   [completedAdjective]="'assigned'">
+              </seshat-progress-bar>
+            </div>
+            <div class="progress-row-total pl-0">
+              <h4 class="m-0">{{ campaign.stats.total_files }}</h4>
+            </div>
+          </div>
+
+          <div class="progress-row row d-flex align-items-center pt-2">
+            <div class="progress-row-title col-auto">
+              <h4 class="m-0"><span>Tasks:</span></h4>
+            </div>
+            <div class="col">
+              <seshat-progress-bar [completed]="campaign.stats.completed_tasks"
+                                   [total]="campaign.stats.total_tasks"
+                                   [completedAdjective]="'completed'">
+              </seshat-progress-bar>
+            </div>
+            <div class="progress-row-total pl-0">
+              <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
+            </div>
+          </div>
 
           <div class="progress-row row d-flex align-items-center pt-2">
             <div class="col-auto">

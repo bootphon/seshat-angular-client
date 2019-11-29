@@ -17,19 +17,8 @@
 }
 
 .progress-row-title {
-  width: 150px;
-  text-align:right;
-}
-
-.progress-row-total {
-  width: 35px;
-}
-
-.progress-bar {
-  width: 100%;
-  background-color: var(--color-gold);
-  border-radius: .25rem;
-
+  width: 150px !important;
+  text-align:right !important;
 }
 
 

@@ -1,0 +1,38 @@
+<div class="progress-container w-100" *ngIf="total != 0; else progressZeroTotal">
+  <div class="progress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      attr.aria-valuenow="{{ completed }}"
+      aria-valuemin="0"
+      attr.aria-valuemax="{{ total }}"
+      [style.max-width]="completed / total | percent">
+      <ng-container *ngIf="completed / total >= 0.5; else halfGray">
+        <h5 class="pl-2" [style.color]="'white'">{{ completed }} {{completedAdjective}}</h5>
+      </ng-container>
+      <ng-template #halfGray>
+        <ng-container *ngIf="completed / total > 0; else allGray">
+          <h5 class="pl-2 mr-n5 text-right"><span>{{ completed }}</span> {{completedAdjective}}</h5>
+        </ng-container>
+        <ng-template #allGray>
+          <h5 class="pl-2 text-right">{{ completed }} {{completedAdjective}}</h5>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #progressZeroTotal>
+  <div class="progress">
+    <div
+      class="progress-bar"
+      role="progressbar"
+      attr.aria-valuenow="{{ completed }}"
+      aria-valuemin="0"
+      aria-valuemax="1"
+      [style.max-width]="completed / 1 | percent">
+      <h5 class="pl-2">{{ completed }} {{completedAdjective}}</h5>
+    </div>
+  </div>
+</ng-template>
+

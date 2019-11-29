@@ -15,6 +15,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { UserlistComponent } from './components/userlist/userlist.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 
 // TODO : add all components to declarations and exports
@@ -23,6 +24,7 @@ import { UserlistComponent } from './components/userlist/userlist.component';
     CommentsComponent,
     MenubarComponent,
     UserlistComponent,
+    ProgressBarComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { UserlistComponent } from './components/userlist/userlist.component';
   exports: [
     CommentsComponent,
     MenubarComponent,
-    UserlistComponent
+    UserlistComponent,
+    ProgressBarComponent
   ],
 })
 export class CommonsModule {

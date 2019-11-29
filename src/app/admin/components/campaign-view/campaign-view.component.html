@@ -1,8 +1,8 @@
 <mat-toolbar class="d-flex justify-content-between">
 
-    <button matTooltip="Campaigns" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
+  <button matTooltip="Campaigns" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
 
   <h3>{{campaign.name}}</h3>
   <div class="alt-mat-theme">
@@ -19,7 +19,37 @@
       </div>
       <mat-card class="campaign-card m-3 p-4">
 
-        <seshat-campaign-progress [campaignStats]="campaign.stats"></seshat-campaign-progress>
+        <div class="progress-row row d-flex align-items-start pt-2 mb-2 pb-1">
+          <div class="progress-row-title col-auto">
+            <h4 class="m-0">Files:</h4>
+          </div>
+          <div class="col">
+            <seshat-progress-bar [completed]="campaign.stats.assigned_files"
+                                 [total]="campaign.stats.total_files"
+                                 [completedAdjective]="'assigned'">
+            </seshat-progress-bar>
+          </div>
+          <div class="progress-row-total pl-0">
+            <h4 class="m-0">{{ campaign.stats.total_files }}</h4>
+          </div>
+        </div>
+
+        <div class="progress-row row d-flex align-items-start pt-2 mb-2 pb-1">
+          <div class="progress-row-title col-auto">
+            <h4 class="m-0">Tasks:</h4>
+          </div>
+          <div class="col">
+            <seshat-progress-bar [completed]="campaign.stats.completed_tasks"
+                                 [total]="campaign.stats.total_tasks"
+                                 [completedAdjective]="'completed'">
+            </seshat-progress-bar>
+          </div>
+          <div class="progress-row-total pl-0">
+            <h4 class="m-0">{{ campaign.stats.total_tasks }}</h4>
+          </div>
+        </div>
+
+
 
         <div class="progress-row row d-flex align-items-start pt-2 mb-2 pb-1">
           <div class="progress-row-title col-auto">
@@ -53,7 +83,7 @@
           </div>
           <ng-template #noAnnotators>
             <div class="col">
-                <mat-card-subtitle>None</mat-card-subtitle>
+              <mat-card-subtitle>None</mat-card-subtitle>
             </div>
           </ng-template>
         </div>
@@ -75,23 +105,23 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <table class="tier-styling w-100">
-                    <tr>
-                      <th class="mat-header-cell">Name</th>
-                      <th class="mat-header-cell">Required</th>
-                      <th class="mat-header-cell">Allow Empty</th>
-                      <th class="mat-header-cell">Validation Type</th>
-                      <th class="mat-header-cell">Accepted Categories</th>
-                      <th class="mat-header-cell">Parser Name</th>
-                    </tr>
-                    <tr *ngFor="let tierSpecs of checkingScheme.tier_specs">
-                      <td>{{tierSpecs.name}}</td>
-                      <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
-                      <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
-                      <td>{{tierSpecs.checking_type | titlecase}}</td>
-                      <td><span *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
-                      <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
-                    </tr>
-                  </table>
+                  <tr>
+                    <th class="mat-header-cell">Name</th>
+                    <th class="mat-header-cell">Required</th>
+                    <th class="mat-header-cell">Allow Empty</th>
+                    <th class="mat-header-cell">Validation Type</th>
+                    <th class="mat-header-cell">Accepted Categories</th>
+                    <th class="mat-header-cell">Parser Name</th>
+                  </tr>
+                  <tr *ngFor="let tierSpecs of checkingScheme.tier_specs">
+                    <td>{{tierSpecs.name}}</td>
+                    <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
+                    <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
+                    <td>{{tierSpecs.checking_type | titlecase}}</td>
+                    <td><span *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
+                    <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
+                  </tr>
+                </table>
               </mat-expansion-panel>
             </mat-accordion>
 
