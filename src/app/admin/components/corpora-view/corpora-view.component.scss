@@ -15,3 +15,11 @@
   margin-left: 20px;
   width: 25%;
 }
+
+
+.table-styling{
+  tr:hover td {
+    background: initial;
+    cursor: initial;
+  }
+}
