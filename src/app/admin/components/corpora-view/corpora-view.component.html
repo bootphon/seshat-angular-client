@@ -1,4 +1,4 @@
-<mat-toolbar class="d-flex justify-content-between">
+<!-- <mat-toolbar class="d-flex justify-content-between">
   <div class="d-inline">
     <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
       <span class="d-flex align-items-center justify-content-center w-100">
@@ -12,10 +12,26 @@
           (click)="refreshCorpusFiles()">
     <mat-icon>refresh</mat-icon>&nbsp;Refresh Files
   </button>
-</mat-toolbar>
+</mat-toolbar> -->
+
+<mat-toolbar class="d-flex justify-content-between">
+    <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
+      <span class="d-flex align-items-center justify-content-center w-100">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </span>
+    </button>
+
+    <div class="text-center"><h3>{{corpusSummary.path}}</h3><h4 class="mt-n2">{{corpusSummary.type | titlecase}} - {{corpusSummary.files_count}} files</h4></div>
+    <button class="mr-3" mat-raised-button color="primary"
+            [disabled]="refreshingFiles"
+            (click)="refreshCorpusFiles()">
+      <mat-icon>refresh</mat-icon>&nbsp;Refresh Files
+    </button>
+  </mat-toolbar>
+
 
 <div class="mat-elevation-z2 corpus-table table-styling">
-  <mat-form-field class="filter-field">
+  <mat-form-field class="filter-field pt-4">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Audio File">
   </mat-form-field>
 

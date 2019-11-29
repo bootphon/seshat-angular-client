@@ -30,7 +30,7 @@
 
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-      <td mat-cell *matCellDef="let corpus"> {{corpus.type}} </td>
+      <td mat-cell *matCellDef="let corpus" style="text-transform: lowercase;"> {{corpus.type}} </td>
     </ng-container>
 
     <ng-container matColumnDef="files_count">
