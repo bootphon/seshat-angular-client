@@ -14,7 +14,7 @@ export class CorporaViewComponent implements OnInit {
   corpusSummary: CorpusFullSummary;
   refreshingFiles = false;
   corpusFilesList = new MatTableDataSource<CorpusFile>();
-  displayedColumns = ['filename', 'duration'];
+  displayedColumns = ['filename', 'duration', 'validity'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 

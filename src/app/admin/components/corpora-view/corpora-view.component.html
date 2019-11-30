@@ -1,33 +1,17 @@
-<!-- <mat-toolbar class="d-flex justify-content-between">
-  <div class="d-inline">
-    <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
+<mat-toolbar class="d-flex justify-content-between">
+  <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
       <span class="d-flex align-items-center justify-content-center w-100">
         <mat-icon>keyboard_arrow_left</mat-icon>
-        <h3>{{corpusSummary.path}} ({{corpusSummary.type | titlecase}} , {{corpusSummary.files_count}} files)</h3></span>
-    </button>
-  </div>
-  <span class="space-filler"></span>
-  <button mat-raised-button color="primary"
+      </span>
+  </button>
+
+  <div class="text-center"><h3>{{corpusSummary.path}}</h3><h4 class="mt-n2">{{corpusSummary.type | titlecase}} - {{corpusSummary.files_count}} files</h4></div>
+  <button class="mr-3" mat-raised-button color="primary"
           [disabled]="refreshingFiles"
           (click)="refreshCorpusFiles()">
     <mat-icon>refresh</mat-icon>&nbsp;Refresh Files
   </button>
-</mat-toolbar> -->
-
-<mat-toolbar class="d-flex justify-content-between">
-    <button matTooltip="Corpora" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="corpusSummary" mat-flat-button [routerLink]="['/admin', 'corpora', 'list']">
-      <span class="d-flex align-items-center justify-content-center w-100">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </span>
-    </button>
-
-    <div class="text-center"><h3>{{corpusSummary.path}}</h3><h4 class="mt-n2">{{corpusSummary.type | titlecase}} - {{corpusSummary.files_count}} files</h4></div>
-    <button class="mr-3" mat-raised-button color="primary"
-            [disabled]="refreshingFiles"
-            (click)="refreshCorpusFiles()">
-      <mat-icon>refresh</mat-icon>&nbsp;Refresh Files
-    </button>
-  </mat-toolbar>
+</mat-toolbar>
 
 
 <div class="mat-elevation-z2 corpus-table table-styling">
@@ -47,8 +31,18 @@
       <td mat-cell *matCellDef="let corpusFile"> {{corpusFile.duration}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="validity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Validity</th>
+      <td mat-cell *matCellDef="let corpusFile">
+        {{corpusFile.is_valid ? 'Valid' : 'Invalid'}}
+        <mat-icon *ngIf="!corpusFile.is_valid">help</mat-icon>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let corpusFile; columns: displayedColumns;">
+    <tr mat-row *matRowDef="let corpusFile; columns: displayedColumns;"
+    [style.background-color]="corpusFile.is_valid ? null : 'salmon'"
+    [matTooltip]="corpusFile.is_valid ? null : corpusFile.error_msg">
     </tr>
 
   </table>
