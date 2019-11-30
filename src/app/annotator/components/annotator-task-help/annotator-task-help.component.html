@@ -38,11 +38,13 @@
                 an annotation is valid in via this interface:
                 <div class="row">
                   <mat-form-field class="col-10">
-                    <input matInput [(ngModel)]="tierSpecs.annot">
+                    <input matInput [(ngModel)]="tierSpecs.annot" (keyup.enter)="quickcheckAnnotation(tierSpecs)">
+                    <mat-error *ngIf="tierSpecs.is_valid && !tierSpecs.is_valid">
+                      This annotation is invalid : {{tierSpecs.error_msg}}
+                    </mat-error>
                   </mat-form-field>
                   <button mat-raised-button color="primary" class="col-2"
-                  (click)="quickcheckAnnotation()">CHECK</button>
-                  <p *ngIf="tierSpecs.error_msg">{{tierSpecs.error_msg}}</p>
+                  (click)="quickcheckAnnotation(tierSpecs)">CHECK</button>
                 </div>
               </div>
             </mat-list-item>

@@ -52,7 +52,7 @@ export class AnnotatorTaskHelpComponent implements OnInit {
           tierSpecs.error_msg = data.error_msg;
           tierSpecs.is_valid = data.is_valid;
       }
-    )
+    );
   }
 
 }
