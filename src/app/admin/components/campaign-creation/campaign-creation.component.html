@@ -113,9 +113,9 @@
                 </mat-form-field>
 
                 <mat-form-field *ngIf="tierSpecs.checking_type === 'PARSED'" class="col-6 float-right">
-                  <mat-select [(ngModel)]="tierSpecs.parser_name" placeholder="Select">
+                  <mat-select [(ngModel)]="tierSpecs.parser" placeholder="Select">
                     <mat-option *ngFor="let parser of availableParsers" [value]="parser">
-                      {{parser}}
+                      {{parser.name}} <em>({{parser.module}})</em>
                     </mat-option>
                   </mat-select>
                 </mat-form-field>

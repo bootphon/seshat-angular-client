@@ -118,7 +118,7 @@
                     <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
                     <td>{{tierSpecs.checking_type | titlecase}}</td>
                     <td><span *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
-                    <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser_name}}</span></td>
+                    <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser.name}}</span></td>
                   </tr>
                 </table>
               </mat-expansion-panel>

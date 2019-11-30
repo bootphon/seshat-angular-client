@@ -16,7 +16,7 @@ import { CampaignSubscriptionUpdate } from '../models/campaign-subscription-upda
 import { CampaignWikiPage } from '../models/campaign-wiki-page';
 import { CampaignWikiPageUpdate } from '../models/campaign-wiki-page-update';
 import { CheckingSchemeSummary } from '../models/checking-scheme-summary';
-import { ParsersList } from '../models/parsers-list';
+import { ParserClass } from '../models/parser-class';
 import { QuickCheckResponse } from '../models/quick-check-response';
 import { TaskShortStatus } from '../models/task-short-status';
 import { TierQuickCheck } from '../models/tier-quick-check';
@@ -49,7 +49,7 @@ export class CampaignsService extends BaseService {
    */
   campaignsParsersListGet$Response(params?: {
 
-  }): Observable<StrictHttpResponse<ParsersList>> {
+  }): Observable<StrictHttpResponse<Array<ParserClass>>> {
 
     const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsParsersListGetPath, 'get');
     if (params) {
@@ -62,7 +62,7 @@ export class CampaignsService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<ParsersList>;
+        return r as StrictHttpResponse<Array<ParserClass>>;
       })
     );
   }
@@ -75,10 +75,10 @@ export class CampaignsService extends BaseService {
    */
   campaignsParsersListGet(params?: {
 
-  }): Observable<ParsersList> {
+  }): Observable<Array<ParserClass>> {
 
     return this.campaignsParsersListGet$Response(params).pipe(
-      map((r: StrictHttpResponse<ParsersList>) => r.body as ParsersList)
+      map((r: StrictHttpResponse<Array<ParserClass>>) => r.body as Array<ParserClass>)
     );
   }
 

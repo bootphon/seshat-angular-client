@@ -33,7 +33,7 @@
               <!-- I'll put the categories in some nice tags later on so they can be styled bold or something-->
               <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">The only possible annotations for this tier are {{tierSpecs.categories.join(", ")}}</p>
               <div *ngIf="tierSpecs.checking_type === 'PARSED'" class="container-fluid">
-                This Tier's annotations are being checked by a parser (whose name is {{tierSpecs.parser_name}}) <br/>
+                This Tier's annotations are being checked by a parser (whose name is {{tierSpecs.parser.name}}) <br/>
                 If there isn't any help written by your campaign manager in the Wiki below, you still can check if
                 an annotation is valid in via this interface:
                 <div class="row">

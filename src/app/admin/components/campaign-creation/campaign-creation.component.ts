@@ -12,6 +12,7 @@ import {CorpusShortSummary} from '../../../api/models/corpus-short-summary';
 
 
 import { Pipe, PipeTransform } from '@angular/core';
+import {ParserClass} from '../../../api/models/parser-class';
 
 @Pipe({
   name: 'corpusType',
@@ -43,8 +44,8 @@ const rowsAnimation =
 export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   campaignCreation: CampaignCreation;
-  availableCorpora: Array<CorpusShortSummary>;
-  availableParsers: string[] = [];
+  availableCorpora: CorpusShortSummary[];
+  availableParsers: ParserClass[] = [];
   refreshingCorpora = true;
 
   constructor(
@@ -65,7 +66,7 @@ export class CampaignCreationComponent implements OnInit {
 
   ngOnInit() {
     this.loadCorpora();
-    this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data.parser_names);
+    this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data);
     this.addTier(); // setting a default empty tier
   }
 
