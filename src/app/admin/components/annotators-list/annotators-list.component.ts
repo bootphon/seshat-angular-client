@@ -26,12 +26,17 @@ export class AnnotatorsListComponent implements OnInit {
       (data) => {
         this.annotatorsList = new MatTableDataSource(data);
         this.annotatorsList.sort = this.sort;
+        this.annotatorsList.paginator = this.paginator;
       }
     );
   }
 
   applyFilter(filterValue: string) {
     this.annotatorsList.filter = filterValue.trim().toLowerCase();
+
+    if (this.annotatorsList.paginator) {
+      this.annotatorsList.paginator.firstPage();
+    }
   }
 
   openAnnotatorDialog(username: string) {
