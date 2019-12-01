@@ -2,6 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {CampaignStats} from '../../../api/models/campaign-stats';
+import {CampaignStatus} from '../../../api/models/campaign-status';
 
 @Component({
   selector: 'seshat-campaign-wiki-edit',
@@ -12,6 +14,7 @@ export class CampaignWikiEditComponent implements OnInit {
   wikiMarkDown: string;
   lastEdit: string;
   campaignSlug: string;
+  campaignStatus: CampaignStatus;
 
   constructor(
     private campaignsService: CampaignsService,
@@ -22,6 +25,11 @@ export class CampaignWikiEditComponent implements OnInit {
 
   ngOnInit() {
     this.campaignSlug = this.route.snapshot.paramMap.get('campaign_slug');
+    this.campaignsService.campaignsViewCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
+      (data) => {
+        this.campaignStatus = data;
+      }
+    );
     this.campaignsService.campaignsWikiViewCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
         this.wikiMarkDown = data.content;

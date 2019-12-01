@@ -16,6 +16,7 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 // TODO : add all components to declarations and exports
@@ -25,6 +26,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     MenubarComponent,
     UserlistComponent,
     ProgressBarComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -49,8 +51,11 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     CommentsComponent,
     MenubarComponent,
     UserlistComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
   ],
+  entryComponents: [
+    ConfirmationDialogComponent
+  ]
 })
 export class CommonsModule {
 }

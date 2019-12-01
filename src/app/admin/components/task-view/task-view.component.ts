@@ -2,10 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TaskFullStatusAdmin} from '../../../api/models/task-full-status-admin';
-import {MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {TaskTextGrid} from '../../../api/models';
 import {SelectionModel} from '@angular/cdk/collections';
 import {DownloadsService} from '../../../api/services';
+import {ConfirmationDialogComponent} from '../../../commons/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'seshat-admin-task-view',
@@ -24,7 +25,8 @@ export class TaskViewComponent implements OnInit {
     private route: ActivatedRoute,
     private downloadsService: DownloadsService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -65,12 +67,22 @@ export class TaskViewComponent implements OnInit {
   }
 
   deleteTask() {
-    this.tasksService.tasksDeleteTaskIdDelete({taskId: this.taskID}).subscribe(
-      () => {
-        this.snackBar.open(`Task for file ${this.taskData.filename} deleted!`,
-          'Task Deletion',
-          {verticalPosition: 'top', duration: 3 * 1000});
-        this.router.navigate(['/admin', 'campaign', this.taskData.campaign.slug]);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: `Do you confirm the deletion of task for file ${this.taskData.filename}?`
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.tasksService.tasksDeleteTaskIdDelete({taskId: this.taskID}).subscribe(
+            () => {
+              this.snackBar.open(`Task for file ${this.taskData.filename} deleted!`,
+                'Task Deletion',
+                {verticalPosition: 'top', duration: 3 * 1000});
+              this.router.navigate(['/admin', 'campaign', this.taskData.campaign.slug]);
+            }
+          );
+        }
       }
     );
   }

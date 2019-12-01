@@ -12,6 +12,7 @@ import { TaskComment } from '../models/task-comment';
 import { TaskCommentSubmission } from '../models/task-comment-submission';
 import { TaskFullStatusAdmin } from '../models/task-full-status-admin';
 import { TaskFullStatusAnnotator } from '../models/task-full-status-annotator';
+import { TaskIdsList } from '../models/task-ids-list';
 import { TaskLockRequest } from '../models/task-lock-request';
 import { TaskShortStatus } from '../models/task-short-status';
 import { TaskTextgridSubmission } from '../models/task-textgrid-submission';
@@ -178,6 +179,55 @@ export class TasksService extends BaseService {
   }
 
   /**
+   * Path part for operation tasksDeleteListDelete
+   */
+  static readonly TasksDeleteListDeletePath = '/tasks/delete/list/';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `tasksDeleteListDelete()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  tasksDeleteListDelete$Response(params: {
+
+    body: TaskIdsList
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, TasksService.TasksDeleteListDeletePath, 'delete');
+    if (params) {
+
+
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `tasksDeleteListDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles response body of type `application/json`
+   */
+  tasksDeleteListDelete(params: {
+
+    body: TaskIdsList
+  }): Observable<void> {
+
+    return this.tasksDeleteListDelete$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation tasksDeleteTaskIdTextgridTgNameDelete
    */
   static readonly TasksDeleteTaskIdTextgridTgNameDeletePath = '/tasks/delete/{task_id}/textgrid/{tg_name}';
@@ -189,16 +239,16 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete$Response(params: {
-    taskId: string;
     tgName: string;
+    taskId: string;
 
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, TasksService.TasksDeleteTaskIdTextgridTgNameDeletePath, 'delete');
     if (params) {
 
-      rb.path('task_id', params.taskId);
       rb.path('tg_name', params.tgName);
+      rb.path('task_id', params.taskId);
 
     }
     return this.http.request(rb.build({
@@ -219,8 +269,8 @@ export class TasksService extends BaseService {
    * This method doesn't expect any response body
    */
   tasksDeleteTaskIdTextgridTgNameDelete(params: {
-    taskId: string;
     tgName: string;
+    taskId: string;
 
   }): Observable<void> {
 

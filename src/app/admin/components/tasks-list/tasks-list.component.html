@@ -2,18 +2,27 @@
   <!-- <mat-icon>search</mat-icon>  -->
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 </mat-form-field>
+<button mat-raised-button color="warn" class="selected-tasks-delete"
+        (click)="deleteSelectedTasks()"
+        [disabled]="tasksSelection.isEmpty()">Delete Selected Tasks
+</button>
 
 <div class="table-styling">
   <table mat-table [dataSource]="tasks" matSort>
 
-    <ng-container matColumnDef="view">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Filename</th>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="tasksSelection.hasValue() && isAllSelected()"
+                      [indeterminate]="tasksSelection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
       <td mat-cell *matCellDef="let task">
-        <button mat-mini-fab color="warn"
-                matTooltip="View task"
-                (click)="viewTask(task)">
-          <mat-icon>pageview</mat-icon>
-        </button>
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? tasksSelection.toggle(task) : null"
+                      [checked]="tasksSelection.isSelected(task)">
+        </mat-checkbox>
       </td>
     </ng-container>
 

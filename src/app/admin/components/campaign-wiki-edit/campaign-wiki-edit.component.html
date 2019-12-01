@@ -2,7 +2,7 @@
   <button [matTooltip]="campaignSlug" matTooltipPosition="right" matTooltipShowDelay="500" mat-flat-button [routerLink]="['/admin', 'campaign', campaignSlug]">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
-  <h3 class="campaign-name">Wiki page for {{campaignSlug}}</h3>
+  <h3 class="campaign-name" *ngIf="campaignStatus">Wiki page for {{campaignStatus.name}}</h3>
 </mat-toolbar>
 
 <div class="w-100 text-right">
@@ -115,8 +115,6 @@
       </table>
 
       <h3 id="extended-syntax"><b>Extended Syntax</b></h3>
-
-      <p>These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.</p>
 
       <table class="table table-bordered">
         <thead class="thead-light">

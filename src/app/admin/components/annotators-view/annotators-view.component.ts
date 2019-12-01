@@ -3,7 +3,8 @@ import {AnnotatorsService} from '../../../api/services/annotators.service';
 import {AnnotatorProfile} from '../../../api/models/annotator-profile';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AnnotatorEdition} from '../../../api/models/annotator-edition';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {ConfirmationDialogComponent} from '../../../commons/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'seshat-annotators-view',
@@ -21,7 +22,8 @@ export class AnnotatorsViewComponent implements OnInit {
     private annotatorsService: AnnotatorsService,
     private route: ActivatedRoute,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
   }
 
@@ -44,13 +46,24 @@ export class AnnotatorsViewComponent implements OnInit {
   }
 
   deleteAnnotator() {
-    this.annotatorsService.annotatorsManageDelete({body: {username: this.username}}).subscribe(
-      () => {
-        this.snackBar.open('Annotator successfully removed from database', 'Annotator Deletion',
-          {verticalPosition: 'top', duration: 3 * 1000});
-        this.router.navigate(['/admin', 'annotators']);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: `Do you confirm the deletion of user ${this.annotatorProfile.username}?`
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.annotatorsService.annotatorsManageDelete({body: {username: this.username}}).subscribe(
+            () => {
+              this.snackBar.open('Annotator successfully removed from database', 'Annotator Deletion',
+                {verticalPosition: 'top', duration: 3 * 1000});
+              this.router.navigate(['/admin', 'annotators']);
+            }
+          );
+        }
       }
     );
+
   }
 
   updateAnnotatorProfile() {

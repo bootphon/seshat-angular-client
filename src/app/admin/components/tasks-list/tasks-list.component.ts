@@ -1,10 +1,12 @@
 import {Component, Input, OnInit, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
 import {TasksService} from '../../../api/services/tasks.service';
-import {MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatSort, MatTableDataSource} from '@angular/material';
 import {CampaignsService} from '../../../api/services/campaigns.service';
 import {AnnotatorsService} from '../../../api/services/annotators.service';
 import {Router} from '@angular/router';
 import {TaskShortStatus} from '../../../api/models/task-short-status';
+import {SelectionModel} from '@angular/cdk/collections';
+import {ConfirmationDialogComponent} from '../../../commons/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'seshat-tasks-list',
@@ -14,6 +16,7 @@ import {TaskShortStatus} from '../../../api/models/task-short-status';
 export class TasksListComponent implements OnInit, OnChanges {
   taskColumns: string[] = [];
   tasks: MatTableDataSource<TaskShortStatus>;
+  tasksSelection = new SelectionModel<TaskShortStatus>(true, []);
   @Input() campaignSlug: string;
   @Input() annotatorUsername: string;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -22,14 +25,15 @@ export class TasksListComponent implements OnInit, OnChanges {
     private tasksService: TasksService,
     private campaignsService: CampaignsService,
     private annotatorsService: AnnotatorsService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.tasks = new MatTableDataSource<TaskShortStatus>();
   }
 
   public refreshTaskList() {
     if (this.campaignSlug) {
-      this.taskColumns = ['filename', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
+      this.taskColumns = ['select', 'filename', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.campaignsService.campaignsListTasksCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
         (data) => {
           this.tasks = new MatTableDataSource<TaskShortStatus>(data);
@@ -37,7 +41,7 @@ export class TasksListComponent implements OnInit, OnChanges {
         }
       );
     } else {
-      this.taskColumns = ['filename', 'campaign', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
+      this.taskColumns = ['select', 'filename', 'campaign', 'annotators', 'task_type', 'deadline', 'step', 'is_locked', 'delete-action'];
       this.annotatorsService.annotatorsListTasksUsernameGet({username: this.annotatorUsername}).subscribe(
         (data) => {
           this.tasks = new MatTableDataSource<TaskShortStatus>(data);
@@ -52,6 +56,20 @@ export class TasksListComponent implements OnInit, OnChanges {
     this.refreshTaskList();
   }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.tasksSelection.selected.length;
+    const numRows = this.tasks.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.tasksSelection.clear() :
+      this.tasks.data.forEach(row => this.tasksSelection.select(row));
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.refreshTaskList();
   }
@@ -61,12 +79,43 @@ export class TasksListComponent implements OnInit, OnChanges {
   }
 
   deleteTask(task: TaskShortStatus) {
-    this.tasksService.tasksDeleteTaskIdDelete({taskId: task.id}).subscribe(
-      () => {
-        this.tasks.data = this.tasks.data.filter(filteredTask => task.id !== filteredTask.id);
-        this.tasks.filter = '';
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: `Do you confirm the deletion of task for file ${task.filename}?`
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.tasksService.tasksDeleteTaskIdDelete({taskId: task.id}).subscribe(
+            () => {
+              this.tasks.data = this.tasks.data.filter(filteredTask => task.id !== filteredTask.id);
+              this.tasks.filter = '';
+            }
+          );
+        }
       }
     );
+
+  }
+
+  deleteSelectedTasks() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: `Do you confirm the deletion of ${this.tasksSelection.selected.length} tasks?`
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.tasksService.tasksDeleteListDelete({body: {task_ids: this.tasksSelection.selected.map(task => task.id)}})
+            .subscribe( () => {
+                this.tasks.data = this.tasks.data.filter(filteredTask => !this.tasksSelection.selected.includes(filteredTask));
+                this.tasks.filter = '';
+              }
+            );
+        }
+      }
+    );
+
   }
 
   changeTaskLock(task: TaskShortStatus) {

@@ -4,10 +4,11 @@ import {TasksService} from '../../../api/services/tasks.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RoleProvider} from '../../../commons/role-provider';
 import {CampaignStatus} from '../../../api/models/campaign-status';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {SeshatEventsService} from '../../../commons/seshat-events.service';
 import {DownloadsService} from '../../../api/services';
 import {CheckingSchemeSummary} from '../../../api/models/checking-scheme-summary';
+import {ConfirmationDialogComponent} from '../../../commons/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'seshat-campaign-view',
@@ -26,6 +27,7 @@ export class CampaignViewComponent implements OnInit {
               private roleProvider: RoleProvider,
               private route: ActivatedRoute,
               private router: Router,
+              public dialog: MatDialog,
               private snackBar: MatSnackBar) {
   }
 
@@ -76,12 +78,22 @@ export class CampaignViewComponent implements OnInit {
   }
 
   deleteCampaign() {
-    this.campaignsService.campaignsAdminDelete({body: {slug: this.campaign.slug}}).subscribe(
-      () => {
-        this.snackBar.open(`Campaign "${this.campaign.name}" was deleted`, 'Campaign Deletion',
-          {verticalPosition: 'top', duration: 3 * 1000});
-        this.eventsService.campaignsChange.emit();
-        this.router.navigate(['/admin']);
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: `Do you confirm the deletion of campaign ${this.campaign.name}?`
+    });
+    dialogRef.afterClosed().subscribe(
+      (result) => {
+        if (result) {
+          this.campaignsService.campaignsAdminDelete({body: {slug: this.campaign.slug}}).subscribe(
+            () => {
+              this.snackBar.open(`Campaign "${this.campaign.name}" was deleted`, 'Campaign Deletion',
+                {verticalPosition: 'top', duration: 3 * 1000});
+              this.eventsService.campaignsChange.emit();
+              this.router.navigate(['/admin']);
+            }
+          );
+        }
       }
     );
   }

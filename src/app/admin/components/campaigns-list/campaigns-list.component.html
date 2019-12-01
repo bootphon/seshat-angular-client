@@ -7,7 +7,7 @@
 </mat-toolbar>
 
 
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="campaignsList">
   <div class="row m-3">
     <div class="col-10 mx-auto text-center pt-5 noCampaignMessage" *ngIf="campaignsList.length === 0">
       <h4>Add new campaigns to your account by clicking the button in the upper right of the window.</h4>

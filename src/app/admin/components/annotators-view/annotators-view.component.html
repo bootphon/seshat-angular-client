@@ -1,8 +1,9 @@
 <mat-toolbar color="primary" class="d-flex justify-content-between">
-  <button matTooltip="Annotators" matTooltipPosition="right" matTooltipShowDelay="500" mat-flat-button [routerLink]="['/admin', 'annotators']">
+  <button matTooltip="Annotators" matTooltipPosition="right" matTooltipShowDelay="500"
+          mat-flat-button [routerLink]="['/admin', 'annotators']">
     <mat-icon >keyboard_arrow_left</mat-icon>
   </button>
-  <div class="text-center d-flex">
+  <div class="text-center d-flex" *ngIf="annotatorProfileEdit">
     <h3>{{annotatorProfileEdit.first_name}} {{annotatorProfileEdit.last_name}}</h3>
     <h4> &nbsp; - &nbsp; {{annotatorProfile.username}}</h4>
   </div>
@@ -11,7 +12,7 @@
 
 <div *ngIf="annotatorProfile" class="container-fluid annotator-profile-view">
 
-  <div class="row m-3">
+  <div class="row m-3" *ngIf="annotatorProfileEdit">
     <div class="col-12">
       <div class="progress-row row d-flex align-items-end justify-content-between ml-3 pl-1 mr-3 pr-1 pt-2 mb-n2">
         <h3 style="color:var(--text-medium-light)">Annotator Information</h3>
@@ -21,12 +22,6 @@
         </button>
       </div>
       <mat-card class="campaign-card m-3 p-4">
-        <!-- <div class="d-flex justify-content-end mb-3">
-            <button mat-raised-button (click)="updateAnnotatorProfile()" color="primary">
-                <mat-icon>save</mat-icon>
-                Save changes
-              </button>
-        </div> -->
         <div id="edition-container" class="row">
           <table class="mx-auto annotator-info">
             <tr>
@@ -99,7 +94,9 @@
                 <h4 class="mt-2 mb-3"><span>Last activity:</span></h4>
               </td>
               <td>
-                <h4 class="mt-2 mb-3">{{annotatorProfile.last_activity| date: 'medium'}}</h4>
+                <h4 class="mt-2 mb-3">
+                  {{annotatorProfile.last_activity ? (annotatorProfile.last_activity | date: 'medium') : 'No activity Yet'}}
+                </h4>
               </td>
             </tr>
             <tr>
