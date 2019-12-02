@@ -13,6 +13,7 @@ import {CorpusShortSummary} from '../../../api/models/corpus-short-summary';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import {ParserClass} from '../../../api/models/parser-class';
+import {Form, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Pipe({
   name: 'corpusType',
@@ -47,27 +48,35 @@ export class CampaignCreationComponent implements OnInit {
   availableCorpora: CorpusShortSummary[];
   availableParsers: ParserClass[] = [];
   refreshingCorpora = true;
+  enableAudioDL = false;
+  checkTextgrids = false;
+  campaignCreationForm: FormGroup;
 
   constructor(
     private campaignsService: CampaignsService,
     private corporaService: CorporaService,
     private router: Router,
     private eventsService: SeshatEventsService,
+    private fb: FormBuilder
   ) {
-    this.campaignCreation = {
-      name: '',
-      enable_audio_dl: false,
-      check_textgrids: false,
-      checking_scheme: [],
-      description: '',
-      corpus: undefined,
-    };
+    this.campaignCreationForm = this.fb.group(
+      {
+        name : ['', Validators.required],
+        corpus: ['', Validators.required],
+        description: ['', Validators.required],
+        checkingScheme : this.fb.array([])
+      }
+    );
   }
 
   ngOnInit() {
     this.loadCorpora();
     this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data);
     this.addTier(); // setting a default empty tier
+  }
+
+  get checkingScheme(){
+    return this.campaignCreationForm.get('checkingScheme') as FormArray;
   }
 
   loadCorpora() {
@@ -97,12 +106,12 @@ export class CampaignCreationComponent implements OnInit {
   }
 
   addTier() {
-    this.campaignCreation.checking_scheme.push({
+    this.checkingScheme.push(this.fb.group({
       name: '',
-      required: true,
-      allow_empty: true,
+      required: [''],
+      allow_empty: [''],
       categories: [],
-      checking_type: 'NONE'
+      checking_type: 'None'
     });
   }
 
@@ -115,6 +124,8 @@ export class CampaignCreationComponent implements OnInit {
   }
 
   addCategory(tier: TierSpecifications, event: MatChipInputEvent) {
+    // this is how this should work now
+    // https://www.dev6.com/angular/angular-material-chips-with-reactive-forms-and-custom-validation/
     const input = event.input;
     const value = event.value;
 
