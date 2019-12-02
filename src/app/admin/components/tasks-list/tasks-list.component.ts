@@ -67,7 +67,7 @@ export class TasksListComponent implements OnInit, OnChanges {
   masterToggle() {
     this.isAllSelected() ?
       this.tasksSelection.clear() :
-      this.tasks.data.forEach(row => this.tasksSelection.select(row));
+      this.tasks.filteredData.forEach(row => this.tasksSelection.select(row));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -125,7 +125,9 @@ export class TaskAssignComponent implements OnInit {
 
   submitAssigment() {
     // This is a (dirty?) hack to get the date to be local.
-    this.deadline.setMinutes(this.deadline.getMinutes() - this.deadline.getTimezoneOffset());
+    if (this.deadline) {
+      this.deadline.setMinutes(this.deadline.getMinutes() - this.deadline.getTimezoneOffset());
+    }
     const assignment = {
       audio_files: this.selectedFiles.selected.map(file => file.filename),
       deadline: this.deadline ? this.deadline.toISOString().substring(0, 10) : undefined,
