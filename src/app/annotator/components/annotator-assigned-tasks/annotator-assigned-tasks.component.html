@@ -68,7 +68,8 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="finishedColumns"></tr>
-      <tr mat-row *matRowDef="let task; columns: finishedColumns;"></tr>
+      <tr mat-row *matRowDef="let task; columns: finishedColumns;"
+          [routerLink]="['/annotator', 'task', task.id]"></tr>
     </table>
     <div class="text-center py-3 mx-auto mat-elevation-z2 mb-2 noTasks" *ngIf="!finishedTasksList.data.length" style="width:90%; background: white;">
       <p>No finished tasks</p>
