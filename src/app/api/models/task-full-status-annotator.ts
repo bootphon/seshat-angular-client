@@ -15,6 +15,7 @@ export interface TaskFullStatusAnnotator  {
   deadline?: string;
   double_annot_data?: DoubleAnnotatorData;
   filename: string;
+  finish_time?: string;
   id: string;
   is_done: boolean;
   is_locked: boolean;

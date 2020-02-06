@@ -62,7 +62,7 @@ export class AnnotatorTaskViewComponent implements OnInit {
       this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
         (data) => {
           this.tgErrors = data;
-          if (!this.tgErrors) {
+          if (!this.tgErrors.has_errors) {
             this.loadTaskStatus();
           }
         }

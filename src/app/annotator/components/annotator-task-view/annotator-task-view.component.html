@@ -66,7 +66,7 @@
                           </mat-error>
                         </mat-form-field>
                         <div class="col-12">
-                          <button mat-raised-button (click)="validateTextGrid()" color="primary">Check TextGrid</button>
+                          <button mat-raised-button (click)="loadAndSendTextGrid('validate')" color="primary">Check TextGrid</button>
                         </div>
                       </form>
                     </div>
@@ -183,8 +183,11 @@
                 </div>
               </form>
             </div>
-
-            <seshat-textgrid-errors [tgErrors]="tgErrors"></seshat-textgrid-errors>
+            <seshat-textgrid-errors *ngIf="tgErrors && tgErrors.has_errors" [tgErrors]="tgErrors"></seshat-textgrid-errors>
+            <div *ngIf="tgErrors && !tgErrors.has_errors" class="task-done-submission">
+              <p>{{ taskData.is_done ? 'The Textgrid file is valid, this task is done!' : 'The Textgrid file is valid, you can submit it.'}}</p>
+              <mat-icon color="primary">done</mat-icon>
+            </div>
           </mat-card>
         </div>
       </div>

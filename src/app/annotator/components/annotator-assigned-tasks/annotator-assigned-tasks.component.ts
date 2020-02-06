@@ -12,7 +12,7 @@ export class AnnotatorAssignedTasksComponent implements OnInit {
   assignedTasksList = new MatTableDataSource<TaskShortStatus>();
   finishedTasksList = new MatTableDataSource<TaskShortStatus>();
   assignedColumns: string[] = ['filename', 'task_type', 'step', 'campaign', 'deadline'];
-  finishedColumns: string[] = ['filename', 'task_type', 'campaign', 'finish_date'];
+  finishedColumns: string[] = ['filename', 'task_type', 'campaign', 'finish_time'];
 
   @ViewChild('assignedTasksSort', {static: true}) public assignedTasksSort: MatSort;
   @ViewChild('finishedTasksSort', {static: true}) public finishedTasksSort: MatSort;

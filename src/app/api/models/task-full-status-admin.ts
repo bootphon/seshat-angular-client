@@ -9,6 +9,7 @@ export interface TaskFullStatusAdmin  {
   creation_time: string;
   deadline?: string;
   filename: string;
+  finish_time?: string;
   id: string;
   is_done: boolean;
   is_locked: boolean;

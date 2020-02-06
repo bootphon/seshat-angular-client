@@ -38,7 +38,7 @@ export class AnnotatorTaskHelpComponent implements OnInit {
     );
     this.campaignsService.campaignsCheckingSchemeCampaignSlugGet({campaignSlug: this.campaignSlug}).subscribe(
       (data) => {
-        data.tier_specs = this.checkingSchemeData.tier_specs.map(ts => ts as TierSpecsHelp);
+        data.tier_specs = data.tier_specs.map(ts => ts as TierSpecsHelp);
         this.checkingSchemeData = data as CheckingSchemeHelp;
       }
     );
