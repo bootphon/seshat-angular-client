@@ -18,33 +18,27 @@
         <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
           <h3 style="color:var(--text-medium-light)">Checking Scheme Help</h3>
         </div>
-        <mat-card>
-            <p>This is the tiers that should be contained the TextGrids for this campaign's tasks.</p>
-            <mat-list>
-              <mat-list-item *ngFor="let tierSpecs of checkingSchemeData.tier_specs">
-                <p>Name: {{tierSpecs.name}}</p>
-                <p *ngIf="tierSpecs.required"><mat-icon>warning</mat-icon>This tier <strong>has to be</strong> in the TextGrid for it to be valid</p>
-                <p *ngIf="!tierSpecs.required">This tier is optional, you can remove it from the TextGrid if you feel that it's not needed</p>
-                <p *ngIf="!tierSpecs.allow_empty"><mat-icon>warning</mat-icon>There <strong>can't be</strong> any empty Intervals in this Tier.</p>
-                <!-- I'll put the categories in some nice tags later on so they can be styled bold or something-->
-                <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">The only possible annotations for this tier are {{tierSpecs.categories.join(", ")}}</p>
-                <div *ngIf="tierSpecs.checking_type === 'PARSED'" class="container-fluid">
-                  This Tier's annotations are being checked by a parser (whose name is {{tierSpecs.parser.name}}) <br/>
-                  If there isn't any help written by your campaign manager in the Wiki below, you still can check if
-                  an annotation is valid in via this interface:
-                  <div class="row">
-                    <mat-form-field class="col-10">
-                      <input matInput [(ngModel)]="tierSpecs.annot" (keyup.enter)="quickcheckAnnotation(tierSpecs)">
-                      <mat-error *ngIf="tierSpecs.is_valid && !tierSpecs.is_valid">
-                        This annotation is invalid : {{tierSpecs.error_msg}}
-                      </mat-error>
-                    </mat-form-field>
-                    <button mat-raised-button color="primary" class="col-2"
-                            (click)="quickcheckAnnotation(tierSpecs)">CHECK</button>
-                  </div>
-                </div>
-              </mat-list-item>
-            </mat-list>
+        <mat-card class="campaign-card m-3 p-4 d-flex justify-content-center row">
+            <h4 class="mb-3">Requirements for this campaign's TextGrid tiers</h4>
+            <table class="tier-styling w-100">
+              <tr>
+                <th class="mat-header-cell">Tier Name</th>
+                <th class="mat-header-cell">Required</th>
+                <th class="mat-header-cell">Additional Info</th>
+              </tr>
+              <tr *ngFor="let tierSpecs of checkingSchemeData.tier_specs">
+                <td><p>{{tierSpecs.name}}</p></td>
+                <td>
+                  <!-- <mat-icon>warning</mat-icon> -->
+                  <p *ngIf="tierSpecs.required">Tier is required</p>
+                  <p *ngIf="!tierSpecs.required">Tier is optional and can be removed from the TextGrid if you feel that it's not needed</p></td>
+                <td>
+                  <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'"><i>Validation Categories :</i> {{tierSpecs.categories.join(", ")}}</p>
+                  <p *ngIf="tierSpecs.checking_type === 'PARSED'"><i>Validation Parser :</i> {{tierSpecs.parser.name}}</p>
+                  <p *ngIf="!tierSpecs.allow_empty">Input is mandatory for this Tier. It cannot be left empty.</p>
+                </td>
+              </tr>
+            </table>
         </mat-card>
       </ng-container>
 
