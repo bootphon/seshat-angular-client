@@ -23,6 +23,7 @@ import { TaskStatusComponent } from './components/annotator-task-view/task-statu
 import { TextgridErrorsComponent } from './components/annotator-task-view/textgrid-errors/textgrid-errors.component';
 import { MergeMismatchTableComponent } from './components/annotator-task-view/merge-mismatch-table/merge-mismatch-table.component';
 
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const routes: Routes = [
   {path: 'tasks', component: AnnotatorAssignedTasksComponent, canActivate: [AuthGard, AnnotatorGuard]},
@@ -59,7 +60,8 @@ const routes: Routes = [
     CommonsModule,
     MaterialFileInputModule,
     MatTooltipModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ]
 })
 export class AnnotatorModule {

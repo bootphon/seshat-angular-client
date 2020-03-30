@@ -1,0 +1,53 @@
+.mat-expansion-panel-header-description{
+  margin-right: 0px;
+}
+.color-red{
+  color: var(--color-red);
+}
+
+ol {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  counter-reset: my-counter;
+  p{
+    display: inline;
+  }
+  div{
+    display: inline-block;
+  }
+}
+
+ol li {
+counter-increment: my-counter;
+}
+
+ol li::before {
+  content: counter(my-counter) ". ";
+  // background-color: red;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  vertical-align: top;
+}
+
+ol{
+  width: 100% !important;
+  padding-left: 0 !important;
+  li{
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  li::marker{
+    margin-left: 30px !important;
+  }
+
+  li:nth-child(odd) {
+    background: var(--color-light-gray);
+  }
+
+  li:nth-child(even) {
+    background: var(--text-white);
+  }
+}
