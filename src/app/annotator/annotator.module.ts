@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AnnotatorTaskViewComponent} from './components/annotator-task-view/annotator-task-view.component';
-import {AnnotatorTaskHelpComponent} from './components/annotator-task-help/annotator-task-help.component';
 import {AnnotatorAssignedTasksComponent} from './components/annotator-assigned-tasks/annotator-assigned-tasks.component';
 import {
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatIconModule, MatInputModule, MatListModule,
@@ -24,11 +24,11 @@ import { TextgridErrorsComponent } from './components/annotator-task-view/textgr
 import { MergeMismatchTableComponent } from './components/annotator-task-view/merge-mismatch-table/merge-mismatch-table.component';
 
 import {MatExpansionModule} from '@angular/material/expansion';
+import {TaskHelpComponent} from './components/annotator-task-view/task-help/task-help.component';
 
 const routes: Routes = [
   {path: 'tasks', component: AnnotatorAssignedTasksComponent, canActivate: [AuthGard, AnnotatorGuard]},
   {path: 'task/:task_id', component: AnnotatorTaskViewComponent, canActivate: [AuthGard, AnnotatorGuard]},
-  {path: 'campaign/help/:campaign_slug', component: AnnotatorTaskHelpComponent, canActivate: [AuthGard, AnnotatorGuard]},
   {path: '', redirectTo: 'tasks', pathMatch: 'full'}
 ];
 
@@ -36,9 +36,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AnnotatorTaskViewComponent,
-    AnnotatorTaskHelpComponent,
     AnnotatorAssignedTasksComponent,
     TaskStatusComponent,
+    TaskHelpComponent,
     TextgridErrorsComponent,
     MergeMismatchTableComponent,
   ],
@@ -61,7 +61,8 @@ const routes: Routes = [
     MaterialFileInputModule,
     MatTooltipModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ]
 })
 export class AnnotatorModule {

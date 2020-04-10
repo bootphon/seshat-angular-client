@@ -573,23 +573,69 @@ export class CampaignsService extends BaseService {
   }
 
   /**
-   * Path part for operation campaignsQuickcheckCampaignSlugGet
+   * Path part for operation campaignsCheckingSchemeListGet
    */
-  static readonly CampaignsQuickcheckCampaignSlugGetPath = '/campaigns/quickcheck/{campaign_slug}';
+  static readonly CampaignsCheckingSchemeListGetPath = '/campaigns/checking_scheme/list';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `campaignsQuickcheckCampaignSlugGet()` instead.
+   * To access only the response body, use `campaignsCheckingSchemeListGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsCheckingSchemeListGet$Response(params?: {
+
+  }): Observable<StrictHttpResponse<Array<CheckingSchemeSummary>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsCheckingSchemeListGetPath, 'get');
+    if (params) {
+
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<CheckingSchemeSummary>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsCheckingSchemeListGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsCheckingSchemeListGet(params?: {
+
+  }): Observable<Array<CheckingSchemeSummary>> {
+
+    return this.campaignsCheckingSchemeListGet$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<CheckingSchemeSummary>>) => r.body as Array<CheckingSchemeSummary>)
+    );
+  }
+
+  /**
+   * Path part for operation campaignsQuickcheckCampaignSlugPost
+   */
+  static readonly CampaignsQuickcheckCampaignSlugPostPath = '/campaigns/quickcheck/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsQuickcheckCampaignSlugPost()` instead.
    *
    * This method sends `application/json` and handles response body of type `application/json`
    */
-  campaignsQuickcheckCampaignSlugGet$Response(params: {
+  campaignsQuickcheckCampaignSlugPost$Response(params: {
     campaignSlug: string;
 
     body: TierQuickCheck
   }): Observable<StrictHttpResponse<QuickCheckResponse>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsQuickcheckCampaignSlugGetPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsQuickcheckCampaignSlugPostPath, 'post');
     if (params) {
 
       rb.path('campaign_slug', params.campaignSlug);
@@ -609,17 +655,17 @@ export class CampaignsService extends BaseService {
 
   /**
    * This method provides access to only to the response body.
-   * To access the full response (for headers, for example), `campaignsQuickcheckCampaignSlugGet$Response()` instead.
+   * To access the full response (for headers, for example), `campaignsQuickcheckCampaignSlugPost$Response()` instead.
    *
    * This method sends `application/json` and handles response body of type `application/json`
    */
-  campaignsQuickcheckCampaignSlugGet(params: {
+  campaignsQuickcheckCampaignSlugPost(params: {
     campaignSlug: string;
 
     body: TierQuickCheck
   }): Observable<QuickCheckResponse> {
 
-    return this.campaignsQuickcheckCampaignSlugGet$Response(params).pipe(
+    return this.campaignsQuickcheckCampaignSlugPost$Response(params).pipe(
       map((r: StrictHttpResponse<QuickCheckResponse>) => r.body as QuickCheckResponse)
     );
   }

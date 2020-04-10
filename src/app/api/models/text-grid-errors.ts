@@ -9,4 +9,5 @@ export interface TextGridErrors  {
   has_errors: boolean;
   structural?: Array<StructuralError>;
   time_conflict?: Array<TimeMergeError>;
+  total_error_count?: number;
 }

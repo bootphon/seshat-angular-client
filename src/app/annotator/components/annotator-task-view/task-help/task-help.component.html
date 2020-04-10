@@ -1,0 +1,63 @@
+
+<div class="row m-3">
+  <div class="col-12">
+
+    <ng-container *ngIf="checkingSchemeData">
+      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Checking Scheme Help</h3>
+      </div>
+      <mat-card class="campaign-card m-3 p-4 d-flex justify-content-center row">
+        <h4 class="mb-3">Requirements for Campaign TextGrid Tiers</h4>
+        <table class="tier-styling w-100">
+          <tr>
+            <th class="mat-header-cell">Tier Name</th>
+            <th class="mat-header-cell">Required</th>
+            <th class="mat-header-cell">Additional Info</th>
+          </tr>
+          <tr *ngFor="let tierSpecs of checkingSchemeData.tier_specs">
+            <td><p>{{tierSpecs.name}}</p></td>
+            <td>
+              <p *ngIf="tierSpecs.required">Tier is required</p>
+              <p *ngIf="!tierSpecs.required">Tier is optional and can be removed from the TextGrid if you feel that it's not needed</p></td>
+            <td>
+              <p *ngIf="!tierSpecs.allow_empty">Input is mandatory for this Tier. It cannot be left empty.</p>
+              <p *ngIf="tierSpecs.checking_type === 'CATEGORICAL'"><i>Valid Categories :</i> {{tierSpecs.categories.join(", ")}}</p>
+              <ng-container *ngIf="tierSpecs.checking_type === 'PARSED'">
+                <p><i>Validation Parser :</i> {{tierSpecs.parser.name}}</p>
+                <div class="row">
+                  <mat-form-field class="col-10">
+                    <input matInput [(ngModel)]="tierSpecs.annot"
+                           [placeholder]="'Check a single interval\'s annotations for tier ' + tierSpecs.name"
+                           [errorStateMatcher]="tierSpecs.matcher"
+                           (keyup.enter)="quickcheckAnnotation(tierSpecs)">
+                    <mat-error *ngIf="tierSpecs.is_valid !== undefined && !tierSpecs.is_valid">
+                      This annotation is invalid : {{tierSpecs.error_msg}}
+                    </mat-error>
+                    <mat-hint *ngIf="tierSpecs.is_valid">
+                      Annotation is valid!
+                    </mat-hint>
+                  </mat-form-field>
+                  <div class="col-2">
+                    <button mat-raised-button color="primary"
+                            (click)="quickcheckAnnotation(tierSpecs)">CHECK</button>
+                  </div>
+                </div>
+              </ng-container>
+            </td>
+          </tr>
+        </table>
+      </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="campaignWikiData">
+      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+        <h3 style="color:var(--text-medium-light)">Campaign Wiki</h3>
+      </div>
+      <mat-card class="campaign-card m-3 p-4 d-flex justify-content-center row">
+        <em *ngIf="campaignWikiData.last_edit">Last edited on {{campaignWikiData.last_edit}}</em>
+        <showdown class="wiki-headings" [value]="campaignWikiData.content"></showdown>
+      </mat-card>
+    </ng-container>
+
+  </div>
+</div>

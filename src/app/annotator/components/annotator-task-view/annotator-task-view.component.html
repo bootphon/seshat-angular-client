@@ -10,201 +10,227 @@
 
 <div *ngIf="taskData" class="container-fluid">
 
-  <seshat-task-status [taskData]="taskData"></seshat-task-status>
-  <ng-container *ngIf="!taskData.is_locked">
-    <div class="row m-3">
-      <div class="col-12">
-        <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-          <h3 style="color:var(--text-medium-light)">Instructions</h3>
-        </div>
-        <mat-card class="campaign-card m-3 p-4">
+  <mat-tab-group>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Task
+      </ng-template>
+      <seshat-task-status [taskData]="taskData"></seshat-task-status>
+      <ng-container *ngIf="!taskData.is_locked">
+        <div class="row m-3">
+          <div class="col-12">
+            <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+              <h3 style="color:var(--text-medium-light)">Instructions</h3>
+            </div>
+            <mat-card class="campaign-card m-3 p-4">
 
-          <div>
-            <ng-template #stepcontent1>
-              <div class="row d-flex justify-content-between align-items-end">
-                <div class="col-7 mx-auto">
-                  <div class="task-instructions">
-                    <h6 class="pb-4">{{taskData.current_instructions}}</h6>
-                    <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton"></div>
-                  </div>
-                </div>
-              </div>
-
-              <ng-template #starterButton>
-                <div class=""><button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
-                </div>
-              </ng-template>
-              <ng-template #currentTemplateButton>
-                <div class=""><button mat-raised-button color="accent"
-                                      (click)="downloadCurrentTextGridTemplate()">Download</button></div>
-              </ng-template>
-
-            </ng-template>
-            <ng-template #stepcontent2>
-              <div class="row d-flex justify-content-around">
-                <div class="col-5 flex-column d-flex">
-                  <div class="task-instructions">
-                    <div class="my-auto">
-                      <h6 class="pb-3">{{taskData.current_instructions}}</h6>
-                      <div class=""><button mat-raised-button color="primary"
-                                            (click)="downloadStarter()">Download</button></div>
+              <div>
+                <ng-template #stepcontent1>
+                  <div class="row d-flex justify-content-between align-items-end">
+                    <div class="col-7 mx-auto">
+                      <div class="task-instructions">
+                        <h6 class="pb-4">{{taskData.current_instructions}}</h6>
+                        <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-7 flex-column d-flex">
-                  <div class="task-instructions">
-                    <div class="my-auto">
-                      <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
-                      <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
-                        <mat-form-field class="col-12" floatLabel="never" class="uploadTextGrid">
-                          <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
-                                              [accept]="'.TextGrid'">
-                          </ngx-mat-file-input>
-                          <mat-icon matSuffix>insert_drive_file</mat-icon>
-                          <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
-                            Please select a TextGrid file
-                          </mat-error>
-                        </mat-form-field>
-                        <div class="col-12">
-                          <button mat-raised-button (click)="loadAndSendTextGrid('validate')" color="primary">Check TextGrid</button>
+
+                  <ng-template #starterButton>
+                    <div class=""><button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
+                    </div>
+                  </ng-template>
+                  <ng-template #currentTemplateButton>
+                    <div class=""><button mat-raised-button color="accent"
+                                          (click)="downloadCurrentTextGridTemplate()">Download</button></div>
+                  </ng-template>
+
+                </ng-template>
+                <ng-template #stepcontent2>
+                  <div class="row d-flex justify-content-around">
+                    <div class="col-5 flex-column d-flex">
+                      <div class="task-instructions">
+                        <div class="my-auto">
+                          <h6 class="pb-3">{{taskData.current_instructions}}</h6>
+                          <div class=""><button mat-raised-button color="primary"
+                                                (click)="downloadStarter()">Download</button></div>
                         </div>
-                      </form>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <ng-template #starterButton>
-                <button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
-              </ng-template>
-              <ng-template #currentTemplateButton>
-                <button mat-raised-button color="accent" (click)="downloadCurrentTextGridTemplate()">Download</button>
-              </ng-template>
-
-            </ng-template>
-            <ng-template #stepcontent3>
-              <div class="row d-flex justify-content-around">
-                <div class="col-8 pb-4 mb-4 text-center">
-                  <h4 class="pb-2"><b>This task is complete.</b></h4>
-                  <h4>Files can be resubmitted. The resubmitted file will overwrite the file submitted prior.</h4>
-                </div>
-                <div class="col-6 flex-column d-flex">
-                  <div class="task-instructions">
-                    <div class="my-auto">
-                      <h6 class="pb-3">{{taskData.current_instructions}}</h6>
-                      <div class=""><button mat-raised-button color="primary"
-                                            (click)="downloadStarter()">Download</button></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 flex-column d-flex">
-                  <div class="task-instructions">
-                    <div class="my-auto">
-                      <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
-                      <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
-                        <mat-form-field class="col-12 uploadTextGrid" floatLabel="never">
-                          <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
-                                              [accept]="'.TextGrid'">
-                          </ngx-mat-file-input>
-                          <mat-icon matSuffix>insert_drive_file</mat-icon>
-                          <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
-                            Please select a TextGrid file
-                          </mat-error>
-                        </mat-form-field>
-                        <div class="col-12">
-                          <button mat-raised-button (click)="loadAndSendTextGrid('submit')" color="primary">Check TextGrid</button>
+                    <div class="col-7 flex-column d-flex">
+                      <div class="task-instructions">
+                        <div class="my-auto">
+                          <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
+                          <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
+                            <mat-form-field class="col-12" floatLabel="never" class="uploadTextGrid">
+                              <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
+                                                  [accept]="'.TextGrid'">
+                              </ngx-mat-file-input>
+                              <mat-icon matSuffix>insert_drive_file</mat-icon>
+                              <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
+                                Please select a TextGrid file
+                              </mat-error>
+                            </mat-form-field>
+                            <div class="col-12">
+                              <button mat-raised-button (click)="loadAndSendTextGrid('validate')" color="primary">Check TextGrid</button>
+                            </div>
+                          </form>
                         </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  <ng-template #starterButton>
+                    <button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
+                  </ng-template>
+                  <ng-template #currentTemplateButton>
+                    <button mat-raised-button color="accent" (click)="downloadCurrentTextGridTemplate()">Download</button>
+                  </ng-template>
+
+                </ng-template>
+                <ng-template #stepcontent3>
+                  <div class="row d-flex justify-content-around">
+                    <div class="col-8 pb-4 mb-4 text-center">
+                      <h4 class="pb-2"><b>This task is complete.</b></h4>
+                      <h4>Files can be resubmitted. The resubmitted file will overwrite the file submitted prior.</h4>
+                    </div>
+                    <div class="col-6 flex-column d-flex">
+                      <div class="task-instructions">
+                        <div class="my-auto">
+                          <h6 class="pb-3">{{taskData.current_instructions}}</h6>
+                          <div class=""><button mat-raised-button color="primary"
+                                                (click)="downloadStarter()">Download</button></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 flex-column d-flex">
+                      <div class="task-instructions">
+                        <div class="my-auto">
+                          <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
+                          <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
+                            <mat-form-field class="col-12 uploadTextGrid" floatLabel="never">
+                              <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid"
+                                                  [accept]="'.TextGrid'">
+                              </ngx-mat-file-input>
+                              <mat-icon matSuffix>insert_drive_file</mat-icon>
+                              <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
+                                Please select a TextGrid file
+                              </mat-error>
+                            </mat-form-field>
+                            <div class="col-12">
+                              <button mat-raised-button (click)="loadAndSendTextGrid('submit')" color="primary">Check TextGrid</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <ng-template #starterButton>
+                    <button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
+                  </ng-template>
+                  <ng-template #currentTemplateButton>
+                    <button mat-raised-button color="accent" (click)="downloadCurrentTextGridTemplate()">Download</button>
+                  </ng-template>
+                </ng-template>
+
+                <mat-horizontal-stepper style="overflow: visible;" labelPosition="bottom" #stepper
+                                        [selectedIndex]="taskData.current_step_idx">
+                  <ng-template matStepperIcon="edit">
+                    <mat-icon>check</mat-icon>
+                  </ng-template>
+                  <mat-step *ngFor="let taskStatus of taskData.all_steps; index as i;" [label]="taskStatus"
+                            [completed]="i <= taskData.current_step_idx">
+                    <br>
+                    <ng-container *ngIf="!taskData.current_step_idx">
+                      <ng-container *ngTemplateOutlet="stepcontent1"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="taskData.current_step_idx && !taskData.is_done">
+                      <ng-container *ngTemplateOutlet="stepcontent2"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="taskData.is_done">
+                      <ng-container *ngTemplateOutlet="stepcontent3"></ng-container>
+                    </ng-container>
+
+                  </mat-step>
+                </mat-horizontal-stepper>
               </div>
 
-              <ng-template #starterButton>
-                <button mat-raised-button color="primary" (click)="downloadStarter()">Download</button>
-              </ng-template>
-              <ng-template #currentTemplateButton>
-                <button mat-raised-button color="accent" (click)="downloadCurrentTextGridTemplate()">Download</button>
-              </ng-template>
-            </ng-template>
-
-            <mat-horizontal-stepper style="overflow: visible;" labelPosition="bottom" #stepper
-                                    [selectedIndex]="taskData.current_step_idx">
-              <ng-template matStepperIcon="edit">
-                <mat-icon>check</mat-icon>
-              </ng-template>
-              <mat-step *ngFor="let taskStatus of taskData.all_steps; index as i;" [label]="taskStatus"
-                        [completed]="i <= taskData.current_step_idx">
-                <br>
-                <ng-container *ngIf="!taskData.current_step_idx">
-                  <ng-container *ngTemplateOutlet="stepcontent1"></ng-container>
-                </ng-container>
-                <ng-container *ngIf="taskData.current_step_idx && !taskData.is_done">
-                  <ng-container *ngTemplateOutlet="stepcontent2"></ng-container>
-                </ng-container>
-                <ng-container *ngIf="taskData.is_done">
-                  <ng-container *ngTemplateOutlet="stepcontent3"></ng-container>
-                </ng-container>
-
-              </mat-step>
-            </mat-horizontal-stepper>
+            </mat-card>
           </div>
+        </div>
 
-        </mat-card>
-      </div>
-    </div>
+        <div *ngIf="taskData.allow_file_upload">
+          <div class="row m-3">
+            <div class="col-12">
+              <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
+                <h3 style="color:var(--text-medium-light)">Submission</h3>
+              </div>
+              <mat-card class="campaign-card m-3 p-4">
+                <div>
+                  <p>Once you're confident that your TextGrid annotation is completed, you can submit it below.
+                    If there are any errors, correct the errors before uploading the file again.</p>
+                  <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
+                    <div class="col-12 d-flex justify-content-center">
+                      <mat-form-field floatLabel="never" class="col-6 uploadTextGrid">
+                        <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid" [accept]="'.TextGrid'">
+                        </ngx-mat-file-input>
+                        <mat-icon matSuffix>insert_drive_file</mat-icon>
+                        <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
+                          Please select a TextGrid file
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                      <div class="alt-mat-theme"><button class="ml-3" mat-raised-button (click)="loadAndSendTextGrid('submit')"
+                                                         color="primary">Submit</button></div>
+                    </div>
+                  </form>
+                </div>
+                <div *ngIf="tgErrors && !tgErrors.has_errors" class="task-done-submission">
+                  <p>{{ taskData.is_done ? 'The Textgrid file is valid, this task is done!' : 'The Textgrid file is valid, you can submit it.'}}</p>
+                  <mat-icon color="primary">done</mat-icon>
+                </div>
+              </mat-card>
+            </div>
+          </div>
+        </div>
 
+        <seshat-merge-mismatch-table [timesMergeMismatch]="timesMergeMismatch"></seshat-merge-mismatch-table>
+      </ng-container>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <div *ngIf="tgErrors && tgErrors.has_errors; then hasErrors else noErrors"></div>
+        <ng-template #noErrors>Errors</ng-template>
+        <ng-template #hasErrors>
+          <span [matBadge]="tgErrors.total_error_count.toString()"
+                matBadgeColor="accent"
+                matBadgeOverlap="false">Errors</span>
+        </ng-template>
+      </ng-template>
+      <seshat-textgrid-errors *ngIf="tgErrors && tgErrors.has_errors"
+                              [tgErrors]="tgErrors">
+      </seshat-textgrid-errors>
 
-    <div *ngIf="taskData.allow_file_upload">
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Discussion
+      </ng-template>
       <div class="row m-3">
         <div class="col-12">
-          <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-            <h3 style="color:var(--text-medium-light)">Submission</h3>
+          <div class="campaign-card ml-3 p-4">
+            <seshat-comments [taskID]="taskData.id" [lockSubmit]="taskData.is_locked" class="mb-5 pb-5"></seshat-comments>
           </div>
-          <mat-card class="campaign-card m-3 p-4">
-            <div>
-              <p>Upload and validate the completed file. If there are any errors, correct the errors before uploading
-                the file again.</p>
-              <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
-                <div class="col-12 d-flex justify-content-center">
-                  <mat-form-field floatLabel="never" class="col-6 uploadTextGrid">
-                    <ngx-mat-file-input formControlName="tgFile" placeholder="Upload TextGrid" [accept]="'.TextGrid'">
-                    </ngx-mat-file-input>
-                    <mat-icon matSuffix>insert_drive_file</mat-icon>
-                    <mat-error *ngIf="uploadForm.get('tgFile').hasError('required')">
-                      Please select a TextGrid file
-                    </mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-12 d-flex justify-content-center">
-                  <button class="" mat-raised-button (click)="loadAndSendTextGrid('validate')" color="primary">Validate</button>
-                  <div class="alt-mat-theme"><button class="ml-3" mat-raised-button (click)="loadAndSendTextGrid('submit')"
-                                                     color="primary">Submit</button></div>
-                </div>
-              </form>
-            </div>
-            <seshat-textgrid-errors *ngIf="tgErrors && tgErrors.has_errors" [tgErrors]="tgErrors"></seshat-textgrid-errors>
-            <div *ngIf="tgErrors && !tgErrors.has_errors" class="task-done-submission">
-              <p>{{ taskData.is_done ? 'The Textgrid file is valid, this task is done!' : 'The Textgrid file is valid, you can submit it.'}}</p>
-              <mat-icon color="primary">done</mat-icon>
-            </div>
-          </mat-card>
         </div>
       </div>
-    </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        Help
+      </ng-template>
+      <seshat-task-help [campaignSlug]="taskData.campaign.slug"></seshat-task-help>
+    </mat-tab>
+  </mat-tab-group>
 
-
-    <seshat-merge-mismatch-table [timesMergeMismatch]="timesMergeMismatch"></seshat-merge-mismatch-table>
-  </ng-container>
-
-  <div class="row m-3">
-    <div class="col-12">
-      <div class="progress-row row d-flex align-items-center ml-3 pt-2 pl-1 mb-n2">
-        <h3 style="color:var(--text-medium-light)">Discussion</h3>
-      </div>
-      <div class="campaign-card ml-3 p-4">
-        <seshat-comments [taskID]="taskData.id" [lockSubmit]="taskData.is_locked" class="mb-5 pb-5"></seshat-comments>
-      </div>
-    </div>
-  </div>
 </div>

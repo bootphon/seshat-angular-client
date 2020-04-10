@@ -50,19 +50,30 @@ export class AnnotatorTaskViewComponent implements OnInit {
     );
   }
 
+  notifyErrors() {
+    this.snackBar.open('The uploaded TextGrid has some errors, go to the Error tab for full report.',
+      'Error',
+      {verticalPosition: 'top', duration: 10 * 1000});
+  }
+
   uploadTextGrid(uploadType: 'submit' | 'validate', tgContent: string) {
 
     if (uploadType === 'validate') {
       this.tasksService.tasksValidateTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
         (data) => {
           this.tgErrors = data;
+          if (this.tgErrors.has_errors) {
+            this.notifyErrors();
+          }
         }
       );
     } else {
       this.tasksService.tasksSubmitTaskIdPost({taskId: this.taskId, body: {textgrid_str: tgContent}}).subscribe(
         (data) => {
           this.tgErrors = data;
-          if (!this.tgErrors.has_errors) {
+          if (this.tgErrors.has_errors) {
+            this.notifyErrors();
+          } else {
             this.loadTaskStatus();
           }
         }
