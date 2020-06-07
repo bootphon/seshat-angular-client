@@ -53,8 +53,14 @@ export class CampaignViewComponent implements OnInit {
     this.loadCampaignData(campaignSlug);
     // subscribing to the route change in case the user switches campaigns in the menu
     this.route.params.subscribe(params => {
-      const slug = params['campaign_slug'];
+      const slug = params.campaign_slug;
       this.loadCampaignData(slug); // reset and set based on new parameter this time
+    });
+    // subscribing for changes to the campaign statistics when a task is deleted
+    this.eventsService.taskDeletedEvent.subscribe(slug => {
+      if (this.campaign.slug === slug) {
+        this.loadCampaignData(slug);
+      }
     });
   }
 

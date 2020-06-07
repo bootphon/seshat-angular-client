@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {TaskShortStatus} from '../../../api/models/task-short-status';
 import {SelectionModel} from '@angular/cdk/collections';
 import {ConfirmationDialogComponent} from '../../../commons/components/confirmation-dialog/confirmation-dialog.component';
+import {SeshatEventsService} from '../../../commons/seshat-events.service';
 
 @Component({
   selector: 'seshat-tasks-list',
@@ -26,6 +27,7 @@ export class TasksListComponent implements OnInit, OnChanges {
     private campaignsService: CampaignsService,
     private annotatorsService: AnnotatorsService,
     private router: Router,
+    private eventsService: SeshatEventsService,
     public dialog: MatDialog
   ) {
     this.tasks = new MatTableDataSource<TaskShortStatus>();
@@ -90,6 +92,7 @@ export class TasksListComponent implements OnInit, OnChanges {
             () => {
               this.tasks.data = this.tasks.data.filter(filteredTask => task.id !== filteredTask.id);
               this.tasks.filter = '';
+              this.eventsService.taskDeletedEvent.emit(this.campaignSlug);
             }
           );
         }
@@ -110,6 +113,7 @@ export class TasksListComponent implements OnInit, OnChanges {
             .subscribe( () => {
                 this.tasks.data = this.tasks.data.filter(filteredTask => !this.tasksSelection.selected.includes(filteredTask));
                 this.tasks.filter = '';
+                this.eventsService.taskDeletedEvent.emit(this.campaignSlug);
               }
             );
         }

@@ -64,6 +64,10 @@ export class AnnotatorTaskViewComponent implements OnInit {
           this.tgErrors = data;
           if (this.tgErrors.has_errors) {
             this.notifyErrors();
+          } else {
+            this.snackBar.open('The uploaded TextGrid is valid :) You can submit it below.',
+              'OK',
+              {verticalPosition: 'top', duration: 10 * 1000});
           }
         }
       );

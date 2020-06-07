@@ -1,82 +1,83 @@
+<ng-container *ngIf="tgErrors && tgErrors.has_errors; then showErrors else showNoErrors"></ng-container>
 
+<ng-template #showNoErrors>
+  <div class="pt-4"><p>No errors to be shown for now...</p></div>
+</ng-template>
 
-<div *ngIf="tgErrors" class="pt-4">
-<h3 class="mb-3 ml-4 color-red">Errors ( {{ (tgErrors.annot | keyvalue).length +  tgErrors.structural.length + tgErrors.annot_mismatch.length + tgErrors.time_conflict.length }} )</h3>
-  <mat-accordion [multi]="true">
-    <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.structural.length">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h4>Structural Errors ( {{ tgErrors.structural.length }} )</h4>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-panel-description>
-        <ol>
-          <li *ngFor="let error of tgErrors.structural">
-            <p>{{error.msg}}</p>
-          </li>
-        </ol>
-      </mat-panel-description>
-    </mat-expansion-panel>
+<ng-template #showErrors>
+  <div class="pt-4">
+    <h3 class="mb-3 ml-4 color-red">Errors ( {{ (tgErrors.annot | keyvalue).length +  tgErrors.structural.length + tgErrors.annot_mismatch.length + tgErrors.time_conflict.length }} )</h3>
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.structural.length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Structural Errors ( {{ tgErrors.structural.length }} )</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <ol>
+            <li *ngFor="let error of tgErrors.structural">
+              <p>{{error.msg}}</p>
+            </li>
+          </ol>
+        </mat-panel-description>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="true" *ngIf="(tgErrors.annot | keyvalue).length">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h4>Annotation errors ( {{ (tgErrors.annot | keyvalue).length }} )</h4>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-panel-description>
-        <ol>
-          <li *ngFor="let annotErrors of tgErrors.annot | keyvalue">
-            <div *ngFor="let error of annotErrors.value">
-              <p>Annotation error in tier {{error.tier}}, interval #{{error.index}}
-                (from {{error.start}}s to {{error.end}}s)</p>
-              <h5>{{error.msg}}</h5>
-            </div>
-          </li>
-        </ol>
-      </mat-panel-description>
-    </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="true" *ngIf="(tgErrors.annot | keyvalue).length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Annotation errors ( {{ (tgErrors.annot | keyvalue).length }} )</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <ol>
+            <li *ngFor="let annotErrors of tgErrors.annot | keyvalue">
+              <div *ngFor="let error of annotErrors.value">
+                <p>Annotation error in tier {{error.tier}}, interval #{{error.index}}
+                  (from {{error.start}}s to {{error.end}}s)</p>
+                <h5>{{error.msg}}</h5>
+              </div>
+            </li>
+          </ol>
+        </mat-panel-description>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.annot_mismatch.length">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h4>Annotation Mismatches ( {{ tgErrors.annot_mismatch.length }} )</h4>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-panel-description>
-        <ol>
-          <li *ngFor="let error of tgErrors.annot_mismatch">
-            <p>Annotation mismatch between tiers {{error.ref_tier}} and tier {{error.target_tier}}, interval
-              #{{error.index}}</p>
+      <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.annot_mismatch.length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Annotation Mismatches ( {{ tgErrors.annot_mismatch.length }} )</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <ol>
+            <li *ngFor="let error of tgErrors.annot_mismatch">
+              <p>Annotation mismatch between tiers {{error.ref_tier}} and tier {{error.target_tier}}, interval
+                #{{error.index}}</p>
               <h5>The annotation {{error.ref_annot}} isn't the same as annot {{error.target_annot}}</h5>
-          </li>
-        </ol>
-      </mat-panel-description>
-    </mat-expansion-panel>
+            </li>
+          </ol>
+        </mat-panel-description>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.time_conflict.length">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <h4>Time Conflicts ( {{ tgErrors.time_conflict.length }} )</h4>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-panel-description>
-        <ol>
-          <li *ngFor="let error of tgErrors.time_conflict">
-            <p>Can't merge annotations between intervals #{{error.index_before}} and #{{error.index_after}}
-              between tiers {{error.tier_a}} and {{error.tier_b}}</p>
+      <mat-expansion-panel [expanded]="true" *ngIf="tgErrors.time_conflict.length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h4>Time Conflicts ( {{ tgErrors.time_conflict.length }} )</h4>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+          <ol>
+            <li *ngFor="let error of tgErrors.time_conflict">
+              <p>Can't merge annotations between intervals #{{error.index_before}} and #{{error.index_after}}
+                between tiers {{error.tier_a}} and {{error.tier_b}}</p>
               <h5>Impossible to merge frontiers between intervals #{{error.index_before}} and
                 #{{error.index_after}}.
                 The difference between the two frontiers ({{error.time_a}}s and {{error.tier_b}}s)
                 is bigger than the authorised threshold of {{error.threshold}}s.</h5>
-          </li>
-        </ol>
-      </mat-panel-description>
-    </mat-expansion-panel>
-
-
-  </mat-accordion>
-
-
-
-</div>
+            </li>
+          </ol>
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</ng-template>
