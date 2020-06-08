@@ -51,13 +51,12 @@
                       <div class="task-instructions">
                         <div class="my-auto">
                           <h6 class="pb-3">{{taskData.current_instructions}}</h6>
-                          <div class=""><button mat-raised-button color="primary"
-                                                (click)="downloadStarter()">Download</button></div>
+                          <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton"></div>
                         </div>
                       </div>
                     </div>
                     <div class="col-7 flex-column d-flex">
-                      <div class="task-instructions">
+                      <div *ngIf="taskData.allow_file_upload" class="task-instructions">
                         <div class="my-auto">
                           <h6 class="">Check the TextGrid at any point during the annotation process for errors.
                             The TextGrid file won't be saved by Seshat.</h6>
@@ -98,13 +97,11 @@
                       <div class="task-instructions">
                         <div class="my-auto">
                           <h6 class="pb-3">{{taskData.current_instructions}}</h6>
-                          <div class=""><button mat-raised-button color="primary"
-                                                (click)="downloadStarter()">Download</button></div>
-                        </div>
+                          <div *ngIf="taskData.allow_starter_dl; then starterButton else currentTemplateButton"></div>                        </div>
                       </div>
                     </div>
                     <div class="col-6 flex-column d-flex">
-                      <div class="task-instructions">
+                      <div *ngIf="taskData.allow_file_upload" class="task-instructions">
                         <div class="my-auto">
                           <h6 class="">Check the TextGrid at any point during the annotation process for errors</h6>
                           <form [formGroup]="uploadForm" class="row d-flex justify-content-center align-items-center">
