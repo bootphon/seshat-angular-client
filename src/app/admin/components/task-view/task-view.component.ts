@@ -16,9 +16,8 @@ import {ConfirmationDialogComponent} from '../../../commons/components/confirmat
 export class TaskViewComponent implements OnInit {
   @Input() taskID?: string;
   taskData: TaskFullStatusAdmin;
-  displayedColumns = ['select', 'name', 'has_been_submitted', 'creator', 'created', 'delete'];
+  displayedColumns = ['name', 'has_been_submitted', 'creator', 'created', 'delete'];
   textgridDataSource = new MatTableDataSource<TaskTextGrid>();
-  tgSelection = new SelectionModel<TaskTextGrid>(true, []);
 
   constructor(
     private tasksService: TasksService,
@@ -41,29 +40,8 @@ export class TaskViewComponent implements OnInit {
     );
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.tgSelection.selected.length;
-    const numRows = this.textgridDataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.tgSelection.clear() :
-      this.textgridDataSource.data.forEach(row => this.tgSelection.select(row));
-  }
-
   downloadTextGrids() {
-    if (this.tgSelection.hasValue()) {
-      const tgNames = this.tgSelection.selected.map(tg => tg.name);
-      this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-        {taskId: this.taskID, body: {names: tgNames}}).subscribe();
-    } else {
-      this.snackBar.open('No file selected!', 'Task Files Download',
-        {verticalPosition: 'top', duration: 3 * 1000});
-    }
+    this.downloadsService.downloadsTaskTaskIdTextgridsGet({taskId: this.taskID}).subscribe();
   }
 
   deleteTask() {
@@ -106,10 +84,5 @@ export class TaskViewComponent implements OnInit {
           {verticalPosition: 'top', duration: 3 * 1000});
       }
     );
-  }
-
-  downloadTaskTextGrid(tg: TaskTextGrid) {
-    this.downloadsService.downloadsTaskTaskIdTextgridsGet(
-      {taskId: this.taskID, body: {names: [tg.name]}}).subscribe();
   }
 }

@@ -8,7 +8,6 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { TaskTextGridList } from '../models/task-text-grid-list';
 
 @Injectable({
   providedIn: 'root',
@@ -177,12 +176,11 @@ export class DownloadsService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `downloadsTaskTaskIdTextgridsGet()` instead.
    *
-   * This method sends `application/json` and handles response body of type `application/json`
+   * This method doesn't expect any response body
    */
   downloadsTaskTaskIdTextgridsGet$Response(params: {
     taskId: string;
 
-    body: TaskTextGridList
   }): Observable<StrictHttpResponse<void>> {
 
     const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsTaskTaskIdTextgridsGetPath, 'get');
@@ -190,7 +188,6 @@ export class DownloadsService extends BaseService {
 
       rb.path('task_id', params.taskId);
 
-      rb.body(params.body, 'application/json');
     }
     return this.http.request(rb.build({
       responseType: 'text',
@@ -207,12 +204,11 @@ export class DownloadsService extends BaseService {
    * This method provides access to only to the response body.
    * To access the full response (for headers, for example), `downloadsTaskTaskIdTextgridsGet$Response()` instead.
    *
-   * This method sends `application/json` and handles response body of type `application/json`
+   * This method doesn't expect any response body
    */
   downloadsTaskTaskIdTextgridsGet(params: {
     taskId: string;
 
-    body: TaskTextGridList
   }): Observable<void> {
 
     return this.downloadsTaskTaskIdTextgridsGet$Response(params).pipe(

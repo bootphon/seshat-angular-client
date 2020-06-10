@@ -426,6 +426,55 @@ export class CampaignsService extends BaseService {
   }
 
   /**
+   * Path part for operation campaignsGammaUpdateCampaignSlugPost
+   */
+  static readonly CampaignsGammaUpdateCampaignSlugPostPath = '/campaigns/gamma/update/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `campaignsGammaUpdateCampaignSlugPost()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsGammaUpdateCampaignSlugPost$Response(params: {
+    campaignSlug: string;
+
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CampaignsService.CampaignsGammaUpdateCampaignSlugPostPath, 'post');
+    if (params) {
+
+      rb.path('campaign_slug', params.campaignSlug);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `campaignsGammaUpdateCampaignSlugPost$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  campaignsGammaUpdateCampaignSlugPost(params: {
+    campaignSlug: string;
+
+  }): Observable<void> {
+
+    return this.campaignsGammaUpdateCampaignSlugPost$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation campaignsWikiViewCampaignSlugGet
    */
   static readonly CampaignsWikiViewCampaignSlugGetPath = '/campaigns/wiki/view/{campaign_slug}';
