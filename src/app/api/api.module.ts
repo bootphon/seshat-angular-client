@@ -7,7 +7,6 @@ import { AccountsService } from './services/accounts.service';
 import { CampaignsService } from './services/campaigns.service';
 import { CorporaService } from './services/corpora.service';
 import { AnnotatorsService } from './services/annotators.service';
-import { AnalyticsService } from './services/analytics.service';
 import { TasksService } from './services/tasks.service';
 import { DownloadsService } from './services/downloads.service';
 
@@ -23,7 +22,6 @@ import { DownloadsService } from './services/downloads.service';
     CampaignsService,
     CorporaService,
     AnnotatorsService,
-    AnalyticsService,
     TasksService,
     DownloadsService,
     ApiConfiguration

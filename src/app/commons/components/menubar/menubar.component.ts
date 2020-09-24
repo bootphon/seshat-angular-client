@@ -6,8 +6,8 @@ import {AccountsService} from '../../../api/services/accounts.service';
 import {CampaignStatus} from '../../../api/models/campaign-status';
 import {UserShortProfile} from '../../../api/models/user-short-profile';
 import {SeshatEventsService} from '../../seshat-events.service';
-import {MatDialog} from '@angular/material';
 import {NotificationData} from '../../../api/models/notification-data';
+import {DisplayPrefService} from '../../display-pref.service';
 
 @Component({
   selector: 'seshat-menubar',
@@ -25,12 +25,14 @@ export class MenubarComponent implements OnInit {
     [ 'finished', 'assignment_turned_in'],
     [ 'alert', 'assignment_late' ],
   ]);
+  // only used when the user is an admin
 
   constructor(
     private roleProvider: RoleProvider,
     private campaignsService: CampaignsService,
     private accountsService: AccountsService,
     private eventsService: SeshatEventsService,
+    private displayPref: DisplayPrefService,
     private router: Router) {
     this.campaignsData = [];
   }
@@ -53,6 +55,9 @@ export class MenubarComponent implements OnInit {
     this.eventsService.campaignsChange.subscribe(() =>{
       this.loadCampaignsList();
     });
+    this.eventsService.campaignsDisplayChange.subscribe(() =>{
+      this.loadCampaignsList();
+    });
 
   }
 
@@ -68,7 +73,7 @@ export class MenubarComponent implements OnInit {
     if (this.roleProvider.isAdmin()) {
       this.campaignsService.campaignsListGet().subscribe(
         (data) => {
-          this.campaignsData = data;
+          this.campaignsData = this.displayPref.sortDataBasedOnPref(data);
         }
       );
     }
