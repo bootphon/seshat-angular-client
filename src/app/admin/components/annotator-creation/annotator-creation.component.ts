@@ -13,7 +13,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class AnnotatorCreationComponent implements OnInit {
   hide = true;
   isValid = false;
-  private userCreationForm: FormGroup;
+  userCreationForm: FormGroup;
 
   constructor(
     private annotatorsService: AnnotatorsService,
