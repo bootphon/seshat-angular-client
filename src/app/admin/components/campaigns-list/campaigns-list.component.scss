@@ -19,6 +19,20 @@
   width: 60px;
 }
 
+.sort-by-label {
+  padding-right: 20px;
+}
+
+.sorting-select.mat-form-field {
+  font-size: smaller;
+}
+
+.hide-others-toggle {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: large;
+}
+
 .noCampaignMessage{
   .arrow{
     width: 200px;

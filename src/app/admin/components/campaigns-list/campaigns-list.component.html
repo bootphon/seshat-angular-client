@@ -1,8 +1,25 @@
 <mat-toolbar class="d-flex justify-content-between">
   <h3 class="ml-3">Campaigns</h3>
   <span class="space-filler"></span>
+
+  <h4 class="ml-3 sort-by-label">Sort by: </h4>
+  <mat-form-field class="sorting-select">
+    <mat-select [(ngModel)]="campaignDisplayPref.sortBy" (selectionChange)="campaignDisplayPrefChange()">
+      <mat-option value="creation">Creation</mat-option>
+      <mat-option value="lastUpdated">Last Updated</mat-option>
+      <mat-option value="name">Name</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-slide-toggle [(ngModel)]="campaignDisplayPref.excludeOthers"
+                    (change)="campaignDisplayPrefChange()"
+                    matTooltip="Hide other campaign manager's campaigns from the list"
+    class="hide-others-toggle">
+    Hide others
+  </mat-slide-toggle>
   <button class="mr-3" mat-raised-button
-          [routerLink]="['/admin', 'campaign', 'create']" color="primary"><mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Add campaign
+          [routerLink]="['/admin', 'campaign', 'create']" color="primary">
+    <mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Add campaign
   </button>
 </mat-toolbar>
 
@@ -14,13 +31,16 @@
       <div class="arrow float-right mr-n5 pr-n5"><img src="../assets/images/arrow.png"></div>
     </div>
     <div class="col-12 col-lg-6 d-flex" *ngFor="let campaign of campaignsList">
-      <mat-card class="campaign-card m-3 p-4 w-100 d-flex flex-column" [routerLink]="['/admin', 'campaign', campaign.slug]">
+      <mat-card class="campaign-card m-3 p-4 w-100 d-flex flex-column"
+                [routerLink]="['/admin', 'campaign', campaign.slug]">
         <mat-card-header>
           <mat-card-title>{{ campaign.name }}</mat-card-title>
           <mat-card-subtitle>Created by {{campaign.creator.fullname}}</mat-card-subtitle>
         </mat-card-header>
 
-        <div class="campaign-divider"><hr/></div>
+        <div class="campaign-divider">
+          <hr/>
+        </div>
 
         <mat-card-content>
           <div class="progress-row row d-flex align-items-center pt-2">
