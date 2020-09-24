@@ -25,6 +25,7 @@ export class MenubarComponent implements OnInit {
     [ 'finished', 'assignment_turned_in'],
     [ 'alert', 'assignment_late' ],
   ]);
+  currentYear = new Date().getFullYear();
   // only used when the user is an admin
 
   constructor(
