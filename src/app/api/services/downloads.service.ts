@@ -314,4 +314,53 @@ export class DownloadsService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation downloadsCampaignGammaCsvCampaignSlugGet
+   */
+  static readonly DownloadsCampaignGammaCsvCampaignSlugGetPath = '/downloads/campaign/gamma_csv/{campaign_slug}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `downloadsCampaignGammaCsvCampaignSlugGet()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  downloadsCampaignGammaCsvCampaignSlugGet$Response(params: {
+    campaignSlug: string;
+
+  }): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DownloadsService.DownloadsCampaignGammaCsvCampaignSlugGetPath, 'get');
+    if (params) {
+
+      rb.path('campaign_slug', params.campaignSlug);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `downloadsCampaignGammaCsvCampaignSlugGet$Response()` instead.
+   *
+   * This method doesn't expect any response body
+   */
+  downloadsCampaignGammaCsvCampaignSlugGet(params: {
+    campaignSlug: string;
+
+  }): Observable<void> {
+
+    return this.downloadsCampaignGammaCsvCampaignSlugGet$Response(params).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
 }

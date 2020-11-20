@@ -104,8 +104,28 @@ export class CampaignViewComponent implements OnInit {
     );
   }
 
+  getGammaComputeToolTip() {
+    if (this.campaign.stats.gamma_updating) {
+      return 'Gamma measures is currently refreshing.';
+
+    } else if (this.campaign.stats.can_compute_gamma && this.campaign.stats.can_update_gamma) {
+      return 'Click to compute (or refresh) the gamma measures statistics. This may take some time.';
+    } else {
+      return 'Gamma measures are currently up-to-date.';
+    }
+  }
+
+  launchGammaComputation() {
+    this.campaignsService.campaignsGammaUpdateCampaignSlugPost({campaignSlug: this.campaign.slug }).subscribe(
+      () => this.loadCampaignData(this.campaign.slug)
+    );
+  }
+
   getCampaignArchive() {
     this.downloadService.downloadsCampaignArchiveCampaignSlugGet({campaignSlug: this.campaign.slug}).subscribe();
   }
 
+  getCampaignGammaCsv() {
+    this.downloadService.downloadsCampaignGammaCsvCampaignSlugGet({campaignSlug: this.campaign.slug}).subscribe();
+  }
 }

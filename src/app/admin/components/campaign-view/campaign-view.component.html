@@ -1,6 +1,7 @@
 <mat-toolbar class="d-flex justify-content-between">
 
-  <button matTooltip="Campaigns" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="campaign" mat-flat-button [routerLink]="['/admin', 'campaign', 'list']">
+  <button matTooltip="Campaigns" matTooltipPosition="right" matTooltipShowDelay="500" *ngIf="campaign" mat-flat-button
+          [routerLink]="['/admin', 'campaign', 'list']">
     <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
 
@@ -117,7 +118,8 @@
                     <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
                     <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
                     <td>{{tierSpecs.checking_type | titlecase}}</td>
-                    <td><span *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
+                    <td><span
+                      *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
                     <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser.name}}</span></td>
                   </tr>
                 </table>
@@ -133,8 +135,15 @@
             <h4 class="m-0">Download:</h4>
           </div>
           <div class="col alt-mat-theme">
-            <button class="mr-3 mb-1" mat-stroked-button color="primary" (click)="getCampaignArchive()"><mat-icon color="primary">get_app</mat-icon>&nbsp;Full Annotation Archive</button>
-            <!--- <button class="mr-3 mb-1" mat-stroked-button color="primary" ><mat-icon color="primary">get_app</mat-icon>Consistency Analytics CSV</button> -->
+            <button class="mr-3 mb-1" mat-stroked-button color="primary" (click)="getCampaignArchive()"
+            matTooltip="Download an archive containing all of the annotations as well as the campaign's metadata">
+              <mat-icon color="primary">get_app</mat-icon>&nbsp;Full Annotation Archive
+            </button>
+            <button class="mr-3 mb-1" mat-stroked-button color="primary" (click)="getCampaignGammaCsv()"
+            matTooltip="Download a CSV file containing the gamma inter-annotator agreement measure for each double-annotator task">
+              <mat-icon color="primary">get_app</mat-icon>
+              Consistency Analytics CSV
+            </button>
           </div>
         </div>
 
@@ -143,8 +152,20 @@
             <h4 class="m-0">Other Actions:</h4>
           </div>
           <div class="col alt-mat-theme">
-            <button class="mr-3 mb-3" mat-stroked-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']"><mat-icon color="primary">edit</mat-icon>&nbsp;Edit Campaign Wiki</button>
-            <button class="float-none float-lg-right delete-campaign" mat-flat-button color="warn" (click)="deleteCampaign()"><mat-icon>delete</mat-icon>&nbsp;Delete Campaign</button>
+            <button class="mr-3 mb-3" mat-stroked-button color="primary"
+                    [routerLink]="['/admin', 'campaign', campaign.slug, 'wiki', 'edit']">
+              <mat-icon color="primary">edit</mat-icon>&nbsp;Edit Campaign Wiki
+            </button>
+            <button *ngIf="campaign.stats.can_compute_gamma" class="mr-3 mb-3" mat-stroked-button color="primary"
+                    (click)="launchGammaComputation()"
+                    [matTooltip]="getGammaComputeToolTip()"
+                    [disabled]="!campaign.stats.can_update_gamma">
+              <mat-icon color="primary">analytics</mat-icon>&nbsp;Compute Gamma Measures
+            </button>
+            <button class="float-none float-lg-right delete-campaign" mat-flat-button color="warn"
+                    (click)="deleteCampaign()">
+              <mat-icon>delete</mat-icon>&nbsp;Delete Campaign
+            </button>
           </div>
         </div>
 
@@ -161,7 +182,9 @@
       </div>
       <mat-card class="campaign-card m-3 p-0">
         <div class="w-100 justify-content-end d-flex p-4 task-button">
-          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']"><mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Assign Task</button>
+          <button mat-raised-button color="primary" [routerLink]="['/admin', 'campaign', campaign.slug, 'assign']">
+            <mat-icon style="color: var(--text-white);">add</mat-icon>&nbsp;Assign Task
+          </button>
         </div>
         <seshat-tasks-list class="w-100" [campaignSlug]="campaign.slug"></seshat-tasks-list>
       </mat-card>

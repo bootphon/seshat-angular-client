@@ -12,6 +12,12 @@
   border: 1px solid rgba(136,136,136, 1) !important;
 }
 
+.mat-stroked-button[disabled] {
+  background-color: lightgray;
+  color: gray !important; ;
+  cursor: not-allowed !important;
+}
+
 .mat-icon {
   color: var(--text-dark);
 }

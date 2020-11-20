@@ -29,7 +29,6 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     HttpClientModule,
     MatSidenavModule,
     MatDialogModule,
-    // TODO: set URL using some kind of configuration
     ApiModule.forRoot({rootUrl: environment.server_root}),
     CommonsModule,
   ],
