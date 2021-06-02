@@ -13,6 +13,7 @@ import {CorpusShortSummary} from '../../../api/models/corpus-short-summary';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import {ParserClass} from '../../../api/models/parser-class';
+import {CheckingSchemeSummary} from '../../../api/models/checking-scheme-summary';
 
 @Pipe({
   name: 'corpusType',
@@ -43,9 +44,11 @@ const rowsAnimation =
 })
 export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tgsSelected = 'new';
   campaignCreation: CampaignCreation;
   availableCorpora: CorpusShortSummary[];
   availableParsers: ParserClass[] = [];
+  availableTGS: CheckingSchemeSummary[];
   refreshingCorpora = true;
 
   constructor(
@@ -67,6 +70,7 @@ export class CampaignCreationComponent implements OnInit {
   ngOnInit() {
     this.loadCorpora();
     this.campaignsService.campaignsParsersListGet().subscribe((data) => this.availableParsers = data);
+    this.campaignsService.campaignsCheckingSchemeListGet().subscribe((data) => this.availableTGS = data);
     this.addTier(); // setting a default empty tier
   }
 
@@ -137,13 +141,13 @@ export class CampaignCreationComponent implements OnInit {
     }
   }
 
-  refreshCorpora(){
+  refreshCorpora() {
     this.refreshingCorpora = true;
     this.corporaService.corporaRefreshGet().subscribe(
       () => {
         this.loadCorpora();
       }
-    )
+    );
   }
 
 }

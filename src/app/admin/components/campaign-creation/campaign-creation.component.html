@@ -80,7 +80,23 @@
         </td>
         </tr>
         <tr *ngIf="campaignCreation.check_textgrids">
-          <td colspan="2" class="p-0">
+
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="tgsSelected">
+            <mat-radio-button value="new">Create a new scheme</mat-radio-button>
+            <mat-radio-button value="reuse">Reuse an existing scheme</mat-radio-button>
+          </mat-radio-group>
+
+          <!-- Todo : add tooltip-->
+          <mat-form-field appearance="fill">
+            <mat-label>Pick a template</mat-label>
+            <mat-select >
+              <mat-option *ngFor="let tgs of availableTGS"
+                          [value]="tgs">{{tgs.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <td *ngIf="tgsSelected == 'new'" colspan="2" class="p-0">
             <div *ngFor="let tierSpecs of campaignCreation.checking_scheme" class="tiers p-3">
               <div class="tier-specs-body">
                 <mat-form-field class="col-6">
