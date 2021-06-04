@@ -12,29 +12,29 @@ mat-form-field {
   height: 500px;
 }
 
-.campaign-creation-buttons{
+.campaign-creation-buttons {
   border-radius: 5px !important;
   border: 1px solid var(--color-table-hover);
   margin-bottom: 1rem;
   border-collapse: separate;
 }
 
-.vr{
+.vr {
   height: 2em;
   width: 1px;
-  border-right: 1px solid rgba(0,0,0,.1);
+  border-right: 1px solid rgba(0, 0, 0, .1);
   margin-right: 30px;
   margin-left: 30px;
 }
 
-.tiers{
-  box-shadow: 0px -4px 7px -3px rgba(0,0,0,0.12), 0px 2px 7px -3px rgba(0,0,0,0.08);
+.tiers {
+  box-shadow: 0px -4px 7px -3px rgba(0, 0, 0, 0.12), 0px 2px 7px -3px rgba(0, 0, 0, 0.08);
   padding-bottom: 1rem;
   border-collapse: collapse;
 }
 
-.tier-specs-footer{
-  button{
+.tier-specs-footer {
+  button {
     background-color: inherit;
     color: var(--text-dark);
   }
@@ -46,4 +46,21 @@ mat-form-field {
 
 .tiers:nth-child(even) {
   background: initial;
+}
+
+.tgs-creation-type {
+  mat-label {
+    width: 100%;
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  mat-radio-button {
+    margin: 5px 10px;
+  }
+}
+
+
+seshat-scheme-table {
+  margin-left: 30px;
 }

@@ -15,14 +15,14 @@
       <mat-form-field appearance="standard" class="w-100">
         <mat-label>Campaign Corpus</mat-label>
         <mat-select [(ngModel)]="campaignCreation.corpus" required>
-            <mat-label class="d-flex mt-3 mb-3 justify-content-center">
-                <button mat-raised-button color="primary" class="refresh-corpora-button"
-                        (click)="refreshCorpora()"
-                        [disabled]="refreshingCorpora">
-                  <mat-icon>refresh</mat-icon>&nbsp;Refresh Corpora
-                </button>
-            </mat-label>
-            <!-- do we need this for some UX reason? -->
+          <mat-label class="d-flex mt-3 mb-3 justify-content-center">
+            <button mat-raised-button color="primary" class="refresh-corpora-button"
+                    (click)="refreshCorpora()"
+                    [disabled]="refreshingCorpora">
+              <mat-icon>refresh</mat-icon>&nbsp;Refresh Corpora
+            </button>
+          </mat-label>
+          <!-- do we need this for some UX reason? -->
           <!-- <mat-option>&#45;&#45;</mat-option> -->
 
           <div *ngIf="availableCorpora; then options"></div>
@@ -54,123 +54,140 @@
   </div>
 
   <div class="row m-0 p3">
-      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
-        <tr>
-          <td><h4>Serve audio files to annotators</h4></td>
-          <td style="width: 50px;">
-              <mat-slide-toggle
-              matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
-              labelPosition="before"
-              [(ngModel)]="campaignCreation.enable_audio_dl"
-              appearance="standard"
-              class="d-flex">
-            </mat-slide-toggle>
-          </td>
-        </tr>
-      </table>
-      <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
-          <tr>
-          <td><h4>Enable TextGrid checking</h4></td>
-          <td style="width: 50px;">
+    <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
+      <tr>
+        <td><h4>Serve audio files to annotators</h4></td>
+        <td style="width: 50px;">
           <mat-slide-toggle
-          labelPosition="before"
-          matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
-          [(ngModel)]="campaignCreation.check_textgrids" class="w-100 d-flex justify-content-between">
-        </mat-slide-toggle>
+            matTooltip="Annotators will have access via the interface to the audio file they're supposed to annotate"
+            labelPosition="before"
+            [(ngModel)]="campaignCreation.enable_audio_dl"
+            appearance="standard"
+            class="d-flex">
+          </mat-slide-toggle>
         </td>
-        </tr>
-        <tr *ngIf="campaignCreation.check_textgrids">
-
-          <mat-radio-group aria-label="Select an option" [(ngModel)]="tgsSelected">
-            <mat-radio-button value="new">Create a new scheme</mat-radio-button>
-            <mat-radio-button value="reuse">Reuse an existing scheme</mat-radio-button>
+      </tr>
+    </table>
+    <table class="w-100 mx-auto campaign-creation-buttons" cellpadding="13.5">
+      <tr>
+        <td><h4>Enable TextGrid checking</h4></td>
+        <td style="width: 50px;">
+          <mat-slide-toggle
+            labelPosition="before"
+            matTooltip="Enable checking rules on the campaign's textgrid to enforce an annotation standard"
+            [(ngModel)]="campaignCreation.check_textgrids" class="w-100 d-flex justify-content-between">
+          </mat-slide-toggle>
+        </td>
+      </tr>
+      <tr *ngIf="campaignCreation.check_textgrids" colspan="2" class="p-0">
+        <td>
+          <mat-radio-group class="tgs-creation-type" aria-label="Select an option" [(ngModel)]="tgsCreationType">
+            <mat-label>Campaign scheme selection :</mat-label>
+            <mat-radio-button value="new">Create new</mat-radio-button>
+            <mat-radio-button value="edit">Use existing as template</mat-radio-button>
+            <mat-radio-button value="reuse">Reuse existing as-is</mat-radio-button>
           </mat-radio-group>
 
-          <!-- Todo : add tooltip-->
-          <mat-form-field appearance="fill">
-            <mat-label>Pick a template</mat-label>
-            <mat-select >
+          <mat-form-field *ngIf="tgsCreationType != 'new'" appearance="fill">
+            <mat-label>Pick a checking scheme</mat-label>
+            <mat-select [(value)]="selectedTGS" (selectionChange)="loadTGS()">
               <mat-option *ngFor="let tgs of availableTGS"
                           [value]="tgs">{{tgs.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <td *ngIf="tgsSelected == 'new'" colspan="2" class="p-0">
-            <div *ngFor="let tierSpecs of campaignCreation.checking_scheme" class="tiers p-3">
-              <div class="tier-specs-body">
-                <mat-form-field class="col-6">
-                  <mat-label>Tier Name</mat-label>
-                  <input matInput required [(ngModel)]="tierSpecs.name">
-                </mat-form-field>
+          <mat-form-field *ngIf="tgsCreationType != 'reuse'">
+            <mat-label>Scheme Name</mat-label>
+            <input matInput placeholder="Optional name for the checking scheme"
+                   [(ngModel)]="this.campaignCreation.checking_scheme_name">
+          </mat-form-field>
+        </td>
+      </tr>
+      <div *ngIf="campaignCreation.check_textgrids && tgsCreationType == 'reuse'">
+        <seshat-scheme-table *ngIf="selectedTGS" [checkingSchemeSpecs]="selectedTGS.tier_specs">
+        </seshat-scheme-table>
+      </div>
+      <tr *ngIf="campaignCreation.check_textgrids && tgsCreationType != 'reuse'">
 
-                <mat-form-field class="col-6">
-                  <mat-label>Select a validation option</mat-label>
-                  <mat-select [(value)]="tierSpecs.checking_type">
-                    <mat-option value="NONE">None</mat-option>
-                    <mat-option value="CATEGORICAL">Categorical</mat-option>
-                    <mat-option value="PARSED">Parsed</mat-option>
-                  </mat-select>
-                </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.checking_type === 'CATEGORICAL'" class="col-6 w-100 float-right">
-                  <mat-chip-list #chipList aria-label="Fruit selection">
-                    <mat-chip *ngFor="let category of tierSpecs.categories"
-                              removable="true" (removed)="removeCategory(tierSpecs, category)">
-                      {{category}}
-                      <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="New category"
-                          [matChipInputFor]="chipList"
-                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                          matChipInputAddOnBlur="true"
-                          (matChipInputTokenEnd)="addCategory(tierSpecs, $event)">
-                  </mat-chip-list>
-                </mat-form-field>
+        <td colspan="2" class="p-0">
+          <div *ngFor="let tierSpecs of campaignCreation.checking_scheme" class="tiers p-3">
+            <div class="tier-specs-body">
+              <mat-form-field class="col-6">
+                <mat-label>Tier Name</mat-label>
+                <input matInput required [(ngModel)]="tierSpecs.name">
+              </mat-form-field>
 
-                <mat-form-field *ngIf="tierSpecs.checking_type === 'PARSED'" class="col-6 float-right">
-                  <mat-select [(ngModel)]="tierSpecs.parser" placeholder="Select">
-                    <mat-option *ngFor="let parser of availableParsers" [value]="parser">
-                      {{parser.name}} <em>({{parser.module}})</em>
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+              <mat-form-field class="col-6">
+                <mat-label>Select a validation option</mat-label>
+                <mat-select [(value)]="tierSpecs.checking_type">
+                  <mat-option value="NONE">None</mat-option>
+                  <mat-option value="CATEGORICAL">Categorical</mat-option>
+                  <mat-option value="PARSED">Parsed</mat-option>
+                </mat-select>
+              </mat-form-field>
 
-                <mat-slide-toggle
-                  matTooltip="This tier's (and its intervals) can contain no annotation"
-                  labelPosition="before"
-                  [(ngModel)]="tierSpecs.allow_empty" class="col-12 w-100 mt-3">
-                  Allow Empty
-                </mat-slide-toggle>
+              <mat-form-field *ngIf="tierSpecs.checking_type === 'CATEGORICAL'" class="col-6 w-100 float-right">
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip *ngFor="let category of tierSpecs.categories"
+                            removable="true" (removed)="removeCategory(tierSpecs, category)">
+                    {{category}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="New category"
+                         [matChipInputFor]="chipList"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         matChipInputAddOnBlur="true"
+                         (matChipInputTokenEnd)="addCategory(tierSpecs, $event)">
+                </mat-chip-list>
+              </mat-form-field>
 
-              </div>
+              <mat-form-field *ngIf="tierSpecs.checking_type === 'PARSED'" class="col-6 float-right">
+                <mat-select [(ngModel)]="tierSpecs.parser" placeholder="Select">
+                  <mat-option *ngFor="let parser of availableParsers" [value]="parser">
+                    {{parser.name}} <em>({{parser.module}})</em>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-              <hr>
-
-              <div class="tier-specs-footer col-12 w-100 d-flex justify-content-end align-items-center">
-                <button mat-flat-button matTooltip="Duplicate this Tier" (click)="duplicateTier(tierSpecs)">
-                  <mat-icon>file_copy</mat-icon>
-                </button>
-                <button mat-flat-button matTooltip="Delete this tier" (click)="deleteTier(tierSpecs)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-                <div class="vr"></div>
-                <mat-slide-toggle
-                  matTooltip="This tier is required for the textgrid to be valid"
-                  labelPosition="before"
-                  [(ngModel)]="tierSpecs.required">
-                  Required
-                </mat-slide-toggle>
-              </div>
+              <mat-slide-toggle
+                matTooltip="This tier's (and its intervals) can contain no annotation"
+                labelPosition="before"
+                [(ngModel)]="tierSpecs.allow_empty" class="col-12 w-100 mt-3">
+                Allow Empty
+              </mat-slide-toggle>
 
             </div>
-            <div class="col-12 w-100 d-flex justify-content-center p-2">
-              <button mat-fab matTooltip="Add a new tier" (click)="addTier()"><mat-icon>add</mat-icon></button>
-            </div>
-          </td>
-        </tr>
 
-      </table>
+            <hr>
+
+            <div class="tier-specs-footer col-12 w-100 d-flex justify-content-end align-items-center">
+              <button mat-flat-button matTooltip="Duplicate this Tier" (click)="duplicateTier(tierSpecs)">
+                <mat-icon>file_copy</mat-icon>
+              </button>
+              <button mat-flat-button matTooltip="Delete this tier" (click)="deleteTier(tierSpecs)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <div class="vr"></div>
+              <mat-slide-toggle
+                matTooltip="This tier is required for the textgrid to be valid"
+                labelPosition="before"
+                [(ngModel)]="tierSpecs.required">
+                Required
+              </mat-slide-toggle>
+            </div>
+
+          </div>
+          <div class="col-12 w-100 d-flex justify-content-center p-2">
+            <button mat-fab matTooltip="Add a new tier" (click)="addTier()">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </td>
+      </tr>
+
+    </table>
   </div>
 
   <div class="col-12 d-flex justify-content-end p-0">

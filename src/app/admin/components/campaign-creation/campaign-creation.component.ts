@@ -11,7 +11,7 @@ import {CorporaService} from '../../../api/services/corpora.service';
 import {CorpusShortSummary} from '../../../api/models/corpus-short-summary';
 
 
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {ParserClass} from '../../../api/models/parser-class';
 import {CheckingSchemeSummary} from '../../../api/models/checking-scheme-summary';
 
@@ -44,7 +44,8 @@ const rowsAnimation =
 })
 export class CampaignCreationComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tgsSelected = 'new';
+  tgsCreationType = 'new';
+  selectedTGS: CheckingSchemeSummary;
   campaignCreation: CampaignCreation;
   availableCorpora: CorpusShortSummary[];
   availableParsers: ParserClass[] = [];
@@ -86,6 +87,9 @@ export class CampaignCreationComponent implements OnInit {
   }
 
   createCampaign() {
+    if (this.tgsCreationType === 'reuse') {
+      this.campaignCreation.checking_scheme_id = this.selectedTGS.id;
+    }
     this.campaignsService.campaignsAdminPost({body: this.campaignCreation}).subscribe(
       (data) => {
         this.router.navigate(['/admin', 'campaign', data.slug]);
@@ -148,6 +152,10 @@ export class CampaignCreationComponent implements OnInit {
         this.loadCorpora();
       }
     );
+  }
+
+  loadTGS() {
+    this.campaignCreation.checking_scheme = this.selectedTGS.tier_specs;
   }
 
 }

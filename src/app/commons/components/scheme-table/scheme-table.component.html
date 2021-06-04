@@ -1,0 +1,19 @@
+<table class="w-100">
+  <tr>
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Required</th>
+    <th class="mat-header-cell">Allow Empty</th>
+    <th class="mat-header-cell">Validation Type</th>
+    <th class="mat-header-cell">Accepted Categories</th>
+    <th class="mat-header-cell">Parser Name</th>
+  </tr>
+  <tr *ngFor="let tierSpecs of checkingSchemeSpecs">
+    <td>{{tierSpecs.name}}</td>
+    <td>{{tierSpecs.required ? 'Yes' : 'No'}}</td>
+    <td>{{tierSpecs.allow_empty ? 'Yes' : 'No'}}</td>
+    <td>{{tierSpecs.checking_type | titlecase}}</td>
+    <td><span
+      *ngIf="tierSpecs.checking_type === 'CATEGORICAL'">{{tierSpecs.categories.join(", ")}}</span></td>
+    <td><span *ngIf="tierSpecs.checking_type === 'PARSED'">{{tierSpecs.parser.name}}</span></td>
+  </tr>
+</table>

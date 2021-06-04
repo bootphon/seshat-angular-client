@@ -17,6 +17,7 @@ import {FormsModule} from '@angular/forms';
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { SchemeTableComponent } from './components/scheme-table/scheme-table.component';
 
 
 // TODO : add all components to declarations and exports
@@ -27,6 +28,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     UserlistComponent,
     ProgressBarComponent,
     ConfirmationDialogComponent,
+    SchemeTableComponent,
   ],
   imports: [
     CommonModule,
@@ -47,12 +49,13 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     MatBadgeModule,
     MatSnackBarModule,
   ],
-  exports: [
-    CommentsComponent,
-    MenubarComponent,
-    UserlistComponent,
-    ProgressBarComponent,
-  ],
+    exports: [
+        CommentsComponent,
+        MenubarComponent,
+        UserlistComponent,
+        ProgressBarComponent,
+        SchemeTableComponent,
+    ],
   entryComponents: [
     ConfirmationDialogComponent
   ]
