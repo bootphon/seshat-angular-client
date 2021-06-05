@@ -104,7 +104,7 @@
           </mat-form-field>
         </td>
       </tr>
-      <div *ngIf="campaignCreation.check_textgrids && tgsCreationType == 'reuse'">
+      <div class="tgs-table" *ngIf="campaignCreation.check_textgrids && tgsCreationType == 'reuse'">
         <seshat-scheme-table *ngIf="selectedTGS" [checkingSchemeSpecs]="selectedTGS.tier_specs">
         </seshat-scheme-table>
       </div>
